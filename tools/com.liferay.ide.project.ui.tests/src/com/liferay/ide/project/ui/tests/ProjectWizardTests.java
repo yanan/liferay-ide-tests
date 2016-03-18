@@ -55,22 +55,9 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
     @AfterClass
     public static void cleanAll()
     {
-        try
-        {
-            TreePO tree = new TreePO( bot );
-            String[] projects = tree.getAllItems();
-
-            for( String project : projects )
-            {
-                ProjectTreePO projectItem = new ProjectTreePO( bot, project );
-                projectItem.deleteProject();
-            }
-        }
-        catch( Exception e )
-        {
-            e.printStackTrace();
-        }
+        eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() } );
     }
+
 
     @Test
     public void createExtProject()
@@ -110,10 +97,6 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
             page2.setSdkLocation( getLiferayPluginsSdkDir().toString() );
             page2.finish();
         }
-
-        sleep(5000);
-
-        eclipse.showErrorLogView().clearLogViewer();
     }
 
     @Test
@@ -213,13 +196,17 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
         // check in console and package explorer
         // assertTrue( UITestsUtils.checkConsoleMessage( "BUILD SUCCESSFUL", "Java" ) );
 
-        //treeBot.doubleClick( "liferay-display.xml", projectName + "-portlet", "docroot", "WEB-INF" );
+        TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
 
-        EditorPO editorPage = new EditorPO( bot, "liferay-display.xml" );
-        assertTrue( editorPage.isActive() );
+        String fileName = "liferay-display.xml";
 
-        TextEditorPO textEditorPage = new TextEditorPO( bot, "liferay-display.xml" );
-        assertContains( "sample", textEditorPage.getText() );
+        projectTree.expandNode( projectName + "-portlet", "docroot", "WEB-INF" ).doubleClick( fileName );
+
+        TextEditorPO editor = eclipse.getTextEditor( fileName );
+
+        assertTrue( editor.isActive() );
+
+        assertContains( "sample", editor.getText() );
 
         eclipse.getCreateLiferayProjectToolbar().menuClick( TOOLTIP_MENU_ITEM_NEW_LIFERAY_PROJECT );
 
@@ -377,7 +364,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
     public static void deleteProjectInSdk( String projectName, String... nodes )
     {
-        //treeBot.expandNode( nodes ).getNode( projectName ).contextMenu( BUTTON_DELETE ).click();
+        eclipse.getPackageExporerView().deleteResouceByName( projectName );
 
         new ButtonPO( bot, BUTTON_OK ).click();
     }

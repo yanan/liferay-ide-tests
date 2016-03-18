@@ -12,8 +12,6 @@
 
 package com.liferay.ide.ui.tests.util;
 
-import com.liferay.ide.ui.tests.LiferayUITestsPlugin;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -182,9 +180,6 @@ public class FileUtil
                 final String msg = NLS
                     .bind( Msgs.locationIsFile, f
                         .getAbsolutePath() );
-
-                throw new CoreException( LiferayUITestsPlugin
-                    .createErrorStatus( msg ) );
             }
         }
         else
@@ -212,9 +207,6 @@ public class FileUtil
                     final String msg = NLS
                         .bind( Msgs.failedToCreateDirectory, f
                             .getAbsolutePath() );
-
-                    throw new CoreException( LiferayUITestsPlugin
-                        .createErrorStatus( msg ) );
                 }
             }
         }
@@ -265,9 +257,6 @@ public class FileUtil
         }
         catch( Exception e )
         {
-            LiferayUITestsPlugin
-                .logError( "Could not read file: " + file
-                    .getPath(), e );
         }
         finally
         {
@@ -322,7 +311,6 @@ public class FileUtil
         }
         catch( Exception e )
         {
-            LiferayUITestsPlugin.logError( "Could not read file: " + file.getPath(), e );
         }
         finally
         {

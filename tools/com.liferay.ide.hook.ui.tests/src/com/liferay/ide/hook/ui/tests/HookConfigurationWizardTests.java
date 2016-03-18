@@ -110,11 +110,12 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         portalPropertiesPage.next();
 
         // Service
-        ServicesPO servicesPage = new ServicesPO( bot, "", INDEX_SERVICES_MESSAGE );
+        ServicesPO servicesPage = new ServicesPO( bot, INDEX_SERVICES_MESSAGE );
 
         AddServiceWrapperPO serviceWrapperPage = new AddServiceWrapperPO( bot );
 
         servicesPage.getAddButton().click();
+
         serviceWrapperPage.setServiceTypeText( "com.liferay.portal.service.AddressService" );
         serviceWrapperPage.setImplClassText( "com.liferay.portal.service.AddressServiceWrapper" );
         serviceWrapperPage.confirm();
