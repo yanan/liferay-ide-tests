@@ -113,4 +113,12 @@ public class TreePO extends AbstractWidgetPO
     {
         return new TreeItemPO( bot, this, nodeText );
     }
+
+    public TreeItemPO expandNode( String... nodes )
+    {
+        getWidget().expandNode( nodes );
+
+        return new TreeItemPO( bot, this, nodes );
+    }
+
 }

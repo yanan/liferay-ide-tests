@@ -15,7 +15,7 @@
 
 package com.liferay.ide.ui.tests.swtbot.page;
 
-import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
+import org.eclipse.swtbot.swt.finder.SWTBot;
 
 /**
  * @author Terry Jia
@@ -24,7 +24,7 @@ import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 public class TextEditorPO extends EditorPO
 {
 
-    public TextEditorPO( SWTWorkbenchBot bot, String name )
+    public TextEditorPO( SWTBot bot, String name )
     {
         super( bot, name );
     }
@@ -38,4 +38,5 @@ public class TextEditorPO extends EditorPO
     {
         getEditor().toTextEditor().setText( text );
     }
+
 }

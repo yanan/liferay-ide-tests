@@ -36,8 +36,8 @@ public class EclipsePO extends AbstractPO implements UIBase
     private ViewPO _welcomeView;
     private ProgressViewPO _progressView;
     private MenuPO _otherMenu;
-    private ShowViewDialogPO _showViewDialogPO;
-    private ErrorLogViewPO _errorLogViewPO;
+    private ShowViewDialogPO _showViewDialog;
+    private ErrorLogViewPO _errorLogView;
 
     public EclipsePO( SWTWorkbenchBot bot )
     {
@@ -53,8 +53,8 @@ public class EclipsePO extends AbstractPO implements UIBase
         String[] otherLabel = { LABEL_WINDOW, LABEL_SHOW_VIEW, LABEL_OTHER };
 
         _otherMenu = new MenuPO( bot, otherLabel );
-        _showViewDialogPO = new ShowViewDialogPO( bot );
-        _errorLogViewPO = new ErrorLogViewPO( bot );
+        _showViewDialog = new ShowViewDialogPO( bot );
+        _errorLogView = new ErrorLogViewPO( bot );
         _newToolbar = new ToolbarDropDownButtonPO( bot, TOOLBAR_NEW );
     }
 
@@ -83,6 +83,13 @@ public class EclipsePO extends AbstractPO implements UIBase
         return _welcomeView;
     }
 
+    public PackageExplorerViewPO showPackageExporerView()
+    {
+        _packageExporerView.show();
+
+        return _packageExporerView;
+    }
+
     public ProgressViewPO showProgressView()
     {
         try
@@ -93,11 +100,11 @@ public class EclipsePO extends AbstractPO implements UIBase
         {
             _otherMenu.click();
 
-            _showViewDialogPO.setSearchText( LABEL_PROGRESS );
+            _showViewDialog.setSearchText( LABEL_PROGRESS );
 
             sleep( 500 );
 
-            _showViewDialogPO.confirm();
+            _showViewDialog.confirm();
 
             _progressView.show();
         }
@@ -109,22 +116,22 @@ public class EclipsePO extends AbstractPO implements UIBase
     {
         try
         {
-            _errorLogViewPO.show();
+            _errorLogView.show();
         }
         catch( Exception e )
         {
             _otherMenu.click();
 
-            _showViewDialogPO.setSearchText( LABEL_ERROR_LOG );
+            _showViewDialog.setSearchText( LABEL_ERROR_LOG );
 
             sleep( 500 );
 
-            _showViewDialogPO.confirm();
+            _showViewDialog.confirm();
 
-            _errorLogViewPO.show();
+            _errorLogView.show();
         }
 
-        return _errorLogViewPO;
+        return _errorLogView;
     }
 
     public boolean hasProjects()
@@ -140,6 +147,10 @@ public class EclipsePO extends AbstractPO implements UIBase
         }
 
         return false;
+    }
+
+    public TextEditorPO getTextEditor(String fileName) {
+        return new TextEditorPO( bot, fileName );
     }
 
 }

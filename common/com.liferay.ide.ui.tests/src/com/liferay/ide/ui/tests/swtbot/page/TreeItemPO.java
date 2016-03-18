@@ -169,6 +169,11 @@ public class TreeItemPO extends AbstractWidgetPO
         }
 
         treeItem.select();
+
     }
 
+    public void doubleClick( String node )
+    {
+        getWidget().getNode( node ).doubleClick();
+    }
 }
