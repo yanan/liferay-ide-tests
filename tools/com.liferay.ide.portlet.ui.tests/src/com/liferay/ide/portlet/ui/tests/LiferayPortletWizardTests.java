@@ -26,7 +26,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.swtbot.swt.finder.keyboard.Keyboard;
 import org.eclipse.swtbot.swt.finder.keyboard.KeyboardFactory;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -52,6 +51,7 @@ import com.liferay.ide.ui.tests.swtbot.page.EditorPO;
 import com.liferay.ide.ui.tests.swtbot.page.SelectionDialogPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextEditorPO;
 import com.liferay.ide.ui.tests.swtbot.page.TreeItemPO;
+import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 
 /**
  * @author Ashley Yuan
@@ -89,7 +89,6 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         ProjectTreePO deleteProject = new ProjectTreePO( bot, "SdkProject-hook" );
 
         deleteProject.deleteProject();
-
     }
 
     @After
@@ -135,20 +134,25 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
         newPortletPage.finish();
 
-        EditorPO editorPage = new EditorPO( bot, "view.jsp" );
-        assertTrue( editorPage.isActive() );
+        String fileName = "view.jsp";
 
-        TreeItemPO treeItemPage = new TreeItemPO( bot, "test-portlet", "docroot", "WEB-INF", "portlet.xml" );
-        treeItemPage.doubleClick();
+        TextEditorPO editor = eclipse.getTextEditor( fileName );
+        assertTrue( editor.isActive() );
 
-        TextEditorPO portletXmlPage = new TextEditorPO( bot, "portlet.xml" );
+        TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
 
-        assertContains( "<portlet-name>new</portlet-name>", portletXmlPage.getText() );
-        assertContains( "com.liferay.util.bridges.mvc.MVCPortlet", portletXmlPage.getText() );
+        fileName = "portlet.xml";
+
+        projectTree.expandNode( new String[] { "test-portlet", "docroot", "WEB-INF" } ).doubleClick( "" );
+
+        editor = eclipse.getTextEditor( fileName );
+
+        assertContains( "<portlet-name>new</portlet-name>", editor.getText() );
+        assertContains( "com.liferay.util.bridges.mvc.MVCPortlet", editor.getText() );
 
         // Ctrl+N shortcut to new liferay project with launch portlet wizard
         Keyboard keyPress = KeyboardFactory.getAWTKeyboard();
-        treeItemPage.doubleClick();
+        // treeItemPage.doubleClick();
         keyPress.pressShortcut( ctrl, N );
 
         SelectTypePO newSelectLiferayPage = new SelectTypePO( bot, INDEX_VALIDATION_MESSAGE2 );

@@ -180,7 +180,7 @@ public class SWTBotBase implements UIBase
 
     public boolean addedProjects()
     {
-        eclipse.getPackageExporerView().show();
+        eclipse.showPackageExporerView();
 
         return eclipse.hasProjects();
     }
