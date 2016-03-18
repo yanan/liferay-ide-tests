@@ -19,6 +19,7 @@ import com.liferay.ide.ui.tests.swtbot.condition.EditorActiveCondition;
 
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
+import org.eclipse.swtbot.swt.finder.SWTBot;
 
 /**
  * @author Terry Jia
@@ -29,7 +30,7 @@ public class EditorPO extends AbstractPO
 
     private final String name;
 
-    public EditorPO( SWTWorkbenchBot bot, String name )
+    public EditorPO( SWTBot bot, String name )
     {
         super( bot );
 

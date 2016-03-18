@@ -15,7 +15,9 @@
 
 package com.liferay.ide.hook.ui.tests;
 
+import static org.eclipse.swtbot.swt.finder.SWTBotAssert.assertContains;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -44,6 +46,8 @@ import com.liferay.ide.hook.ui.tests.page.SuperclassSelectionPO;
 import com.liferay.ide.project.ui.tests.page.CreateProjectWizardPO;
 import com.liferay.ide.project.ui.tests.page.SetSDKLocationPO;
 import com.liferay.ide.ui.tests.SWTBotBase;
+import com.liferay.ide.ui.tests.swtbot.page.TextEditorPO;
+import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 
 /**
  * @author Vicky Wang
@@ -64,6 +68,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
     private SetSDKLocationPO getSetSDKLoactionPage()
     {
         SetSDKLocationPO page = new SetSDKLocationPO( bot );
+
         page.setSdkLocation( getLiferayPluginsSdkDir().toString() );
 
         return page;
@@ -82,7 +87,6 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         newHookTypesPage.getLanguageProperties().select();
 
         newHookTypesPage.next();
-        //sleep( 1000 );
 
         // Custom JSPs
         AddJSPFilePathPO jspFile = new AddJSPFilePathPO( bot );
@@ -91,7 +95,6 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         jspFile.setJSPFilePathText( "CustomJsps.jsp" );
         jspFile.confirm();
         customJSPpage.next();
-        //sleep( 500 );
 
         // Portal Properties
         PortalPropertiesPO portalPropertiesPage =
@@ -105,7 +108,6 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         eventActionPage.confirm();
 
         portalPropertiesPage.next();
-        //sleep( 500 );
 
         // Service
         ServicesPO servicesPage = new ServicesPO( bot, "", INDEX_SERVICES_MESSAGE );
@@ -118,7 +120,6 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         serviceWrapperPage.confirm();
 
         servicesPage.next();
-        //sleep( 500 );
 
         // Language Properties
         LanguagePropertiesPO languagePropertiesPage =
@@ -130,15 +131,31 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         languageProperty.setLanguagePropertyFileText( "languageTest.properties" );
         languageProperty.confirm();
         languagePropertiesPage.finish();
-        //sleep( 1000 );
 
-        // check files
-        // treeBot.doubleClick( "CustomJsps.jsp", projectHookName + "-hook", "docroot", "META-INF", "custom_jsps" );
-        // treeBot.doubleClick( "portal.properties", projectHookName + "-hook", "docroot/WEB-INF/src" );
-        // TextEditorPO textEditorPage = new TextEditorPO( bot, "portal.properties" );
-        // assertContains( "portalProperties=portalPropertiesClass", textEditorPage.getText() );
-        // treeBot.doubleClick( "languageTest.properties", projectHookName + "-hook", "docroot/WEB-INF/src", "content"
-        // );
+        TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
+
+        String fileName = "CustomJsps.jsp";
+
+        projectTree.expandNode( new String[] { projectHookName + "-hook", "docroot", "META-INF", "custom_jsps" } ).doubleClick(
+            fileName );
+
+        fileName = "portal.properties";
+
+        projectTree.expandNode( new String[] { projectHookName + "-hook", "docroot/WEB-INF/src" } ).doubleClick(
+            fileName );
+
+        TextEditorPO textEditor = eclipse.getTextEditor( fileName );
+
+        assertTrue( textEditor.isActive() );
+
+        assertContains( "portalProperties=portalPropertiesClass", textEditor.getText() );
+
+        projectTree = eclipse.showPackageExporerView().getProjectTree();
+
+        fileName = "languageTest.properties";
+
+        projectTree.expandNode( new String[] { projectHookName + "-hook", "docroot/WEB-INF/src", "content" } ).doubleClick(
+            fileName );
     }
 
     @Test
@@ -195,11 +212,13 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         customJSPpage.getRemoveButton().click();
 
         customJSPpage.finish();
-        ////sleep( 1000 );
 
-        // treeBot.doubleClick(
-        // "body_bottom.jsp", projectHookName + "-hook", "docroot", "META-INF", "custom_jsps", "html", "common",
-        // "themes" );
+        TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
+
+        projectTree.expandNode(
+            new String[] { projectHookName + "-hook", "docroot", "META-INF", "custom_jsps", "html", "common", "themes" } ).doubleClick(
+            "body_bottom.jsp" );
+
     }
 
     @Test
@@ -214,8 +233,6 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         newHookTypesPage.next();
 
-        //sleep( 1000 );
-
         LanguagePropertiesPO languagePropertiesPage =
             new LanguagePropertiesPO(
                 bot, "New Liferay Hook Configuration", INDEX_LANGUAGE_PROPERTIES_VALIDATION_MESSAGE );
@@ -226,19 +243,19 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
             languagePropertiesPage.getContentFolderText() );
 
         languagePropertiesPage.setContentFolderText( "" );
-        //sleep( 500 );
+        // sleep( 500 );
 
         assertEquals( errorMessage, languagePropertiesPage.getValidationMessage() );
 
         languagePropertiesPage.getBrowseButton().click();
-        //sleep( 500 );
+        // sleep( 500 );
         ContainerSelectionPO chooseFolder = new ContainerSelectionPO( bot );
 
         chooseFolder.select( "hook-configuration-wizard-hook", "docroot", "WEB-INF", "src" );
 
         chooseFolder.confirm();
 
-        //sleep( 500 );
+        // sleep( 500 );
 
         // Language property files
         languagePropertiesPage.getAddButton().click();
@@ -267,9 +284,10 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         languagePropertiesPage.finish();
 
-        // check language properties file exist in the project
-        // treeBot.doubleClick( "test.properties", projectHookName + "-hook", "docroot/WEB-INF/src", "content" );
-        //sleep( 1000 );
+        TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
+
+        projectTree.expandNode( new String[] { projectHookName + "-hook", "docroot/WEB-INF/src", "content" } ).doubleClick(
+            "test.properties" );
     }
 
     @Test
@@ -285,18 +303,16 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         newHookTypesPage.getPortalProperties().select();
         newHookTypesPage.next();
-        //sleep( 1000 );
+        // sleep( 1000 );
 
         assertEquals( defaultMessage, portalPropertiesPage.getValidationMessage() );
         assertEquals(
             "/hook-configuration-wizard-hook/docroot/WEB-INF/src/portal.properties",
             portalPropertiesPage.getPortalPropertiesFile().getText() );
         portalPropertiesPage.setPortalPropertiesFile( "" );
-        //sleep( 500 );
 
         assertEquals( errorMessage, portalPropertiesPage.getValidationMessage() );
         portalPropertiesPage.getBrowseButton().click();
-        //sleep( 500 );
 
         PortalPropertiesFilePO propertiesPage = new PortalPropertiesFilePO( bot );
 
@@ -308,43 +324,36 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         portalPropertiesPage.getEventAddButton().click();
         eventActionPage.getNewButton().click();
-        //sleep( 500 );
 
         NewClassPO newClassPage = new NewClassPO( bot );
 
         newClassPage.setClassName( "test" );
         newClassPage.setJavaPackage( "hook" );
         newClassPage.getCreateButton().click();
-        //sleep( 500 );
 
         PropertySelectionPO propertySelectionPage = new PropertySelectionPO( bot );
 
         eventActionPage.getSelectEventButton().click();
         propertySelectionPage.select( "application.startup.events" );
         propertySelectionPage.confirm();
-        //sleep( 500 );
 
         portalPropertiesPage.getAddEventAction().setFocus();
         eventActionPage.confirm();
-        //sleep( 500 );
 
         portalPropertiesPage.getEventAddButton().click();
         eventActionPage.getSelectEventButton().click();
         propertySelectionPage.select( "application.startup.events" );
         propertySelectionPage.confirm();
-        //sleep( 500 );
         portalPropertiesPage.getAddEventAction().setFocus();
 
         EventSelectionPO eventSelectionPage = new EventSelectionPO( bot );
         eventActionPage.getSelectClass().click();
-        //sleep( 500 );
 
         eventSelectionPage.setEventAction( "ObjectAction" );
-        sleep( 5000 );
+        sleep( 4000 );
         eventSelectionPage.confirm();
 
         eventActionPage.confirm();
-        //sleep( 5000 );
 
         portalPropertiesPage.getDefineActionsOnPortalEvents().click( 1, 1 );
         portalPropertiesPage.getEventRemoveButton().click();
@@ -359,12 +368,10 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         AddPortalPropertiesOverridePO propertyOverridePage = new AddPortalPropertiesOverridePO( bot );
 
         portalPropertiesPage.getPropertyAddButton().click();
-        //sleep( 500 );
         propertyOverridePage.getSelectProperty().click();
         propertySelectionPage.select( "admin.default.group.names" );
 
         propertySelectionPage.confirm();
-        //sleep( 1000 );
         portalPropertiesPage.getAddPropertyOverride().setFocus();
         propertyOverridePage.setValue( "1" );
         propertyOverridePage.confirm();
@@ -373,7 +380,6 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         propertyOverridePage.setProperty( "test" );
         propertyOverridePage.setValue( "2" );
         propertyOverridePage.confirm();
-        //sleep( 500 );
 
         portalPropertiesPage.getNewLiferayHookConfiguration().setFocus();
         portalPropertiesPage.getSpecifyPropertiesToOverride().click( 1, 1 );
@@ -388,23 +394,33 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         portalPropertiesPage.getPropertyRemoveButton().click();
         portalPropertiesPage.finish();
-        //sleep( 1000 );
 
-        // check files exist in the project
-        // treeBot.doubleClick( "portal.properties", projectHookName + "-hook", "docroot/WEB-INF/src" );
-        // EditorPO editorPage = new EditorPO( bot, "portal.properties" );
-        // assertTrue( editorPage.isActive() );
-        // TextEditorPO textEditorPage = new TextEditorPO( bot, "portal.properties" );
-        // assertContains( "application.startup.events=test_hook", textEditorPage.getText() );
-        // assertContains( "admin.default.group.names=1", textEditorPage.getText() );
-        // //sleep( 500 );
-        //
-        // // treeBot.doubleClick( "test.java", projectHookName + "-hook", "docroot/WEB-INF/src", "hook" );
-        // EditorPO editorPagejava = new EditorPO( bot, "test.java" );
-        // assertTrue( editorPagejava.isActive() );
-        //
-        // TextEditorPO textEditorPagejava = new TextEditorPO( bot, "test.java" );
-        // assertContains( "SimpleAction", textEditorPagejava.getText() );
+        TreePO projectTree = eclipse.getPackageExporerView().getProjectTree();
+
+        String fileName = "portal.properties";
+
+        projectTree.expandNode( new String[] { projectHookName + "-hook", "docroot/WEB-INF/src" } ).doubleClick(
+            fileName );
+
+        TextEditorPO textEditor = eclipse.getTextEditor( fileName );
+
+        assertTrue( textEditor.isActive() );
+
+        assertContains( "application.startup.events=test_hook", textEditor.getText() );
+        assertContains( "admin.default.group.names=1", textEditor.getText() );
+
+        projectTree = eclipse.showPackageExporerView().getProjectTree();
+
+        fileName = "test.java";
+
+        projectTree.expandNode( new String[] { projectHookName + "-hook", "docroot/WEB-INF/src", "hook" } ).doubleClick(
+            fileName );
+
+        textEditor = eclipse.getTextEditor( fileName );
+
+        assertTrue( textEditor.isActive() );
+
+        assertContains( "SimpleAction", textEditor.getText() );
     }
 
     @Test
@@ -421,12 +437,9 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         newHookTypesPage.next();
 
-        //sleep( 1000 );
-
         assertEquals( defaultMessage, servicesPage.getValidationMessage() );
 
         servicesPage.getAddButton().click();
-        //sleep( 500 );
 
         AddServiceWrapperPO serviceWrapperPage = new AddServiceWrapperPO( bot );
 
@@ -435,7 +448,6 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         serviceWrapperPage.getNewButton().click();
         servicesPage.getAddService().setFocus();
         serviceWarningPage.getOkButton().click();
-        //sleep( 500 );
 
         servicesPage.getAddServiceWrapper().setFocus();
         serviceWrapperPage.getSelectImplClass( 1 ).click();
@@ -449,12 +461,11 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         serviceWrapperPage.confirm();
         servicesPage.getDefinePortalServices().click( 0, 1 );
         servicesPage.getRemoveButton().click();
-        //sleep( 500 );
+
         assertEquals( errorMessage, servicesPage.getValidationMessage() );
 
         servicesPage.getAddButton().click();
         serviceWrapperPage.getSelectServiceType().click();
-        //sleep( 500 );
 
         SuperclassSelectionPO superclassPage = new SuperclassSelectionPO( bot );
 
@@ -475,15 +486,18 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         serviceWrapperPage.getImplClass().setText( "hookservice.ExtAccountService" );
         serviceWrapperPage.confirm();
         servicesPage.finish();
-        //sleep( 1000 );
 
-        // check file exist in the project
-        // treeBot.doubleClick( "ExtAccountService.java", projectHookName + "-hook", "docroot/WEB-INF/src",
-        // "hookservice" );
-        // EditorPO editorPagejava = new EditorPO( bot, "ExtAccountService.java" );
-        // assertTrue( editorPagejava.isActive() );
-        // TextEditorPO textEditorPagejava = new TextEditorPO( bot, "ExtAccountService.java" );
-        // assertContains( "AccountServiceWrapper", textEditorPagejava.getText() );
+        TreePO projectTree = eclipse.getPackageExporerView().getProjectTree();
+
+        String fileName = "ExtAccountService.java";
+        projectTree.expandNode( new String[] { projectHookName + "-hook", "docroot/WEB-INF/src", "hookservice" } ).doubleClick(
+            fileName );
+
+        TextEditorPO textEditor = eclipse.getTextEditor( fileName );
+
+        assertTrue( textEditor.isActive() );
+
+        assertContains( "AccountServiceWrapper", textEditor.getText() );
     }
 
     @Before
@@ -516,14 +530,11 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
             page2.finish();
         }
-
-        //sleep( 10000 );
     }
 
     @After
     public void waitForCreate()
     {
-        ////sleep( 5000 );
     }
 
 }

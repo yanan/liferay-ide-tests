@@ -89,4 +89,8 @@ public class PackageExplorerViewPO extends ViewPO implements UIBase
         return _projectsTree.hasItems();
     }
 
+    public TreePO getProjectTree() {
+        return _projectsTree;
+    }
+
 }

@@ -114,7 +114,6 @@ public class FileUtil
             .listFiles( new FileFilter()
             {
 
-                @Override
                 public boolean accept( File file )
                 {
                     return file
