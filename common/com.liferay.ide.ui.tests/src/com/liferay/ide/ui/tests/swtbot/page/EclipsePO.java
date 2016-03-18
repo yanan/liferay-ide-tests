@@ -1,0 +1,145 @@
+/*******************************************************************************
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ *******************************************************************************/
+
+package com.liferay.ide.ui.tests.swtbot.page;
+
+import com.liferay.ide.ui.tests.UIBase;
+import com.liferay.ide.ui.tests.swtbot.eclipse.page.ErrorLogViewPO;
+import com.liferay.ide.ui.tests.swtbot.eclipse.page.PackageExplorerViewPO;
+import com.liferay.ide.ui.tests.swtbot.eclipse.page.ProgressViewPO;
+
+import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
+
+/**
+ * @author Terry Jia
+ */
+public class EclipsePO extends AbstractPO implements UIBase
+{
+
+    private ToolbarDropDownButtonPO _createLiferayProjectToolbar;
+    private ToolbarDropDownButtonPO _newToolbar;
+    private PerspectivePO _liferayPerspective;
+    private PackageExplorerViewPO _packageExporerView;
+    private TreePO _projectTree;
+    private ViewPO _welcomeView;
+    private ProgressViewPO _progressView;
+    private MenuPO _otherMenu;
+    private ShowViewDialogPO _showViewDialogPO;
+    private ErrorLogViewPO _errorLogViewPO;
+
+    public EclipsePO( SWTWorkbenchBot bot )
+    {
+        super( bot );
+
+        _createLiferayProjectToolbar = new ToolbarDropDownButtonPO( bot, TOOLBAR_CREATE_LIFERAY_PROJECT );
+        _packageExporerView = new PackageExplorerViewPO( bot );
+        _welcomeView = new ViewPO( bot, LABEL_WELCOME );
+        _progressView = new ProgressViewPO( bot );
+        _liferayPerspective = new PerspectivePO( bot, LABEL_LIFERAY );
+        _projectTree = new TreePO( bot );
+
+        String[] otherLabel = { LABEL_WINDOW, LABEL_SHOW_VIEW, LABEL_OTHER };
+
+        _otherMenu = new MenuPO( bot, otherLabel );
+        _showViewDialogPO = new ShowViewDialogPO( bot );
+        _errorLogViewPO = new ErrorLogViewPO( bot );
+        _newToolbar = new ToolbarDropDownButtonPO( bot, TOOLBAR_NEW );
+    }
+
+    public ToolbarDropDownButtonPO getNewToolbar()
+    {
+        return _newToolbar;
+    }
+
+    public ToolbarDropDownButtonPO getCreateLiferayProjectToolbar()
+    {
+        return _createLiferayProjectToolbar;
+    }
+
+    public PerspectivePO getLiferayPerspective()
+    {
+        return _liferayPerspective;
+    }
+
+    public PackageExplorerViewPO getPackageExporerView()
+    {
+        return _packageExporerView;
+    }
+
+    public ViewPO getWelcomeView()
+    {
+        return _welcomeView;
+    }
+
+    public ProgressViewPO showProgressView()
+    {
+        try
+        {
+            _progressView.show();
+        }
+        catch( Exception e )
+        {
+            _otherMenu.click();
+
+            _showViewDialogPO.setSearchText( LABEL_PROGRESS );
+
+            sleep( 500 );
+
+            _showViewDialogPO.confirm();
+
+            _progressView.show();
+        }
+
+        return _progressView;
+    }
+
+    public ErrorLogViewPO showErrorLogView()
+    {
+        try
+        {
+            _errorLogViewPO.show();
+        }
+        catch( Exception e )
+        {
+            _otherMenu.click();
+
+            _showViewDialogPO.setSearchText( LABEL_ERROR_LOG );
+
+            sleep( 500 );
+
+            _showViewDialogPO.confirm();
+
+            _errorLogViewPO.show();
+        }
+
+        return _errorLogViewPO;
+    }
+
+    public boolean hasProjects()
+    {
+        _packageExporerView.show();
+
+        try
+        {
+            return _projectTree.getWidget().hasItems();
+        }
+        catch( Exception e )
+        {
+        }
+
+        return false;
+    }
+
+}
