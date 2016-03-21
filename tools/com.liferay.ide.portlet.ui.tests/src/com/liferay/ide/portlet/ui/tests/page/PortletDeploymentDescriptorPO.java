@@ -18,7 +18,7 @@ package com.liferay.ide.portlet.ui.tests.page;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import com.liferay.ide.portlet.ui.tests.LiferayPortletWizard;
-import com.liferay.ide.ui.tests.ProjectWizard;
+import com.liferay.ide.project.ui.tests.ProjectWizard;
 import com.liferay.ide.ui.tests.swtbot.page.CheckBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
 import com.liferay.ide.ui.tests.swtbot.page.WizardPO;

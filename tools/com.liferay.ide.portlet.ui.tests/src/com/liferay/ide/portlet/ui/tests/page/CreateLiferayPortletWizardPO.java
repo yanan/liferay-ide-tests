@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import com.liferay.ide.portlet.ui.tests.LiferayPortletWizard;
-import com.liferay.ide.ui.tests.ProjectWizard;
+import com.liferay.ide.project.ui.tests.ProjectWizard;
 import com.liferay.ide.ui.tests.swtbot.page.ButtonPO;
 import com.liferay.ide.ui.tests.swtbot.page.ComboBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.RadioPO;

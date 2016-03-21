@@ -63,6 +63,13 @@ public interface UIBase
     public final String TEXT_NO_OPERTAIONS = "No operations to display at this time.";
 
     public final String TOOLBAR_CREATE_LIFERAY_PROJECT = "Create a new Liferay Plugin Project";
+
+    public final String LABEL_NEW_LIFERAY_PLUGIN_PROJECT = "New Liferay Plugin Project";
+    public final String LABEL_NEW_LIFERAY_MODULE_PROJECT = "New Liferay Module Project";
+    public final String LABEL_NEW_LIFERAY_HOOK_CONFIGURATION = "New Liferay Hook Configuration";
+
+    public final String LABEL_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
+
     public final String TOOLBAR_NEW = "New";
 
 }

@@ -47,15 +47,23 @@ public class PackageExplorerViewPO extends ViewPO implements UIBase
 
         for( String itemName : allItemNames )
         {
+            boolean include = false;
+
             for( String name : names )
             {
                 if( name.equals( itemName ) )
                 {
-                    continue;
+                    include = true;
+
+                    break;
                 }
+
             }
 
-            deleteResouceByName( itemName );
+            if( !include )
+            {
+                deleteResouceByName( itemName );
+            }
         }
     }
 
@@ -72,6 +80,8 @@ public class PackageExplorerViewPO extends ViewPO implements UIBase
         _projectsTree.getTreeItem( name ).doAction( BUTTON_DELETE );
 
         _deleteResourcesDialog.confirmDeleteFromDisk();
+
+        sleep(500);
 
         _deleteResourcesDialog.confirm();
 

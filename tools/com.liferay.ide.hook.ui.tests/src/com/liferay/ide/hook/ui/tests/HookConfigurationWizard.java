@@ -74,8 +74,6 @@ public interface HookConfigurationWizard extends UIBase
     public final String MENU_HOOK = "Hook";
 
     public final String TOOLTIP_CREATE_LIFERAY_PROJECT = "Create a new Liferay Plugin Project";
-    public final String TOOLTIP_MENU_ITEM_NEW_LIFERAY_HOOK_CONFIGURATION = "New Liferay Hook Configuration";
-    public final String TOOLTIP_MENU_ITEM_NEW_LIFERAY_PROJECT = "New Liferay Plugin Project";
 
     public final String WINDOW_ADD_EVENT_ACTION = "Add Event Action";
     public final String WINDOW_ADD_PROPERTY_OVERRIDE = "Add Property Override";
