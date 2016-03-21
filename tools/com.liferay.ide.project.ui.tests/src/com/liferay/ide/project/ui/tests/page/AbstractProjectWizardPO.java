@@ -15,7 +15,7 @@
 
 package com.liferay.ide.project.ui.tests.page;
 
-import com.liferay.ide.ui.tests.ProjectWizard;
+import com.liferay.ide.project.ui.tests.ProjectWizard;
 import com.liferay.ide.ui.tests.swtbot.page.CheckBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.ComboBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;

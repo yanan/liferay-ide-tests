@@ -84,8 +84,6 @@ public interface LiferayPortletWizard extends UIBase
     public final String LABEL_SERVERESOURCE = "serveResource";
     public final String LABEL_INTERFACES = "Interfaces:";
 
-    public final String TOOLTIP_MENU_ITEM_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
-
     public final String TEXT_ENTER_A_PROJECT_NAME = " Enter a project name.";
     public final String TEXT_CREATE_A_PORTLET_CLASS = "Create a portlet class.";
     public final String TEXT_SOURCE_FOLDER_CANNOT_BE_EMPTY = " The source folder cannot be empty.";

@@ -16,6 +16,7 @@
 package com.liferay.ide.ui.tests.swtbot.page;
 
 import com.liferay.ide.ui.tests.UIBase;
+import com.liferay.ide.ui.tests.swtbot.eclipse.page.CreateLifeayProjecToolbarDropDownButtonPO;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.ErrorLogViewPO;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.PackageExplorerViewPO;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.ProgressViewPO;
@@ -28,7 +29,7 @@ import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 public class EclipsePO extends AbstractPO implements UIBase
 {
 
-    private ToolbarDropDownButtonPO _createLiferayProjectToolbar;
+    private CreateLifeayProjecToolbarDropDownButtonPO _createLiferayProjectToolbar;
     private ToolbarDropDownButtonPO _newToolbar;
     private PerspectivePO _liferayPerspective;
     private PackageExplorerViewPO _packageExporerView;
@@ -43,7 +44,7 @@ public class EclipsePO extends AbstractPO implements UIBase
     {
         super( bot );
 
-        _createLiferayProjectToolbar = new ToolbarDropDownButtonPO( bot, TOOLBAR_CREATE_LIFERAY_PROJECT );
+        _createLiferayProjectToolbar = new CreateLifeayProjecToolbarDropDownButtonPO( bot );
         _packageExporerView = new PackageExplorerViewPO( bot );
         _welcomeView = new ViewPO( bot, LABEL_WELCOME );
         _progressView = new ProgressViewPO( bot );
@@ -63,7 +64,7 @@ public class EclipsePO extends AbstractPO implements UIBase
         return _newToolbar;
     }
 
-    public ToolbarDropDownButtonPO getCreateLiferayProjectToolbar()
+    public CreateLifeayProjecToolbarDropDownButtonPO getCreateLiferayProjectToolbar()
     {
         return _createLiferayProjectToolbar;
     }

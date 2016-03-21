@@ -173,15 +173,17 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
         newPortletPage.finish();
 
-        treeItemPage.doAction( "New", "Liferay Portlet" );
+        eclipse.showPackageExporerView().getProjectTree().getTreeItem( "Liferay Portlet" ).doAction( "New" );
 
         assertEquals( "test-portlet", newPortletPage.getPortletPluginProject() );
-        assertTrue( buttonBot.isEnabled( BUTTON_NEXT ) );
-        assertFalse( buttonBot.isEnabled( BUTTON_FINISH ) );
+
+        assertTrue( newPortletPage.nextButton().isEnabled() );
+        assertTrue( newPortletPage.finishButton().isEnabled() );
 
         newPortletPage.createLiferayPortlet( "test-portlet", true );
-        assertTrue( buttonBot.isEnabled( BUTTON_NEXT ) );
-        assertFalse( buttonBot.isEnabled( BUTTON_FINISH ) );
+
+        assertTrue( newPortletPage.nextButton().isEnabled() );
+        assertTrue( newPortletPage.finishButton().isEnabled() );
 
         newPortletPage.cancel();
 
@@ -208,7 +210,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         newSourceFolderPage.finish();
 
         // source folder tests
-        eclipse.getCreateLiferayProjectToolbar().menuClick( TOOLTIP_MENU_ITEM_NEW_LIFERAY_PORTLET );
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayPortlet().click();
 
         newPortletPage.setSourceFolderText( TEXT_BLANK );
         assertEquals( TEXT_SOURCE_FOLDER_CANNOT_BE_EMPTY, newPortletPage.getValidationMessage() );
@@ -397,10 +399,12 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         newLiferayProjectPage.createSDKProject( "test", "Portlet", true, false );
         newLiferayProjectPage.finish();
 
-        TreeItemPO liferayPortletXmlPage =
-            new TreeItemPO( bot, "test-portlet", "docroot", "WEB-INF", "liferay-portlet.xml" );
+        TreePO porjectTree = eclipse.showPackageExporerView().getProjectTree();
 
-        liferayPortletXmlPage.doubleClick();
+        String fileName = "liferay-portlet.xml";
+        porjectTree.expandNode( "test-portlet", "docroot", "WEB-INF" );
+
+        porjectTree.getTreeItem( fileName ).doubleClick();
 
         TextEditorPO liferayPortletEditor = new TextEditorPO( bot, "liferay-portlet.xml" );
 
@@ -458,7 +462,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
             "<portlet-name>new</portlet-name>\n\t\t<icon>/icon.png</icon>\n\t\t<header-portlet-css>/css/main.css</header-portlet-css>\n\t\t<footer-portlet-javascript>\n\t\t\t/js/main.js\n\t\t</footer-portlet-javascript>\n\t\t<css-class-wrapper>new-portlet</css-class-wrapper>\n\t</portlet>\n\t<role-mapper>",
             liferayPortletEditor.getText() );
 
-        toolbarBot.menuClick( TOOLTIP_CREATE_LIFERAY_PROJECT, TOOLTIP_MENU_ITEM_NEW_LIFERAY_PORTLET );
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayPortlet().click();
 
         newPortletPage.createLiferayPortlet( TEXT_BLANK, "NewPortletOne", null, null );
         newPortletPage.next();
@@ -702,7 +706,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
     {
 
         // new liferay portlet project without sample code and launch portlet wizard
-        toolbarBot.menuClick( TOOLTIP_CREATE_LIFERAY_PROJECT );
+        eclipse.getCreateLiferayProjectToolbar().click();
 
         CreateProjectWizardPO newLiferayProjectPage =
             new CreateProjectWizardPO( bot, TOOLTIP_MENU_ITEM_NEW_LIFERAY_PROJECT );
@@ -711,7 +715,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         newLiferayProjectPage.finish();
 
         // check specfy modifier, interface and method stubs using GenericPortlet superclass
-        toolbarBot.menuClick( TOOLTIP_CREATE_LIFERAY_PROJECT, TOOLTIP_MENU_ITEM_NEW_LIFERAY_PORTLET );
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayPortlet().click();;
 
         CreateLiferayPortletWizardPO newPortletPage = new CreateLiferayPortletWizardPO( bot );
 
@@ -991,7 +995,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
     @Test
     public void portletDeploymentDescriptorTest()
     {
-        toolbarBot.menuClick( TOOLTIP_CREATE_LIFERAY_PROJECT, TOOLTIP_MENU_ITEM_NEW_LIFERAY_PROJECT );
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
 
         CreateProjectWizardPO newLiferayProjectPage =
             new CreateProjectWizardPO( bot, TOOLTIP_MENU_ITEM_NEW_LIFERAY_PROJECT );
@@ -1001,16 +1005,15 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         newLiferayProjectPage.finish();
 
         // relate ticket IDE-2156, regression for IDE-119
-        // TreeItemPO treeItemPage =
-        new TreeItemPO( bot, "test-portlet", "docroot", "WEB-INF", "liferay-display.xml" );
-        // treeItemPage.expand();
-        // treeItemPage.doAction( "Delete" );
-        // DialogPO deleteDialogPage =new DialogPO( bot, "Delete",
-        // BUTTON_CANCEL,BUTTON_OK );
-        // deleteDialogPage.confirm();
+        TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
+
+        projectTree.expandNode( "test-portlet", "docroot", "WEB-INF" );
+
+        eclipse.showPackageExporerView().deleteResouceByName( "liferay-display.xml" );
 
         // new liferay portlet wizard
-        toolbarBot.menuClick( TOOLTIP_CREATE_LIFERAY_PROJECT, TOOLTIP_MENU_ITEM_NEW_LIFERAY_PORTLET );
+        eclipse.getCreateLiferayProjectToolbar().menuClick( TOOLTIP_MENU_ITEM_NEW_LIFERAY_PROJECT );
+
         CreateLiferayPortletWizardPO newPortletPage = new CreateLiferayPortletWizardPO( bot );
         newPortletPage.next();
 
@@ -1038,19 +1041,25 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         // check generate codes and files
         EditorPO newPortletJavaPage = new EditorPO( bot, "NewPortlet.java" );
         assertTrue( newPortletJavaPage.isActive() );
-        TreeItemPO jspFile = new TreeItemPO( bot, "test-portlet", "docroot", "html", "new", "view.jsp" );
-        assertTrue( jspFile.isVisible() );
+        projectTree.expandNode( "test-portlet", "docroot", "html", "new" );
 
-        TreeItemPO treeItemPage = new TreeItemPO( bot, "test-portlet", "docroot", "WEB-INF", "portlet.xml" );
-        treeItemPage.doubleClick();
+        String fileName = "view.jsp";
+        assertTrue( projectTree.getTreeItem( fileName ).isVisible() );
 
-        TextEditorPO portletXmlPage = new TextEditorPO( bot, "portlet.xml" );
+        projectTree.expandNode( "test-portlet", "docroot", "WEB-INF" );
+        
+        fileName = "portlet.xml";
+
+        projectTree.getTreeItem( fileName ).doubleClick();
+
+        TextEditorPO portletXmlPage = eclipse.getTextEditor( "portlet.xml" );
+
         assertContains( "<portlet-name>new</portlet-name>", portletXmlPage.getText() );
         assertContains( "<display-name>New</display-name>", portletXmlPage.getText() );
         assertContains( "<title>New</title>", portletXmlPage.getText() );
 
         // new liferay portlet wizard with default MVCPortlet
-        toolbarBot.menuClick( TOOLTIP_CREATE_LIFERAY_PROJECT, TOOLTIP_MENU_ITEM_NEW_LIFERAY_PORTLET );
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayPortlet().click();
 
         newPortletPage.createLiferayPortlet( true );
         newPortletPage.next();
@@ -1074,12 +1083,11 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         assertContains( "<portlet-name>New</portlet-name>", portletXmlPage.getText() );
         assertContains( "<resource-bundle>content.Language</resource-bundle>", portletXmlPage.getText() );
 
-        TreeItemPO languagePropertiesFile =
-            new TreeItemPO( bot, "test-portlet", "docroot/WEB-INF/src", "content", "Language.properties" );
-        languagePropertiesFile.expand();
-        languagePropertiesFile.isVisible();
+        fileName = "Language.properties";
+        projectTree.expandNode( "test-portlet", "docroot/WEB-INF/src", "content" );
+        assertTrue(projectTree.getTreeItem( "Language.properties" ).isVisible());
 
-        toolbarBot.menuClick( TOOLTIP_CREATE_LIFERAY_PROJECT, TOOLTIP_MENU_ITEM_NEW_LIFERAY_PORTLET );
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayPortlet().click();
 
         // new portlet with more than two uppercase portlet class name
         newPortletPage.createLiferayPortlet( TEXT_BLANK, "MyNewPortlet", null, null );
@@ -1178,12 +1186,12 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         assertContains( "<title></title>", portletXmlPage.getText() );
 
         // check language file
-        TreeItemPO languagePropertiesFile2 =
-            new TreeItemPO( bot, "test-portlet", "docroot/WEB-INF/src", "mycontent", "Lang.properties" );
-        languagePropertiesFile2.expand();
-        languagePropertiesFile2.isVisible();
 
-        toolbarBot.menuClick( TOOLTIP_CREATE_LIFERAY_PROJECT, TOOLTIP_MENU_ITEM_NEW_LIFERAY_PORTLET );
+        fileName = "Lang.properties";
+        projectTree.expandNode( "test-portlet", "docroot/WEB-INF/src", "mycontent" );
+        assertTrue(projectTree.getTreeItem( fileName ).isVisible());
+
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayPortlet().click();
 
         newPortletPage.createLiferayPortlet( TEXT_BLANK, "MyPortletPortlet", null, "javax.portlet.GenericPortlet" );
         newPortletPage.next();

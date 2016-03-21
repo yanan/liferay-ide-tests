@@ -74,7 +74,7 @@ public class WizardPO extends CancelPO
         clickClosingButton( finishButton() );
     }
 
-    protected SWTBotButton finishButton()
+    public SWTBotButton finishButton()
     {
         return bot.button( finishButtonText );
     }
@@ -96,7 +96,7 @@ public class WizardPO extends CancelPO
         clickButton( nextButton() );
     }
 
-    protected SWTBotButton nextButton()
+    public SWTBotButton nextButton()
     {
         return bot.button( nextButtonText );
     }

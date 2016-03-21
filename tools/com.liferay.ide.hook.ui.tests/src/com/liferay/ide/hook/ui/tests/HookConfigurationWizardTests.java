@@ -79,7 +79,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
     {
         CreateCustomJSPsPO customJSPpage = new CreateCustomJSPsPO( bot, INDEX_CUSTOM_JSPS_VALIDATION_MESSAGE );
 
-        eclipse.getCreateLiferayProjectToolbar().menuClick( TOOLTIP_MENU_ITEM_NEW_LIFERAY_HOOK_CONFIGURATION );
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayHookConfigration().click();
 
         newHookTypesPage.getCustomJSPs().select();
         newHookTypesPage.getPortalProperties().select();
@@ -167,7 +167,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         CreateCustomJSPsPO customJSPpage = new CreateCustomJSPsPO( bot, INDEX_CUSTOM_JSPS_VALIDATION_MESSAGE );
 
-        eclipse.getCreateLiferayProjectToolbar().menuClick( TOOLTIP_MENU_ITEM_NEW_LIFERAY_HOOK_CONFIGURATION );
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayHookConfigration().click();
 
         newHookTypesPage.getCustomJSPs().select();
         newHookTypesPage.next();
@@ -228,7 +228,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         String defaultMessage = "Create new Language properties files.";
         String errorMessage = " Content folder not configured.";
 
-        eclipse.getCreateLiferayProjectToolbar().menuClick( TOOLTIP_MENU_ITEM_NEW_LIFERAY_HOOK_CONFIGURATION );
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayHookConfigration().click();
 
         newHookTypesPage.getLanguageProperties().select();
 
@@ -300,7 +300,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         PortalPropertiesPO portalPropertiesPage =
             new PortalPropertiesPO( bot, INDEX_PORTAL_PROPERTIES_VALIDATION_MESSAGE );
 
-        eclipse.getCreateLiferayProjectToolbar().menuClick( TOOLTIP_MENU_ITEM_NEW_LIFERAY_HOOK_CONFIGURATION );
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayHookConfigration().click();
 
         newHookTypesPage.getPortalProperties().select();
         newHookTypesPage.next();
@@ -432,7 +432,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         ServicesPO servicesPage = new ServicesPO( bot, INDEX_SERVICES_MESSAGE );
 
-        eclipse.getCreateLiferayProjectToolbar().menuClick( TOOLTIP_MENU_ITEM_NEW_LIFERAY_HOOK_CONFIGURATION );
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayHookConfigration().click();
 
         newHookTypesPage.getServices().select();
 
@@ -511,7 +511,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
             return;
         }
 
-        eclipse.getCreateLiferayProjectToolbar().menuClick( TOOLTIP_MENU_ITEM_NEW_LIFERAY_PROJECT );
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
 
         CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot );
 
