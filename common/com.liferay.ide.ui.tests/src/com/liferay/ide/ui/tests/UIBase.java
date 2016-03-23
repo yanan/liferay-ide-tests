@@ -19,6 +19,7 @@ package com.liferay.ide.ui.tests;
  * @author Terry Jia
  * @author Ashley Yuan
  * @author Ying Xu
+ * @author Vicky Wang
  */
 public interface UIBase
 {
@@ -67,6 +68,7 @@ public interface UIBase
     public final String LABEL_NEW_LIFERAY_PLUGIN_PROJECT = "New Liferay Plugin Project";
     public final String LABEL_NEW_LIFERAY_MODULE_PROJECT = "New Liferay Module Project";
     public final String LABEL_NEW_LIFERAY_HOOK_CONFIGURATION = "New Liferay Hook Configuration";
+    public final String LABEL_NEW_LIFERAY_SERVER = "New Liferay Server";
 
     public final String LABEL_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
 
