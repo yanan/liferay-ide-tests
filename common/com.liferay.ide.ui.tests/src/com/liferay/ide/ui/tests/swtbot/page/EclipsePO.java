@@ -58,6 +58,13 @@ public class EclipsePO extends AbstractPO implements UIBase
         _errorLogView = new ErrorLogViewPO( bot );
         _newToolbar = new ToolbarDropDownButtonPO( bot, TOOLBAR_NEW );
     }
+    
+    public void closeShell( String title )
+    {
+        DialogPO shell = new DialogPO( bot, title );
+
+        shell.closeIfOpen();
+    }
 
     public ToolbarDropDownButtonPO getNewToolbar()
     {

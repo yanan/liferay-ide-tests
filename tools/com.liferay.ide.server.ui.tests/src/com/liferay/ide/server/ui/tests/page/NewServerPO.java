@@ -13,44 +13,32 @@
  *
  *******************************************************************************/
 
-package com.liferay.ide.ui.tests.swtbot.page;
+package com.liferay.ide.server.ui.tests.page;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
+
+import com.liferay.ide.server.ui.tests.ServerRuntimeWizard;
+import com.liferay.ide.ui.tests.swtbot.page.TreePO;
+import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
 /**
- * @author Terry Jia
- * @author Ashley Yuan
+ * @author Vicky Wang
  */
-public class DialogPO extends CancelPO
+public class NewServerPO extends WizardPO implements ServerRuntimeWizard
 {
 
-    private String text;
+    TreePO _serverTypeTree;
 
-    public DialogPO( SWTBot bot, String title )
+    public NewServerPO( SWTBot bot )
     {
-        super( bot, title, null );
-    }
-    
-    public DialogPO( SWTBot bot, String cancelButtonText, String confirmButtonText )
-    {
-        this( bot, "", cancelButtonText, confirmButtonText );
+        super( bot, TITLE_NEW_SERVER, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT );
+
+        _serverTypeTree = new TreePO( bot );
     }
 
-    public DialogPO( SWTBot bot, String title, String cancelButtonText, String confirmButtonText )
+    public TreePO getServerTypeTree()
     {
-        super( bot, title, cancelButtonText );
-
-        text = confirmButtonText;
+        return _serverTypeTree;
     }
 
-    public void confirm()
-    {
-        clickClosingButton( confirmButton() );
-    }
-
-    protected SWTBotButton confirmButton()
-    {
-        return bot.button( text );
-    }
 }
