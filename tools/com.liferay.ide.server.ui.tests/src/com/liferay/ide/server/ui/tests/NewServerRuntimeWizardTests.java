@@ -31,7 +31,7 @@ import com.liferay.ide.ui.tests.SWTBotBase;
  */
 public class NewServerRuntimeWizardTests extends SWTBotBase implements ServerRuntimeWizard
 {
-    
+
     NewServerPO newServerPage = new NewServerPO( bot );
     NewServerRuntimeEnvPO setRuntimePage = new NewServerRuntimeEnvPO( bot );
 

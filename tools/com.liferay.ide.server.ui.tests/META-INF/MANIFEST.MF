@@ -3,12 +3,13 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Liferay IDE Server UI Tests
 Bundle-SymbolicName: com.liferay.ide.server.ui.tests
 Bundle-Version: 3.0.0.qualifier
-Bundle-Vendor: Liferay, Inc.
+Bundle-Vendor: Liferay
+Export-Package: com.liferay.ide.server.ui.tests,
+ com.liferay.ide.server.ui.tests.page
 Require-Bundle: org.eclipse.ui.workbench,
  org.junit,
  com.liferay.ide.ui.tests,
- org.eclipse.swtbot.go
-Bundle-ActivationPolicy: lazy
-Export-Package: com.liferay.ide.server.ui.tests,
- com.liferay.ide.server.ui.tests.page
+ org.eclipse.swtbot.go,
+ org.eclipse.swtbot.swt.finder
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy

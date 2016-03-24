@@ -62,6 +62,7 @@ public class EclipsePO extends AbstractPO implements UIBase
     public void closeShell( String title )
     {
         DialogPO shell = new DialogPO( bot, title );
+
         shell.closeIfOpen();
     }
 

@@ -52,4 +52,5 @@ public class NewServerRuntimeEnvPO extends WizardPO implements ServerRuntimeWiza
     {
         return _serverLocation;
     }
+
 }
