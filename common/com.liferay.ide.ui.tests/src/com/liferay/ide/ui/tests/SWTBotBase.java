@@ -96,7 +96,7 @@ public class SWTBotBase implements UIBase
 
     protected static IPath getIvyCacheZip()
     {
-        return getLiferayBundlesPath().append( "ivy-cache.zip" );
+        return getLiferayBundlesPath().append( "ivy-cache-7.0.zip" );
     }
 
     protected static IPath getLiferayBundlesPath()
@@ -111,42 +111,42 @@ public class SWTBotBase implements UIBase
 
     protected static String getLiferayPluginServerName()
     {
-        return "tomcat-7.0.62";
+        return "tomcat-8.0.30";
     }
 
     protected static IPath getLiferayPluginsSdkDir()
     {
-        return new Path(tempDir).append( "liferay-plugins-sdk-6.2" );
+        return new Path(tempDir).append( "liferay-plugins-sdk-7.0" );
     }
 
     protected static String getLiferayPluginsSdkName()
     {
-        return "liferay-plugins-sdk-6.2";
+        return "liferay-plugins-sdk-7.0";
     }
 
     protected static IPath getLiferayPluginsSDKZip()
     {
-        return getLiferayBundlesPath().append( "liferay-plugins-sdk-6.2.zip" );
+        return getLiferayBundlesPath().append( "liferay-plugins-sdk-7.0-ce-b8-20160223094645600.zip" );
     }
 
     protected static String getLiferayPluginsSdkZipFolder()
     {
-        return "liferay-plugins-sdk-6.2/";
+        return "liferay-plugins-sdk-7.0/";
     }
     
     protected static IPath getLiferayServerDir()
     {
-        return new Path(tempDir).append( "liferay-portal-7.0-ce-b2/" );
+        return new Path(tempDir).append( "liferay-portal-7.0-ce-b8/" );
     }
 
     protected static IPath getLiferayServerZip()
     {
-        return getLiferayBundlesPath().append( "liferay-portal-tomcat-7.0-ce-b2-20160105152151933.zip" );
+        return getLiferayBundlesPath().append( "liferay-portal-tomcat-7.0-ce-b8-20160223094645600.zip" );
     }
 
     protected static String getLiferayServerZipFolder()
     {
-        return "liferay-portal-7.0-ce-b2/";
+        return "liferay-portal-7.0-ce-b8/";
     }
 
 
