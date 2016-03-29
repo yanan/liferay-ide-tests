@@ -26,17 +26,35 @@ import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 /**
  * @author Terry Jia
  * @author Ashley Yuan
+ * @author Ying Xu
  */
 public abstract class ShellPO extends AbstractPO
 {
 
     protected String title;
+    int index = -1;
 
     public ShellPO( SWTBot bot, String title )
+    {
+        this( bot, title, 0 );
+    }
+
+    public ShellPO( SWTBot bot, String title, int index )
     {
         super( bot );
 
         this.title = title;
+        this.index = index;
+    }
+
+    public void activate()
+    {
+        getShell().isActive();
+    }
+
+    protected SWTBotShell getShell()
+    {
+        return bot.shell( title, index );
     }
 
     public void waitForPageToOpen()
