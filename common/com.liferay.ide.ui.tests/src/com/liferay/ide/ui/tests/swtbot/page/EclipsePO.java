@@ -18,6 +18,7 @@ package com.liferay.ide.ui.tests.swtbot.page;
 import com.liferay.ide.ui.tests.UIBase;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.CreateLifeayProjecToolbarDropDownButtonPO;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.ErrorLogViewPO;
+import com.liferay.ide.ui.tests.swtbot.eclipse.page.NewToolbarDropDownButtonPO;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.PackageExplorerViewPO;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.ProgressViewPO;
 
@@ -25,12 +26,13 @@ import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 
 /**
  * @author Terry Jia
+ * @author Ying Xu
  */
 public class EclipsePO extends AbstractPO implements UIBase
 {
 
     private CreateLifeayProjecToolbarDropDownButtonPO _createLiferayProjectToolbar;
-    private ToolbarDropDownButtonPO _newToolbar;
+    private NewToolbarDropDownButtonPO _newToolbar;
     private PerspectivePO _liferayPerspective;
     private PackageExplorerViewPO _packageExporerView;
     private TreePO _projectTree;
@@ -39,6 +41,7 @@ public class EclipsePO extends AbstractPO implements UIBase
     private MenuPO _otherMenu;
     private ShowViewDialogPO _showViewDialog;
     private ErrorLogViewPO _errorLogView;
+    private MenuPO _fileMenu;
 
     public EclipsePO( SWTWorkbenchBot bot )
     {
@@ -50,13 +53,14 @@ public class EclipsePO extends AbstractPO implements UIBase
         _progressView = new ProgressViewPO( bot );
         _liferayPerspective = new PerspectivePO( bot, LABEL_LIFERAY );
         _projectTree = new TreePO( bot );
+        _fileMenu = new MenuPO( bot, MENU_FILE );
 
         String[] otherLabel = { LABEL_WINDOW, LABEL_SHOW_VIEW, LABEL_OTHER };
 
         _otherMenu = new MenuPO( bot, otherLabel );
         _showViewDialog = new ShowViewDialogPO( bot );
         _errorLogView = new ErrorLogViewPO( bot );
-        _newToolbar = new ToolbarDropDownButtonPO( bot, TOOLBAR_NEW );
+        _newToolbar = new NewToolbarDropDownButtonPO( bot );
     }
     
     public void closeShell( String title )
@@ -66,9 +70,14 @@ public class EclipsePO extends AbstractPO implements UIBase
         shell.closeIfOpen();
     }
 
-    public ToolbarDropDownButtonPO getNewToolbar()
+    public NewToolbarDropDownButtonPO getNewToolbar()
     {
         return _newToolbar;
+    }
+
+    public MenuPO getFileMenu()
+    {
+        return _fileMenu;
     }
 
     public CreateLifeayProjecToolbarDropDownButtonPO getCreateLiferayProjectToolbar()
@@ -157,7 +166,8 @@ public class EclipsePO extends AbstractPO implements UIBase
         return false;
     }
 
-    public TextEditorPO getTextEditor(String fileName) {
+    public TextEditorPO getTextEditor( String fileName )
+    {
         return new TextEditorPO( bot, fileName );
     }
 

@@ -24,6 +24,7 @@ import com.liferay.ide.ui.tests.swtbot.page.ToolbarDropDownButtonPO;
 /**
  * @author Terry Jia
  * @author Vicky Wang
+ * @author Ying Xu
  */
 public class CreateLifeayProjecToolbarDropDownButtonPO extends ToolbarDropDownButtonPO implements UIBase
 {
@@ -32,6 +33,7 @@ public class CreateLifeayProjecToolbarDropDownButtonPO extends ToolbarDropDownBu
     private MenuItemPO _newLiferayPortlet;
     private MenuItemPO _newLiferayHookConfigration;
     private MenuItemPO _newLiferayServer;
+    private MenuItemPO _newLiferayServiceBuilder;
 
     public CreateLifeayProjecToolbarDropDownButtonPO( SWTBot bot )
     {
@@ -41,6 +43,7 @@ public class CreateLifeayProjecToolbarDropDownButtonPO extends ToolbarDropDownBu
         _newLiferayPortlet = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_PORTLET );
         _newLiferayHookConfigration = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_HOOK_CONFIGURATION );
         _newLiferayServer = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_SERVER );
+        _newLiferayServiceBuilder = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_SERVICE_BUILDER );
     }
 
     public MenuItemPO getNewLiferayPluginProject()
@@ -58,9 +61,15 @@ public class CreateLifeayProjecToolbarDropDownButtonPO extends ToolbarDropDownBu
         return _newLiferayHookConfigration;
     }
 
+  
     public MenuItemPO getNewLiferayServer()
     {
         return _newLiferayServer;
+    }
+
+    public MenuItemPO getNewLiferayServiceBuilder()
+    {
+        return _newLiferayServiceBuilder;
     }
 
 }
