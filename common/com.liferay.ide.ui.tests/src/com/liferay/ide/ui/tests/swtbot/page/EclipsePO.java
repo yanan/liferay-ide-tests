@@ -86,6 +86,11 @@ public class EclipsePO extends AbstractPO implements UIBase
         return _packageExporerView;
     }
 
+    public TreePO getProjectTree()
+    {
+        return _projectTree;
+    }
+
     public ViewPO getWelcomeView()
     {
         return _welcomeView;
