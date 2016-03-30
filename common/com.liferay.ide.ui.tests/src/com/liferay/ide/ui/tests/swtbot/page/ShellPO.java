@@ -39,6 +39,11 @@ public abstract class ShellPO extends AbstractPO
         this.title = title;
     }
 
+    public boolean isOpen()
+    {
+        return bot.shell( title ).isVisible();
+    }
+
     public void waitForPageToOpen()
     {
         bot.waitUntil( new ShellCondition( title, true ) );
