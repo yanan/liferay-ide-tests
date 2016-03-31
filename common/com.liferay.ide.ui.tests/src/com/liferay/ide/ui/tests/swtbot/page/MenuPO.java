@@ -42,6 +42,11 @@ public class MenuPO extends AbstractWidgetPO
     @Override
     protected SWTBotMenu getWidget()
     {
+        if( label != null )
+        {
+            return bot.menu( label );
+        }
+
         SWTBotMenu menu = bot.menu( _labels[0] );
 
         for( int i = 1; i < _labels.length; i++ )
@@ -52,8 +57,19 @@ public class MenuPO extends AbstractWidgetPO
         return menu;
     }
 
-    public void click() {
+    public void click()
+    {
         getWidget().click();
+    }
+
+    public void clickMenu( String... menuItemLabels )
+    {
+        SWTBotMenu menu = getWidget();
+
+        for( String menuItemLabel : menuItemLabels )
+        {
+            menu = menu.menu( menuItemLabel ).click();
+        }
     }
 
 }
