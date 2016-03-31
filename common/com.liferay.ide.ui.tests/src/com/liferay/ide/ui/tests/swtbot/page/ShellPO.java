@@ -15,6 +15,7 @@
 
 package com.liferay.ide.ui.tests.swtbot.page;
 
+import com.liferay.ide.ui.tests.UIBase;
 import com.liferay.ide.ui.tests.swtbot.condition.ShellCondition;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
@@ -26,17 +27,35 @@ import org.eclipse.swtbot.swt.finder.widgets.TimeoutException;
 /**
  * @author Terry Jia
  * @author Ashley Yuan
+ * @author Ying Xu
  */
-public abstract class ShellPO extends AbstractPO
+public abstract class ShellPO extends AbstractPO implements UIBase
 {
 
     protected String title;
+    protected static int _index = 0;
 
     public ShellPO( SWTBot bot, String title )
+    {
+        this( bot, title, INDEX_DEFAULT_START );
+    }
+
+    public ShellPO( SWTBot bot, String title, int index )
     {
         super( bot );
 
         this.title = title;
+        _index = index;
+    }
+
+    public void activate()
+    {
+        getShell().isActive();
+    }
+
+    protected SWTBotShell getShell()
+    {
+        return bot.shell( title, _index );
     }
 
     public void waitForPageToOpen()
