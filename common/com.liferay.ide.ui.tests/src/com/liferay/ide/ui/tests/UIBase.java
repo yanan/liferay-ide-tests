@@ -73,5 +73,6 @@ public interface UIBase
     public final String LABEL_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
 
     public final String TOOLBAR_NEW = "New";
+    public final String TITLE_DELETE_RESOURCES = "Delete Resources";
 
 }
