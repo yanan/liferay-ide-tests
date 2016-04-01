@@ -16,8 +16,9 @@
 package com.liferay.ide.ui.tests.swtbot.page;
 
 import com.liferay.ide.ui.tests.UIBase;
-import com.liferay.ide.ui.tests.swtbot.eclipse.page.CreateLifeayProjecToolbarDropDownButtonPO;
+import com.liferay.ide.ui.tests.swtbot.eclipse.page.CreateLifeayProjectToolbarDropDownButtonPO;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.ErrorLogViewPO;
+import com.liferay.ide.ui.tests.swtbot.eclipse.page.NewToolbarDropDownButtonPO;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.PackageExplorerViewPO;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.ProgressViewPO;
 
@@ -25,12 +26,13 @@ import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 
 /**
  * @author Terry Jia
+ * @author Ying Xu
  */
 public class EclipsePO extends AbstractPO implements UIBase
 {
 
-    private CreateLifeayProjecToolbarDropDownButtonPO _createLiferayProjectToolbar;
-    private ToolbarDropDownButtonPO _newToolbar;
+    private CreateLifeayProjectToolbarDropDownButtonPO _createLiferayProjectToolbar;
+    private NewToolbarDropDownButtonPO _newToolbar;
     private PerspectivePO _liferayPerspective;
     private PackageExplorerViewPO _packageExporerView;
     private TreePO _projectTree;
@@ -39,24 +41,26 @@ public class EclipsePO extends AbstractPO implements UIBase
     private MenuPO _otherMenu;
     private ShowViewDialogPO _showViewDialog;
     private ErrorLogViewPO _errorLogView;
+    private MenuPO _fileMenu;
 
     public EclipsePO( SWTWorkbenchBot bot )
     {
         super( bot );
 
-        _createLiferayProjectToolbar = new CreateLifeayProjecToolbarDropDownButtonPO( bot );
+        _createLiferayProjectToolbar = new CreateLifeayProjectToolbarDropDownButtonPO( bot );
         _packageExporerView = new PackageExplorerViewPO( bot );
         _welcomeView = new ViewPO( bot, LABEL_WELCOME );
         _progressView = new ProgressViewPO( bot );
         _liferayPerspective = new PerspectivePO( bot, LABEL_LIFERAY );
         _projectTree = new TreePO( bot );
+        _fileMenu = new MenuPO( bot, MENU_FILE );
 
         String[] otherLabel = { LABEL_WINDOW, LABEL_SHOW_VIEW, LABEL_OTHER };
 
         _otherMenu = new MenuPO( bot, otherLabel );
         _showViewDialog = new ShowViewDialogPO( bot );
         _errorLogView = new ErrorLogViewPO( bot );
-        _newToolbar = new ToolbarDropDownButtonPO( bot, TOOLBAR_NEW );
+        _newToolbar = new NewToolbarDropDownButtonPO( bot );
     }
     
     public void closeShell( String title )
@@ -66,12 +70,17 @@ public class EclipsePO extends AbstractPO implements UIBase
         shell.closeIfOpen();
     }
 
-    public ToolbarDropDownButtonPO getNewToolbar()
+    public NewToolbarDropDownButtonPO getNewToolbar()
     {
         return _newToolbar;
     }
 
-    public CreateLifeayProjecToolbarDropDownButtonPO getCreateLiferayProjectToolbar()
+    public MenuPO getFileMenu()
+    {
+        return _fileMenu;
+    }
+
+    public CreateLifeayProjectToolbarDropDownButtonPO getCreateLiferayProjectToolbar()
     {
         return _createLiferayProjectToolbar;
     }
@@ -84,11 +93,6 @@ public class EclipsePO extends AbstractPO implements UIBase
     public PackageExplorerViewPO getPackageExporerView()
     {
         return _packageExporerView;
-    }
-
-    public TreePO getProjectTree()
-    {
-        return _projectTree;
     }
 
     public ViewPO getWelcomeView()
@@ -162,7 +166,8 @@ public class EclipsePO extends AbstractPO implements UIBase
         return false;
     }
 
-    public TextEditorPO getTextEditor(String fileName) {
+    public TextEditorPO getTextEditor( String fileName )
+    {
         return new TextEditorPO( bot, fileName );
     }
 
