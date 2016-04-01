@@ -55,4 +55,11 @@ public class LiferayProjectFromExistSourceWizardPO extends WizardPO implements L
         return _sdkVersionText;
     }
 
+    public void importProject( String path )
+    {
+        getProjectDirectoryText().setText( path );
+
+        finish();
+        waitForPageToClose();
+    }
 }
