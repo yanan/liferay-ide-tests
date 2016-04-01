@@ -46,15 +46,14 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
     @After
     public void waitForCreate()
     {
-        //sleep( 5000 );
+        // sleep( 5000 );
     }
 
     @AfterClass
     public static void cleanAll()
     {
-        eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() } );
+        eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, true );
     }
-
 
     @Test
     public void createExtProject()
@@ -165,8 +164,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
     {
         String projectName = "testPortlet";
 
-        CreateProjectWizardPO page1 =
-            new CreateProjectWizardPO( bot, TOOLTIP_MENU_ITEM_NEW_LIFERAY_PROJECT );
+        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot, TOOLTIP_MENU_ITEM_NEW_LIFERAY_PROJECT );
 
         page1.createSDKProject( projectName, MENU_PORTLET, true, false );
 
@@ -207,8 +205,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
 
-        CreateProjectWizardPO page4 =
-            new CreateProjectWizardPO( bot, INDEX_VALIDATION_MESSAGE3 );
+        CreateProjectWizardPO page4 = new CreateProjectWizardPO( bot, INDEX_VALIDATION_MESSAGE3 );
 
         page4.createSDKPortletProject( projectName );
         assertEquals( TEXT_PROJECT_ALREADY_EXISTS, page4.getValidationMessage() );
@@ -284,13 +281,13 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
         page1.next();
 
-        //assertEquals( defaultMessage, page2.getValidationMessage() );
+        // assertEquals( defaultMessage, page2.getValidationMessage() );
 
         page2.setParentFramework( MENU_THEME_PARENT_UNSTYLED, MENU_THEME_FRAMEWORK_JSP );
-        //assertEquals( warningMessage, page2.getValidationMessage() );
+        // assertEquals( warningMessage, page2.getValidationMessage() );
 
         page2.setParentFramework( MENU_THEME_PARENT_CLASSIC, MENU_THEME_FRAMEWORK_VELOCITY );
-        //assertEquals( defaultMessage, page2.getValidationMessage() );
+        // assertEquals( defaultMessage, page2.getValidationMessage() );
 
         page2.setParentFramework( MENU_THEME_PARENT_STYLED, MENU_THEME_FRAMEWORK_FREEMARKER );
 
@@ -307,7 +304,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
             page3.finish();
         }
 
-        //sleep( 5000 );
+        // sleep( 5000 );
 
         deleteProjectInSdk( projectThemeName + "-theme" );
     }
@@ -343,8 +340,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
     {
         String invalidNameDoubleDash = "--";
 
-        CreateProjectWizardPO page1 =
-            new CreateProjectWizardPO( bot, INDEX_VALIDATION_MESSAGE3 );
+        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot, INDEX_VALIDATION_MESSAGE3 );
 
         page1.createSDKPortletProject( invalidNameDoubleDash );
 
@@ -356,7 +352,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
     public static void deleteProjectInSdk( String projectName )
     {
-        eclipse.getPackageExporerView().deleteResouceByName( projectName );
+        eclipse.getPackageExporerView().deleteResouceByName( projectName, true );
     }
 
     private SetSDKLocationPO getSetSDKLoactionPage()
