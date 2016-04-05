@@ -24,14 +24,17 @@ import com.liferay.ide.ui.tests.swtbot.page.ToolbarDropDownButtonPO;
 /**
  * @author Terry Jia
  * @author Vicky Wang
+ * @author Li Lu
  */
 public class CreateLifeayProjecToolbarDropDownButtonPO extends ToolbarDropDownButtonPO implements UIBase
 {
 
+    private MenuItemPO _newLiferayHookConfigration;
+    private MenuItemPO _newLiferayJSFPortlet;
     private MenuItemPO _newLiferayPluginProject;
     private MenuItemPO _newLiferayPortlet;
-    private MenuItemPO _newLiferayHookConfigration;
     private MenuItemPO _newLiferayServer;
+    private MenuItemPO _newLiferayVaadinPortlet;
 
     public CreateLifeayProjecToolbarDropDownButtonPO( SWTBot bot )
     {
@@ -41,8 +44,20 @@ public class CreateLifeayProjecToolbarDropDownButtonPO extends ToolbarDropDownBu
         _newLiferayPortlet = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_PORTLET );
         _newLiferayHookConfigration = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_HOOK_CONFIGURATION );
         _newLiferayServer = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_SERVER );
+        _newLiferayJSFPortlet = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_JSF_PORTLET );
+        _newLiferayVaadinPortlet=new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_VAADIN_PORTLET );
     }
 
+    public MenuItemPO getNewLiferayHookConfigration()
+    {
+        return _newLiferayHookConfigration;
+    }
+
+    public MenuItemPO getNewLiferayJSFPortlet()
+    {
+        return _newLiferayJSFPortlet;
+    }
+    
     public MenuItemPO getNewLiferayPluginProject()
     {
         return _newLiferayPluginProject;
@@ -53,14 +68,14 @@ public class CreateLifeayProjecToolbarDropDownButtonPO extends ToolbarDropDownBu
         return _newLiferayPortlet;
     }
 
-    public MenuItemPO getNewLiferayHookConfigration()
-    {
-        return _newLiferayHookConfigration;
-    }
-
     public MenuItemPO getNewLiferayServer()
     {
         return _newLiferayServer;
+    }
+
+    public MenuItemPO getNewLiferayVaadinPortlet()
+    {
+        return _newLiferayVaadinPortlet;
     }
 
 }

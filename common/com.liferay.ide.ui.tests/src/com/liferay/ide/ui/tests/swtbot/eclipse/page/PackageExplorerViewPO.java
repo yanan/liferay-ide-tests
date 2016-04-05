@@ -52,15 +52,19 @@ public class PackageExplorerViewPO extends ViewPO implements UIBase
         {
             boolean include = false;
 
-            for( String name : names )
+            if( names != null )
             {
-                if( name.equals( itemName ) )
+
+                for( String name : names )
                 {
-                    include = true;
+                    if( name.equals( itemName ) )
+                    {
+                        include = true;
 
-                    break;
+                        break;
+                    }
+
                 }
-
             }
 
             if( !include )
