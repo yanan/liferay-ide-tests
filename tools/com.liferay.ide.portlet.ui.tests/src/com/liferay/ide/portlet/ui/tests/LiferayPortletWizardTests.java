@@ -415,6 +415,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         TreePO porjectTree = eclipse.showPackageExporerView().getProjectTree();
 
         String fileName = "liferay-portlet.xml";
+        sleep(2000);
         porjectTree.expandNode( "test-portlet", "docroot", "WEB-INF" ).doubleClick( fileName );
 
         TextEditorPO liferayPortletEditor = new TextEditorPO( bot, "liferay-portlet.xml" );
@@ -1047,8 +1048,9 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         newLiferayProjectPage.finish();
 
         // relate ticket IDE-2156, regression for IDE-119
+        sleep(2000);
         TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
-
+        
         projectTree.expandNode( "test-portlet", "docroot", "WEB-INF" );
 
         // eclipse.showPackageExporerView().deleteResouceByName( "liferay-display.xml", true );

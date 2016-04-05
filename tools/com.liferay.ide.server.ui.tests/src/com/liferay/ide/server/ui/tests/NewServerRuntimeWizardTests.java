@@ -72,7 +72,7 @@ public class NewServerRuntimeWizardTests extends SWTBotBase implements ServerRun
         bot.tree( 1 ).getTreeItem( serversStopped ).select();
 		bot.toolbarButtonWithTooltip(serverStartButton).click();
 
-		sleep(10000);
+		sleep(60000);
 		assertTrue(checkServerConsoleMessage(SERVER_STARTUP_MESSAGE, "Liferay", 60000));
         // Future: need to add jboss test
     }
