@@ -44,9 +44,9 @@ public class AddAndRemoveProjectPO extends DialogPO implements ServerAction
     {
         super( bot, title, cancelButtonText, confirmButtonText );
 
-        _addButton = new ButtonPO( bot, BUTTON_ADD );
+        _addButton = new ButtonPO( bot, BUTTON_ADD_PROJECT );
         _addAllButton = new ButtonPO( bot, BUTTON_ADD_ALL );
-        _removeButton = new ButtonPO( bot, BUTTON_REMOVE );
+        _removeButton = new ButtonPO( bot, BUTTON_REMOVE_PROJECT );
         _removeAllButton = new ButtonPO( bot, BUTTON_REMOVE_ALL );
     }
 
