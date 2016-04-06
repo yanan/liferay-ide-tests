@@ -10,6 +10,7 @@ Require-Bundle: org.eclipse.ui.workbench,
  org.junit,
  com.liferay.ide.ui.tests,
  org.eclipse.swtbot.go,
- org.eclipse.swtbot.swt.finder
+ org.eclipse.swtbot.swt.finder,
+ com.liferay.ide.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
