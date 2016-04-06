@@ -19,9 +19,14 @@ import com.liferay.ide.ui.tests.UIBase;
 
 /**
  * @author Ashley Yuan
+ * @author Li Lu
  */
 public interface LiferayPortletWizard extends UIBase
 {
+    public final int INDEX_DEFAULT_VALIDATION_PORTLET_MESSAGE = 3;
+    public final int INDEX_VALIDATION_PORTLET_MESSAGE2 = 5;
+    public final int INDEX_VALIDATION_PORTLET_MESSAGE3 = 6;
+    public final int INDEX_VALIDATION_PORTLET_MESSAGE4 = 0;
 
     public final String LABEL_PORTLET_PLUGIN_PROJECT = "Portlet plugin project:";
     public final String LABEL_SOURCE_FOLDER = "Source folder:";

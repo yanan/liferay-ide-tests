@@ -20,79 +20,67 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 import com.liferay.ide.project.ui.tests.ProjectWizard;
 import com.liferay.ide.ui.tests.swtbot.page.RadioPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
-import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
 /**
- * @author Ashley Yuan
  * @author Li Lu
  */
-public class SelectPortletFrameworkPO extends WizardPO implements ProjectWizard
+public class ChoosePortletFrameworkPO extends CreateProjectWizardPO implements ProjectWizard
 {
 
+    static int defaultvalidationMessageIndex = 3;
+    private TextPO _archetypeText;
     private TextPO _displayNameText;
-    private RadioPO _jsfRadio;
+    private RadioPO _jsf2xRadio;
     private RadioPO _liferayMVCRadio;
-    private TextPO _portletNameText;
     private RadioPO _springMVCRadio;
     private RadioPO _vaadinRadio;
 
-    public SelectPortletFrameworkPO( SWTBot bot )
+    RadioPO vaadin;
+
+    public ChoosePortletFrameworkPO( SWTBot bot )
     {
-        this( bot, TEXT_BLANK, INDEX_DEFAULT_VALIDATION_MESSAGE );
+        this( bot, TEXT_BLANK, defaultvalidationMessageIndex );
+
     }
 
-    public SelectPortletFrameworkPO( SWTBot bot, String title )
+    public ChoosePortletFrameworkPO( SWTBot bot, String title, int validationMessageIndex )
     {
-        this( bot, title, INDEX_DEFAULT_VALIDATION_MESSAGE );
-    }
-
-    public SelectPortletFrameworkPO( SWTBot bot, String title, int indexValidationMessage )
-    {
-        super( bot, title, BUTTON_BACK, BUTTON_NEXT, BUTTON_FINISH, BUTTON_CANCEL );
-
+        super( bot, title, validationMessageIndex );
         _liferayMVCRadio = new RadioPO( bot, LABEL_LIFERAY_MVC_FRAMEWORK );
-        _jsfRadio = new RadioPO( bot, LABEL_JSF_FRAMEWORK );
+        _jsf2xRadio = new RadioPO( bot, LABEL_JSF_FRAMEWORK );
         _springMVCRadio = new RadioPO( bot, LABEL_SPRING_MVC_FRAMEWORK );
         _vaadinRadio = new RadioPO( bot, LABEL_VAADIN_FRAMEWORK );
-        _portletNameText = new TextPO( bot, LABEL_PORTLET_NAME );
         _displayNameText = new TextPO( bot, LABEL_DISPLAY_NAME );
+        _archetypeText = new TextPO( bot, LABLE_ARCHETYPE );
     }
 
-    public SelectPortletFrameworkPO( SWTBot bot, String title, String radio )
+    public TextPO getArchetypeText()
     {
-        this( bot, title );
-
-        selectFramework( radio );
+        return _archetypeText;
     }
 
-    public boolean IsLiferayMVCRadioSelected()
+    public TextPO getDisplayNameText()
     {
-        return _liferayMVCRadio.isSelected();
+        return _displayNameText;
     }
 
-    public void selectFramework( String radio )
+    public void selectPortletFramework( String label )
     {
-        if( radio.equals( _liferayMVCRadio.getLabel() ) )
+        switch( label )
         {
+        case LABEL_LIFERAY_MVC_FRAMEWORK:
+
             _liferayMVCRadio.click();
-        }
-        else if( radio.equals( _jsfRadio.getLabel() ) )
-        {
-            _jsfRadio.click();
-        }
-        else if( radio.equals( _springMVCRadio.getLabel() ) )
-        {
+            break;
+        case LABEL_JSF_FRAMEWORK:
+            _jsf2xRadio.click();
+            break;
+
+        case LABEL_SPRING_MVC_FRAMEWORK:
             _springMVCRadio.click();
-        }
-        else if( radio.equals( _vaadinRadio.getLabel() ) )
-        {
+            break;
+        case LABEL_VAADIN_FRAMEWORK:
             _vaadinRadio.click();
         }
-    }
-
-    public void setProjectNameAndDisplayName( String projectName, String displayName )
-    {
-        _portletNameText.setText( projectName );
-        _displayNameText.setText( displayName );
     }
 }

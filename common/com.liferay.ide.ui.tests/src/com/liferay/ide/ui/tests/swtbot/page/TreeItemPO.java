@@ -61,6 +61,11 @@ public class TreeItemPO extends AbstractWidgetPO
         getWidget().doubleClick();
     }
 
+    public void doubleClick( String node )
+    {
+        getWidget().getNode( node ).doubleClick();
+    }
+
     public void expand()
     {
         sleep();
@@ -105,6 +110,16 @@ public class TreeItemPO extends AbstractWidgetPO
         }
 
         return subNodes;
+    }
+
+    public TreeItemPO getTreeItem( String... items )
+    {
+        String[] fullNodeText = new String[_nodeText.length + items.length];
+
+        System.arraycopy( _nodeText, 0, fullNodeText, 0, _nodeText.length );
+        System.arraycopy( items, 0, fullNodeText, _nodeText.length, items.length );
+
+        return new TreeItemPO( bot, _tree, fullNodeText );
     }
 
     @Override
@@ -170,10 +185,5 @@ public class TreeItemPO extends AbstractWidgetPO
 
         treeItem.select();
 
-    }
-
-    public void doubleClick( String node )
-    {
-        getWidget().getNode( node ).doubleClick();
     }
 }
