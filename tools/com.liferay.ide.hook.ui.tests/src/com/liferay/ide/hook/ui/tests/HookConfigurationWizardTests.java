@@ -62,7 +62,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
     @AfterClass
     public static void cleanAll()
     {
-        eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() } );
+        eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, true );
     }
 
     private SetSDKLocationPO getSetSDKLoactionPage()

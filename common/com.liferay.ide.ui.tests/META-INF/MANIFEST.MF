@@ -28,5 +28,7 @@ Require-Bundle: org.apache.log4j,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: com.liferay.ide.ui.tests,
+ com.liferay.ide.ui.tests.swtbot.condition,
  com.liferay.ide.ui.tests.swtbot.eclipse.page,
- com.liferay.ide.ui.tests.swtbot.page
+ com.liferay.ide.ui.tests.swtbot.page,
+ com.liferay.ide.ui.tests.util

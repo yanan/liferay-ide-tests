@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,53 +55,123 @@ import org.xml.sax.ErrorHandler;
 public class FileUtil
 {
 
-    public static void deleteDir( File directory, boolean removeAll )
+    public static void copyDirectiory( String sourceDir, String targetDir ) throws IOException
     {
-        if( directory == null || !directory
-            .isDirectory() )
+        ( new File( targetDir ) ).mkdirs();
+
+        File[] file = ( new File( sourceDir ) ).listFiles();
+
+        for( int i = 0; i < file.length; i++ )
+        {
+            if( file[i].isFile() )
+            {
+                File sourceFile = file[i];
+                File targetFile =
+                    new File( new File( targetDir ).getAbsolutePath() + File.separator + file[i].getName() );
+
+                copyFile( sourceFile, targetFile );
+
+            }
+
+            if( file[i].isDirectory() )
+            {
+                String dir1 = sourceDir + "/" + file[i].getName();
+                String dir2 = targetDir + "/" + file[i].getName();
+
+                copyDirectiory( dir1, dir2 );
+            }
+        }
+    }
+
+    public static void copyFile( File src, File dest )
+    {
+        if( src == null || ( !src.exists() ) || dest == null || dest.isDirectory() )
         {
             return;
         }
 
-        for( File file : directory
-            .listFiles() )
+        byte[] buf = new byte[4096];
+
+        OutputStream out = null;
+        FileInputStream in = null;
+
+        try
         {
-            if( file
-                .isDirectory() && removeAll )
+            out = new FileOutputStream( dest );
+            in = new FileInputStream( src );
+
+            int avail = in.read( buf );
+            while( avail > 0 )
+            {
+                out.write( buf, 0, avail );
+                avail = in.read( buf );
+            }
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                if( in != null )
+                    in.close();
+            }
+            catch( Exception ex )
+            {
+                // ignore
+            }
+            try
+            {
+                if( out != null )
+                    out.close();
+            }
+            catch( Exception ex )
+            {
+                // ignore
+            }
+        }
+    }
+
+    public static void deleteDir( File directory, boolean removeAll )
+    {
+        if( directory == null || !directory.isDirectory() )
+        {
+            return;
+        }
+
+        for( File file : directory.listFiles() )
+        {
+            if( file.isDirectory() && removeAll )
             {
                 deleteDir( file, removeAll );
             }
             else
             {
-                file
-                    .delete();
+                file.delete();
             }
         }
 
-        directory
-            .delete();
+        directory.delete();
     }
 
     public static void deleteDirContents( final File directory )
     {
-        if( directory == null || !directory
-            .isDirectory() )
+        if( directory == null || !directory.isDirectory() )
         {
             return;
         }
 
-        for( File file : directory
-            .listFiles() )
+        for( File file : directory.listFiles() )
         {
-            if( file
-                .isDirectory() )
+            if( file.isDirectory() )
             {
                 deleteDir( file, true );
             }
             else
             {
-                file
-                    .delete();
+                file.delete();
             }
         }
 
@@ -108,30 +179,23 @@ public class FileUtil
 
     public static File[] getDirectories( File directory )
     {
-        return directory
-            .listFiles( new FileFilter()
-            {
+        return directory.listFiles( new FileFilter()
+        {
 
-                public boolean accept( File file )
-                {
-                    return file
-                        .isDirectory();
-                }
-            } );
+            public boolean accept( File file )
+            {
+                return file.isDirectory();
+            }
+        } );
     }
 
     public static IContainer getWorkspaceContainer( final File f )
     {
-        final IWorkspace ws = ResourcesPlugin
-            .getWorkspace();
-        final IWorkspaceRoot wsroot = ws
-            .getRoot();
-        final IPath path = new Path( f
-            .getAbsolutePath() );
+        final IWorkspace ws = ResourcesPlugin.getWorkspace();
+        final IWorkspaceRoot wsroot = ws.getRoot();
+        final IPath path = new Path( f.getAbsolutePath() );
 
-        final IContainer[] wsContainers = wsroot
-            .findContainersForLocationURI( path
-                .toFile().toURI() );
+        final IContainer[] wsContainers = wsroot.findContainersForLocationURI( path.toFile().toURI() );
 
         if( wsContainers.length > 0 )
         {
@@ -143,23 +207,17 @@ public class FileUtil
 
     public static IFile getWorkspaceFile( final File f, String expectedProjectName )
     {
-        final IWorkspace ws = ResourcesPlugin
-            .getWorkspace();
-        final IWorkspaceRoot wsroot = ws
-            .getRoot();
-        final IPath path = new Path( f
-            .getAbsolutePath() );
+        final IWorkspace ws = ResourcesPlugin.getWorkspace();
+        final IWorkspaceRoot wsroot = ws.getRoot();
+        final IPath path = new Path( f.getAbsolutePath() );
 
-        final IFile[] wsFiles = wsroot
-            .findFilesForLocationURI( path
-                .toFile().toURI() );
+        final IFile[] wsFiles = wsroot.findFilesForLocationURI( path.toFile().toURI() );
 
         if( wsFiles.length > 0 )
         {
             for( IFile wsFile : wsFiles )
             {
-                if( wsFile
-                    .getProject().getName().equals( expectedProjectName ) )
+                if( wsFile.getProject().getName().equals( expectedProjectName ) )
                 {
                     return wsFile;
                 }
@@ -171,21 +229,17 @@ public class FileUtil
 
     public static void mkdirs( final File f ) throws CoreException
     {
-        if( f
-            .exists() )
+        if( f.exists() )
         {
-            if( f
-                .isFile() )
+            if( f.isFile() )
             {
-                final String msg = NLS
-                    .bind( Msgs.locationIsFile, f
-                        .getAbsolutePath() );
+                final String msg = NLS.bind( Msgs.locationIsFile, f.getAbsolutePath() );
+
             }
         }
         else
         {
-            mkdirs( f
-                .getParentFile() );
+            mkdirs( f.getParentFile() );
 
             final IContainer wsContainer = getWorkspaceContainer( f );
 
@@ -194,19 +248,16 @@ public class FileUtil
                 // Should be a folder...
 
                 final IFolder iFolder = (IFolder) wsContainer;
-                iFolder
-                    .create( true, true, null );
+                iFolder.create( true, true, null );
             }
             else
             {
-                final boolean isSuccessful = f
-                    .mkdir();
+                final boolean isSuccessful = f.mkdir();
 
                 if( !isSuccessful )
                 {
-                    final String msg = NLS
-                        .bind( Msgs.failedToCreateDirectory, f
-                            .getAbsolutePath() );
+                    final String msg = NLS.bind( Msgs.failedToCreateDirectory, f.getAbsolutePath() );
+
                 }
             }
         }
@@ -224,8 +275,7 @@ public class FileUtil
             return null;
         }
 
-        if( !file
-            .exists() )
+        if( !file.exists() )
         {
             return null;
         }
@@ -241,17 +291,13 @@ public class FileUtil
 
             String line;
 
-            while( ( line = bufferedReader
-                .readLine() ) != null )
+            while( ( line = bufferedReader.readLine() ) != null )
             {
-                contents
-                    .append( line );
+                contents.append( line );
 
                 if( includeNewlines )
                 {
-                    contents
-                        .append( System
-                            .getProperty( "line.separator" ) );
+                    contents.append( System.getProperty( "line.separator" ) );
                 }
             }
         }
@@ -264,8 +310,7 @@ public class FileUtil
             {
                 try
                 {
-                    bufferedReader
-                        .close();
+                    bufferedReader.close();
                 }
                 catch( IOException e )
                 {
@@ -274,8 +319,7 @@ public class FileUtil
             }
         }
 
-        return contents
-            .toString();
+        return contents.toString();
     }
 
     public static String[] readLinesFromFile( File file )
@@ -285,8 +329,7 @@ public class FileUtil
             return null;
         }
 
-        if( !file
-            .exists() )
+        if( !file.exists() )
         {
             return null;
         }
@@ -302,11 +345,9 @@ public class FileUtil
 
             String line;
 
-            while( ( line = bufferedReader
-                .readLine() ) != null )
+            while( ( line = bufferedReader.readLine() ) != null )
             {
-                lines
-                    .add( line );
+                lines.add( line );
             }
         }
         catch( Exception e )
@@ -318,8 +359,7 @@ public class FileUtil
             {
                 try
                 {
-                    bufferedReader
-                        .close();
+                    bufferedReader.close();
                 }
                 catch( Exception e )
                 {
@@ -328,36 +368,29 @@ public class FileUtil
             }
         }
 
-        return lines
-            .toArray( new String[lines
-                .size()] );
+        return lines.toArray( new String[lines.size()] );
     }
 
     public static Document readXML( InputStream inputStream, EntityResolver resolver, ErrorHandler error )
     {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory
-            .newInstance();
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db;
 
         try
         {
-            db = dbf
-                .newDocumentBuilder();
+            db = dbf.newDocumentBuilder();
 
             if( resolver != null )
             {
-                db
-                    .setEntityResolver( resolver );
+                db.setEntityResolver( resolver );
             }
 
             if( error != null )
             {
-                db
-                    .setErrorHandler( error );
+                db.setErrorHandler( error );
             }
 
-            return db
-                .parse( inputStream );
+            return db.parse( inputStream );
         }
         catch( Throwable SWTBot )
         {
@@ -367,8 +400,7 @@ public class FileUtil
 
     public static Document readXML( String content )
     {
-        return readXML( new ByteArrayInputStream( content
-            .getBytes() ), null, null );
+        return readXML( new ByteArrayInputStream( content.getBytes() ), null, null );
     }
 
     public static Document readXMLFile( File file )
@@ -378,23 +410,19 @@ public class FileUtil
 
     public static Document readXMLFile( File file, EntityResolver resolver )
     {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory
-            .newInstance();
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db;
 
         try
         {
-            db = dbf
-                .newDocumentBuilder();
+            db = dbf.newDocumentBuilder();
 
             if( resolver != null )
             {
-                db
-                    .setEntityResolver( resolver );
+                db.setEntityResolver( resolver );
             }
 
-            return db
-                .parse( file );
+            return db.parse( file );
         }
         catch( Throwable SWTBot )
         {
@@ -402,25 +430,20 @@ public class FileUtil
         }
     }
 
-    public static boolean searchAndReplace( File file, String search, String replace )
-        throws FileNotFoundException, IOException
+    public static boolean searchAndReplace( File file, String search, String replace ) throws FileNotFoundException,
+        IOException
     {
         boolean replaced = false;
 
-        if( file
-            .exists() )
+        if( file.exists() )
         {
-            final String searchContents = CoreUtil
-                .readStreamToString( new FileInputStream( file ) );
+            final String searchContents = CoreUtil.readStreamToString( new FileInputStream( file ) );
 
-            final String replaceContents = searchContents
-                .replaceAll( search, replace );
+            final String replaceContents = searchContents.replaceAll( search, replace );
 
-            replaced = !searchContents
-                .equals( replaceContents );
+            replaced = !searchContents.equals( replaceContents );
 
-            CoreUtil
-                .writeStreamFromString( replaceContents, new FileOutputStream( file ) );
+            CoreUtil.writeStreamFromString( replaceContents, new FileOutputStream( file ) );
         }
 
         return replaced;
@@ -428,13 +451,10 @@ public class FileUtil
 
     public static void validateEdit( final IFile... files ) throws CoreException
     {
-        final IWorkspace ws = ResourcesPlugin
-            .getWorkspace();
-        final IStatus st = ws
-            .validateEdit( files, IWorkspace.VALIDATE_PROMPT );
+        final IWorkspace ws = ResourcesPlugin.getWorkspace();
+        final IStatus st = ws.validateEdit( files, IWorkspace.VALIDATE_PROMPT );
 
-        if( st
-            .getSeverity() == IStatus.ERROR )
+        if( st.getSeverity() == IStatus.ERROR )
         {
             throw new CoreException( st );
         }
@@ -447,34 +467,27 @@ public class FileUtil
             return null;
         }
 
-        if( CoreUtil
-            .isNullOrEmpty( folderValue ) )
+        if( CoreUtil.isNullOrEmpty( folderValue ) )
         {
             return Msgs.folderValueNotEmpty;
         }
 
-        if( !Path.ROOT
-            .isValidPath( folderValue ) )
+        if( !Path.ROOT.isValidPath( folderValue ) )
         {
             return Msgs.folderValueInvalid;
         }
 
-        IWorkspace workspace = ResourcesPlugin
-            .getWorkspace();
+        IWorkspace workspace = ResourcesPlugin.getWorkspace();
 
-        IStatus result = workspace
-            .validatePath( folder
-                .getFolder( folderValue ).getFullPath().toString(), IResource.FOLDER );
+        IStatus result =
+            workspace.validatePath( folder.getFolder( folderValue ).getFullPath().toString(), IResource.FOLDER );
 
-        if( !result
-            .isOK() )
+        if( !result.isOK() )
         {
-            return result
-                .getMessage();
+            return result.getMessage();
         }
 
-        if( folder
-            .getFolder( new Path( folderValue ) ).exists() )
+        if( folder.getFolder( new Path( folderValue ) ).exists() )
         {
             return Msgs.folderAlreadyExists;
         }
@@ -494,26 +507,21 @@ public class FileUtil
 
         // Keep reading from the file while there is any content
         // when the end of the stream has been reached, -1 is returned
-        while( ( bytesRead = bin
-            .read( buffer ) ) != -1 )
+        while( ( bytesRead = bin.read( buffer ) ) != -1 )
         {
-            out
-                .write( buffer, 0, bytesRead );
+            out.write( buffer, 0, bytesRead );
             bytesTotal += bytesRead;
         }
 
         if( bin != null )
         {
-            bin
-                .close();
+            bin.close();
         }
 
         if( out != null )
         {
-            out
-                .flush();
-            out
-                .close();
+            out.flush();
+            out.close();
         }
 
         return bytesTotal;
@@ -530,8 +538,7 @@ public class FileUtil
 
         static
         {
-            initializeMessages( FileUtil.class
-                .getName(), Msgs.class );
+            initializeMessages( FileUtil.class.getName(), Msgs.class );
         }
     }
 

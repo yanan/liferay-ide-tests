@@ -38,11 +38,14 @@ public class PackageExplorerViewPO extends ViewPO implements UIBase
 
         _projectsTree = new TreePO( bot );
         _deleteResourcesDialog = new DeleteResourcesDialogPO( bot );
-        _continueDeleteResourcesDialog = new DialogPO( bot, BUTTON_CANCEL, BUTTON_CONTINUE );
+        _continueDeleteResourcesDialog = new DialogPO( bot, TITLE_DELETE_RESOURCES, BUTTON_CANCEL, BUTTON_CONTINUE );
     }
 
-    public void deleteProjectExcludeNames( String[] names )
+    public void deleteProjectExcludeNames( String[] names, boolean deleteFromDisk )
     {
+        if( !_projectsTree.hasItems() )
+            return;
+
         String[] allItemNames = _projectsTree.getAllItems();
 
         for( String itemName : allItemNames )
@@ -62,36 +65,36 @@ public class PackageExplorerViewPO extends ViewPO implements UIBase
 
             if( !include )
             {
-                deleteResouceByName( itemName );
+                deleteResouceByName( itemName, deleteFromDisk );
             }
         }
     }
 
-    public void deleteResoucesByNames( String[] names )
+    public void deleteResoucesByNames( String[] names, boolean deleteFromDisk )
     {
         for( String name : names )
         {
-            deleteResouceByName( name );
+            deleteResouceByName( name, deleteFromDisk );
         }
     }
 
-    public void deleteResouceByName( String name )
+    public void deleteResouceByName( String name, boolean deleteFromDisk )
     {
+        if( !_projectsTree.hasItems() )
+            return;
+
         _projectsTree.getTreeItem( name ).doAction( BUTTON_DELETE );
 
-        _deleteResourcesDialog.confirmDeleteFromDisk();
-
-        sleep(500);
+        sleep( 500 );
+        if( deleteFromDisk )
+        {
+            _deleteResourcesDialog.confirmDeleteFromDisk();
+        }
 
         _deleteResourcesDialog.confirm();
 
-        try
-        {
-            _continueDeleteResourcesDialog.confirm();
-        }
-        catch( Exception e )
-        {
-        }
+        sleep( 1000 );
+        _continueDeleteResourcesDialog.closeIfOpen();
     }
 
     public boolean hasProjects()
@@ -99,7 +102,8 @@ public class PackageExplorerViewPO extends ViewPO implements UIBase
         return _projectsTree.hasItems();
     }
 
-    public TreePO getProjectTree() {
+    public TreePO getProjectTree()
+    {
         return _projectsTree;
     }
 

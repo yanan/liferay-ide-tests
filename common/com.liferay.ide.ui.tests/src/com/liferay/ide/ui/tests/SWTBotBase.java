@@ -19,10 +19,13 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.SWT;
@@ -149,6 +152,13 @@ public class SWTBotBase implements UIBase
         return "liferay-portal-7.0-ce-b8/";
     }
 
+    protected File getProjectZip( String bundleId, String projectName ) throws IOException
+    {
+        final URL projectZipUrl = Platform.getBundle( bundleId ).getEntry( "projects/" + projectName + ".zip" );
+
+        final File projectZipFile = new File( FileLocator.toFileURL( projectZipUrl ).getFile() );
+        return projectZipFile;
+    }
 
     protected static void unzipPluginsSDK() throws IOException
     {
