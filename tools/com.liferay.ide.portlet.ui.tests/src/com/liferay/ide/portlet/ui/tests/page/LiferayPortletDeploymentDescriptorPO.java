@@ -43,7 +43,9 @@ public class LiferayPortletDeploymentDescriptorPO extends WizardPO implements Li
     private TextPO _entryWeightText;
     private CheckBoxPO _createEntryClassCheckbox;
     private TextPO _entryClassText;
-    private ButtonPO _browseButton;
+    private ButtonPO _browseIconButton;
+    private ButtonPO _browseCssButton;
+    private ButtonPO _browseJavaScriptButton;
 
     public LiferayPortletDeploymentDescriptorPO( SWTBot bot, int validationMessageIndex )
     {
@@ -67,12 +69,24 @@ public class LiferayPortletDeploymentDescriptorPO extends WizardPO implements Li
         _entryWeightText = new TextPO( bot, LABEL_ENTRY_WEIGHT );
         _createEntryClassCheckbox = new CheckBoxPO( bot, CHECKBOX_CREATE_ENTRY_CLASS );
         _entryClassText = new TextPO( bot, LABEL_ENTRY_CLASS );
-        _browseButton = new ButtonPO( bot, BUTTON_BROWSE );
+        _browseIconButton = new ButtonPO( bot, BUTTON_BROWSE, 0 );
+        _browseCssButton = new ButtonPO( bot, BUTTON_BROWSE, 1 );
+        _browseJavaScriptButton = new ButtonPO( bot, BUTTON_BROWSE, 2 );
     }
 
-    protected ButtonPO getBrowseButton()
+    public ButtonPO get_browseIconButton()
     {
-        return _browseButton;
+        return _browseIconButton;
+    }
+
+    public ButtonPO get_browseCssButton()
+    {
+        return _browseCssButton;
+    }
+
+    public ButtonPO get_browseJavaScriptButton()
+    {
+        return _browseJavaScriptButton;
     }
 
     public String getCssClassWrapperText()

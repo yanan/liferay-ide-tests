@@ -83,27 +83,33 @@ public class PortletDeploymentDescriptorPO extends WizardPO implements LiferayPo
         _resourceBundleFilePathText = new TextPO( bot, LABEL_RESOURCE_BUNDLE_FILE_PATH );
     }
 
-    public CheckBoxPO getAboutCheckBox() {
+    public CheckBoxPO getAboutCheckBox()
+    {
         return _aboutLiferayPortletModeCheckbox;
     }
 
-    public CheckBoxPO getConfigCheckBox() {
+    public CheckBoxPO getConfigCheckBox()
+    {
         return _configLiferayPortletModeCheckbox;
     }
 
-    public CheckBoxPO getEditDefaultsCheckBox() {
+    public CheckBoxPO getEditDefaultsCheckBox()
+    {
         return _editDefaultsLiferayPortletModeCheckbox;
     }
 
-    public CheckBoxPO getEditGuestCheckBox() {
+    public CheckBoxPO getEditGuestCheckBox()
+    {
         return _configLiferayPortletModeCheckbox;
     }
 
-    public CheckBoxPO getPreviewCheckBox() {
+    public CheckBoxPO getPreviewCheckBox()
+    {
         return _previewLiferayPortletModeCheckbox;
     }
 
-    public CheckBoxPO getPrintCheckBox() {
+    public CheckBoxPO getPrintCheckBox()
+    {
         return _printLiferayPortletModeCheckbox;
     }
 
@@ -132,24 +138,24 @@ public class PortletDeploymentDescriptorPO extends WizardPO implements LiferayPo
         return _resourceBundleFilePathText.getText();
     }
 
-    public boolean isBundleFilePathEnabled()
+    public CheckBoxPO get_viewPortletModeCheckbox()
     {
-        return this._resourceBundleFilePathText.isEnabled();
+        return _viewPortletModeCheckbox;
     }
 
-    public boolean isCreateJspFilesChecked()
+    public CheckBoxPO get_createJspFilesCheckbox()
     {
-        return _createJspFilesCheckbox.isChecked();
+        return _createJspFilesCheckbox;
     }
 
-    public boolean isCreateResourceBundleFileChecked()
+    public CheckBoxPO get_createResourceBundleFileCheckbox()
     {
-        return _createResourceBundleFileCheckbox.isChecked();
+        return _createResourceBundleFileCheckbox;
     }
 
-    public boolean isViewPortletModeChecked()
+    public TextPO get_resourceBundleFilePathText()
     {
-        return _viewPortletModeCheckbox.isChecked();
+        return _resourceBundleFilePathText;
     }
 
     public void setDisplayName( String displayName )

@@ -41,7 +41,10 @@ public class CreateLiferayPortletWizardPO extends WizardPO implements LiferayPor
     private TextPO _portletClassText;
     private TextPO _javaPackageText;
     private ComboBoxPO _superClassCombobox;
-    private ButtonPO _browseButton;
+    private ButtonPO _browseSourceButton;
+    private ButtonPO _browsePackageButton;
+    private ButtonPO _browseSuperclassButton;
+
 
     public CreateLiferayPortletWizardPO( SWTBot bot )
     {
@@ -64,12 +67,24 @@ public class CreateLiferayPortletWizardPO extends WizardPO implements LiferayPor
         _portletClassText = new TextPO( bot, LABEL_PORTLET_CLASS );
         _javaPackageText = new TextPO( bot, LABEL_JAVA_PACKAGE );
         _superClassCombobox = new ComboBoxPO( bot, LABEL_SUPERCLASS );
-        _browseButton = new ButtonPO( bot, BUTTON_BROWSE );
+        _browseSourceButton = new ButtonPO( bot, BUTTON_BROWSE );
+        _browsePackageButton = new ButtonPO( bot, BUTTON_BROWSE, 1 );
+        _browseSuperclassButton = new ButtonPO( bot, BUTTON_BROWSE, 2 );
     }
 
-    public ButtonPO getBrowseButton()
+    public ButtonPO get_browseSourceButton()
     {
-        return _browseButton;
+        return _browseSourceButton;
+    }
+
+    public ButtonPO get_browsePackageButton()
+    {
+        return _browsePackageButton;
+    }
+
+    public ButtonPO get_browseSuperclassButton()
+    {
+        return _browseSuperclassButton;
     }
 
     public void createLiferayPortlet( boolean defaultMvc )
@@ -139,6 +154,16 @@ public class CreateLiferayPortletWizardPO extends WizardPO implements LiferayPor
         createLiferayPortlet( projectName, null, false, portletClass, javaPackage, superClass );
     }
 
+    public RadioPO get_createNewPortletRadio()
+    {
+        return _createNewPortletRadio;
+    }
+
+    public RadioPO get_useDefaultPortletRadio()
+    {
+        return _useDefaultPortletRadio;
+    }
+
     public String[] getAvailableSuperclasses()
     {
         return _superClassCombobox.getAvailableComboValues();
@@ -177,12 +202,6 @@ public class CreateLiferayPortletWizardPO extends WizardPO implements LiferayPor
     public boolean isPortletClassTextEnabled()
     {
         return _portletClassText.isEnabled();
-    }
-
-    public boolean isRadioSelected( String radioLabel )
-    {
-        RadioPO radio = new RadioPO( bot, radioLabel );
-        return radio.isSelected();
     }
 
     public boolean isSuperClassComboboxEnabled()

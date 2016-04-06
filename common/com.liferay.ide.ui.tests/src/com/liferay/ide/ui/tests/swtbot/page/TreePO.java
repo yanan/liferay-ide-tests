@@ -22,6 +22,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 
 /**
  * @author Li Lu
+ * @author Ashley Yuan
  */
 public class TreePO extends AbstractWidgetPO
 {
@@ -98,9 +99,8 @@ public class TreePO extends AbstractWidgetPO
         for( int i = 1; i < items.length; i++ )
         {
             treeItem.expand();
-            treeItem = treeItem.getNode( items[i] ).expand();
+            treeItem = treeItem.getNode( items[i] );
         }
-
         treeItem.select();
     }
 
@@ -119,6 +119,6 @@ public class TreePO extends AbstractWidgetPO
         getWidget().expandNode( nodes );
 
         return new TreeItemPO( bot, this, nodes );
-    }
 
+    }
 }

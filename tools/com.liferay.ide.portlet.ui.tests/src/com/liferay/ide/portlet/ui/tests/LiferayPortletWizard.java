@@ -23,8 +23,9 @@ import com.liferay.ide.ui.tests.UIBase;
 public interface LiferayPortletWizard extends UIBase
 {
 
+    public final String TOOLTIP_MENU_ITEM_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
+
     public final String LABEL_PORTLET_PLUGIN_PROJECT = "Portlet plugin project:";
-    public final String LABEL_SOURCE_FOLDER = "Source folder:";
     public final String LABEL_PORTLET_CLASS = "Portlet class:";
     public final String LABEL_JAVA_PACKAGE = "Java package:";
     public final String LABEL_SUPERCLASS = "Superclass:";
@@ -32,7 +33,6 @@ public interface LiferayPortletWizard extends UIBase
     public final String RADIO_CREATE_NEW_PORTLET = "Create new portlet";
     public final String RADIO_USE_DEFAULT_PORTLET = "Use default portlet (MVCPortlet)";
 
-    public final String LABEL_NAME = "Name:";
     // public final String LABEL_DISPLAY_NAME = "Display name:";
     public final String LABEL_TITLE = "Title:";
 
@@ -130,15 +130,22 @@ public interface LiferayPortletWizard extends UIBase
     public String[] availableSuperclasses = { "com.liferay.util.bridges.mvc.MVCPortlet",
         "com.liferay.portal.kernel.portlet.LiferayPortlet", "javax.portlet.GenericPortlet" };
 
-    public String[] availableDisplayCategories = { "OpenSocial", "Portal", "Tools", "Content", "Social",
+    public String[] availableDisplayCategories62 = { "OpenSocial", "Portal", "Tools", "Content", "Social",
         "Collaboration", "Google", "Sun", "Shopping", "Workflow", "Finance", "Community", "World of Liferay", "WSRP",
         "Christianity", "Spring", "Content Management", "Sandbox", "Test", "Gadgets", "Marketplace", "Library",
         "Entertainment", "Alfresco", "Knowledge Base", "Religion", "Wiki", "Admin", "Undefined", "Development",
         "Sample", "Science", "Web Content Management", "News" };
 
-    public String[] availableEntryCategories =
+    public String[] availableEntryCategories62 =
         { "Control Panel - Apps", "Control Panel - Configuration", "My Account Administration",
             "Site Administration - Configuration", "Site Administration - Content", "Site Administration - Pages",
             "Site Administration - Users", "Control Panel - Sites", "Control Panel - Users" };
+    
+    public String[] availableDisplayCategories70 = { "Community","Configuration","Undefined","Sandbox","Sun","System","Gadgets","Shopping","Publishing Tools","WSRP","Test","Portal","Religion","Google","Collaboration","Alfresco","Library","Workflow","News","Knowledge Base","Sample","Entertainment","Content Management","Spring","Sites","World of Liferay","Users","Science","Development","Apps","Finance","Marketplace","Social","OpenSocial","Content","Admin","Christianity","Tools" };
+
+    public String[] availableEntryCategories70 =
+        { "Control Panel - null", "Control Panel - null", "My Account Administration",
+            "Site Administration - Configuration", "Site Administration - Content", "Site Administration - Pages",
+            "Site Administration - Users", "Control Panel - null", "Control Panel - null" };
 
 }

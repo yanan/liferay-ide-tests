@@ -24,6 +24,7 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
  */
 public abstract class AbstractPO
 {
+
     protected final Logger log;
 
     protected final SWTBot bot;
