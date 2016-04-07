@@ -25,8 +25,8 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 public class TreeItemPO extends AbstractWidgetPO
 {
 
-    private String[] _nodeText;
-    private TreePO _tree;
+    protected String[] _nodeText;
+    protected TreePO _tree;
 
     public TreeItemPO( SWTBot bot )
     {
