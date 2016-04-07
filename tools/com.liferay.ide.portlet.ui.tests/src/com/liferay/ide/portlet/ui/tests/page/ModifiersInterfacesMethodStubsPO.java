@@ -19,6 +19,7 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import com.liferay.ide.portlet.ui.tests.LiferayPortletWizard;
 import com.liferay.ide.project.ui.tests.ProjectWizard;
+import com.liferay.ide.ui.tests.swtbot.page.ButtonPO;
 import com.liferay.ide.ui.tests.swtbot.page.CheckBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.TablePO;
 import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
@@ -32,6 +33,9 @@ public class ModifiersInterfacesMethodStubsPO extends WizardPO implements Lifera
     private CheckBoxPO _publicCheckbox;
     private CheckBoxPO _abstractCheckbox;
     private CheckBoxPO _finalCheckbox;
+
+    private ButtonPO _addButton;
+    private ButtonPO _removeButton;
 
     private TablePO _interfacesTable;
 
@@ -65,6 +69,8 @@ public class ModifiersInterfacesMethodStubsPO extends WizardPO implements Lifera
         _abstractCheckbox = new CheckBoxPO( bot, LABEL_ABSTRACT );
         _finalCheckbox = new CheckBoxPO( bot, LABEL_FINAL );
         _interfacesTable = new TablePO( bot, LABEL_INTERFACES );
+        _addButton = new ButtonPO( bot, BUTTON_ADD );
+        _removeButton = new ButtonPO( bot, BUTTON_REMOVE );
         _constrcutFromSuperClassCheckbox = new CheckBoxPO( bot, LABEL_CONSTRUCTORS_FROM_SUPERCLASS );
         _inheritedAbstractMethodsCheckbox = new CheckBoxPO( bot, LABEL_INHERITED_ABSTRACT_METHODS );
         _initCheckbox = new CheckBoxPO( bot, LABEL_INIT );
@@ -82,194 +88,214 @@ public class ModifiersInterfacesMethodStubsPO extends WizardPO implements Lifera
         _serveResourceCheckbox = new CheckBoxPO( bot, LABEL_SERVERESOURCE );
     }
 
-    public boolean isAbstractChecked()
+    public ButtonPO get_addButton()
     {
-        return _abstractCheckbox.isChecked();
+        return _addButton;
     }
 
-    public boolean isAbstractEnabled()
+    public ButtonPO get_removeButton()
     {
-        return _abstractCheckbox.isEnabled();
+        return _removeButton;
     }
 
-    public boolean isConstrcutFromSuperClassChecked()
+    public CheckBoxPO get_publicCheckbox()
     {
-        return _constrcutFromSuperClassCheckbox.isChecked();
+        return _publicCheckbox;
     }
 
-    public boolean isConstrcutFromSuperClassEnabled()
+    public void set_publicCheckbox( CheckBoxPO _publicCheckbox )
     {
-        return _constrcutFromSuperClassCheckbox.isEnabled();
+        this._publicCheckbox = _publicCheckbox;
     }
 
-    public boolean isCreateEntryClassChecked()
+    public CheckBoxPO get_abstractCheckbox()
     {
-        return _createEntryClassCheckbox.isChecked();
+        return _abstractCheckbox;
     }
 
-    public boolean isCreateEntryClassEnabled()
+    public void set_abstractCheckbox( CheckBoxPO _abstractCheckbox )
     {
-        return _createEntryClassCheckbox.isEnabled();
+        this._abstractCheckbox = _abstractCheckbox;
     }
 
-    public boolean isDestoryChecked()
+    public CheckBoxPO get_finalCheckbox()
     {
-        return _destoryCheckbox.isChecked();
+        return _finalCheckbox;
     }
 
-    public boolean isDestoryEnabled()
+    public void set_finalCheckbox( CheckBoxPO _finalCheckbox )
     {
-        return _destoryCheckbox.isEnabled();
+        this._finalCheckbox = _finalCheckbox;
     }
 
-    public boolean isDoAboutChecked()
+    public TablePO get_interfacesTable()
     {
-        return _doAboutCheckbox.isChecked();
+        return _interfacesTable;
     }
 
-    public boolean isDoAboutEnabled()
+    public void set_interfacesTable( TablePO _interfacesTable )
     {
-        return _doAboutCheckbox.isEnabled();
+        this._interfacesTable = _interfacesTable;
     }
 
-    public boolean isDoConfigChecked()
+    public CheckBoxPO get_createEntryClassCheckbox()
     {
-        return _doConfigCheckbox.isChecked();
+        return _createEntryClassCheckbox;
     }
 
-    public boolean isDoConfigEnabled()
+    public void set_createEntryClassCheckbox( CheckBoxPO _createEntryClassCheckbox )
     {
-        return _doConfigCheckbox.isEnabled();
+        this._createEntryClassCheckbox = _createEntryClassCheckbox;
     }
 
-    public boolean isDoEditChecked()
+    public CheckBoxPO get_constrcutFromSuperClassCheckbox()
     {
-        return _doEditCheckbox.isChecked();
+        return _constrcutFromSuperClassCheckbox;
     }
 
-    public boolean isDoEditDefaultsChecked()
+    public void set_constrcutFromSuperClassCheckbox( CheckBoxPO _constrcutFromSuperClassCheckbox )
     {
-        return _doEditDefaultsCheckbox.isChecked();
+        this._constrcutFromSuperClassCheckbox = _constrcutFromSuperClassCheckbox;
     }
 
-    public boolean isDoEditDefaultsEnabled()
+    public CheckBoxPO get_inheritedAbstractMethodsCheckbox()
     {
-        return _doEditDefaultsCheckbox.isEnabled();
+        return _inheritedAbstractMethodsCheckbox;
     }
 
-    public boolean isDoEditEnabled()
+    public void set_inheritedAbstractMethodsCheckbox( CheckBoxPO _inheritedAbstractMethodsCheckbox )
     {
-        return _doEditCheckbox.isEnabled();
+        this._inheritedAbstractMethodsCheckbox = _inheritedAbstractMethodsCheckbox;
     }
 
-    public boolean isDoEditGuestChecked()
+    public CheckBoxPO get_initCheckbox()
     {
-        return _doEditGuestCheckbox.isChecked();
+        return _initCheckbox;
     }
 
-    public boolean isDoEditGuestEnabled()
+    public void set_initCheckbox( CheckBoxPO _initCheckbox )
     {
-        return _doEditGuestCheckbox.isEnabled();
+        this._initCheckbox = _initCheckbox;
     }
 
-    public boolean isDoHelpChecked()
+    public CheckBoxPO get_destoryCheckbox()
     {
-        return _doHelpCheckbox.isChecked();
+        return _destoryCheckbox;
     }
 
-    public boolean isDoHelpEnabled()
+    public void set_destoryCheckbox( CheckBoxPO _destoryCheckbox )
     {
-        return _doHelpCheckbox.isEnabled();
+        this._destoryCheckbox = _destoryCheckbox;
     }
 
-    public boolean isDoPreviewChecked()
+    public CheckBoxPO get_doViewCheckbox()
     {
-        return _doPreviewCheckbox.isChecked();
+        return _doViewCheckbox;
     }
 
-    public boolean isDoPreviewEnabled()
+    public void set_doViewCheckbox( CheckBoxPO _doViewCheckbox )
     {
-        return _doPreviewCheckbox.isEnabled();
+        this._doViewCheckbox = _doViewCheckbox;
     }
 
-    public boolean isDoPrintChecked()
+    public CheckBoxPO get_doEditCheckbox()
     {
-        return _doPrintCheckbox.isChecked();
+        return _doEditCheckbox;
     }
 
-    public boolean isDoPrintEnabled()
+    public void set_doEditCheckbox( CheckBoxPO _doEditCheckbox )
     {
-        return _doPrintCheckbox.isEnabled();
+        this._doEditCheckbox = _doEditCheckbox;
     }
 
-    public boolean isDoViewChecked()
+    public CheckBoxPO get_doHelpCheckbox()
     {
-        return _doViewCheckbox.isChecked();
+        return _doHelpCheckbox;
     }
 
-    public boolean isDoViewEnabled()
+    public void set_doHelpCheckbox( CheckBoxPO _doHelpCheckbox )
     {
-        return _doViewCheckbox.isEnabled();
+        this._doHelpCheckbox = _doHelpCheckbox;
     }
 
-    public boolean isFinalChecked()
+    public CheckBoxPO get_doAboutCheckbox()
     {
-        return _finalCheckbox.isChecked();
+        return _doAboutCheckbox;
     }
 
-    public boolean isFinalEnabled()
+    public void set_doAboutCheckbox( CheckBoxPO _doAboutCheckbox )
     {
-        return _finalCheckbox.isEnabled();
+        this._doAboutCheckbox = _doAboutCheckbox;
     }
 
-    public boolean isInheritedAbstractMethodsChecked()
+    public CheckBoxPO get_doConfigCheckbox()
     {
-        return _inheritedAbstractMethodsCheckbox.isChecked();
+        return _doConfigCheckbox;
     }
 
-    public boolean isInheritedAbstractMethodsEnabled()
+    public void set_doConfigCheckbox( CheckBoxPO _doConfigCheckbox )
     {
-        return _inheritedAbstractMethodsCheckbox.isEnabled();
+        this._doConfigCheckbox = _doConfigCheckbox;
     }
 
-    public boolean isInitChecked()
+    public CheckBoxPO get_doEditDefaultsCheckbox()
     {
-        return _initCheckbox.isChecked();
+        return _doEditDefaultsCheckbox;
     }
 
-    public boolean isInitEnabled()
+    public void set_doEditDefaultsCheckbox( CheckBoxPO _doEditDefaultsCheckbox )
     {
-        return _initCheckbox.isEnabled();
+        this._doEditDefaultsCheckbox = _doEditDefaultsCheckbox;
     }
 
-    public boolean isProcessActionChecked()
+    public CheckBoxPO get_doEditGuestCheckbox()
     {
-        return _processActionCheckbox.isChecked();
+        return _doEditGuestCheckbox;
     }
 
-    public boolean isProcessActionEnabled()
+    public void set_doEditGuestCheckbox( CheckBoxPO _doEditGuestCheckbox )
     {
-        return _processActionCheckbox.isEnabled();
+        this._doEditGuestCheckbox = _doEditGuestCheckbox;
     }
 
-    public boolean isPublicChecked()
+    public CheckBoxPO get_doPreviewCheckbox()
     {
-        return _publicCheckbox.isChecked();
+        return _doPreviewCheckbox;
     }
 
-    public boolean isPublicEnabled()
+    public void set_doPreviewCheckbox( CheckBoxPO _doPreviewCheckbox )
     {
-        return _publicCheckbox.isEnabled();
+        this._doPreviewCheckbox = _doPreviewCheckbox;
     }
 
-    public boolean isServeResourceChecked()
+    public CheckBoxPO get_doPrintCheckbox()
     {
-        return _serveResourceCheckbox.isChecked();
+        return _doPrintCheckbox;
     }
 
-    public boolean isServeResourceEnabled()
+    public void set_doPrintCheckbox( CheckBoxPO _doPrintCheckbox )
     {
-        return _serveResourceCheckbox.isEnabled();
+        this._doPrintCheckbox = _doPrintCheckbox;
+    }
+
+    public CheckBoxPO get_processActionCheckbox()
+    {
+        return _processActionCheckbox;
+    }
+
+    public void set_processActionCheckbox( CheckBoxPO _processActionCheckbox )
+    {
+        this._processActionCheckbox = _processActionCheckbox;
+    }
+
+    public CheckBoxPO get_serveResourceCheckbox()
+    {
+        return _serveResourceCheckbox;
+    }
+
+    public void set_serveResourceCheckbox( CheckBoxPO _serveResourceCheckbox )
+    {
+        this._serveResourceCheckbox = _serveResourceCheckbox;
     }
 
     public void selectInterface( int interfaceIndex )

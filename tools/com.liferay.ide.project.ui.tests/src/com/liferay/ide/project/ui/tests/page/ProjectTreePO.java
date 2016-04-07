@@ -41,6 +41,8 @@ public class ProjectTreePO extends TreeItemPO implements ProjectBuildAction
         doAction( BUTTON_DELETE );
 
         _deleteDialog.confirmDeleteFromDisk();
+        
+        _deleteDialog.confirm();
     }
 
 }

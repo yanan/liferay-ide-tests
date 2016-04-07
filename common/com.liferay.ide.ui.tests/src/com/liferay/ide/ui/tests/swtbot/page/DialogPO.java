@@ -25,13 +25,13 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 public class DialogPO extends CancelPO
 {
 
-    private String text;
+    private String _confirmButton;
 
     public DialogPO( SWTBot bot, String title )
     {
         super( bot, title, null );
     }
-    
+
     public DialogPO( SWTBot bot, String cancelButtonText, String confirmButtonText )
     {
         this( bot, "", cancelButtonText, confirmButtonText );
@@ -41,7 +41,7 @@ public class DialogPO extends CancelPO
     {
         super( bot, title, cancelButtonText );
 
-        text = confirmButtonText;
+        _confirmButton = confirmButtonText;
     }
 
     public void confirm()
@@ -49,8 +49,8 @@ public class DialogPO extends CancelPO
         clickClosingButton( confirmButton() );
     }
 
-    protected SWTBotButton confirmButton()
+    public SWTBotButton confirmButton()
     {
-        return bot.button( text );
+        return bot.button( _confirmButton );
     }
 }

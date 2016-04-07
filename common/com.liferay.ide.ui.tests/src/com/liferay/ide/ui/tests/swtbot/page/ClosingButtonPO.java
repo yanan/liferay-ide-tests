@@ -44,9 +44,4 @@ public abstract class ClosingButtonPO extends ShellPO
         clickButton( button );
     }
 
-    public boolean isButtonEnabled( String buttonText )
-    {
-        return bot.button( buttonText ).isEnabled();
-    }
-
 }

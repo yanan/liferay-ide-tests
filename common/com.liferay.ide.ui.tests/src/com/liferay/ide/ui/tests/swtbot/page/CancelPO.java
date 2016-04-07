@@ -25,13 +25,13 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 public class CancelPO extends ClosingButtonPO
 {
 
-    protected final String text;
+    protected final String cancelButtonText;
 
     public CancelPO( SWTBot bot, String title, String cancelButtonText )
     {
         super( bot, title );
 
-        text = cancelButtonText;
+        this.cancelButtonText = cancelButtonText;
     }
 
     public void cancel()
@@ -39,9 +39,9 @@ public class CancelPO extends ClosingButtonPO
         clickClosingButton( cancelButton() );
     }
 
-    protected SWTBotButton cancelButton()
+    public SWTBotButton cancelButton()
     {
-        return bot.button( text );
+        return bot.button( cancelButtonText );
     }
 
 }

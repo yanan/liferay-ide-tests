@@ -28,30 +28,35 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 public class EditorPO extends AbstractPO
 {
 
-    private final String name;
+    private final String _editorName;
 
-    public EditorPO( SWTBot bot, String name )
+    public EditorPO( SWTBot bot, String editorName )
     {
         super( bot );
 
-        this.name = name;
+        _editorName = editorName;
     }
 
     public void close()
     {
         getEditor().close();
 
-        bot.waitUntil( new EditorActiveCondition( name, false ) );
+        bot.waitUntil( new EditorActiveCondition( _editorName, false ) );
     }
 
     protected SWTBotEditor getEditor()
     {
-        return ( (SWTWorkbenchBot) bot ).editorByTitle( name );
+        return ( (SWTWorkbenchBot) bot ).editorByTitle( _editorName );
     }
 
     public boolean isActive()
     {
         return getEditor().isActive();
+    }
+
+    public void setFocus()
+    {
+        getEditor().setFocus();
     }
 
     public void save()
@@ -61,6 +66,6 @@ public class EditorPO extends AbstractPO
 
     public void waitForPageToOpen()
     {
-        bot.waitUntil( new EditorActiveCondition( name, true ) );
+        bot.waitUntil( new EditorActiveCondition( _editorName, true ) );
     }
 }

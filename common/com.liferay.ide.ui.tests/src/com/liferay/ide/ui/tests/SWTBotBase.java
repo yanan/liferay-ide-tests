@@ -244,9 +244,10 @@ public class SWTBotBase implements UIBase
 
     }
 
-    public boolean checkServerConsoleMessage( String expectedMessage, int timeout ) throws Exception
+    public boolean checkServerConsoleMessage( String expectedMessage, String consoleName, int timeout )
+        throws Exception
     {
-        TextConsole console = (TextConsole) getConsole( "Liferay" ); // get server console
+        TextConsole console = (TextConsole) getConsole( consoleName ); // get server console
 
         long timeoutExpiredMs = System.currentTimeMillis() + timeout;
 
