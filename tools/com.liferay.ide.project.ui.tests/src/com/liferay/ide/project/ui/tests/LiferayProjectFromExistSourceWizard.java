@@ -6,7 +6,6 @@ import com.liferay.ide.ui.tests.UIBase;
 public interface LiferayProjectFromExistSourceWizard extends UIBase
 {
 
-    public final String MENU_NEW_LIFERAY_PROJECT_EXIS_SOURCE = "New Liferay Project from Existing Source";
     public final String TITLE_NEW_LIFERAY_PROJECT_EXIS_SOURCE = "New Liferay Project from existing source";
     public final String MENU_LIFERAY_PROJECT_EXIS_SOURCE = "Liferay Project from Existing Source";
 
