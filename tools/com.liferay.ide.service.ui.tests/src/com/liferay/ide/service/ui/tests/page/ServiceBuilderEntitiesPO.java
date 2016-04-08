@@ -26,7 +26,7 @@ import com.liferay.ide.ui.tests.swtbot.page.TextPO;
 public class ServiceBuilderEntitiesPO extends TextPO implements ServiceBuilderWizard
 {
 
-    TextPO entityName;
+    private TextPO _entityName;
 
     public ServiceBuilderEntitiesPO( SWTBot bot )
     {
@@ -37,11 +37,11 @@ public class ServiceBuilderEntitiesPO extends TextPO implements ServiceBuilderWi
     {
         super( bot, title );
 
-        entityName = new TextPO( bot, LABEL_ENTITY_NAME );
+        _entityName = new TextPO( bot, LABEL_ENTITY_NAME );
     }
 
-    public void ServiceBuilderEntities( String name )
+    public void SetServiceBuilderEntitiesName( String name )
     {
-        entityName.setText( name );
+        _entityName.setText( name );
     }
 }

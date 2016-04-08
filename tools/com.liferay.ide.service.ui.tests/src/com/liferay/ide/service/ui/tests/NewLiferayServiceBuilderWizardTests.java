@@ -40,8 +40,6 @@ import com.liferay.ide.ui.tests.SWTBotBase;
 import com.liferay.ide.ui.tests.swtbot.page.CTabItemPO;
 import com.liferay.ide.ui.tests.swtbot.page.DialogPO;
 import com.liferay.ide.ui.tests.swtbot.page.NewJavaPackagePO;
-//import com.liferay.ide.ui.tests.swtbot.page.PopUpPO;
-//import com.liferay.ide.ui.tests.swtbot.page.TablePO;
 import com.liferay.ide.ui.tests.swtbot.page.TextEditorPO;
 import com.liferay.ide.ui.tests.swtbot.page.TreeItemPO;
 import com.liferay.ide.ui.tests.swtbot.page.TreePO;
@@ -99,57 +97,57 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
         assertEquals( TEXT_DEFAULT_PACKAGE_PAHT_VALUE, newServiceBuilderWizard.getPackagePathText().getText() );
         assertEquals( TEXT_DEFAULT_NAMESPACE_VALUE, newServiceBuilderWizard.getNamespaceText().getText() );
         assertTrue( newServiceBuilderWizard.getIncludeSampleEntityCheckBox().isChecked() );
-        assertFalse( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertFalse( newServiceBuilderWizard.finishButton().isEnabled() );
         assertEquals( TEXT_NEW_SERVICE_BUILDER_XML_FILE, newServiceBuilderWizard.getValidationMessage() );
         newServiceBuilderWizard.NewServiceBuilder( "packagePath", "namespace" );
 
         // validation test for package path
         newServiceBuilderWizard.getPackagePathText().setText( "_" );
         assertEquals( TEXT_NEW_SERVICE_BUILDER_XML_FILE, newServiceBuilderWizard.getValidationMessage() );
-        assertTrue( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertTrue( newServiceBuilderWizard.finishButton().isEnabled() );
         newServiceBuilderWizard.getPackagePathText().setText( "1" );
         assertEquals(
             TEXT_VALIDATION_PACKAGE_PATH_MESSAGE + "'1' is not a valid Java identifier",
             newServiceBuilderWizard.getValidationMessage() );
-        assertFalse( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertFalse( newServiceBuilderWizard.finishButton().isEnabled() );
         newServiceBuilderWizard.getPackagePathText().setText( "-" );
         assertEquals(
             TEXT_VALIDATION_PACKAGE_PATH_MESSAGE + "'-' is not a valid Java identifier",
             newServiceBuilderWizard.getValidationMessage() );
-        assertFalse( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertFalse( newServiceBuilderWizard.finishButton().isEnabled() );
         newServiceBuilderWizard.getPackagePathText().setText( "P" );
         assertEquals(
             " Warning: By convention, package names usually start with a lowercase letter",
             newServiceBuilderWizard.getValidationMessage() );
-        assertTrue( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertTrue( newServiceBuilderWizard.finishButton().isEnabled() );
         newServiceBuilderWizard.getPackagePathText().setText( "a1" );
         assertEquals( TEXT_NEW_SERVICE_BUILDER_XML_FILE, newServiceBuilderWizard.getValidationMessage() );
-        assertTrue( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertTrue( newServiceBuilderWizard.finishButton().isEnabled() );
         newServiceBuilderWizard.getPackagePathText().setText( "a_" );
         assertEquals( TEXT_NEW_SERVICE_BUILDER_XML_FILE, newServiceBuilderWizard.getValidationMessage() );
-        assertTrue( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertTrue( newServiceBuilderWizard.finishButton().isEnabled() );
         newServiceBuilderWizard.getPackagePathText().setText( "a-" );
         assertEquals(
             TEXT_VALIDATION_PACKAGE_PATH_MESSAGE + "'a-' is not a valid Java identifier",
             newServiceBuilderWizard.getValidationMessage() );
-        assertFalse( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertFalse( newServiceBuilderWizard.finishButton().isEnabled() );
         newServiceBuilderWizard.getPackagePathText().setText( "packagePath" );
         assertEquals( TEXT_NEW_SERVICE_BUILDER_XML_FILE, newServiceBuilderWizard.getValidationMessage() );
-        assertTrue( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertTrue( newServiceBuilderWizard.finishButton().isEnabled() );
 
         // validation test for namespace
         newServiceBuilderWizard.getNamespaceText().setText( "a1" );
         assertEquals( TEXT_VALIDATION_NAMESPACE_MESSAGE, newServiceBuilderWizard.getValidationMessage() );
-        assertFalse( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertFalse( newServiceBuilderWizard.finishButton().isEnabled() );
         newServiceBuilderWizard.getNamespaceText().setText( "a-" );
         assertEquals( TEXT_VALIDATION_NAMESPACE_MESSAGE, newServiceBuilderWizard.getValidationMessage() );
-        assertFalse( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertFalse( newServiceBuilderWizard.finishButton().isEnabled() );
         newServiceBuilderWizard.getNamespaceText().setText( "a_" );
         assertEquals( TEXT_NEW_SERVICE_BUILDER_XML_FILE, newServiceBuilderWizard.getValidationMessage() );
-        assertTrue( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertTrue( newServiceBuilderWizard.finishButton().isEnabled() );
         newServiceBuilderWizard.getNamespaceText().setText( "namespace" );
         assertEquals( TEXT_NEW_SERVICE_BUILDER_XML_FILE, newServiceBuilderWizard.getValidationMessage() );
-        assertTrue( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertTrue( newServiceBuilderWizard.finishButton().isEnabled() );
 
         newServiceBuilderWizard.finish();
 
@@ -171,31 +169,7 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
         Keyboard keyPress = KeyboardFactory.getAWTKeyboard();
 
         // regression test for IDE-1395,check 9 items which start with sb
-        // keyPress.pressShortcut( enter );
-        // keyPress.pressShortcut( up );
-        // keyPress.pressShortcut( alt, slash );
-
-        // PopUpPO popUpPage = new PopUpPO( bot, TEXT_BLANK, 4 );
-
-        // assertTrue( popUpPage.activate() );
-
-        // TablePO checkContainItem = new TablePO( bot, 0 );
-
-        // checkContainItem.containsItem( "sb-column - a column for an entity" );
-        // checkContainItem.containsItem( "sb-columnp-primary - a primary column for an entity" );
-        // checkContainItem.containsItem( "sb-entity - an entity element" );
-        // checkContainItem.containsItem( "sb-entity-sample - a simple entity element" );
-        // checkContainItem.containsItem( "sb-exceptions - an exceptions element" );
-        // checkContainItem.containsItem( "sb-finder - a finder element" );
-        // checkContainItem.containsItem( "sb-finder-column - a finder column for a finder" );
-        // checkContainItem.containsItem( "sb-order - an order element" );
-        // checkContainItem.containsItem( "sb-order-column - an order column for an order" );
-
-        // choose sb-column and check fast input codes
-        // checkContainItem.doubleClick( 2, 0 );
-        // keyPress.pressShortcut( ctrl, S );
-        // assertContains(
-        // "column name=" + '"' + "name" + '"' + " type=" + '"' + "String" + '"', textEditorPage.getText() );
+        // to do in the future
 
         // regression test for IDE-726 and IDE-777,check DTD version
         assertContains( SERVICE_BUILDER_DTD_VERSION, textEditor.getText() );
@@ -231,7 +205,7 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
 
         ServiceBuilderEntitiesPO requireAttributeName = new ServiceBuilderEntitiesPO( bot );
 
-        requireAttributeName.ServiceBuilderEntities( "entity" );
+        requireAttributeName.SetServiceBuilderEntitiesName( "entity" );
 
         switchCTabItem = new CTabItemPO( bot, "Source" );
 
@@ -246,7 +220,7 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
         newServiceBuilderWizard.NewServiceBuilder( "packagePath1", "namespace1" );
         assertEquals(
             TEXT_ALREADY_HAS_SERVICE_BUILDER_XML_FILE_MESSAGE, newServiceBuilderWizard.getValidationMessage() );
-        assertFalse( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertFalse( newServiceBuilderWizard.finishButton().isEnabled() );
         newServiceBuilderWizard.cancel();
 
         eclipse.getPackageExporerView().deleteResouceByName( projectName + "-portlet", true );
@@ -277,9 +251,9 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
         assertEquals( TEXT_DEFAULT_PACKAGE_PAHT_VALUE, newServiceBuilderWizard.getPackagePathText().getText() );
         assertEquals( TEXT_DEFAULT_NAMESPACE_VALUE, newServiceBuilderWizard.getNamespaceText().getText() );
         assertTrue( newServiceBuilderWizard.getIncludeSampleEntityCheckBox().isChecked() );
-        assertTrue( newServiceBuilderWizard.isButtonEnabled( BUTTON_BROWSE ) );
-        assertTrue( newServiceBuilderWizard.isButtonEnabled( BUTTON_CANCEL ) );
-        assertFalse( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertTrue( newServiceBuilderWizard.getBrowseButton().isEnabled() );
+        assertTrue( newServiceBuilderWizard.cancelButton().isEnabled() );
+        assertFalse( newServiceBuilderWizard.finishButton().isEnabled() );
 
         assertEquals( TEXT_NEW_SERVICE_BUILDER_XML_FILE, newServiceBuilderWizard.getValidationMessage() );
         newServiceBuilderWizard.NewServiceBuilder( "packagePath", "namespace" );
@@ -320,27 +294,29 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
         ServiceBuilderWizardPO newServiceBuilderWizard = new ServiceBuilderWizardPO( bot, TOOLTIP_NEW_SERVICE_BUILDER );
 
         newServiceBuilderWizard.waitForPageToOpen();
-        assertTrue( newServiceBuilderWizard.isButtonEnabled( BUTTON_BROWSE ) );
+        assertTrue( newServiceBuilderWizard.getBrowseButton().isEnabled() );
 
         // package which is not exist test
-        newServiceBuilderWizard.browse();
+        newServiceBuilderWizard.getBrowseButton().click();
 
         ServiceBuilderPackageSelectionPO chooseOnePackage =
             new ServiceBuilderPackageSelectionPO( bot, BUTTON_CANCEL, BUTTON_OK );
 
         chooseOnePackage.selectPackage( "a" );
-        assertFalse( chooseOnePackage.isButtonEnabled( BUTTON_OK ) );
+        assertFalse( chooseOnePackage.getOkButton().isEnabled() );
         chooseOnePackage.selectPackage( "" );
-        assertTrue( chooseOnePackage.isButtonEnabled( BUTTON_OK ) );
+        assertTrue( chooseOnePackage.getOkButton().isEnabled() );
         chooseOnePackage.confirm();
         assertEquals( TEXT_PACKAGE_PATH_EMPTY_MESSAGE, newServiceBuilderWizard.getValidationMessage() );
-        assertFalse( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertFalse( newServiceBuilderWizard.finishButton().isEnabled() );
         newServiceBuilderWizard.getPackagePathText().setText( "path1" );
         assertEquals( TEXT_NAMESPACE_EMPTY_MESSAGE, newServiceBuilderWizard.getValidationMessage() );
-        assertFalse( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertFalse( newServiceBuilderWizard.finishButton().isEnabled() );
         newServiceBuilderWizard.cancel();
 
         // new a java package
+        TreePO projectTree = eclipse.getPackageExporerView().getProjectTree();
+
         eclipse.getNewToolbar().getNewPackage().click();
 
         NewJavaPackagePO newJavaPackage = new NewJavaPackagePO( bot );
@@ -348,22 +324,19 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
         newJavaPackage.setName( "newpackage" );
         assertEquals( projectName + "-portlet/docroot/WEB-INF/src", newJavaPackage.getSourceFolderText().getText() );
         newJavaPackage.finish();
-
-        TreePO projectTree = eclipse.getPackageExporerView().getProjectTree();
-
         assertTrue(
             projectTree.expandNode( projectName + "-portlet", "docroot/WEB-INF/src", "newpackage" ).isVisible() );
 
         eclipse.getFileMenu().clickMenu( MENU_NEW, LABEL_LIFERAY_SERVICE_BUILDER );
-        newServiceBuilderWizard.browse();
+        newServiceBuilderWizard.getBrowseButton().click();
         chooseOnePackage.selectPackage( "newpackage" );
-        assertTrue( chooseOnePackage.isButtonEnabled( BUTTON_OK ) );
+        assertTrue( chooseOnePackage.getOkButton().isEnabled() );
         chooseOnePackage.confirm();
         newServiceBuilderWizard.getNamespaceText().setText( "namespace" );
         newServiceBuilderWizard.getAuthorText().setText( "liferay-v" );
         newServiceBuilderWizard.getIncludeSampleEntityCheckBox().deselect();
         assertEquals( TEXT_NEW_SERVICE_BUILDER_XML_FILE, newServiceBuilderWizard.getValidationMessage() );
-        assertTrue( newServiceBuilderWizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertTrue( newServiceBuilderWizard.finishButton().isEnabled() );
         newServiceBuilderWizard.finish();
 
         String fileName = "service.xml";

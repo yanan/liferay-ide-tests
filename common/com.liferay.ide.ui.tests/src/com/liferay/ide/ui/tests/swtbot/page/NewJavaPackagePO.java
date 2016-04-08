@@ -25,8 +25,8 @@ import com.liferay.ide.ui.tests.UIBase;
 public class NewJavaPackagePO extends WizardPO implements UIBase
 {
 
-    TextPO name;
-    TextPO sourceFolder;
+    private TextPO _name;
+    private TextPO _sourceFolder;
 
     public NewJavaPackagePO( SWTBot bot )
     {
@@ -36,19 +36,19 @@ public class NewJavaPackagePO extends WizardPO implements UIBase
     public NewJavaPackagePO( SWTBot bot, String title, String cancelButtonText, String finishButtonText )
     {
         super( bot, title, cancelButtonText, finishButtonText, TEXT_BLANK, TEXT_BLANK );
-        sourceFolder = new TextPO( bot, LABEL_SOURCE_FOLDER );
-        name = new TextPO( bot, LABEL_NAME );
+        _sourceFolder = new TextPO( bot, LABEL_SOURCE_FOLDER );
+        _name = new TextPO( bot, LABEL_NAME );
 
     }
 
     public TextPO getSourceFolderText()
     {
-        return sourceFolder;
+        return _sourceFolder;
     }
 
     public void setName( String packageName )
     {
-        name.setText( packageName );
+        _name.setText( packageName );
     }
 
 }
