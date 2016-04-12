@@ -4,15 +4,11 @@ Bundle-Name: Liferay Portlet Hook Tests
 Bundle-SymbolicName: com.liferay.ide.hook.ui.tests
 Bundle-Version: 3.0.0.qualifier
 Bundle-Vendor: Liferay, Inc.
-Require-Bundle: com.liferay.ide.project.ui.tests;bundle-version="3.0.0",
+Require-Bundle: com.liferay.ide.project.ui.tests,
  com.liferay.ide.ui.tests,
- org.eclipse.jface,
- org.eclipse.swtbot.go;bundle-version="2.3.0",
- org.eclipse.swtbot.swt.finder,
- org.eclipse.ui.workbench,
- org.eclipse.wst.common.frameworks,
- org.eclipse.wst.common.frameworks.ui,
+ org.eclipse.swtbot.go,
  org.junit
 Bundle-ActivationPolicy: lazy
 Export-Package: com.liferay.ide.hook.ui.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+

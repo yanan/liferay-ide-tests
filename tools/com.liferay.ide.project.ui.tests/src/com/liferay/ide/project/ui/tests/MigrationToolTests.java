@@ -31,10 +31,10 @@ import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.liferay.blade.api.MigrationConstants;
 import com.liferay.ide.project.ui.tests.page.LiferayProjectFromExistSourceWizardPO;
 import com.liferay.ide.ui.tests.SWTBotBase;
 import com.liferay.ide.ui.tests.swtbot.condition.ViewVisibleCondition;
@@ -47,27 +47,23 @@ import com.liferay.ide.ui.tests.util.ZipUtil;
  * @author Li Lu
  */
 @RunWith( SWTBotJunit4ClassRunner.class )
+@Ignore
 public class MigrationToolTests extends SWTBotBase implements MigrateProjectWizard
 {
 
+	String MARKER_TYPE = "com.liferay.ide.project.core.MigrationProblemMarker";
     private static final String BUNDLE_ID = "com.liferay.ide.project.ui.tests";
     private static IProject project;
-
-    @AfterClass
-    public static void deleteSDK()
-    {
-        eclipse.getPackageExporerView().deleteResouceByName( getLiferayPluginsSdkName(), true );
-    }
 
     @After
     public void cleanup() throws CoreException
     {
-        eclipse.getPackageExporerView().deleteResouceByName( getLiferayPluginsSdkName(), true );
+        eclipse.getPackageExporerView().deleteResouceByName( project.getName() , true );
     }
 
     public void deleteMigrationMarkers( IResource resource ) throws CoreException
     {
-        IMarker[] markers = resource.findMarkers( MigrationConstants.MARKER_TYPE, false, IResource.DEPTH_ZERO );
+        IMarker[] markers = resource.findMarkers( MARKER_TYPE, false, IResource.DEPTH_ZERO );
 
         for( IMarker marker : markers )
         {
@@ -78,7 +74,7 @@ public class MigrationToolTests extends SWTBotBase implements MigrateProjectWiza
     public IMarker findMigrationMarker( IResource resource, String markerMessage, boolean fullMatch )
         throws CoreException
     {
-        IMarker[] markers = resource.findMarkers( MigrationConstants.MARKER_TYPE, false, IResource.DEPTH_ZERO );
+        IMarker[] markers = resource.findMarkers( MARKER_TYPE, false, IResource.DEPTH_ZERO );
 
         for( IMarker marker : markers )
         {
@@ -111,7 +107,7 @@ public class MigrationToolTests extends SWTBotBase implements MigrateProjectWiza
     public void testMigrateProjectHandlerCancelOnMenu() throws Exception
     {
 
-        project = CoreUtil.getProject( "knowledge-base-portlet" );
+       project = CoreUtil.getProject( "knowledge-base-portlet" );
 
         IMarker marker = findMigrationMarker( project, ".*", false );
         assertNull( marker );
