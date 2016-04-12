@@ -92,7 +92,7 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
         sleep( 1000 );
         assertEquals( pluginType, _wizard.getPluginTypeText().getText() );
 
-        assertEquals( "6.2.0", _wizard.getSdkVersionText().getText() );
+        assertEquals( "7.0.0", _wizard.getSdkVersionText().getText() );
 
         assertTrue( _wizard.isButtonEnabled( BUTTON_FINISH ) );
         bot.button( "Finish" ).click();

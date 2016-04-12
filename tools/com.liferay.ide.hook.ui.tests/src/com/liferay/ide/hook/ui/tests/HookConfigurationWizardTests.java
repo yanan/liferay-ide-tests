@@ -62,6 +62,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
     @AfterClass
     public static void cleanAll()
     {
+        eclipse.closeShell( WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION );
         eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, true );
     }
 
@@ -107,6 +108,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         eventActionPage.setEventActionclass( "portalPropertiesClass" );
         eventActionPage.confirm();
 
+        sleep(1000);
         portalPropertiesPage.next();
 
         // Service
@@ -195,7 +197,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         LiferayCustomJSPPO chooseCustomJSP = new LiferayCustomJSPPO( bot );
 
         customJSPpage.getAddFromLiferayButton().click();
-        chooseCustomJSP.select( "html", "common", "themes", "body_bottom.jsp" );
+        chooseCustomJSP.select( "html", "common", "themes", "bottom.jsp" );
         chooseCustomJSP.confirm();
 
         AddJSPFilePathPO jspFile = new AddJSPFilePathPO( bot );
@@ -218,7 +220,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         projectTree.expandNode(
             new String[] { projectHookName + "-hook", "docroot", "META-INF", "custom_jsps", "html", "common", "themes" } ).doubleClick(
-            "body_bottom.jsp" );
+            "bottom.jsp" );
 
     }
 
@@ -351,7 +353,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         eventActionPage.getSelectClass().click();
 
         eventSelectionPage.setEventAction( "ObjectAction" );
-        sleep( 4000 );
+        sleep( 10000 );
         eventSelectionPage.confirm();
 
         eventActionPage.confirm();
