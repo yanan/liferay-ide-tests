@@ -22,9 +22,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -36,12 +36,12 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.TextConsole;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -90,16 +90,21 @@ public class SWTBotBase implements UIBase
         try
         {
             eclipse.getWelcomeView().close();
+        }
+        catch( Exception e )
+        {
+            // e.printStackTrace();
+        }
 
+        try
+        {
             eclipse.getLiferayPerspective().activate();
-
             eclipse.showProgressView();
 
             eclipse.showErrorLogView().clearLogViewer();
         }
         catch( Exception e )
         {
-            e.printStackTrace();
         }
 
         SWTBotPreferences.TIMEOUT = 30000;
@@ -244,8 +249,7 @@ public class SWTBotBase implements UIBase
 
     }
 
-    public boolean checkServerConsoleMessage( String expectedMessage, String consoleName, int timeout )
-        throws Exception
+    public boolean checkServerConsoleMessage( String expectedMessage, String consoleName, int timeout ) throws Exception
     {
         TextConsole console = (TextConsole) getConsole( consoleName ); // get server console
 
@@ -316,7 +320,7 @@ public class SWTBotBase implements UIBase
         sleep( DEFAULT_SLEEP_MILLIS );
     }
 
-    protected void sleep( long millis )
+    protected static void sleep( long millis )
     {
         bot.sleep( millis );
     }
