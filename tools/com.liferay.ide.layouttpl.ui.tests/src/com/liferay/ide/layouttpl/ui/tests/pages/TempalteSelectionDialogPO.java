@@ -13,55 +13,46 @@
  *
  *******************************************************************************/
 
-package com.liferay.ide.ui.tests.swtbot.page;
+package com.liferay.ide.layouttpl.ui.tests.pages;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotRadio;
 
-import com.liferay.ide.ui.tests.swtbot.condition.WidgetEnabledCondition;
+import com.liferay.ide.ui.tests.swtbot.page.AbstractSelectionPO;
 
 /**
- * @author Terry Jia
- * @author Ashley Yuan
  * @author Li Lu
  */
-public class RadioPO extends AbstractWidgetPO
+public class TempalteSelectionDialogPO extends AbstractSelectionPO
 {
 
-    public RadioPO( SWTBot bot, int index )
+    public TempalteSelectionDialogPO( SWTBot bot )
     {
-        super( bot, index );
+        this( bot, TEXT_BLANK );
     }
 
-    public RadioPO( SWTBot bot, String label )
+    public TempalteSelectionDialogPO( SWTBot bot, String title )
     {
-        super( bot, label );
+        super( bot, title );
     }
 
-    public RadioPO( SWTBot bot, String label, int index )
+    public boolean canFinish()
     {
-        super( bot, label, index );
+        return confirmButton().isEnabled();
     }
 
-    public void click()
+    public boolean containsItem( String... items )
     {
-        bot.waitUntil( new WidgetEnabledCondition( getWidget(), true ) );
-
-        getWidget().click();
+        return getSelcetFileTree().hasTreeItem( items );
     }
 
-    @Override
-    protected SWTBotRadio getWidget()
+    public String getValidationMessage()
     {
-        if( label == null )
-        {
-            return bot.radio( index );
-        }
-        return bot.radio( label );
+        return bot.clabel().getText();
     }
 
-    public boolean isSelected()
+    public void select( String... items )
     {
-        return getWidget().isSelected();
+        getSelcetFileTree().selectTreeItem( items );
     }
+
 }
