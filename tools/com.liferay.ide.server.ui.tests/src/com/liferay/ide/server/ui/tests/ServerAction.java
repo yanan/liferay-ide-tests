@@ -24,9 +24,9 @@ import com.liferay.ide.ui.tests.UIBase;
 public interface ServerAction extends UIBase
 {
 
-    public final String BUTTON_ADD = "Add >";
+    public final String BUTTON_ADD_PROJECT = "Add >";
     public final String BUTTON_ADD_ALL = "Add All >>";
-    public final String BUTTON_REMOVE = "< Remove";
+    public final String BUTTON_REMOVE_PROJECT = "< Remove";
     public final String BUTTON_REMOVE_ALL = "<< Remove All";
     public final String CHECKBOX_PUBLISH_CHANGES = "If server is started, publish changes immediately";
     public final String MESAGE_SERVER_STOP = "Destroying ProtocolHandler";

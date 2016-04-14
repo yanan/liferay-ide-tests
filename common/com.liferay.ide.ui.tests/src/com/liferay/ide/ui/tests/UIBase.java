@@ -20,6 +20,7 @@ package com.liferay.ide.ui.tests;
  * @author Ashley Yuan
  * @author Ying Xu
  * @author Vicky Wang
+ * @author Li Lu
  */
 public interface UIBase
 {
@@ -73,10 +74,12 @@ public interface UIBase
     public final String LABEL_NEW_LIFERAY_HOOK_CONFIGURATION = "New Liferay Hook Configuration";
     public final String LABEL_NEW_LIFERAY_SERVER = "New Liferay Server";
     public final String LABEL_NEW_LIFERAY_SERVICE_BUILDER = "New Liferay Service Builder";
+    public final String LABEL_NEW_LIFERAY_JSF_PORTLET = "New Liferay JSF Portlet";
+    public final String LABEL_NEW_LIFERAY_VAADIN_PORTLET = "New Liferay Vaadin Portlet";
 
     public final String LABEL_LIFERAY_PLUGIN_PROJECT = "Liferay Plugin Project";
     public final String LABEL_LIFERAY_MODULE_PROJECT = "Liferay Module Project";
-    public final String LABEL_LIFERAY_PORTLET = "Liferay Potrlet";
+    public final String LABEL_LIFERAY_PORTLET = "Liferay Portlet";
     public final String LABEL_LIFERAY_JSF_PORTLET = "Liferay JSF Portlet";
     public final String LABEL_LIFERAY_VAADIN_PORTLET = "Liferay Vaadin Portlet";
     public final String LABEL_LIFERAY_HOOK_CONFIGURATION = "Liferay Hook Configuration";
