@@ -15,15 +15,16 @@
 
 package com.liferay.ide.project.ui.tests.page;
 
+import org.eclipse.swtbot.swt.finder.SWTBot;
+
 import com.liferay.ide.project.ui.tests.ProjectWizard;
 import com.liferay.ide.ui.tests.swtbot.page.RadioPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
 import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
-import org.eclipse.swtbot.swt.finder.SWTBot;
-
 /**
  * @author Ashley Yuan
+ * @author Li Lu
  */
 public class SelectPortletFrameworkPO extends WizardPO implements ProjectWizard
 {
@@ -49,10 +50,10 @@ public class SelectPortletFrameworkPO extends WizardPO implements ProjectWizard
     {
         super( bot, title, BUTTON_BACK, BUTTON_NEXT, BUTTON_FINISH, BUTTON_CANCEL );
 
-        _liferayMVCRadio = new RadioPO( bot, TEXT_LIFERAY_MVC_FRAMEWORK );
-        _jsfRadio = new RadioPO( bot, TEXT_JSF_FRAMEWORK );
-        _springMVCRadio = new RadioPO( bot, TEXT_SPRING_MVC_FRAMEWORK );
-        _vaadinRadio = new RadioPO( bot, TEXT_VAADIN_FRAMEWORK );
+        _liferayMVCRadio = new RadioPO( bot, LABEL_LIFERAY_MVC_FRAMEWORK );
+        _jsfRadio = new RadioPO( bot, LABEL_JSF_FRAMEWORK );
+        _springMVCRadio = new RadioPO( bot, LABEL_SPRING_MVC_FRAMEWORK );
+        _vaadinRadio = new RadioPO( bot, LABEL_VAADIN_FRAMEWORK );
         _portletNameText = new TextPO( bot, LABEL_PORTLET_NAME );
         _displayNameText = new TextPO( bot, LABEL_DISPLAY_NAME );
     }
@@ -94,5 +95,4 @@ public class SelectPortletFrameworkPO extends WizardPO implements ProjectWizard
         _portletNameText.setText( projectName );
         _displayNameText.setText( displayName );
     }
-
 }

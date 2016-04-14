@@ -47,6 +47,26 @@ public class TreePO extends AbstractWidgetPO
         return getWidget().hasItems();
     }
 
+    public boolean hasTreeItem( String... items )
+    {
+        try
+        {
+            SWTBotTreeItem treeItem = getWidget().getTreeItem( items[0] );
+
+            for( int i = 1; i < items.length; i++ )
+            {
+
+                treeItem.expand();
+                treeItem = treeItem.getNode( items[i] ).expand();
+            }
+            return true;
+        }
+        catch( Exception e )
+        {
+            return false;
+        }
+    }
+
     public String[] getAllItems()
     {
         SWTBotTreeItem[] items = getWidget().getAllItems();
@@ -99,7 +119,7 @@ public class TreePO extends AbstractWidgetPO
         for( int i = 1; i < items.length; i++ )
         {
             treeItem.expand();
-            treeItem = treeItem.getNode( items[i] );
+            treeItem = treeItem.getNode( items[i] ).expand();
         }
         treeItem.select();
     }
