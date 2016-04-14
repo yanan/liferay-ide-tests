@@ -94,7 +94,7 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
 
         assertEquals( "7.0.0", _wizard.getSdkVersionText().getText() );
 
-        assertTrue( _wizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertTrue( _wizard.finishButton().isEnabled() );
         bot.button( "Finish" ).click();
 
         TreeItemPO sdkTreeItem =
@@ -136,12 +136,12 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
         _wizard.getProjectDirectoryText().setText( "AAA" );
         sleep( 1000 );
         assertEquals( " \"AAA\" is not an absolute path.", _wizard.getValidationMessage() );
-        assertFalse( _wizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertFalse( _wizard.finishButton().isEnabled() );
 
         _wizard.getProjectDirectoryText().setText( "C:/" );
         sleep( 1000 );
         assertEquals( MESSAGE_INVALID_PROJECT_LOCATION, _wizard.getValidationMessage() );
-        assertFalse( _wizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertFalse( _wizard.finishButton().isEnabled() );
         _wizard.cancel();
 
         // import project outside of SDK
@@ -172,7 +172,7 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
         sleep( 1000 );
         assertEquals( MESSAGE_PROJECT_HAS_DIFF_SDK, _wizard.getValidationMessage() );
 
-        assertFalse( _wizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertFalse( _wizard.finishButton().isEnabled() );
 
         FileUtil.deleteDir( sdk2Dir.toFile(), true );
         FileUtil.deleteDir( projectCopyDir.toFile(), true );
@@ -197,6 +197,6 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
 
         sleep( 1000 );
         assertEquals( MESSAGE_PROJECT_NAME_EXSIT, _wizard.getValidationMessage() );
-        assertFalse( _wizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertFalse( _wizard.finishButton().isEnabled() );
     }
 }

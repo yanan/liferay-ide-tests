@@ -42,29 +42,16 @@ public interface ProjectWizard extends UIBase
     public final String LABEL_IGNORE_OPTIONAL_COMPILE_PROBLEMS = "Ignore optional compile problems";
     public final String LABEL_INCLUDE_SAMPLE_CODE = "Include sample code";
     public final String LABEL_JAVA_PROJECT = "Java Project";
-    public final String LABEL_JSF_FRAMEWORK = "JSF 2.x";
-    public final String LABEL_JSF_STANDARD = "JSF standard";
     public final String LABEL_LAUNCH_NEW_PORTLET_WIZARD_AFTER_PROJECT =
         "Launch New Portlet Wizard after project is created";
-    public final String LABEL_LIFERAY_MVC_FRAMEWORK = "Liferay MVC";
     public final String LABEL_LOCATION = "Location:";
     public final String LABEL_PLUGIN_TYPE = "Plugin type:";
     public final String LABEL_PORTLET_NAME = "Portlet name:";
     public final String LABEL_PROJECT_NAME = "Project name:";
     public final String LABEL_SDK_LOCATION = "SDK Location:";
-    public final String LABEL_SPRING_MVC_FRAMEWORK = "Spring MVC";
-
     public final String LABEL_UPDATE_EXCLUSION_FILTERS =
         "Update exclusion filters in other source folders to solve nesting";
     public final String LABEL_USE_DEFAULT_LOCATION = "Use default location";
-    public final String LABEL_VAADIN_FRAMEWORK = "Vaadin";
-    public final String LABLE_ARCHETYPE = "Archetype:";
-
-    public final String LABLE_ICE_FACES = "ICEfaces";
-    public final String LABLE_LIFERAY_FACES_ALLOY = "Liferay Faces Alloy";
-    public final String LABLE_PRIME_FACES = "PrimeFaces";
-
-    public final String LABLE_RICH_FACES = "RichFaces";
     public final String MENU_BUILD_TYPE_ANT = "Ant (liferay-plugins-sdk)";
     public final String MENU_BUILD_TYPE_MAVEN = "Maven (liferay-maven-plugin)";
     public final String MENU_EXT = "Ext";
@@ -104,6 +91,7 @@ public interface ProjectWizard extends UIBase
     public final String TEXT_PROJECT_NAME_MUST_SPECIFIED = "Project name must be specified";
     public final String TEXT_SDK_LOCATION_EMPTY = " This sdk location is empty ";
     public final String TEXT_USE_DEFAULT_MVC_PORTLET = "Use default portlet (MVCPortlet)";
+
     public final String TEXT_WEB_SDK_62_ERRORR_MESSAGE =
         " The selected Plugins SDK does not support creating new web type plugins.  Please configure version 7.0.0 or greater.";
     public final String TEXT_WORKING_SET = "Working set:";
@@ -123,4 +111,19 @@ public interface ProjectWizard extends UIBase
     public final String TOOLTIP_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
     
     public final String MESAGE_SDK_NOT_SUPPORT=" The selected Plugins SDK does not support creating ext type plugins.  Please configure version 6.2 or less.";
+
+    public final String LABEL_JSF_FRAMEWORK = "JSF 2.x";
+    public final String LABEL_JSF_STANDARD = "JSF standard";
+    public final String LABEL_LIFERAY_MVC_FRAMEWORK = "Liferay MVC";
+    public final String LABEL_SPRING_MVC_FRAMEWORK = "Spring MVC";
+    public final String LABEL_VAADIN_FRAMEWORK = "Vaadin";
+    public final String LABLE_ARCHETYPE = "Archetype:";
+
+    public final String LABLE_ICE_FACES = "ICEfaces";
+    public final String LABLE_LIFERAY_FACES_ALLOY = "Liferay Faces Alloy";
+    public final String LABLE_PRIME_FACES = "PrimeFaces";
+
+    public final String LABLE_RICH_FACES = "RichFaces";
+    
+
 }
