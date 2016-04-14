@@ -22,6 +22,7 @@ import com.liferay.ide.ui.tests.UIBase;
  * @author Ashley Yuan
  * @author Ying Xu
  * @author Vicky Wang
+ * @author Li Lu
  */
 public interface ProjectWizard extends UIBase
 {
@@ -90,8 +91,6 @@ public interface ProjectWizard extends UIBase
     public final String TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME = " is an invalid character in resource name ";
     public final String TEXT_INVALID_NAME_ON_PLATFORM = " is an invalid name on this platform.";
 
-    public final String TEXT_JSF_FRAMEWORK = "JSF 2.x";
-    public final String TEXT_LIFERAY_MVC_FRAMEWORK = "Liferay MVC";
     public final String TEXT_PORTLET_FRAMEWORK_REQUIRES_SDK =
         "Selected portlet framework requires SDK version at least 7.0.0";
     public final String TEXT_PROJECT_ALREADY_EXISTS = " A project with that name already exists.";
@@ -101,10 +100,8 @@ public interface ProjectWizard extends UIBase
     public final String TEXT_PROJECT_NAME_MUST_SPECIFIED = "Project name must be specified";
 
     public final String TEXT_SDK_LOCATION_EMPTY = " This sdk location is empty ";
-    public final String TEXT_SPRING_MVC_FRAMEWORK = "Spring MVC";
     public final String TEXT_USE_DEFAULT_MVC_PORTLET = "Use default portlet (MVCPortlet)";
 
-    public final String TEXT_VAADIN_FRAMEWORK = "Vaadin";
     public final String TEXT_WEB_SDK_62_ERRORR_MESSAGE =
         " The selected Plugins SDK does not support creating new web type plugins.  Please configure version 7.0.0 or greater.";
     public final String TEXT_WORKING_SET = "Working set:";
@@ -118,8 +115,26 @@ public interface ProjectWizard extends UIBase
     public final String TOOLTIP_MENU_ITEM_LIFERAY_PROJECT = "Liferay Plugin Project";
 
     public final String TOOLTIP_MENU_ITEM_NEW_LIFERAY_PROJECT = "New Liferay Plugin Project";
+    public final String TITLE_NEW_LIFERAY_PROJECT = "New Liferay Plugin Project";
+    public final String TITLE_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
 
     public final String TOOLTIP_NEW = "New";
     public final String TOOLTIP_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
+    
+    public final String MESAGE_SDK_NOT_SUPPORT=" The selected Plugins SDK does not support creating ext type plugins.  Please configure version 6.2 or less.";
 
+    public final String LABEL_JSF_FRAMEWORK = "JSF 2.x";
+    public final String LABEL_JSF_STANDARD = "JSF standard";
+    public final String LABEL_LIFERAY_MVC_FRAMEWORK = "Liferay MVC";
+    public final String LABEL_SPRING_MVC_FRAMEWORK = "Spring MVC";
+    public final String LABEL_VAADIN_FRAMEWORK = "Vaadin";
+    public final String LABLE_ARCHETYPE = "Archetype:";
+
+    public final String LABLE_ICE_FACES = "ICEfaces";
+    public final String LABLE_LIFERAY_FACES_ALLOY = "Liferay Faces Alloy";
+    public final String LABLE_PRIME_FACES = "PrimeFaces";
+
+    public final String LABLE_RICH_FACES = "RichFaces";
+    
+    
 }
