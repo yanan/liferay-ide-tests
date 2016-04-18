@@ -39,7 +39,6 @@
 		<m2e-site>http://download.eclipse.org/technology/m2e/milestones/1.6/1.6.2.20150902-0001/</m2e-site>
 		<m2e-wtp-site>http://download.eclipse.org/m2e-wtp/releases/mars/1.2/1.2.0.20150602-1740/</m2e-wtp-site>
 		<m2e-archiver-site>http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-mavenarchiver/0.17.0/N/LATEST/</m2e-archiver-site>
-		<!--eclipse-xml-search-site>http://oss.opensagres.fr/eclipse-wtp-xml-search/1.0.1-SNAPSHOT/</eclipse-xml-search-site -->
 		<eclipse-xml-search-site>http://106.187.96.36/gamerson/eclipse-wtp-xml-search-1.0.0.20150417/</eclipse-xml-search-site>
 		<tern-site>http://oss.opensagres.fr/tern.repository/1.1.0/</tern-site>
 		<webresources-site>http://oss.opensagres.fr/eclipse-wtp-webresources/1.0.0/</webresources-site>
@@ -52,7 +51,7 @@
 		<eclipse-site>http://download.eclipse.org/releases/mars/</eclipse-site>
 		<eclipse-project-update-site>http://download.eclipse.org/eclipse/updates/4.5/</eclipse-project-update-site>
 		<liferay-ide-site>http://build-1:9090/userContent/liferay-ide/latest/repository/</liferay-ide-site>
-		<liferay-ide-swtbot-testing-site>http://build-1:9090/userContent/liferay-ide-swtbot-updatesite/</liferay-ide-swtbot-testing-site>
+		<liferay-ide-swtbot-testing-site>http://build-1:9090/userContent/liferay-ide-swtbot-updatesite/repository/</liferay-ide-swtbot-testing-site>
 		<wtp-site>http://download.eclipse.org/webtools/downloads/drops/R3.7.2/R-3.7.2-20160217020110/repository/</wtp-site>
 		<gmaven.runtime>1.8</gmaven.runtime>
 	</properties>
