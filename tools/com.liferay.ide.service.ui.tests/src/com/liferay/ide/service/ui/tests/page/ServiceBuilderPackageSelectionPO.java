@@ -18,6 +18,7 @@ package com.liferay.ide.service.ui.tests.page;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import com.liferay.ide.service.ui.tests.ServiceBuilderWizard;
+import com.liferay.ide.ui.tests.swtbot.page.ButtonPO;
 import com.liferay.ide.ui.tests.swtbot.page.DialogPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
 
@@ -27,7 +28,8 @@ import com.liferay.ide.ui.tests.swtbot.page.TextPO;
 public class ServiceBuilderPackageSelectionPO extends DialogPO implements ServiceBuilderWizard
 {
 
-    TextPO packageSelectionText;
+    private TextPO _packageSelectionText;
+    private ButtonPO _okButton;
 
     public ServiceBuilderPackageSelectionPO( SWTBot bot, String cancelButtonText, String confirmButtonText )
     {
@@ -39,13 +41,19 @@ public class ServiceBuilderPackageSelectionPO extends DialogPO implements Servic
         SWTBot bot, String title, String cancelButtonText, String confirmButtonText )
     {
         super( bot, title, cancelButtonText, confirmButtonText );
-        packageSelectionText = new TextPO( bot, LABEL_CHOOSE_PACKAGE );
+        _packageSelectionText = new TextPO( bot, LABEL_CHOOSE_PACKAGE );
+        _okButton = new ButtonPO( bot, BUTTON_OK );
 
+    }
+
+    public ButtonPO getOkButton()
+    {
+        return _okButton;
     }
 
     public void selectPackage( String packageText )
     {
-        packageSelectionText.setText( packageText );
+        _packageSelectionText.setText( packageText );
     }
 
 }

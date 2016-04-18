@@ -50,6 +50,6 @@ public interface ServiceBuilderWizard extends UIBase
     public final String TEXT_VALIDATION_NAMESPACE_MESSAGE = " The namespace element must be a valid keyword.";
     public final String TEXT_VALIDATION_PACKAGE_PATH_MESSAGE = " Invalid Java package name: ";
 
-    public final String SERVICE_BUILDER_DTD_VERSION = "6.2.0";
+    public final String SERVICE_BUILDER_DTD_VERSION = "7.0.0";
     public final int INDEX_VALIDATION_MESSAGE = 4;
 }

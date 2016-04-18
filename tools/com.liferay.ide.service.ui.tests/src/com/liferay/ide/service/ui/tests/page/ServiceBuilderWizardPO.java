@@ -16,9 +16,9 @@
 package com.liferay.ide.service.ui.tests.page;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 
 import com.liferay.ide.service.ui.tests.ServiceBuilderWizard;
+import com.liferay.ide.ui.tests.swtbot.page.ButtonPO;
 import com.liferay.ide.ui.tests.swtbot.page.CheckBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.ComboBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
@@ -30,88 +30,75 @@ import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 public class ServiceBuilderWizardPO extends WizardPO implements ServiceBuilderWizard
 {
 
-    TextPO author;
-    TextPO serviceFile;
-    TextPO namespace;
-    TextPO packagePath;
+    private TextPO _author;
+    private TextPO _serviceFile;
+    private TextPO _namespace;
+    private TextPO _packagePath;
 
-    ComboBoxPO pluginProjectComboBox;
-    CheckBoxPO includeSampleEntityCheckBox;
+    private ButtonPO _browseButton;
 
-    private final String browseButtonText;
+    ComboBoxPO _pluginProjectComboBox;
+    CheckBoxPO _includeSampleEntityCheckBox;
+
     private int validationMessageIndex = -1;
 
     public ServiceBuilderWizardPO( SWTBot bot )
     {
-        this( bot, TEXT_BLANK, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BROWSE, INDEX_VALIDATION_MESSAGE );
+        this( bot, TEXT_BLANK );
     }
 
     public ServiceBuilderWizardPO( SWTBot bot, String title )
     {
-        this( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BROWSE, INDEX_VALIDATION_MESSAGE );
+        this( bot, title, INDEX_VALIDATION_MESSAGE );
     }
 
-    public ServiceBuilderWizardPO(
-        SWTBot bot, String title, String cancelButtonText, String finishButtonText, String browseButtonText )
+    public ServiceBuilderWizardPO( SWTBot bot, String title, int validationMessageIndex )
     {
-        super( bot, title, cancelButtonText, finishButtonText, browseButtonText, TEXT_BLANK );
-        this.browseButtonText = browseButtonText;
-        packagePath = new TextPO( bot, LABEL_PACKAGE_PATH );
-        namespace = new TextPO( bot, LABEL_NAMESPACE );
-        author = new TextPO( bot, LABEL_AUTHOR );
-        serviceFile = new TextPO( bot, LABEL_SERVICE_FILE );
-        includeSampleEntityCheckBox = new CheckBoxPO( bot, CHECKBOX_INCLUDE_SAMPLE_ENTITY );
-        pluginProjectComboBox = new ComboBoxPO( bot, COMBOBOX_PLUGIN_PROJECT );
-
-    }
-
-    public ServiceBuilderWizardPO(
-        SWTBot bot, String title, String cancelButtonText, String finishButtonText, String browseButtonText,
-        int validationMessageIndex )
-    {
-        this( bot, title, cancelButtonText, finishButtonText, browseButtonText );
-
+        super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BROWSE, TEXT_BLANK, validationMessageIndex );
         this.validationMessageIndex = validationMessageIndex;
+        _packagePath = new TextPO( bot, LABEL_PACKAGE_PATH );
+        _namespace = new TextPO( bot, LABEL_NAMESPACE );
+        _author = new TextPO( bot, LABEL_AUTHOR );
+        _serviceFile = new TextPO( bot, LABEL_SERVICE_FILE );
+        _includeSampleEntityCheckBox = new CheckBoxPO( bot, CHECKBOX_INCLUDE_SAMPLE_ENTITY );
+        _pluginProjectComboBox = new ComboBoxPO( bot, COMBOBOX_PLUGIN_PROJECT );
+        _browseButton = new ButtonPO( bot, BUTTON_BROWSE );
+
     }
 
-    public void browse()
+    public ButtonPO getBrowseButton()
     {
-        clickClosingButton( browseButton() );
-    }
-
-    protected SWTBotButton browseButton()
-    {
-        return bot.button( browseButtonText );
+        return _browseButton;
     }
 
     public TextPO getAuthorText()
     {
-        return author;
+        return _author;
     }
 
     public CheckBoxPO getIncludeSampleEntityCheckBox()
     {
-        return includeSampleEntityCheckBox;
+        return _includeSampleEntityCheckBox;
     }
 
     public TextPO getNamespaceText()
     {
-        return namespace;
+        return _namespace;
     }
 
     public TextPO getPackagePathText()
     {
-        return packagePath;
+        return _packagePath;
     }
 
     public ComboBoxPO getPluginProjectComboBox()
     {
-        return pluginProjectComboBox;
+        return _pluginProjectComboBox;
     }
 
     public TextPO getServiceFileText()
     {
-        return serviceFile;
+        return _serviceFile;
     }
 
     public String getValidationMessage()
@@ -133,16 +120,16 @@ public class ServiceBuilderWizardPO extends WizardPO implements ServiceBuilderWi
 
     public void NewServiceBuilder( String packagePathText, String namespaceText, boolean includeSampleEntity )
     {
-        packagePath.setText( packagePathText );
-        namespace.setText( namespaceText );
+        _packagePath.setText( packagePathText );
+        _namespace.setText( namespaceText );
 
         if( includeSampleEntity )
         {
-            includeSampleEntityCheckBox.select();
+            _includeSampleEntityCheckBox.select();
         }
         else
         {
-            includeSampleEntityCheckBox.deselect();
+            _includeSampleEntityCheckBox.deselect();
         }
     }
 
