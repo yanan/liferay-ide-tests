@@ -20,14 +20,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.liferay.ide.tests.tools</groupId>
-        <artifactId>tools-tests</artifactId>
+        <groupId>com.liferay.ide.tests.build</groupId>
+        <artifactId>build</artifactId>
         <version>3.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>com.liferay.ide.portlet.ui.tests</artifactId>
-    <packaging>eclipse-test-plugin</packaging>
+    <artifactId>com.liferay.ide.swtbot.testing-repository</artifactId>
+    <packaging>eclipse-repository</packaging>
 
-    <name>Liferay IDE Portlet UI Tests</name>
+    <name>Liferay IDE Swtbot Testing Repository</name>
 
 </project>

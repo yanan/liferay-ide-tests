@@ -7,12 +7,10 @@ Bundle-Vendor: Liferay, Inc.
 Require-Bundle: org.junit,
  org.eclipse.ui.console,
  org.eclipse.swtbot.go,
- org.apache.commons.lang;bundle-version="2.6.0",
- com.liferay.blade.api,
- com.liferay.ide.ui.tests;bundle-version="3.0.0",
- org.eclipse.swtbot.swt.finder,
- org.eclipse.core.resources
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+ com.liferay.ide.ui.tests,
+ org.eclipse.core.resources,
+ com.liferay.ide.project.ui.tests
 Export-Package: com.liferay.ide.project.ui.tests,
  com.liferay.ide.project.ui.tests.page
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

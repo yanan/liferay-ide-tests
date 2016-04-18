@@ -45,8 +45,6 @@ public class ViewPO extends AbstractPO
 
     public void close()
     {
-        show();
-
         getView().close();
     }
 
