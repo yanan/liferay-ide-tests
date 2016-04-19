@@ -63,5 +63,10 @@ public class ViewPO extends AbstractPO
     public void show() {
         getView().show();
     }
+    
+    public boolean isActive()
+    {
+        return getView().isActive();
+    }
 
 }
