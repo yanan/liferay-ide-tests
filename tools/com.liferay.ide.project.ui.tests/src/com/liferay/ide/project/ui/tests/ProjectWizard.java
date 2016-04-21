@@ -49,9 +49,10 @@ public interface ProjectWizard extends UIBase
     public final String LABEL_PORTLET_NAME = "Portlet name:";
     public final String LABEL_PROJECT_NAME = "Project name:";
     public final String LABEL_SDK_LOCATION = "SDK Location:";
+
     public final String LABEL_UPDATE_EXCLUSION_FILTERS =
         "Update exclusion filters in other source folders to solve nesting";
-    public final String LABEL_USE_DEFAULT_LOCATION = "Use default location";
+
     public final String MENU_BUILD_TYPE_ANT = "Ant (liferay-plugins-sdk)";
     public final String MENU_BUILD_TYPE_MAVEN = "Maven (liferay-maven-plugin)";
     public final String MENU_EXT = "Ext";
@@ -104,13 +105,11 @@ public interface ProjectWizard extends UIBase
     public final String TOOLTIP_MENU_ITEM_LIFERAY_PROJECT = "Liferay Plugin Project";
     public final String TOOLTIP_MENU_ITEM_NEW_LIFERAY_PROJECT = "New Liferay Plugin Project";
 
-    public final String TITLE_NEW_LIFERAY_PROJECT = "New Liferay Plugin Project";
-    public final String TITLE_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
-
     public final String TOOLTIP_NEW = "New";
     public final String TOOLTIP_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
-    
-    public final String MESAGE_SDK_NOT_SUPPORT=" The selected Plugins SDK does not support creating ext type plugins.  Please configure version 6.2 or less.";
+
+    public final String MESAGE_SDK_NOT_SUPPORT =
+        " The selected Plugins SDK does not support creating ext type plugins.  Please configure version 6.2 or less.";
 
     public final String LABEL_JSF_FRAMEWORK = "JSF 2.x";
     public final String LABEL_JSF_STANDARD = "JSF standard";
@@ -124,6 +123,5 @@ public interface ProjectWizard extends UIBase
     public final String LABLE_PRIME_FACES = "PrimeFaces";
 
     public final String LABLE_RICH_FACES = "RichFaces";
-    
 
 }

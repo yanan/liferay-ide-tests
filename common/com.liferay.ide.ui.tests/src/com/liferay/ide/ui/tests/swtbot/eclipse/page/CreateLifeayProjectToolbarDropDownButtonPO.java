@@ -62,7 +62,7 @@ public class CreateLifeayProjectToolbarDropDownButtonPO extends ToolbarDropDownB
     {
         return _newLiferayJSFPortlet;
     }
-    
+
     public MenuItemPO getNewLiferayPluginProject()
     {
         return _newLiferayPluginProject;
@@ -77,7 +77,7 @@ public class CreateLifeayProjectToolbarDropDownButtonPO extends ToolbarDropDownB
     {
         return _newLiferayServer;
     }
-    
+
     public MenuItemPO getNewLiferayServiceBuilder()
     {
         return _newLiferayServiceBuilder;

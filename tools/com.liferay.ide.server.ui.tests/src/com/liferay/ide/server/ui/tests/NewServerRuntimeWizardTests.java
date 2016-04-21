@@ -70,10 +70,10 @@ public class NewServerRuntimeWizardTests extends SWTBotBase implements ServerRun
 
         // Waiting for merging Lilu's server page object commit
         bot.tree( 1 ).getTreeItem( serversStopped ).select();
-		bot.toolbarButtonWithTooltip(serverStartButton).click();
+        bot.toolbarButtonWithTooltip( serverStartButton ).click();
 
-		sleep(60000);
-		assertTrue(checkServerConsoleMessage(SERVER_STARTUP_MESSAGE, "Liferay", 60000));
+        sleep( 60000 );
+        assertTrue( checkServerConsoleMessage( SERVER_STARTUP_MESSAGE, "Liferay", 60000 ) );
         // Future: need to add jboss test
     }
 }

@@ -23,11 +23,12 @@ import com.liferay.ide.ui.tests.UIBase;
  */
 public interface LiferayPortletWizard extends UIBase
 {
+
     public final int INDEX_DEFAULT_VALIDATION_PORTLET_MESSAGE = 3;
     public final int INDEX_VALIDATION_PORTLET_MESSAGE2 = 5;
     public final int INDEX_VALIDATION_PORTLET_MESSAGE3 = 6;
     public final int INDEX_VALIDATION_PORTLET_MESSAGE4 = 0;
-
+    
     public final String TOOLTIP_MENU_ITEM_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
 
     public final String LABEL_PORTLET_PLUGIN_PROJECT = "Portlet plugin project:";
@@ -145,12 +146,15 @@ public interface LiferayPortletWizard extends UIBase
         { "Control Panel - Apps", "Control Panel - Configuration", "My Account Administration",
             "Site Administration - Configuration", "Site Administration - Content", "Site Administration - Pages",
             "Site Administration - Users", "Control Panel - Sites", "Control Panel - Users" };
-    
-    public String[] availableDisplayCategories70 = { "Community","Configuration","Undefined","Sandbox","Sun","System","Gadgets","Shopping","Publishing Tools","WSRP","Test","Portal","Religion","Google","Collaboration","Alfresco","Library","Workflow","News","Knowledge Base","Sample","Entertainment","Content Management","Spring","Sites","World of Liferay","Users","Science","Development","Apps","Finance","Marketplace","Social","OpenSocial","Content","Admin","Christianity","Tools" };
 
-    public String[] availableEntryCategories70 =
-        { "Control Panel - null", "Control Panel - null", "My Account Administration",
-            "Site Administration - Configuration", "Site Administration - Content", "Site Administration - Pages",
-            "Site Administration - Users", "Control Panel - null", "Control Panel - null" };
+    public String[] availableDisplayCategories70 = { "Community", "Configuration", "Undefined", "Sandbox", "Sun",
+        "System", "Gadgets", "Shopping", "Publishing Tools", "WSRP", "Test", "Portal", "Religion", "Google",
+        "Collaboration", "Alfresco", "Library", "Workflow", "News", "Knowledge Base", "Sample", "Entertainment",
+        "Content Management", "Spring", "Sites", "World of Liferay", "Users", "Science", "Development", "Apps",
+        "Finance", "Marketplace", "Social", "OpenSocial", "Content", "Admin", "Christianity", "Tools" };
+
+    public String[] availableEntryCategories70 = { "Control Panel - null", "Control Panel - null",
+        "My Account Administration", "Site Administration - Configuration", "Site Administration - Content",
+        "Site Administration - Pages", "Site Administration - Users", "Control Panel - null", "Control Panel - null" };
 
 }

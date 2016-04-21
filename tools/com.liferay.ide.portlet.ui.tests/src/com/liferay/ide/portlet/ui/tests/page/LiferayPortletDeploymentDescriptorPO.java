@@ -52,7 +52,7 @@ public class LiferayPortletDeploymentDescriptorPO extends WizardPO implements Li
     {
         this( bot, TEXT_BLANK, BUTTON_BACK, BUTTON_NEXT, BUTTON_FINISH, BUTTON_CANCEL, INDEX_VALIDATION_PORTLET_MESSAGE3 );
     }
-    
+
     public LiferayPortletDeploymentDescriptorPO( SWTBot bot, int validationMessageIndex )
     {
         this( bot, TEXT_BLANK, BUTTON_BACK, BUTTON_NEXT, BUTTON_FINISH, BUTTON_CANCEL, validationMessageIndex );

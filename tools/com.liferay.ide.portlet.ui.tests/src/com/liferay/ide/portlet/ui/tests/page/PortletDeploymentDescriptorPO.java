@@ -157,22 +157,22 @@ public class PortletDeploymentDescriptorPO extends WizardPO implements LiferayPo
     {
         return _resourceBundleFilePathText;
     }
-    
+
     public boolean isViewPortletModeEnabled()
     {
         return _viewPortletModeCheckbox.isEnabled();
     }
-    
+
     public boolean isEditPortletModeChecked()
     {
         return _editPortletModeCheckbox.isChecked();
     }
-    
+
     public boolean isHelpPortletModeChecked()
     {
         return _helpPortletModeCheckbox.isChecked();
     }
-    
+
     public void setDisplayName( String displayName )
     {
         this._displayNameText.setText( displayName );

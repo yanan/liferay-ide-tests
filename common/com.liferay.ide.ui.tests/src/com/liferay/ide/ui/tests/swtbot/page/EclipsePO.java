@@ -62,7 +62,7 @@ public class EclipsePO extends AbstractPO implements UIBase
         _errorLogView = new ErrorLogViewPO( bot );
         _newToolbar = new NewToolbarDropDownButtonPO( bot );
     }
-    
+
     public void closeShell( String title )
     {
         DialogPO shell = new DialogPO( bot, title );
@@ -94,7 +94,7 @@ public class EclipsePO extends AbstractPO implements UIBase
     {
         return _packageExporerView;
     }
-    
+
     public TreePO getProjectTree()
     {
         return _projectTree;
