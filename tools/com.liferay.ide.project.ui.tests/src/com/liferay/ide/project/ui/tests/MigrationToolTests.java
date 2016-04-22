@@ -29,17 +29,15 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.liferay.ide.project.ui.tests.page.LiferayProjectFromExistSourceWizardPO;
 import com.liferay.ide.ui.tests.SWTBotBase;
-import com.liferay.ide.ui.tests.swtbot.condition.ViewVisibleCondition;
 import com.liferay.ide.ui.tests.swtbot.page.DialogPO;
 import com.liferay.ide.ui.tests.swtbot.page.TreeItemPO;
+import com.liferay.ide.ui.tests.swtbot.page.ViewPO;
 import com.liferay.ide.ui.tests.util.CoreUtil;
 import com.liferay.ide.ui.tests.util.ZipUtil;
 
@@ -47,18 +45,16 @@ import com.liferay.ide.ui.tests.util.ZipUtil;
  * @author Li Lu
  */
 @RunWith( SWTBotJunit4ClassRunner.class )
-@Ignore
 public class MigrationToolTests extends SWTBotBase implements MigrateProjectWizard
 {
-
-	String MARKER_TYPE = "com.liferay.ide.project.core.MigrationProblemMarker";
+    String MARKER_TYPE = "com.liferay.ide.project.core.MigrationProblemMarker";
     private static final String BUNDLE_ID = "com.liferay.ide.project.ui.tests";
     private static IProject project;
 
     @After
     public void cleanup() throws CoreException
     {
-        eclipse.getPackageExporerView().deleteResouceByName( project.getName() , true );
+        eclipse.getPackageExporerView().deleteResouceByName( project.getName(), true );
     }
 
     public void deleteMigrationMarkers( IResource resource ) throws CoreException
@@ -74,7 +70,7 @@ public class MigrationToolTests extends SWTBotBase implements MigrateProjectWiza
     public IMarker findMigrationMarker( IResource resource, String markerMessage, boolean fullMatch )
         throws CoreException
     {
-        IMarker[] markers = resource.findMarkers( MARKER_TYPE, false, IResource.DEPTH_ZERO );
+        IMarker[] markers = resource.findMarkers( MARKER_TYPE, false, IResource.DEPTH_INFINITE );
 
         for( IMarker marker : markers )
         {
@@ -107,25 +103,25 @@ public class MigrationToolTests extends SWTBotBase implements MigrateProjectWiza
     public void testMigrateProjectHandlerCancelOnMenu() throws Exception
     {
 
-       project = CoreUtil.getProject( "knowledge-base-portlet" );
+        project = CoreUtil.getProject( "knowledge-base-portlet" );
 
         IMarker marker = findMigrationMarker( project, ".*", false );
         assertNull( marker );
 
         TreeItemPO projectTreeItem = eclipse.getProjectTree().getTreeItem( "knowledge-base-portlet" );
 
-        projectTreeItem.doAction( MENU_MIGREATE_PROJECT_TO_70 );
+        projectTreeItem.doAction( MENU_LIFERAY, MENU_FIND_LIFERAY7_BREAKING_API_CHANGES );
 
-        sleep( 500 );
-        DialogPO migrateDialog = new DialogPO( bot, BUTTON_CANCEL, TITLE_FIND_MIGREATE_PROBLEMS );
+        DialogPO migrateDialog = new DialogPO( bot, TITLE_FINDING_MIGRATION_PROBLEMS );
+
+        migrateDialog.waitForPageToOpen();
         assertTrue( migrateDialog.isOpen() );
 
-        migrateDialog.cancel();
+        sleep( 40000 );
+        ViewPO view = new ViewPO( bot, TITLE_LIFERAY7_MIGRATION_PROBLEMS );
+        assertTrue( view.isActive() );
 
-        sleep( 1000 );
-        ViewVisibleCondition showMigrationView = new ViewVisibleCondition( TITLE_PLUGIN_MIGRATION, true, false );
-        assertTrue( showMigrationView.test() );
-
+        migrateDialog.closeIfOpen();
         marker = findMigrationMarker( project, ".*", false );
         assertNotNull( marker );
     }

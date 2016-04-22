@@ -90,5 +90,6 @@ public interface UIBase
     public final String TOOLBAR_PACKAGE = "Package";
 
     public final String MENU_NEW_LIFERAY_PROJECT_EXIS_SOURCE = "New Liferay Project from Existing Source";
+    public final String MENU_LIFERAY = "Liferay";
 
 }
