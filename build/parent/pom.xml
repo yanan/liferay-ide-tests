@@ -316,7 +316,7 @@
 						<includes>
 							<include>**/*Test*.class</include>
 						</includes>
-						<argLine>-Xmx1024m -XX:MaxPermSize=512m</argLine>
+						<argLine>-Xmx1024m -XX:MaxMetaspaceSize=1024m</argLine>
 						<systemProperties>
 							<liferay.bundles.dir>${liferay.bundles.dir}</liferay.bundles.dir>
 							<temp.dir>${temp.dir}</temp.dir>
