@@ -85,9 +85,8 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
 
         String projectFolder = sdkPath[sdkPath.length - 1];
 
-        String pluginType =
-            projectFolder.endsWith( "s" )
-                ? projectFolder.substring( 0, projectFolder.lastIndexOf( 's' ) ) : projectFolder;
+        String pluginType = projectFolder.endsWith( "s" )
+            ? projectFolder.substring( 0, projectFolder.lastIndexOf( 's' ) ) : projectFolder;
 
         sleep( 1000 );
         assertEquals( pluginType, _wizard.getPluginTypeText().getText() );
@@ -118,6 +117,8 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
         assertFalse( _wizard.getBrowseProjectDirectory().isActive() );
         assertFalse( _wizard.getPluginTypeText().isActive() );
         assertFalse( _wizard.getSdkVersionText().isActive() );
+
+        _wizard.cancel();
     }
 
     @Test
@@ -146,8 +147,9 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
 
         // import project outside of SDK
         importSDKProject( "portlets", "Import-223-portlet" );
-        IPath projectDir = getLiferayPluginsSdkDir().append( "/portlets/Import-223-portlet" );
-        IPath projectCopyDir = getLiferayPluginsSdkDir().removeLastSegments( 2 ).append( "/Import-223-portlet" );
+        IPath projectDir = getLiferayPluginsSdkDir().append( "/portlets/Import-223-portlet" ).makeAbsolute();
+        IPath projectCopyDir =
+            getLiferayPluginsSdkDir().removeLastSegments( 2 ).append( "/Import-223-portlet" ).makeAbsolute();
 
         FileUtil.copyDirectiory( projectDir.toOSString(), projectCopyDir.toOSString() );
 
@@ -157,7 +159,7 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
         _wizard.getProjectDirectoryText().setText( projectCopyDir.toOSString() );
 
         sleep( 1000 );
-        assertTrue( _wizard.getValidationMessage().startsWith( MESSAGE_COULD_NOT_DETER_SDK ) );
+        assertTrue( _wizard.isButtonEnabled( BUTTON_FINISH ) );
 
         // import project from another SDK
         IPath sdk2Dir = getLiferayPluginsSdkDir().removeLastSegments( 1 ).append( "sdk2" );
@@ -174,6 +176,8 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
 
         assertFalse( _wizard.finishButton().isEnabled() );
 
+        _wizard.cancel();
+
         FileUtil.deleteDir( sdk2Dir.toFile(), true );
         FileUtil.deleteDir( projectCopyDir.toFile(), true );
     }
@@ -182,8 +186,6 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
     public void testValidationNoSDK() throws Exception
     {
         // test import project when no sdk in wrokspace
-        eclipse.getPackageExporerView().deleteResouceByName( getLiferayPluginsSdkName(), false );
-
         importSDKProject( "portlet", "Import-223-portlet" );
 
         TreeItemPO sdkTreeItem =
@@ -196,7 +198,9 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
         _wizard.getProjectDirectoryText().setText( projectPath );
 
         sleep( 1000 );
-        assertEquals( MESSAGE_PROJECT_NAME_EXSIT, _wizard.getValidationMessage() );
+        assertEquals( MESSAGE_PROJECT_NAME_EXSIT, _wizard.getValidationMessage() );        assertFalse( _wizard.isButtonEnabled( BUTTON_FINISH ) );
         assertFalse( _wizard.finishButton().isEnabled() );
+
+        _wizard.cancel();
     }
 }
