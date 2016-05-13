@@ -104,7 +104,8 @@ public class MigrationToolTests extends SWTBotBase implements MigrateProjectWiza
     {
 
         project = CoreUtil.getProject( "knowledge-base-portlet" );
-
+        
+        sleep( 2000 );
         IMarker marker = findMigrationMarker( project, ".*", false );
         assertNull( marker );
 
