@@ -19,9 +19,13 @@ import static org.junit.Assert.assertEquals;
 
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
+import java.util.Properties;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.runtime.FileLocator;
@@ -209,18 +213,26 @@ public class SWTBotBase implements UIBase
 
         final File ivyCacheDir = new File( liferayPluginsSdkDirFile, ".ivy" );
 
-        if( !ivyCacheDir.exists() )
-        {
-            final File ivyCacheZipFile = getIvyCacheZip().toFile();
+        final File ivyCacheZipFile = getIvyCacheZip().toFile();
 
-            assertEquals(
-                "Expected ivy-cache.zip to be here: " + ivyCacheZipFile.getAbsolutePath(), true,
-                ivyCacheZipFile.exists() );
+        assertEquals(
+            "Expected ivy-cache.zip to be here: " + ivyCacheZipFile.getAbsolutePath(), true, ivyCacheZipFile.exists() );
 
-            ZipUtil.unzip( ivyCacheZipFile, liferayPluginsSdkDirFile );
-        }
+        ZipUtil.unzip( ivyCacheZipFile, liferayPluginsSdkDirFile );
 
         assertEquals( "Expected .ivy folder to be here: " + ivyCacheDir.getAbsolutePath(), true, ivyCacheDir.exists() );
+
+        Map<String, String> map = System.getenv();
+        String username = map.get("USERNAME");
+        File userBuildFile = new File( liferayPluginsSdkDirFile, "build." + username + ".properties" );
+
+        if( !userBuildFile.exists() )
+        {
+            userBuildFile.createNewFile();
+            Properties p = new Properties();
+            p.put( "app.server.parent.dir", getLiferayServerDir().toFile().toString() );
+            p.store( new FileOutputStream( userBuildFile ), "" );
+        }
     }
 
     protected static void unzipServer() throws IOException
