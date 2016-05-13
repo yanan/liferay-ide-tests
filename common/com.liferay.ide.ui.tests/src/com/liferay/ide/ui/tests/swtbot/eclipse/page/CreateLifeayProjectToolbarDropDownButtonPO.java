@@ -25,15 +25,19 @@ import com.liferay.ide.ui.tests.swtbot.page.ToolbarDropDownButtonPO;
  * @author Terry Jia
  * @author Vicky Wang
  * @author Ying Xu
+ * @author Li Lu
  */
 public class CreateLifeayProjectToolbarDropDownButtonPO extends ToolbarDropDownButtonPO implements UIBase
 {
 
+    private MenuItemPO _newLiferayHookConfigration;
+    private MenuItemPO _newLiferayJSFPortlet;
     private MenuItemPO _newLiferayPluginProject;
     private MenuItemPO _newLiferayPortlet;
-    private MenuItemPO _newLiferayHookConfigration;
     private MenuItemPO _newLiferayServer;
     private MenuItemPO _newLiferayServiceBuilder;
+    private MenuItemPO _newLiferayVaadinPortlet;
+    private MenuItemPO _newLiferayLayouTemplate;
 
     public CreateLifeayProjectToolbarDropDownButtonPO( SWTBot bot )
     {
@@ -44,6 +48,19 @@ public class CreateLifeayProjectToolbarDropDownButtonPO extends ToolbarDropDownB
         _newLiferayHookConfigration = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_HOOK_CONFIGURATION );
         _newLiferayServer = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_SERVER );
         _newLiferayServiceBuilder = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_SERVICE_BUILDER );
+        _newLiferayJSFPortlet = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_JSF_PORTLET );
+        _newLiferayVaadinPortlet=new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_VAADIN_PORTLET );
+        _newLiferayLayouTemplate = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_LAYOUT_TMEPLATE );
+    }
+
+    public MenuItemPO getNewLiferayHookConfigration()
+    {
+        return _newLiferayHookConfigration;
+    }
+
+    public MenuItemPO getNewLiferayJSFPortlet()
+    {
+        return _newLiferayJSFPortlet;
     }
 
     public MenuItemPO getNewLiferayPluginProject()
@@ -56,12 +73,6 @@ public class CreateLifeayProjectToolbarDropDownButtonPO extends ToolbarDropDownB
         return _newLiferayPortlet;
     }
 
-    public MenuItemPO getNewLiferayHookConfigration()
-    {
-        return _newLiferayHookConfigration;
-    }
-
-  
     public MenuItemPO getNewLiferayServer()
     {
         return _newLiferayServer;
@@ -70,6 +81,16 @@ public class CreateLifeayProjectToolbarDropDownButtonPO extends ToolbarDropDownB
     public MenuItemPO getNewLiferayServiceBuilder()
     {
         return _newLiferayServiceBuilder;
+    }
+    
+    public MenuItemPO getNewLiferayLayoutTemplate()
+    {
+        return _newLiferayLayouTemplate;
+    }
+
+    public MenuItemPO getNewLiferayVaadinPortlet()
+    {
+        return _newLiferayVaadinPortlet;
     }
 
 }

@@ -13,35 +13,19 @@
  *
  *******************************************************************************/
 
-package com.liferay.ide.ui.tests.swtbot.page;
+package com.liferay.ide.portlet.ui.tests;
 
-import com.liferay.ide.ui.tests.swtbot.condition.WidgetEnabledCondition;
-
-import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
+import com.liferay.ide.ui.tests.UIBase;
 
 /**
- * @author Terry Jia
- * @author Ashley Yuan
+ * @author Li Lu
  */
-public abstract class ClosingButtonPO extends ShellPO
+public interface VaadinPortletWizard extends UIBase
 {
 
-    public ClosingButtonPO( SWTBot bot, String title )
-    {
-        super( bot, title );
-    }
-
-    protected void clickButton( SWTBotButton button )
-    {
-        bot.waitUntil( new WidgetEnabledCondition( button, true ) );
-
-        button.click();
-    }
-
-    protected void clickClosingButton( SWTBotButton button )
-    {
-        clickButton( button );
-    }
-
+    public final int INDEX__VAADIN_VALIDATION_MESSAGE1 = 3;
+    public final int INDEX_VAADIN_VALIDATION_MESSAGE2 = 4;
+    public final int INDEX_VAADIN_VALIDATION_MESSAGE3 = 6;
+    public final String LABEL_APPLICATION_CLASS = "Application class:";
+    public final String TEXT_MUST_SPECIFY_VAADIN_PORTLET_CLASS = " Must specify a vaadin portlet class.";
 }

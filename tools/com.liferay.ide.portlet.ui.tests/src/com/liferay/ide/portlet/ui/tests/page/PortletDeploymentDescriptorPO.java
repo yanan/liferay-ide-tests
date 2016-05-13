@@ -48,7 +48,7 @@ public class PortletDeploymentDescriptorPO extends WizardPO implements LiferayPo
 
     public PortletDeploymentDescriptorPO( SWTBot bot )
     {
-        this( bot, INDEX_DEFAULT_VALIDATION_MESSAGE );
+        this( bot, INDEX_VALIDATION_PORTLET_MESSAGE2 );
     }
 
     public PortletDeploymentDescriptorPO( SWTBot bot, int validationMessageIndex )
@@ -156,6 +156,21 @@ public class PortletDeploymentDescriptorPO extends WizardPO implements LiferayPo
     public TextPO get_resourceBundleFilePathText()
     {
         return _resourceBundleFilePathText;
+    }
+
+    public boolean isViewPortletModeEnabled()
+    {
+        return _viewPortletModeCheckbox.isEnabled();
+    }
+
+    public boolean isEditPortletModeChecked()
+    {
+        return _editPortletModeCheckbox.isChecked();
+    }
+
+    public boolean isHelpPortletModeChecked()
+    {
+        return _helpPortletModeCheckbox.isChecked();
     }
 
     public void setDisplayName( String displayName )

@@ -16,52 +16,50 @@
 package com.liferay.ide.ui.tests.swtbot.page;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotRadio;
 
-import com.liferay.ide.ui.tests.swtbot.condition.WidgetEnabledCondition;
+import com.liferay.ide.ui.tests.UIBase;
 
 /**
- * @author Terry Jia
  * @author Ashley Yuan
  * @author Li Lu
  */
-public class RadioPO extends AbstractWidgetPO
+public abstract class AbstractSelectionPO extends DialogPO implements UIBase
 {
 
-    public RadioPO( SWTBot bot, int index )
+    protected static int labelIndex = 0;
+    private TreePO _selcetFileTree;
+
+    public AbstractSelectionPO( SWTBot bot, String title )
     {
-        super( bot, index );
+        this( bot, title, BUTTON_CANCEL, BUTTON_OK, labelIndex );
     }
 
-    public RadioPO( SWTBot bot, String label )
+    public AbstractSelectionPO( SWTBot bot, String title, int labelIndex )
     {
-        super( bot, label );
+        this( bot, title, BUTTON_CANCEL, BUTTON_OK, labelIndex );
     }
 
-    public RadioPO( SWTBot bot, String label, int index )
+    public AbstractSelectionPO(
+        SWTBot bot, String title, String cancelButtonText, String confirmButtonText, int labelIndex )
     {
-        super( bot, label, index );
+        super( bot, title, cancelButtonText, confirmButtonText );
+
+        _selcetFileTree = new TreePO( bot );
     }
 
-    public void click()
+    public String getDialogLabel()
     {
-        bot.waitUntil( new WidgetEnabledCondition( getWidget(), true ) );
-
-        getWidget().click();
+        return getDialogLabel( labelIndex );
     }
 
-    @Override
-    protected SWTBotRadio getWidget()
+    public String getDialogLabel( int labelIndex )
     {
-        if( label == null )
-        {
-            return bot.radio( index );
-        }
-        return bot.radio( label );
+        return bot.label( labelIndex ).getText();
     }
 
-    public boolean isSelected()
+    public TreePO getSelcetFileTree()
     {
-        return getWidget().isSelected();
+        return _selcetFileTree;
     }
+
 }

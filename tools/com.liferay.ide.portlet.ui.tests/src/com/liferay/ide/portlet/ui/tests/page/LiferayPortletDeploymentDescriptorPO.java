@@ -27,6 +27,7 @@ import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
 /**
  * @author Ashley Yuan
+ * @author Li Lu
  */
 
 public class LiferayPortletDeploymentDescriptorPO extends WizardPO implements LiferayPortletWizard, ProjectWizard
@@ -46,6 +47,11 @@ public class LiferayPortletDeploymentDescriptorPO extends WizardPO implements Li
     private ButtonPO _browseIconButton;
     private ButtonPO _browseCssButton;
     private ButtonPO _browseJavaScriptButton;
+
+    public LiferayPortletDeploymentDescriptorPO( SWTBot bot )
+    {
+        this( bot, TEXT_BLANK, BUTTON_BACK, BUTTON_NEXT, BUTTON_FINISH, BUTTON_CANCEL, INDEX_VALIDATION_PORTLET_MESSAGE3 );
+    }
 
     public LiferayPortletDeploymentDescriptorPO( SWTBot bot, int validationMessageIndex )
     {
