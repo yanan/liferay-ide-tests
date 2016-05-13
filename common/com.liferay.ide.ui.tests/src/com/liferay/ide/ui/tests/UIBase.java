@@ -94,7 +94,6 @@ public interface UIBase
     public final String TOOLBAR_PACKAGE = "Package";
 
     public final String MENU_NEW_LIFERAY_PROJECT_EXIS_SOURCE = "New Liferay Plugin Project from Existing Source";
-    public final String MENU_NEW_LIFERAY_PROJECT_EXIS_SOURCE = "New Liferay Project from Existing Source";
     public final String TITLE_NEW_LAYOUT_TEMPLATE = "New Layout Template";
 
     public final String CREATE_MENU_NEW_LIFERAY_PLUGIN_PROJECT = "Create a new Liferay Plugin Project";
