@@ -159,7 +159,7 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
         _wizard.getProjectDirectoryText().setText( projectCopyDir.toOSString() );
 
         sleep( 1000 );
-        assertTrue( _wizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertTrue( _wizard.finishButton().isEnabled() );
 
         // import project from another SDK
         IPath sdk2Dir = getLiferayPluginsSdkDir().removeLastSegments( 1 ).append( "sdk2" );
@@ -198,7 +198,7 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
         _wizard.getProjectDirectoryText().setText( projectPath );
 
         sleep( 1000 );
-        assertEquals( MESSAGE_PROJECT_NAME_EXSIT, _wizard.getValidationMessage() );        assertFalse( _wizard.isButtonEnabled( BUTTON_FINISH ) );
+        assertEquals( MESSAGE_PROJECT_NAME_EXSIT, _wizard.getValidationMessage() );
         assertFalse( _wizard.finishButton().isEnabled() );
 
         _wizard.cancel();
