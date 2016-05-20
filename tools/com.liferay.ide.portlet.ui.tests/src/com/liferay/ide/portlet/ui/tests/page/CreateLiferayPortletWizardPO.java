@@ -67,9 +67,9 @@ public class CreateLiferayPortletWizardPO extends WizardPO implements LiferayPor
         _portletClassText = new TextPO( bot, LABEL_PORTLET_CLASS );
         _javaPackageText = new TextPO( bot, LABEL_JAVA_PACKAGE );
         _superClassCombobox = new ComboBoxPO( bot, LABEL_SUPERCLASS );
-        _browseSourceButton = new ButtonPO( bot, BUTTON_BROWSE );
-        _browsePackageButton = new ButtonPO( bot, BUTTON_BROWSE, 1 );
-        _browseSuperclassButton = new ButtonPO( bot, BUTTON_BROWSE, 2 );
+        _browseSourceButton = new ButtonPO( bot, BUTTON_BROWSE_WITH_DOT );
+        _browsePackageButton = new ButtonPO( bot, BUTTON_BROWSE_WITH_DOT, 1 );
+        _browseSuperclassButton = new ButtonPO( bot, BUTTON_BROWSE_WITH_DOT, 2 );
     }
 
     public ButtonPO get_browseSourceButton()

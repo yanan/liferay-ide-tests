@@ -25,7 +25,6 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.runtime.FileLocator;
@@ -223,7 +222,7 @@ public class SWTBotBase implements UIBase
         assertEquals( "Expected .ivy folder to be here: " + ivyCacheDir.getAbsolutePath(), true, ivyCacheDir.exists() );
 
         Map<String, String> map = System.getenv();
-        String username = map.get("USERNAME");
+        String username = map.get( "USERNAME" );
         File userBuildFile = new File( liferayPluginsSdkDirFile, "build." + username + ".properties" );
 
         if( !userBuildFile.exists() )
@@ -325,6 +324,16 @@ public class SWTBotBase implements UIBase
             }
         } );
 
+    }
+
+    public boolean matchItemInItems( String[] items, String expectedItems )
+    {
+        for( String item : items )
+        {
+            if( item.equals( expectedItems ) )
+                return true;
+        }
+        return false;
     }
 
     protected void sleep()

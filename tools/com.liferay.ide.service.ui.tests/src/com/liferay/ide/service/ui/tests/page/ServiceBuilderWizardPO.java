@@ -54,7 +54,7 @@ public class ServiceBuilderWizardPO extends WizardPO implements ServiceBuilderWi
 
     public ServiceBuilderWizardPO( SWTBot bot, String title, int validationMessageIndex )
     {
-        super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BROWSE, TEXT_BLANK, validationMessageIndex );
+        super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BROWSE_WITH_DOT, TEXT_BLANK, validationMessageIndex );
         this.validationMessageIndex = validationMessageIndex;
         _packagePath = new TextPO( bot, LABEL_PACKAGE_PATH );
         _namespace = new TextPO( bot, LABEL_NAMESPACE );
@@ -62,7 +62,7 @@ public class ServiceBuilderWizardPO extends WizardPO implements ServiceBuilderWi
         _serviceFile = new TextPO( bot, LABEL_SERVICE_FILE );
         _includeSampleEntityCheckBox = new CheckBoxPO( bot, CHECKBOX_INCLUDE_SAMPLE_ENTITY );
         _pluginProjectComboBox = new ComboBoxPO( bot, COMBOBOX_PLUGIN_PROJECT );
-        _browseButton = new ButtonPO( bot, BUTTON_BROWSE );
+        _browseButton = new ButtonPO( bot, BUTTON_BROWSE_WITH_DOT );
 
     }
 

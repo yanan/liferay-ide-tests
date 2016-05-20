@@ -60,7 +60,7 @@ public class CreateProjectWizardPO extends WizardPO implements ProjectWizard
         _displayNameText = new TextPO( bot, LABEL_DISPLAY_NAME );
         _buildTypeComboBox = new ComboBoxPO( bot, LABEL_BUILD_TYPE );
         _pluginTypeComboBox = new ComboBoxPO( bot, LABEL_PLUGIN_TYPE );
-        _includeSimpleCodeCheckBox = new CheckBoxPO( bot, LABEL_INCLUDE_SAMPLE_CODE );
+        _includeSimpleCodeCheckBox = new CheckBoxPO( bot, CHECKBOX_INCLUDE_SAMPLE_CODE );
         _launchNewPortletWizardCheck = new CheckBoxPO( bot, LABEL_LAUNCH_NEW_PORTLET_WIZARD_AFTER_PROJECT );
     }
 
