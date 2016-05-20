@@ -49,8 +49,8 @@ public abstract class AbstractProjectWizardPO extends WizardPO implements Projec
         super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT, index );
 
         _projectName = new TextPO( bot, LABEL_PROJECT_NAME );
-        _addToWorkingSet = new CheckBoxPO( bot, TEXT_ADD_PROJECT_TO_WORKING_SET );
-        _workingSet = new ComboBoxPO( bot, TEXT_WORKING_SET );
+        _addToWorkingSet = new CheckBoxPO( bot, CHECKBOX_ADD_PROJECT_TO_WORKING_SET );
+        _workingSet = new ComboBoxPO( bot, COMBOBOX_WORKING_SET );
     }
 
     public void createProject( String projectName )

@@ -70,6 +70,21 @@ public class SelectPortletFrameworkPO extends WizardPO implements ProjectWizard
         return _liferayMVCRadio.isSelected();
     }
 
+    public boolean IsJSFRadioSelected()
+    {
+        return _jsfRadio.isSelected();
+    }
+
+    public boolean IsSpringMVCRadioSelected()
+    {
+        return _springMVCRadio.isSelected();
+    }
+
+    public boolean IsVaadinRadioSelected()
+    {
+        return _vaadinRadio.isSelected();
+    }
+
     public void selectFramework( String radio )
     {
         if( radio.equals( _liferayMVCRadio.getLabel() ) )
@@ -95,4 +110,5 @@ public class SelectPortletFrameworkPO extends WizardPO implements ProjectWizard
         _portletNameText.setText( projectName );
         _displayNameText.setText( displayName );
     }
+
 }

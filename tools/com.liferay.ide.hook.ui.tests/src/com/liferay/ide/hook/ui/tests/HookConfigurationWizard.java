@@ -48,7 +48,8 @@ public interface HookConfigurationWizard extends UIBase
     public final String LABLE_CUSTOM_JSPS = "Custom JSPs";
     public final String LABLE_DEFINE_ACTIONS = "Define actions to be executed on portal events:";
     public final String LABLE_DEFINE_PORTAL_SERVICES = "Define portal services to extend:";
-    public final String LABLE_DISABLE_JSP_SYNTAX_VALIDATION = "Disable JSP syntax validation for custom JSP folder (recommended).";
+    public final String LABLE_DISABLE_JSP_SYNTAX_VALIDATION =
+        "Disable JSP syntax validation for custom JSP folder (recommended).";
     public final String LABLE_EVENT = "Event:";
     public final String LABLE_IMPL_CLASS = "Impl Class:";
     public final String LABLE_JAVA_PACKAGE = "Java package:";
@@ -72,9 +73,6 @@ public interface HookConfigurationWizard extends UIBase
     public final String LABLE_WEB_ROOT_FOLDER = "Web root folder:";
 
     public final String MENU_HOOK = "Hook";
-
-    public final String TOOLTIP_CREATE_LIFERAY_PROJECT = "Create a new Liferay Plugin Project";
-
     public final String WINDOW_ADD_EVENT_ACTION = "Add Event Action";
     public final String WINDOW_ADD_PROPERTY_OVERRIDE = "Add Property Override";
     public final String WINDOW_ADD_SERVICE = "Add Service";

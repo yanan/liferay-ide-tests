@@ -82,7 +82,7 @@ public class NewJSFPortletWizardTests extends SWTBotBase implements JSFPortletWi
     @After
     public void closeWizard()
     {
-        eclipse.closeShell( TITLE_NEW_LIFERAY_JSF_PORTLET );
+        eclipse.closeShell( LABEL_NEW_LIFERAY_JSF_PORTLET );
     }
 
     @Before

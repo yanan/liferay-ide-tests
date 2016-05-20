@@ -84,7 +84,7 @@ public class NewVaadinPortletWizardTests extends SWTBotBase
     @After
     public void closeWizard()
     {
-        eclipse.closeShell( TITLE_NEW_LIFERAY_VAADIN_PORTLET );
+        eclipse.closeShell( LABEL_NEW_LIFERAY_VAADIN_PORTLET );
     }
 
     @Before
