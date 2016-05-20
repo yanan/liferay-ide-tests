@@ -23,7 +23,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.liferay.ide.project.ui.tests.page.CreateProjectWizardPO;
@@ -47,120 +46,134 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
     @After
     public void waitForCreate()
     {
-        // sleep( 5000 );
+        sleep( 5000 );
     }
 
     @AfterClass
     public static void cleanAll()
     {
-    	eclipse.closeShell( TITLE_NEW_LIFERAY_PROJECT );
-    	eclipse.closeShell( TITLE_NEW_LIFERAY_PORTLET );
+        eclipse.closeShell( LABEL_NEW_LIFERAY_PLUGIN_PROJECT );
+        eclipse.closeShell( LABEL_NEW_LIFERAY_PORTLET );
         eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, true );
     }
 
-    @Ignore
+    @Test
     public void createExtProject()
     {
-        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot );
-        page1.createSDKProject( "text", MENU_EXT );
+        CreateProjectWizardPO createProjectWizard =
+            new CreateProjectWizardPO( bot, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE );
+
+        createProjectWizard.createSDKProject( "text", MENU_EXT );
 
         if( hasAddedProject )
         {
-            assertEquals( MESAGE_SDK_NOT_SUPPORT, page1.getValidationMessage() );
-            page1.cancel();
+            assertEquals( MESAGE_SDK_NOT_SUPPORT, createProjectWizard.getValidationMessage() );
+            createProjectWizard.cancel();
         }
         else
         {
-            page1.next();
+            createProjectWizard.next();
 
-            SetSDKLocationPO page2 = new SetSDKLocationPO( bot );
-            page2.setSdkLocation( getLiferayPluginsSdkDir().toString() );
-            assertEquals( MESAGE_SDK_NOT_SUPPORT, page2.getValidationMessage() );
-            page2.cancel();
+            SetSDKLocationPO setSDKLocation = new SetSDKLocationPO( bot, INDEX_SDK_SETTING_VALIDATION_MESSAGE );
+
+            setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
+
+            assertEquals( MESAGE_SDK_NOT_SUPPORT, setSDKLocation.getValidationMessage() );
+            setSDKLocation.cancel();
         }
     }
 
     @Test
     public void createHookProject()
     {
-        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot );
-        page1.createSDKProject( "text", MENU_HOOK );
+        CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot );
+
+        createProjectWizard.createSDKProject( "text", MENU_HOOK );
 
         if( hasAddedProject )
         {
-            page1.finish();
+            createProjectWizard.finish();
         }
         else
         {
-            page1.next();
+            createProjectWizard.next();
 
-            SetSDKLocationPO page2 = new SetSDKLocationPO( bot );
-            page2.setSdkLocation( getLiferayPluginsSdkDir().toString() );
-            page2.finish();
+            SetSDKLocationPO setSDKLocation = new SetSDKLocationPO( bot );
+
+            setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
+
+            setSDKLocation.finish();
         }
     }
 
     @Test
     public void createServiceBuilderPortletProject()
     {
-        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot );
-        page1.createSDKProject( "textsb", MENU_SERVICE_BUILDER_PORTLET, true );
+        CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot );
+
+        createProjectWizard.createSDKProject( "textsb", MENU_SERVICE_BUILDER_PORTLET, true );
 
         if( hasAddedProject )
         {
-            page1.finish();
+            createProjectWizard.finish();
 
-            page1.sleep();
+            sleep();
         }
         else
         {
-            page1.next();
+            createProjectWizard.next();
 
-            SetSDKLocationPO page2 = new SetSDKLocationPO( bot );
-            page2.setSdkLocation( getLiferayPluginsSdkDir().toString() );
-            page2.finish();
+            SetSDKLocationPO setSDKLocation = new SetSDKLocationPO( bot );
+
+            setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
+
+            setSDKLocation.finish();
         }
     }
 
     @Test
     public void createServiceBuilderPortletProjectWithoutSampleCode()
     {
-        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot );
+        CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot );
 
-        page1.createSDKProject( "textsbwithoutcode", MENU_SERVICE_BUILDER_PORTLET, false );
+        createProjectWizard.createSDKProject( "textsbwithoutcode", MENU_SERVICE_BUILDER_PORTLET, false );
 
         if( hasAddedProject )
         {
-            page1.finish();
+            createProjectWizard.finish();
         }
         else
         {
-            page1.next();
+            createProjectWizard.next();
 
-            SetSDKLocationPO page2 = new SetSDKLocationPO( bot );
-            page2.setSdkLocation( getLiferayPluginsSdkDir().toString() );
-            page2.finish();
+            SetSDKLocationPO setSDKLocation = new SetSDKLocationPO( bot );
+
+            setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
+
+            setSDKLocation.finish();
         }
     }
 
     @Test
     public void createLayoutProject()
     {
-        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot );
+        CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot );
 
-        page1.createSDKProject( "text", MENU_LAYOUT_TEMPLATE );
+        createProjectWizard.createSDKProject( "text", MENU_LAYOUT_TEMPLATE );
 
         if( hasAddedProject )
         {
-            page1.finish();
+            createProjectWizard.finish();
         }
         else
         {
-            page1.next();
+            createProjectWizard.next();
 
-            SetSDKLocationPO page2 = new SetSDKLocationPO( bot );
-            page2.setSdkLocation( getLiferayPluginsSdkDir().toString() );
-            page2.finish();
+            SetSDKLocationPO setSDKLocation = new SetSDKLocationPO( bot );
+
+            setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
+
+            setSDKLocation.finish();
         }
     }
 
@@ -169,32 +182,51 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
     {
         String projectName = "testPortlet";
 
-        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot, TOOLTIP_MENU_ITEM_NEW_LIFERAY_PROJECT );
+        CreateProjectWizardPO createProjectWizard =
+            new CreateProjectWizardPO( bot, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE );
 
-        page1.createSDKProject( projectName, MENU_PORTLET, true, false );
+        assertEquals( TEXT_ENTER_PROJECT_NAME, createProjectWizard.getValidationMessage() );
+        assertEquals( "", createProjectWizard.getProjectNameText() );
+        assertEquals( MENU_BUILD_TYPE_ANT, createProjectWizard.getBuildTypeComboBox() );
+        assertEquals( MENU_PORTLET, createProjectWizard.getPluginTypeComboBox() );
 
-        assertTrue( page1.IsIncludeSimpleCodeCheckBoxChecked() );
-        assertFalse( page1.IsLaunchNewPortletWizardCheckBoxChecked() );
+        String[] expectedPluginTypeItems = { MENU_EXT, MENU_HOOK, MENU_LAYOUT_TEMPLATE, MENU_PORTLET,
+            MENU_SERVICE_BUILDER_PORTLET, MENU_THEME, MENU_WEB };
 
-        page1.next();
+        for( String expectedPluginTypeItem : expectedPluginTypeItems )
+        {
+            assertTrue( matchItemInItems( expectedPluginTypeItems, expectedPluginTypeItem ) );
+        }
 
-        SelectPortletFrameworkPO page2 = new SelectPortletFrameworkPO( bot );
+        assertFalse( createProjectWizard.backButton().isEnabled() );
+        assertFalse( createProjectWizard.nextButton().isEnabled() );
+        assertFalse( createProjectWizard.finishButton().isEnabled() );
+        assertTrue( createProjectWizard.cancelButton().isEnabled() );
 
-        assertTrue( page2.IsLiferayMVCRadioSelected() );
+        createProjectWizard.createSDKProject( projectName, MENU_PORTLET, true, false );
+
+        assertTrue( createProjectWizard.IsIncludeSimpleCodeCheckBoxChecked() );
+        assertFalse( createProjectWizard.IsLaunchNewPortletWizardCheckBoxChecked() );
+
+        createProjectWizard.next();
+
+        SelectPortletFrameworkPO selectPortletFramwork = new SelectPortletFrameworkPO( bot );
+
+        assertTrue( selectPortletFramwork.IsLiferayMVCRadioSelected() );
+        assertFalse( selectPortletFramwork.IsJSFRadioSelected() );
+        assertFalse( selectPortletFramwork.IsSpringMVCRadioSelected() );
+        assertFalse( selectPortletFramwork.IsVaadinRadioSelected() );
 
         if( !hasAddedProject )
         {
-            page1.next();
+            selectPortletFramwork.next();
 
-            SetSDKLocationPO page3 = new SetSDKLocationPO( bot );
+            SetSDKLocationPO setSDKLocation = new SetSDKLocationPO( bot );
 
-            page3.setSdkLocation( getLiferayPluginsSdkDir().toString() );
+            setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
         }
 
-        page1.finish();
-
-        // check in console and package explorer
-        // assertTrue( UITestsUtils.checkConsoleMessage( "BUILD SUCCESSFUL", "Java" ) );
+        createProjectWizard.finish();
 
         TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
 
@@ -208,65 +240,65 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
         assertContains( "sample", editor.getText() );
 
+        // Regression test IDE-1226,project already exists
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
 
-        CreateProjectWizardPO page4 = new CreateProjectWizardPO( bot, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE );
+        createProjectWizard.createSDKPortletProject( projectName );
+        assertEquals( TEXT_PROJECT_ALREADY_EXISTS, createProjectWizard.getValidationMessage() );
 
-        page4.createSDKPortletProject( projectName );
-        assertEquals( TEXT_PROJECT_ALREADY_EXISTS, page4.getValidationMessage() );
+        createProjectWizard.createSDKPortletProject( projectName + "-portlet" );
+        assertEquals( TEXT_PROJECT_ALREADY_EXISTS, createProjectWizard.getValidationMessage() );
 
-        page4.createSDKPortletProject( projectName + "-portlet" );
-        assertEquals( TEXT_PROJECT_ALREADY_EXISTS, page4.getValidationMessage() );
+        createProjectWizard.cancel();
 
-        page4.cancel();
-
+        // Regression test IDE-1976,project name with space test
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
 
-        CreateProjectWizardPO page5 = new CreateProjectWizardPO( bot, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE );
+        createProjectWizard.createSDKPortletProject( "test with space" );
 
-        page5.createSDKPortletProject( projectName );
-        assertContains( TEXT_PROJECT_ALREADY_EXISTS, page5.getValidationMessage() );
+        assertContains( TEXT_CREATE_NEW_PROJECT_AS_LIFERAY_PLUGIN, createProjectWizard.getValidationMessage() );
+        createProjectWizard.finish();
+        sleep();
 
-        page5.createSDKPortletProject( projectName + "-portlet" );
-        assertContains( TEXT_PROJECT_ALREADY_EXISTS, page5.getValidationMessage() );
+        assertTrue( projectTree.getTreeItem( "test with space-portlet" ).isVisible() );
 
-        page5.cancel();
-
-        deleteProjectInSdk( projectName + "-portlet" );
+        eclipse.getPackageExporerView().deleteResouceByName( projectName + "-portlet", true );
     }
 
     @Test
     public void createPortletProjectWithoutSampleAndLaunchNewPortletWizard()
     {
-        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot );
+        CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot );
 
-        page1.createSDKProject( "NoSampleTest", MENU_PORTLET, false, true );
+        createProjectWizard.createSDKProject( "NoSampleTest", MENU_PORTLET, false, true );
 
-        assertFalse( page1.IsIncludeSimpleCodeCheckBoxChecked() );
-        assertTrue( page1.IsLaunchNewPortletWizardCheckBoxChecked() );
+        assertFalse( createProjectWizard.IsIncludeSimpleCodeCheckBoxChecked() );
+        assertTrue( createProjectWizard.IsLaunchNewPortletWizardCheckBoxChecked() );
 
-        page1.next();
+        createProjectWizard.next();
 
-        SelectPortletFrameworkPO page2 = new SelectPortletFrameworkPO( bot );
+        SelectPortletFrameworkPO selectPortletFramwork = new SelectPortletFrameworkPO( bot );
 
-        assertTrue( page2.IsLiferayMVCRadioSelected() );
+        assertTrue( selectPortletFramwork.IsLiferayMVCRadioSelected() );
 
         if( !hasAddedProject )
         {
-            page1.next();
+            selectPortletFramwork.next();
 
-            SetSDKLocationPO page3 = new SetSDKLocationPO( bot );
+            SetSDKLocationPO setSDKLocation = new SetSDKLocationPO( bot );
 
-            page3.setSdkLocation( getLiferayPluginsSdkDir().toString() );
+            setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
         }
 
-        page1.finish();
+        createProjectWizard.finish();
 
-        ShellPO newPortletPage = new ShellPO( bot, "New Liferay Portlet" ){};
+        ShellPO newPortletPage = new ShellPO( bot, "New Liferay Portlet" )
+        {
+        };
 
         newPortletPage.waitForPageToOpen();
 
-        assertEquals( TOOLTIP_NEW_LIFERAY_PORTLET, newPortletPage.getTitle() );
+        assertEquals( LABEL_NEW_LIFERAY_PORTLET, newPortletPage.getTitle() );
 
         newPortletPage.closeIfOpen();
     }
@@ -274,69 +306,65 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
     @Test
     public void createThemeProject()
     {
-        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot );
-        ThemeWizardPO page2 = new ThemeWizardPO( bot, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE );
+        CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot );
 
-        String defaultMessage = "Select options for creating new theme project.";
-        String warningMessage = " For advanced theme developers only.";
+        ThemeWizardPO selectThemeOptions =
+            new ThemeWizardPO( bot, INDEX_THEME_PARENT_AND_FRAMEWORK_VALIDATIONG_MESSAGE );
 
         String projectThemeName = "test";
 
-        page1.createSDKProject( projectThemeName, MENU_THEME );
+        createProjectWizard.createSDKProject( projectThemeName, MENU_THEME );
 
-        page1.next();
+        createProjectWizard.next();
 
-        // assertEquals( defaultMessage, page2.getValidationMessage() );
+        assertEquals( THEME_DEFAULT_MESSAGE, selectThemeOptions.getValidationMessage() );
 
-        page2.setParentFramework( MENU_THEME_PARENT_UNSTYLED, MENU_THEME_FRAMEWORK_JSP );
-        // assertEquals( warningMessage, page2.getValidationMessage() );
+        selectThemeOptions.setParentFramework( MENU_THEME_PARENT_UNSTYLED, MENU_THEME_FRAMEWORK_JSP );
+        assertEquals( THEME_WARNING_MESSAGE, selectThemeOptions.getValidationMessage() );
 
-        page2.setParentFramework( MENU_THEME_PARENT_CLASSIC, MENU_THEME_FRAMEWORK_VELOCITY );
-        // assertEquals( defaultMessage, page2.getValidationMessage() );
+        selectThemeOptions.setParentFramework( MENU_THEME_PARENT_CLASSIC, MENU_THEME_FRAMEWORK_VELOCITY );
+        assertEquals( THEME_DEFAULT_MESSAGE, selectThemeOptions.getValidationMessage() );
 
-        page2.setParentFramework( MENU_THEME_PARENT_STYLED, MENU_THEME_FRAMEWORK_FREEMARKER );
+        selectThemeOptions.setParentFramework( MENU_THEME_PARENT_STYLED, MENU_THEME_FRAMEWORK_FREEMARKER );
 
         if( hasAddedProject )
         {
-            page2.finish();
+            selectThemeOptions.finish();
         }
         else
         {
-            page2.next();
+            selectThemeOptions.next();
 
-            SetSDKLocationPO page3 = getSetSDKLoactionPage();
+            SetSDKLocationPO setSDKLocation = new SetSDKLocationPO( bot );
 
-            page3.finish();
+            setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
+
+            setSDKLocation.finish();
         }
 
-        // sleep( 5000 );
-
-        deleteProjectInSdk( projectThemeName + "-theme" );
+        eclipse.getPackageExporerView().deleteResouceByName( projectThemeName + "-theme", true );
     }
 
     @Test
     public void createWebProject()
     {
-        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE );
+        CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot );
 
-        page1.createSDKProject( "text", MENU_WEB );
+        createProjectWizard.createSDKProject( "text", MENU_WEB );
 
         if( hasAddedProject )
         {
-            sleep();
-            //assertEquals( TEXT_WEB_SDK_62_ERRORR_MESSAGE, page1.getValidationMessage() );
-            page1.cancel();
+            createProjectWizard.finish();
         }
         else
         {
-            page1.next();
-            SetSDKLocationPO page2 = new SetSDKLocationPO( bot, INDEX_VALIDATION_MESSAGE2 );
+            createProjectWizard.next();
 
-            page2.setSdkLocation( getLiferayPluginsSdkDir().toString() );
+            SetSDKLocationPO setSDKLocation = new SetSDKLocationPO( bot );
 
-            sleep();
-            //assertEquals( TEXT_WEB_SDK_62_ERRORR_MESSAGE, page2.getValidationMessage() );
-            page2.cancel();
+            setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
+
+            setSDKLocation.finish();
         }
     }
 
@@ -345,27 +373,15 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
     {
         String invalidNameDoubleDash = "--";
 
-        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE );
+        CreateProjectWizardPO createProjectWizard =
+            new CreateProjectWizardPO( bot, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE );
 
-        page1.createSDKPortletProject( invalidNameDoubleDash );
+        createProjectWizard.createSDKPortletProject( invalidNameDoubleDash );
 
         sleep();
-        assertEquals( " The project name is invalid.", page1.getValidationMessage() );
+        assertEquals( " The project name is invalid.", createProjectWizard.getValidationMessage() );
 
-        page1.cancel();
-    }
-
-    public static void deleteProjectInSdk( String projectName )
-    {
-        eclipse.getPackageExporerView().deleteResouceByName( projectName, true );
-    }
-
-    private SetSDKLocationPO getSetSDKLoactionPage()
-    {
-        SetSDKLocationPO page = new SetSDKLocationPO( bot );
-        page.setSdkLocation( getLiferayPluginsSdkDir().toString() );
-
-        return page;
+        createProjectWizard.cancel();
     }
 
     @Before

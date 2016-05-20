@@ -49,7 +49,7 @@ public class LanguagePropertiesPO extends WizardPO implements HookConfigurationW
         _contentFolderText = new TextPO( bot, LABLE_CONTENT_FOLDER );
         _languagePropertyFilesText = new TablePO( bot, LABLE_LANGUAGE_PROPERTY_FILES );
 
-        browseButton = new ButtonPO( bot, BUTTON_BROWSE );
+        browseButton = new ButtonPO( bot, BUTTON_BROWSE_WITH_DOT );
         _addButton = new ButtonPO( bot, BUTTON_ADD );
         _editButton = new ButtonPO( bot, BUTTON_EDIT );
         _removeButton = new ButtonPO( bot, BUTTON_REMOVE_WITH_DOT );
