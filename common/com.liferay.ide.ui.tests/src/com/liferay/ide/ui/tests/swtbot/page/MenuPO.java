@@ -34,7 +34,7 @@ public class MenuPO extends AbstractWidgetPO
 
     public MenuPO( SWTBot bot, String[] label )
     {
-        super( bot, "" );
+        super( bot );
 
         _labels = label;
     }

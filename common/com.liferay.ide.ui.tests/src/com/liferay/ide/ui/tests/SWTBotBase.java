@@ -100,15 +100,16 @@ public class SWTBotBase implements UIBase
             // e.printStackTrace();
         }
 
+        eclipse.getLiferayPerspective().activate();
+        
         try
         {
-            eclipse.getLiferayPerspective().activate();
             eclipse.showProgressView();
-
             eclipse.showErrorLogView().clearLogViewer();
         }
         catch( Exception e )
         {
+            e.printStackTrace();
         }
 
         SWTBotPreferences.TIMEOUT = 30000;
@@ -342,6 +343,18 @@ public class SWTBotBase implements UIBase
         eclipse.showPackageExporerView();
 
         return eclipse.hasProjects();
+    }
+    
+    public boolean isInAvailableLists( String[] avaiable, String excepted )
+    {
+        for( String temp : avaiable )
+        {
+            if( temp.equals( excepted ) )
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
