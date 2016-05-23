@@ -29,7 +29,9 @@ public interface ProjectWizard extends UIBase
 
     public final int INDEX_VALIDATION_MESSAGE1 = 0;
     public final int INDEX_VALIDATION_MESSAGE2 = 1;
-    public final int INDEX_VALIDATION_MESSAGE3 = 2;
+    public final int INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE = 2;
+    public final int INDEX_NEW_LIFERAY_PLUGIN_PROJECT_WIZARD =2;
+    public final int INDEX_SELECT_A_WIZARD_VALIDATION_MESSAGE = 1;
     public final int INDEX_VALIDATION_MESSAGE4 = 3;
     public final int INDEX_VALIDATION_MESSAGE6 = 5;
     public final int INDEX_VALIDATION_MESSAGE7 = 6;

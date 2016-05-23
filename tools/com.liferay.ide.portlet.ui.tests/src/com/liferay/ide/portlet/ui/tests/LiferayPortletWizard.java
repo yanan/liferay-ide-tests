@@ -23,11 +23,12 @@ import com.liferay.ide.ui.tests.UIBase;
  */
 public interface LiferayPortletWizard extends UIBase
 {
-
-    public final int INDEX_DEFAULT_VALIDATION_PORTLET_MESSAGE = 3;
-    public final int INDEX_VALIDATION_PORTLET_MESSAGE2 = 5;
-    public final int INDEX_VALIDATION_PORTLET_MESSAGE3 = 6;
-    public final int INDEX_VALIDATION_PORTLET_MESSAGE4 = 0;
+    public final int INDEX_DEFAULT_CREATE_LIFERAY_PORTLET_WIZARD = 3;
+    public final int INDEX_SPECIFY_PORTLET_DEPLOYMENT_DESCRIPTOR_PAGE = 5;
+    public final int INDEX_SPECIFY_LIFERAY_PORTLET_DEPLOYMENT_DESCRIPTOR_PAGE = 6;
+    public final int INDEX_SPECIFY_PARAMS_IN_PORTLET_CLASS_PAGE = 0;
+    
+    public final int INDEX_NEW_SOURCE_FOLDER_VALIDATION_MESSAGE = 2;
     
     public final String TOOLTIP_MENU_ITEM_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
 

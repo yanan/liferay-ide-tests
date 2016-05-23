@@ -210,7 +210,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
 
-        CreateProjectWizardPO page4 = new CreateProjectWizardPO( bot, INDEX_VALIDATION_MESSAGE3 );
+        CreateProjectWizardPO page4 = new CreateProjectWizardPO( bot, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE );
 
         page4.createSDKPortletProject( projectName );
         assertEquals( TEXT_PROJECT_ALREADY_EXISTS, page4.getValidationMessage() );
@@ -222,7 +222,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
 
-        CreateProjectWizardPO page5 = new CreateProjectWizardPO( bot, INDEX_VALIDATION_MESSAGE3 );
+        CreateProjectWizardPO page5 = new CreateProjectWizardPO( bot, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE );
 
         page5.createSDKPortletProject( projectName );
         assertContains( TEXT_PROJECT_ALREADY_EXISTS, page5.getValidationMessage() );
@@ -275,7 +275,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
     public void createThemeProject()
     {
         CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot );
-        ThemeWizardPO page2 = new ThemeWizardPO( bot, INDEX_VALIDATION_MESSAGE3 );
+        ThemeWizardPO page2 = new ThemeWizardPO( bot, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE );
 
         String defaultMessage = "Select options for creating new theme project.";
         String warningMessage = " For advanced theme developers only.";
@@ -317,7 +317,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
     @Test
     public void createWebProject()
     {
-        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot, INDEX_VALIDATION_MESSAGE3 );
+        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE );
 
         page1.createSDKProject( "text", MENU_WEB );
 
@@ -345,7 +345,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
     {
         String invalidNameDoubleDash = "--";
 
-        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot, INDEX_VALIDATION_MESSAGE3 );
+        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE );
 
         page1.createSDKPortletProject( invalidNameDoubleDash );
 

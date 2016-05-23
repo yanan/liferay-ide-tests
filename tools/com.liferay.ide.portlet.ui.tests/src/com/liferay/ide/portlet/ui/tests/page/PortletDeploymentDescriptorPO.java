@@ -48,7 +48,7 @@ public class PortletDeploymentDescriptorPO extends WizardPO implements LiferayPo
 
     public PortletDeploymentDescriptorPO( SWTBot bot )
     {
-        this( bot, INDEX_VALIDATION_PORTLET_MESSAGE2 );
+        this( bot, INDEX_SPECIFY_PORTLET_DEPLOYMENT_DESCRIPTOR_PAGE );
     }
 
     public PortletDeploymentDescriptorPO( SWTBot bot, int validationMessageIndex )
