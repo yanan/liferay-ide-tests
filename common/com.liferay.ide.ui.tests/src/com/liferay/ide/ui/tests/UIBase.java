@@ -47,13 +47,14 @@ public interface UIBase
 
     public final int INDEX_DEFAULT_START = 0;
     public final int INDEX_DEFAULT_VALIDATION_MESSAGE = -1;
+    public final int INDEX_CREATE_A_PROJECT_THROUGH_NEW_WIZARD_PAGE = 1;
 
     public final String LABEL_CLEAR_LOG_VIEWER = "Clear Log Viewer";
     public final String LABEL_DELETE_FROM_DISK = "Delete project contents on disk (cannot be undone)";
     public final String LABEL_DELETE_RESOURCE = "Delete Resources";
     public final String LABEL_ERROR_LOG = "Error Log";
     public final String LABEL_ERROR_LOG_FULL = "Error Log (Workspace Log)";
-    public final String LABEL_LIFERAY = "Liferay";
+    public final String LABEL_LIFERAY = "Liferay Plugins";
     public final String LABEL_OTHER = "Other...";
     public final String LABEL_PACKAGE_EXPLORER = "Package Explorer";
     public final String LABEL_PROGRESS = "Progress";
