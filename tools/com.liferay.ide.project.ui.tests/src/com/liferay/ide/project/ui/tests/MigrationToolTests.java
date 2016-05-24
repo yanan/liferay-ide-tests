@@ -30,6 +30,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -44,6 +45,7 @@ import com.liferay.ide.ui.tests.util.ZipUtil;
 /**
  * @author Li Lu
  */
+@Ignore
 @RunWith( SWTBotJunit4ClassRunner.class )
 public class MigrationToolTests extends SWTBotBase implements MigrateProjectWizard
 {
