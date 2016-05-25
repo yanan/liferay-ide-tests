@@ -186,9 +186,9 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
             new CreateProjectWizardPO( bot, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE );
 
         assertEquals( TEXT_ENTER_PROJECT_NAME, createProjectWizard.getValidationMessage() );
-        assertEquals( "", createProjectWizard.getProjectNameText() );
-        assertEquals( MENU_BUILD_TYPE_ANT, createProjectWizard.getBuildTypeComboBox() );
-        assertEquals( MENU_PORTLET, createProjectWizard.getPluginTypeComboBox() );
+        assertEquals( "", createProjectWizard.get_projectNameText().getText() );
+        assertEquals( MENU_BUILD_TYPE_ANT, createProjectWizard.get_buildTypeComboBox().getText() );
+        assertEquals( MENU_PORTLET, createProjectWizard.get_pluginTypeComboBox().getText() );
 
         String[] expectedPluginTypeItems = { MENU_EXT, MENU_HOOK, MENU_LAYOUT_TEMPLATE, MENU_PORTLET,
             MENU_SERVICE_BUILDER_PORTLET, MENU_THEME, MENU_WEB };
@@ -205,8 +205,8 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
         createProjectWizard.createSDKProject( projectName, MENU_PORTLET, true, false );
 
-        assertTrue( createProjectWizard.IsIncludeSimpleCodeCheckBoxChecked() );
-        assertFalse( createProjectWizard.IsLaunchNewPortletWizardCheckBoxChecked() );
+        assertTrue( createProjectWizard.get_includeSimpleCodeCheckBox().isChecked());
+        assertFalse( createProjectWizard.get_launchNewPortletWizardCheck().isChecked());
 
         createProjectWizard.next();
 
@@ -272,8 +272,8 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
         createProjectWizard.createSDKProject( "NoSampleTest", MENU_PORTLET, false, true );
 
-        assertFalse( createProjectWizard.IsIncludeSimpleCodeCheckBoxChecked() );
-        assertTrue( createProjectWizard.IsLaunchNewPortletWizardCheckBoxChecked() );
+        assertFalse( createProjectWizard.get_includeSimpleCodeCheckBox().isChecked());
+        assertTrue( createProjectWizard.get_launchNewPortletWizardCheck().isChecked());
 
         createProjectWizard.next();
 

@@ -58,10 +58,10 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
     Keyboard keyPress = KeyboardFactory.getAWTKeyboard();
 
     CreateProjectWizardPO newLiferayProjectPage = new CreateProjectWizardPO(
-        bot, TOOLTIP_MENU_ITEM_NEW_LIFERAY_PROJECT, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_WIZARD );
+        bot, LABEL_NEW_LIFERAY_PLUGIN_PROJECT, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_WIZARD );
 
     CreateLiferayPortletWizardPO newPortletPage = new CreateLiferayPortletWizardPO(
-        bot, TOOLTIP_NEW_LIFERAY_PORTLET, INDEX_DEFAULT_CREATE_LIFERAY_PORTLET_WIZARD );
+        bot, LABEL_NEW_LIFERAY_PORTLET, INDEX_DEFAULT_CREATE_LIFERAY_PORTLET_WIZARD );
 
     LiferayPortletDeploymentDescriptorPO specifyLiferayPortletDeploymentDescriptorPage =
         new LiferayPortletDeploymentDescriptorPO( bot, INDEX_SPECIFY_LIFERAY_PORTLET_DEPLOYMENT_DESCRIPTOR_PAGE );
@@ -73,8 +73,8 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
     public void cleanAll()
     {
         sleep( 3000 );
-        eclipse.closeShell( TITLE_NEW_LIFERAY_PROJECT );
-        eclipse.closeShell( TITLE_NEW_LIFERAY_PORTLET );
+        eclipse.closeShell( LABEL_NEW_LIFERAY_PLUGIN_PROJECT );
+        eclipse.closeShell( LABEL_NEW_LIFERAY_PORTLET );
         eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, true );
     }
 
@@ -110,7 +110,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
             if( !newPortletPage.getValidationMessage().equals( TEXT_ENTER_A_PROJECT_NAME ) )
             {
                 CreateLiferayPortletWizardPO myNewPortletPage =
-                    new CreateLiferayPortletWizardPO( bot, TOOLTIP_NEW_LIFERAY_PORTLET, 1 );
+                    new CreateLiferayPortletWizardPO( bot, LABEL_NEW_LIFERAY_PORTLET, 1 );
                 assertEquals( TEXT_ENTER_A_PROJECT_NAME, myNewPortletPage.getValidationMessage() );
                 myNewPortletPage.cancel();
             }
@@ -261,7 +261,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
         SelectTypePO newSelectLiferayPage = new SelectTypePO( bot, INDEX_SELECT_A_WIZARD_VALIDATION_MESSAGE );
 
-        newSelectLiferayPage.createProject( "liferay", "Liferay", TOOLTIP_MENU_ITEM_LIFERAY_PORTLET );
+        newSelectLiferayPage.createProject( "liferay", "Liferay", LABEL_LIFERAY_PORTLET );
         newSelectLiferayPage.next();
         newPortletPage.createLiferayPortlet( "test-portlet", "MySecondPortlet", TEXT_BLANK, null );
         newPortletPage.finish();
@@ -277,7 +277,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
     {
         eclipse.getNewToolbar().getLiferayPluginProject().click();
 
-        assertEquals( "Portlet", newLiferayProjectPage.getPluginTypeComboBox() );
+        assertEquals( "Portlet", newLiferayProjectPage.get_projectNameText().getText() );
 
         String projectName = "mytest";
         String pluginType = "Portlet";
@@ -1277,7 +1277,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         assertContains( "public class NewPortlet extends GenericPortlet", portletJavaPage.getText() );
         assertTrue( portletJavaPage.isActive() );
 
-        eclipse.getNewToolbar().menuClick( TOOLTIP_MENU_ITEM_LIFERAY_PORTLET );
+        eclipse.getNewToolbar().menuClick( LABEL_LIFERAY_PORTLET );
 
         newPortletPage.createLiferayPortlet( "test-portlet", "MySecondPortlet", null, "com.test.NewPortlet" );
         newPortletPage.finish();
@@ -1286,7 +1286,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
         assertContains( "public class MySecondPortlet extends NewPortlet", mySecondPortletJavaPage.getText() );
 
-        eclipse.getNewToolbar().menuClick( TOOLTIP_MENU_ITEM_LIFERAY_PORTLET );
+        eclipse.getNewToolbar().menuClick( LABEL_LIFERAY_PORTLET );
 
         newPortletPage.createLiferayPortlet( "test-portlet" );
 

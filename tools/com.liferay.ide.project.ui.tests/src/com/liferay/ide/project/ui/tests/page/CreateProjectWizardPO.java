@@ -130,44 +130,64 @@ public class CreateProjectWizardPO extends WizardPO implements ProjectWizard
         }
     }
 
-    public String getBuildTypeComboBox()
+    public ComboBoxPO get_buildTypeComboBox()
     {
-        return _buildTypeComboBox.getText();
+        return _buildTypeComboBox;
     }
 
-    public String getPluginTypeComboBox()
+    public void set_buildTypeComboBox( ComboBoxPO _buildTypeComboBox )
     {
-        return _pluginTypeComboBox.getText();
+        this._buildTypeComboBox = _buildTypeComboBox;
     }
 
-    public String getProjectNameText()
+    public TextPO get_displayNameText()
     {
-        return _projectNameText.getText();
+        return _displayNameText;
     }
 
-    public boolean IsIncludeSimpleCodeCheckBoxChecked()
+    public void set_displayNameText( TextPO _displayNameText )
     {
-        return _includeSimpleCodeCheckBox.isChecked();
+        this._displayNameText = _displayNameText;
     }
 
-    public boolean IsLaunchNewPortletWizardCheckBoxChecked()
+    public CheckBoxPO get_includeSimpleCodeCheckBox()
     {
-        return _launchNewPortletWizardCheck.isChecked();
+        return _includeSimpleCodeCheckBox;
     }
 
-    public void setBuildTypeComboBox( ComboBoxPO buildTypeComboBox )
+    public void set_includeSimpleCodeCheckBox( CheckBoxPO _includeSimpleCodeCheckBox )
     {
-        this._buildTypeComboBox = buildTypeComboBox;
+        this._includeSimpleCodeCheckBox = _includeSimpleCodeCheckBox;
     }
 
-    public void setPluginTypeComboBox( ComboBoxPO pluginTypeComboBox )
+    public CheckBoxPO get_launchNewPortletWizardCheck()
     {
-        this._pluginTypeComboBox = pluginTypeComboBox;
+        return _launchNewPortletWizardCheck;
     }
 
-    public void setProjectName( TextPO projectName )
+    public void set_launchNewPortletWizardCheck( CheckBoxPO _launchNewPortletWizardCheck )
     {
-        _projectNameText = projectName;
+        this._launchNewPortletWizardCheck = _launchNewPortletWizardCheck;
+    }
+
+    public ComboBoxPO get_pluginTypeComboBox()
+    {
+        return _pluginTypeComboBox;
+    }
+
+    public void set_pluginTypeComboBox( ComboBoxPO _pluginTypeComboBox )
+    {
+        this._pluginTypeComboBox = _pluginTypeComboBox;
+    }
+
+    public TextPO get_projectNameText()
+    {
+        return _projectNameText;
+    }
+
+    public void set_projectNameText( TextPO _projectNameText )
+    {
+        this._projectNameText = _projectNameText;
     }
 
 }
