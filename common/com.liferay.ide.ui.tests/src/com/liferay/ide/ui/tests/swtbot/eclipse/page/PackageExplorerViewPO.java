@@ -65,10 +65,12 @@ public class PackageExplorerViewPO extends ViewPO implements UIBase
                     }
 
                 }
+                _projectsTree.getTreeItem( itemName ).collapse();
             }
 
             if( !include )
             {
+
                 deleteResouceByName( itemName, deleteFromDisk );
             }
         }

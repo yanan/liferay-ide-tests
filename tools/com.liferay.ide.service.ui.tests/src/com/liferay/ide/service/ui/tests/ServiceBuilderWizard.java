@@ -35,8 +35,6 @@ public interface ServiceBuilderWizard extends UIBase
 
     public final String COMBOBOX_PLUGIN_PROJECT = "Plugin project:";
 
-    public final String TOOLTIP_NEW_SERVICE_BUILDER = "New Service Builder";
-
     public final String TEXT_SERVICE_FILE_VALUE = "service.xml";
     public final String TEXT_DEFAULT_PLUGIN_PROJECT_VALUE = "";
     public final String TEXT_DEFAULT_PACKAGE_PAHT_VALUE = "";

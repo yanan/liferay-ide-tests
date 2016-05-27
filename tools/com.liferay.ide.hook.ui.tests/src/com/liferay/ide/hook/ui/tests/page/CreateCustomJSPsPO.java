@@ -53,7 +53,7 @@ public class CreateCustomJSPsPO extends WizardPO implements HookConfigurationWiz
         _webRootFolderText = new TextPO( bot, LABLE_WEB_ROOT_FOLDER );
         _customJSPfolderText = new TextPO( bot, LABLE_CUSTOM_JSP_FOLDER );
         _jspFilesToOverrideTable = new TablePO( bot, LABLE_JSP_FILES_TO_OVERRIDE );
-        _browseButton = new ButtonPO( bot, BUTTON_BROWSE );
+        _browseButton = new ButtonPO( bot, BUTTON_BROWSE_WITH_DOT );
         _addFromLiferayButton = new ButtonPO( bot, BUTTON_ADD_FROM_LIFERAY );
         _addButton = new ButtonPO( bot, BUTTON_ADD );
         _editButton = new ButtonPO( bot, BUTTON_EDIT );

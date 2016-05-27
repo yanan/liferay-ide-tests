@@ -50,7 +50,7 @@ public class LiferayPortletDeploymentDescriptorPO extends WizardPO implements Li
 
     public LiferayPortletDeploymentDescriptorPO( SWTBot bot )
     {
-        this( bot, TEXT_BLANK, BUTTON_BACK, BUTTON_NEXT, BUTTON_FINISH, BUTTON_CANCEL, INDEX_VALIDATION_PORTLET_MESSAGE3 );
+        this( bot, TEXT_BLANK, BUTTON_BACK, BUTTON_NEXT, BUTTON_FINISH, BUTTON_CANCEL, INDEX_SPECIFY_LIFERAY_PORTLET_DEPLOYMENT_DESCRIPTOR_PAGE );
     }
 
     public LiferayPortletDeploymentDescriptorPO( SWTBot bot, int validationMessageIndex )
@@ -75,9 +75,9 @@ public class LiferayPortletDeploymentDescriptorPO extends WizardPO implements Li
         _entryWeightText = new TextPO( bot, LABEL_ENTRY_WEIGHT );
         _createEntryClassCheckbox = new CheckBoxPO( bot, CHECKBOX_CREATE_ENTRY_CLASS );
         _entryClassText = new TextPO( bot, LABEL_ENTRY_CLASS );
-        _browseIconButton = new ButtonPO( bot, BUTTON_BROWSE, 0 );
-        _browseCssButton = new ButtonPO( bot, BUTTON_BROWSE, 1 );
-        _browseJavaScriptButton = new ButtonPO( bot, BUTTON_BROWSE, 2 );
+        _browseIconButton = new ButtonPO( bot, BUTTON_BROWSE_WITH_DOT, 0 );
+        _browseCssButton = new ButtonPO( bot, BUTTON_BROWSE_WITH_DOT, 1 );
+        _browseJavaScriptButton = new ButtonPO( bot, BUTTON_BROWSE_WITH_DOT, 2 );
     }
 
     public ButtonPO get_browseIconButton()

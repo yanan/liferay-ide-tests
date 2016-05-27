@@ -38,6 +38,11 @@ public class InterfaceSelectionPO extends SelectionDialogPO implements LiferayPo
         _itemToOpenText = new TextPO( bot );
         _matchItemsTable = new TablePO( bot, 0 );
     }
+    
+    public InterfaceSelectionPO( SWTBot bot, String title )
+    {
+        this( bot, title, INDEX_DEFAULT_START );
+    }
 
     public void clickMatchItem( int itemRow )
     {

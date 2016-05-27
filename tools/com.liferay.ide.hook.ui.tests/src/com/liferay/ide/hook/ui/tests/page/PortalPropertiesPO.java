@@ -61,7 +61,7 @@ public class PortalPropertiesPO extends WizardPO implements HookConfigurationWiz
         _addPropertyOverrideDialog = new DialogPO( bot, WINDOW_ADD_PROPERTY_OVERRIDE, BUTTON_CANCEL, BUTTON_OK );
         _newLiferayHookConfigurationDialog =
             new DialogPO( bot, WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION, BUTTON_BACK, BUTTON_NEXT );
-        _browseButton = new ButtonPO( bot, BUTTON_BROWSE, 0 );
+        _browseButton = new ButtonPO( bot, BUTTON_BROWSE_WITH_DOT, 0 );
         _eventAddButton = new ButtonPO( bot, BUTTON_ADD, 0 );
         _eventEditButton = new ButtonPO( bot, BUTTON_EDIT, 0 );
         _eventRemoveButton = new ButtonPO( bot, BUTTON_REMOVE_WITH_DOT, 0 );

@@ -27,7 +27,8 @@ public interface UIBase
 
     public final String BUTTON_ADD = "Add...";
     public final String BUTTON_BACK = "< Back";
-    public final String BUTTON_BROWSE = "Browse...";
+    public final String BUTTON_BROWSE = "Browse";
+    public final String BUTTON_BROWSE_WITH_DOT = "Browse...";
     public final String BUTTON_CANCEL = "Cancel";
     public final String BUTTON_CONTINUE = "Continue";
     public final String BUTTON_DELETE = "Delete";
@@ -39,17 +40,21 @@ public interface UIBase
     public final String BUTTON_REMOVE = "Remove";
     public final String BUTTON_REMOVE_WITH_DOT = "Remove...";
     public final String BUTTON_YES = "Yes";
+    public final String BUTTON_MORE_WITH_DOT = "More...";
     public final String CHECKBOX_INCLUDE_SAMPLE_CODE = "Include sample code";
+    public final String CHECKBOX_ADD_PROJECT_TO_WORKING_SET = "Add project to working set";
+    public final String COMBOBOX_WORKING_SET = "Working set:";
 
     public final int INDEX_DEFAULT_START = 0;
     public final int INDEX_DEFAULT_VALIDATION_MESSAGE = -1;
+    public final int INDEX_CREATE_A_PROJECT_THROUGH_NEW_WIZARD_PAGE = 1;
 
     public final String LABEL_CLEAR_LOG_VIEWER = "Clear Log Viewer";
     public final String LABEL_DELETE_FROM_DISK = "Delete project contents on disk (cannot be undone)";
     public final String LABEL_DELETE_RESOURCE = "Delete Resources";
     public final String LABEL_ERROR_LOG = "Error Log";
     public final String LABEL_ERROR_LOG_FULL = "Error Log (Workspace Log)";
-    public final String LABEL_LIFERAY = "Liferay";
+    public final String LABEL_LIFERAY = "Liferay Plugins";
     public final String LABEL_OTHER = "Other...";
     public final String LABEL_PACKAGE_EXPLORER = "Package Explorer";
     public final String LABEL_PROGRESS = "Progress";
@@ -77,6 +82,10 @@ public interface UIBase
     public final String LABEL_NEW_LIFERAY_LAYOUT_TMEPLATE = "New Liferay Layout Template";
     public final String LABEL_NEW_LIFERAY_JSF_PORTLET = "New Liferay JSF Portlet";
     public final String LABEL_NEW_LIFERAY_VAADIN_PORTLET = "New Liferay Vaadin Portlet";
+    public final String LABEL_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
+    public final String LABEL_NEW_LIFERAY_WORKSPACE_PROJECT = "New Liferay Workspace Project";
+    public final String LABEL_NEW_LIFERAY_MODULE_FRAGMENT_PROJECT = "New Liferay Module Fragment Project";
+    public final String LABEL_NEW_LIFERAY_COMPONENT_CLASS = "New Liferay Component Class";
 
     public final String LABEL_LIFERAY_PLUGIN_PROJECT = "Liferay Plugin Project";
     public final String LABEL_LIFERAY_MODULE_PROJECT = "Liferay Module Project";
@@ -86,8 +95,8 @@ public interface UIBase
     public final String LABEL_LIFERAY_HOOK_CONFIGURATION = "Liferay Hook Configuration";
     public final String LABEL_LIFERAY_SERVICE_BUILDER = "Liferay Service Builder";
     public final String LABEL_LIFERAY_LAYOUT_TEMPLATE = "Liferay Layout Template";
-
-    public final String LABEL_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
+    public final String LABEL_LIFERAY_WORKSPACE_PROJECT = "Liferay Workspace Project";
+    public final String LABEL_LIFERAY_COMPONENT_CLASS = "Liferay Component Class";
 
     public final String TOOLBAR_NEW = "New";
     public final String TITLE_DELETE_RESOURCES = "Delete Resources";
@@ -95,27 +104,9 @@ public interface UIBase
 
     public final String MENU_NEW_LIFERAY_PROJECT_EXIS_SOURCE = "New Liferay Plugin Project from Existing Source";
     public final String TITLE_NEW_LAYOUT_TEMPLATE = "New Layout Template";
+    public final String TITLE_NEW_SERVICE_BUILDER = "New Service Builder";
 
     public final String CREATE_MENU_NEW_LIFERAY_PLUGIN_PROJECT = "Create a new Liferay Plugin Project";
-
-    public final String MENU_NEW_LIFERAY_PLUGIN_PROJECT = "New Liferay Plugin Project";
-    public final String MENU_NEW_LIFERAY_MODULE_PROJECT = "New Liferay Module Project";
-    public final String MENU_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
-    public final String MENU_NEW_LIFERAY_HOOK_C0NFIG = "New Liferay Hook Configuration";
-    public final String MENU_NEW_LIFERAY_SERVICE_BUILDER = "New Liferay Service Builder";
-    public final String MENU_NEW_LIFERAY_LAYOUT_TEMP = "New Liferay Layout Template";
-    public final String MENU_NEW_LIFERAY_JSF_PORTLET = "New Liferay JSF Portlet";
-    public final String MENU_NEW_LIFERAY_VAADIN_PORTLET = "New Liferay Vaadin Portlet";
-    public final String MENU_NEW_LIFERAY_SERVER = "New Liferay Server";
-
-    public final String MENU_LIFERAY_PLUGIN_PROJECT = "Liferay Plugin Project";
-    public final String MENU_LIFERAY_MODULE_PROJECT = "Liferay Module Project";
-
-    public final String TITLE_NEW_LIFERAY_PLUGIN_PROJECT = "New Liferay Portlet";
-    public final String TITLE_NEW_LIFERAY_JSF_PORTLET = "New Liferay JSF Portlet";
-    public final String TITLE_NEW_LIFERAY_VAADIN_PORTLET = "New Liferay Vaadin Portlet";
-    public final String TITLE_NEW_LIFERAY_PROJECT = "New Liferay Plugin Project";
-    public final String TITLE_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
 
     public final String MENU_LIFERAY = "Liferay";
 

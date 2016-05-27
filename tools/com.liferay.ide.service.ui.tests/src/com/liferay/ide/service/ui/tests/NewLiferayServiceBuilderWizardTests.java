@@ -53,6 +53,8 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
     @AfterClass
     public static void cleanAll()
     {
+        eclipse.closeShell( LABEL_NEW_LIFERAY_PLUGIN_PROJECT );
+        eclipse.closeShell( TITLE_NEW_SERVICE_BUILDER );
         eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, true );
     }
 
@@ -85,7 +87,7 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
             setSDKLocation.finish();
         }
 
-        ServiceBuilderWizardPO newServiceBuilderWizard = new ServiceBuilderWizardPO( bot, TOOLTIP_NEW_SERVICE_BUILDER );
+        ServiceBuilderWizardPO newServiceBuilderWizard = new ServiceBuilderWizardPO( bot, TITLE_NEW_SERVICE_BUILDER );
 
         newServiceBuilderWizard.waitForPageToOpen();
 
@@ -239,7 +241,7 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
         createProjectWizard.cancel();
         noProjectDialog.cancel();
 
-        ServiceBuilderWizardPO newServiceBuilderWizard = new ServiceBuilderWizardPO( bot, TOOLTIP_NEW_SERVICE_BUILDER );
+        ServiceBuilderWizardPO newServiceBuilderWizard = new ServiceBuilderWizardPO( bot, TITLE_NEW_SERVICE_BUILDER );
 
         newServiceBuilderWizard.waitForPageToOpen();
 
@@ -291,7 +293,7 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
             setSDKLocation.finish();
         }
 
-        ServiceBuilderWizardPO newServiceBuilderWizard = new ServiceBuilderWizardPO( bot, TOOLTIP_NEW_SERVICE_BUILDER );
+        ServiceBuilderWizardPO newServiceBuilderWizard = new ServiceBuilderWizardPO( bot, TITLE_NEW_SERVICE_BUILDER );
 
         newServiceBuilderWizard.waitForPageToOpen();
         assertTrue( newServiceBuilderWizard.getBrowseButton().isEnabled() );

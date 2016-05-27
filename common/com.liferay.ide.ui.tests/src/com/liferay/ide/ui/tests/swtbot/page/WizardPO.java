@@ -64,7 +64,7 @@ public class WizardPO extends CancelPO
         clickButton( backButton() );
     }
 
-    protected SWTBotButton backButton()
+    public SWTBotButton backButton()
     {
         return bot.button( backButtonText );
     }
