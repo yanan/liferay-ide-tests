@@ -65,7 +65,6 @@ public class SWTBotBase implements UIBase
 {
 
     private final static String liferayBundlesDir = System.getProperty( "liferay.bundles.dir" );
-    private final static String tempDir = System.getProperty( "temp.dir" );
 
     public static boolean hasAddedProject = false;
 
@@ -100,7 +99,7 @@ public class SWTBotBase implements UIBase
         }
 
         eclipse.getLiferayPerspective().activate();
-        
+
         try
         {
             eclipse.showProgressView();
@@ -141,7 +140,7 @@ public class SWTBotBase implements UIBase
 
     protected static IPath getLiferayPluginsSdkDir()
     {
-        return new Path( tempDir ).append( "liferay-plugins-sdk-7.0" );
+        return new Path( liferayBundlesDir + "/bundles/" ).append( "liferay-plugins-sdk-7.0" );
     }
 
     protected static String getLiferayPluginsSdkName()
@@ -161,7 +160,7 @@ public class SWTBotBase implements UIBase
 
     protected static IPath getLiferayServerDir()
     {
-        return new Path( tempDir ).append( "liferay-portal-7.0-ce-b8/" );
+        return new Path( liferayBundlesDir + "/bundles/" ).append( "liferay-portal-7.0-ce-b8/" );
     }
 
     protected static IPath getLiferayServerZip()
@@ -353,7 +352,7 @@ public class SWTBotBase implements UIBase
 
         return eclipse.hasProjects();
     }
-    
+
     public boolean isInAvailableLists( String[] avaiable, String excepted )
     {
         for( String temp : avaiable )
