@@ -51,7 +51,7 @@ public class EclipsePO extends AbstractPO implements UIBase
         _packageExporerView = new PackageExplorerViewPO( bot );
         _welcomeView = new ViewPO( bot, LABEL_WELCOME );
         _progressView = new ProgressViewPO( bot );
-        _liferayPerspective = new PerspectivePO( bot, LABEL_LIFERAY );
+        _liferayPerspective = new PerspectivePO( bot, LABEL_LIFERAY_PLUGINS );
         _projectTree = new TreePO( bot );
         _fileMenu = new MenuPO( bot, MENU_FILE );
 
