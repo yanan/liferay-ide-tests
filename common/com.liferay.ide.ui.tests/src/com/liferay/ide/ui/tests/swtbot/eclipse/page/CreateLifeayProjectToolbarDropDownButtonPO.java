@@ -38,6 +38,7 @@ public class CreateLifeayProjectToolbarDropDownButtonPO extends ToolbarDropDownB
     private MenuItemPO _newLiferayServiceBuilder;
     private MenuItemPO _newLiferayVaadinPortlet;
     private MenuItemPO _newLiferayLayouTemplate;
+    private MenuItemPO _newLiferayModuleFragmentProject;
 
     public CreateLifeayProjectToolbarDropDownButtonPO( SWTBot bot )
     {
@@ -51,6 +52,7 @@ public class CreateLifeayProjectToolbarDropDownButtonPO extends ToolbarDropDownB
         _newLiferayJSFPortlet = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_JSF_PORTLET );
         _newLiferayVaadinPortlet=new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_VAADIN_PORTLET );
         _newLiferayLayouTemplate = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_LAYOUT_TMEPLATE );
+        _newLiferayModuleFragmentProject = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_MODULE_FRAGMENT_PROJECT );
     }
 
     public MenuItemPO getNewLiferayHookConfigration()
@@ -91,6 +93,12 @@ public class CreateLifeayProjectToolbarDropDownButtonPO extends ToolbarDropDownB
     public MenuItemPO getNewLiferayVaadinPortlet()
     {
         return _newLiferayVaadinPortlet;
+    }
+
+    
+    public MenuItemPO getNewLiferayModuleFragmentProject()
+    {
+        return _newLiferayModuleFragmentProject;
     }
 
 }

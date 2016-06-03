@@ -55,6 +55,7 @@ public interface UIBase
     public final String LABEL_ERROR_LOG = "Error Log";
     public final String LABEL_ERROR_LOG_FULL = "Error Log (Workspace Log)";
     public final String LABEL_LIFERAY = "Liferay Plugins";
+    public final String LABEL_LIFERAY_PLUGINS = "Liferay Plugins";
     public final String LABEL_OTHER = "Other...";
     public final String LABEL_PACKAGE_EXPLORER = "Package Explorer";
     public final String LABEL_PROGRESS = "Progress";
