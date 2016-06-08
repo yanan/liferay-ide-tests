@@ -50,8 +50,8 @@
 		<swtbot-site>http://download.eclipse.org/technology/swtbot/releases/latest</swtbot-site>
 		<eclipse-site>http://download.eclipse.org/releases/mars/</eclipse-site>
 		<eclipse-project-update-site>http://download.eclipse.org/eclipse/updates/4.5/</eclipse-project-update-site>
-		<liferay-ide-site>http://build-1:9090/userContent/liferay-ide/latest/repository/</liferay-ide-site>
-		<liferay-ide-swtbot-testing-site>http://build-1:9090/userContent/liferay-ide-swtbot-updatesite/repository/</liferay-ide-swtbot-testing-site>
+		<liferay-ide-site>http://ide-build-1:9090/userContent/liferay-ide/latest/repository/</liferay-ide-site>
+		<liferay-ide-swtbot-testing-site>http://ide-build-1:9090/userContent/liferay-ide-swtbot-updatesite/repository/</liferay-ide-swtbot-testing-site>
 		<wtp-site>http://download.eclipse.org/webtools/downloads/drops/R3.7.2/R-3.7.2-20160217020110/repository/</wtp-site>
 		<gmaven.runtime>1.8</gmaven.runtime>
 	</properties>
