@@ -29,6 +29,7 @@ import com.liferay.ide.module.fragment.ui.tests.page.SetModuleFragmentProjectOSG
 import com.liferay.ide.server.ui.tests.page.NewServerPO;
 import com.liferay.ide.server.ui.tests.page.NewServerRuntimeEnvPO;
 import com.liferay.ide.ui.tests.SWTBotBase;
+import com.liferay.ide.ui.tests.swtbot.page.DialogPO;
 import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 
 /**
@@ -112,6 +113,10 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
         moduleFragmentOSGiBundlePage.finish();
 
         sleep();
+        
+        DialogPO dialogPage = new DialogPO( bot, "Open Associated Perspective", BUTTON_YES, BUTTON_NO );
+
+        dialogPage.confirm();
 
         TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
 
