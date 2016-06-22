@@ -120,7 +120,7 @@ public class SWTBotBase implements UIBase
 
     protected static IPath getIvyCacheZip()
     {
-        return getLiferayBundlesPath().append( "ivy-cache-7.0.zip" );
+        return getLiferayBundlesPath().append( ivy_cache_zip );
     }
 
     protected static IPath getLiferayBundlesPath()
@@ -135,42 +135,42 @@ public class SWTBotBase implements UIBase
 
     protected static String getLiferayPluginServerName()
     {
-        return "tomcat-8.0.30";
+        return liferay_tomcat_name;
     }
 
     protected static IPath getLiferayPluginsSdkDir()
     {
-        return new Path( liferayBundlesDir + "/bundles/" ).append( "liferay-plugins-sdk-7.0" );
+        return new Path( liferayBundlesDir + "/bundles/" ).append( liferay_plugin_sdk_dir );
     }
 
     protected static String getLiferayPluginsSdkName()
     {
-        return "liferay-plugins-sdk-7.0";
+        return liferay_plugin_sdk_dir;
     }
 
     protected static IPath getLiferayPluginsSDKZip()
     {
-        return getLiferayBundlesPath().append( "liferay-plugins-sdk-7.0-ce-b8-20160223094645600.zip" );
+        return getLiferayBundlesPath().append( liferay_plugins_sdk_zip );
     }
 
     protected static String getLiferayPluginsSdkZipFolder()
     {
-        return "liferay-plugins-sdk-7.0/";
+        return liferay_plugin_sdk_dir + "/";
     }
 
     protected static IPath getLiferayServerDir()
     {
-        return new Path( liferayBundlesDir + "/bundles/" ).append( "liferay-portal-7.0-ce-b8/" );
+        return new Path( liferayBundlesDir + "/bundles/" ).append( liferay_portal_dir + "/" );
     }
 
     protected static IPath getLiferayServerZip()
     {
-        return getLiferayBundlesPath().append( "liferay-portal-tomcat-7.0-ce-b8-20160223094645600.zip" );
+        return getLiferayBundlesPath().append( liferay_portal_tomcat_zip );
     }
 
     protected static String getLiferayServerZipFolder()
     {
-        return "liferay-portal-7.0-ce-b8/";
+        return liferay_portal_dir + "/";
     }
 
     protected File getProjectZip( String bundleId, String projectName ) throws IOException
