@@ -25,13 +25,6 @@ package com.liferay.ide.ui.tests;
 public interface UIBase
 {
 
-    public final String liferay_portal_tomcat_zip = "liferay-ce-portal-tomcat-7.0-ga2-20160610113014153.zip";
-    public final String liferay_portal_dir = "liferay-ce-portal-7.0-ga2";
-    public final String liferay_tomcat_name = "tomcat-8.0.32";
-    public final String ivy_cache_zip = "ivy-cache-7.0.zip";
-    public final String liferay_plugins_sdk_zip = "com.liferay.portal.plugins.sdk-7.0-ga2-20160610113014153.zip";
-    public final String liferay_plugin_sdk_dir = "com.liferay.portal.plugins.sdk-7.0";
-
     public final String BUTTON_ADD = "Add...";
     public final String BUTTON_BACK = "< Back";
     public final String BUTTON_BROWSE = "Browse";

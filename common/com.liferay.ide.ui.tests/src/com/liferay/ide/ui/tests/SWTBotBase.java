@@ -64,6 +64,13 @@ import com.liferay.ide.ui.tests.util.ZipUtil;
 public class SWTBotBase implements UIBase
 {
 
+    public final static String BUNDLE_ZIP = "liferay-ce-portal-tomcat-7.0-ga2-20160610113014153.zip";
+    public final static String BUNDLE_DIR = "liferay-ce-portal-7.0-ga2";
+    public final static String TOMCAT_NAME = "tomcat-8.0.32";
+    public final static String IVY_CACHE_ZIP = "ivy-cache-7.0.zip";
+    public final static String PLUGINS_SDK_ZIP = "com.liferay.portal.plugins.sdk-7.0-ga2-20160610113014153.zip";
+    public final static String PLUGINS_SDK_DIR = "com.liferay.portal.plugins.sdk-7.0";
+
     private final static String liferayBundlesDir = System.getProperty( "liferay.bundles.dir" );
 
     public static boolean hasAddedProject = false;
@@ -120,7 +127,7 @@ public class SWTBotBase implements UIBase
 
     protected static IPath getIvyCacheZip()
     {
-        return getLiferayBundlesPath().append( ivy_cache_zip );
+        return getLiferayBundlesPath().append( IVY_CACHE_ZIP );
     }
 
     protected static IPath getLiferayBundlesPath()
@@ -135,42 +142,42 @@ public class SWTBotBase implements UIBase
 
     protected static String getLiferayPluginServerName()
     {
-        return liferay_tomcat_name;
+        return TOMCAT_NAME;
     }
 
     protected static IPath getLiferayPluginsSdkDir()
     {
-        return new Path( liferayBundlesDir + "/bundles/" ).append( liferay_plugin_sdk_dir );
+        return new Path( liferayBundlesDir + "/bundles/" ).append( PLUGINS_SDK_DIR );
     }
 
     protected static String getLiferayPluginsSdkName()
     {
-        return liferay_plugin_sdk_dir;
+        return PLUGINS_SDK_DIR;
     }
 
     protected static IPath getLiferayPluginsSDKZip()
     {
-        return getLiferayBundlesPath().append( liferay_plugins_sdk_zip );
+        return getLiferayBundlesPath().append( PLUGINS_SDK_ZIP );
     }
 
     protected static String getLiferayPluginsSdkZipFolder()
     {
-        return liferay_plugin_sdk_dir + "/";
+        return PLUGINS_SDK_DIR + "/";
     }
 
     protected static IPath getLiferayServerDir()
     {
-        return new Path( liferayBundlesDir + "/bundles/" ).append( liferay_portal_dir + "/" );
+        return new Path( liferayBundlesDir + "/bundles/" ).append( BUNDLE_DIR + "/" );
     }
 
     protected static IPath getLiferayServerZip()
     {
-        return getLiferayBundlesPath().append( liferay_portal_tomcat_zip );
+        return getLiferayBundlesPath().append( BUNDLE_ZIP );
     }
 
     protected static String getLiferayServerZipFolder()
     {
-        return liferay_portal_dir + "/";
+        return BUNDLE_DIR + "/";
     }
 
     protected File getProjectZip( String bundleId, String projectName ) throws IOException
