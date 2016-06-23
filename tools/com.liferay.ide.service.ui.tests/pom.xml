@@ -26,6 +26,7 @@
     </parent>
 
     <artifactId>com.liferay.ide.service.ui.tests</artifactId>
+    <packaging>eclipse-test-plugin</packaging>
 
     <name>Liferay IDE Service UI Tests</name>
 </project>
