@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Liferay Component Class UI Tests
+Bundle-SymbolicName: com.liferay.ide.component.class.ui.tests
+Bundle-Version: 3.0.0.qualifier
+Bundle-Vendor: Liferay, Inc.
+Require-Bundle: com.liferay.ide.project.ui.tests,
+ com.liferay.ide.ui.tests,
+ org.eclipse.swtbot.go,
+ org.junit
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
