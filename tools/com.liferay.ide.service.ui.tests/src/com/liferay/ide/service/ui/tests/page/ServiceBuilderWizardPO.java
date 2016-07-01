@@ -37,8 +37,8 @@ public class ServiceBuilderWizardPO extends WizardPO implements ServiceBuilderWi
 
     private ButtonPO _browseButton;
 
-    ComboBoxPO _pluginProjectComboBox;
-    CheckBoxPO _includeSampleEntityCheckBox;
+    private ComboBoxPO _pluginProjectComboBox;
+    private CheckBoxPO _includeSampleEntityCheckBox;
 
     private int validationMessageIndex = -1;
 
