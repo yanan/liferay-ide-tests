@@ -23,6 +23,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotCombo;
 /**
  * @author Terry Jia
  * @author Ashley Yuan
+ * @author Ying Xu
  */
 public class ComboBoxPO extends AbstractWidgetPO
 {
@@ -60,6 +61,11 @@ public class ComboBoxPO extends AbstractWidgetPO
     public void setText( String text )
     {
         getWidget().setText( text );
+    }
+
+    public int getComboBoxItemCounts( int count )
+    {
+        return getWidget().itemCount();
     }
 
 }
