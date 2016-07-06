@@ -22,6 +22,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.liferay.ide.portlet.ui.tests.page.CreateJSFPortletWizardPO;
@@ -37,6 +38,7 @@ import com.liferay.ide.ui.tests.swtbot.page.TreeItemPO;
 /**
  * @author Li Lu
  */
+@Ignore
 public class NewJSFPortletWizardTests extends SWTBotBase implements JSFPortletWizard, ProjectWizard
 {
 

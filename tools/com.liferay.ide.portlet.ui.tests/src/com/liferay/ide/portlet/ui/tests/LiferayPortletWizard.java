@@ -23,13 +23,14 @@ import com.liferay.ide.ui.tests.UIBase;
  */
 public interface LiferayPortletWizard extends UIBase
 {
+
     public final int INDEX_DEFAULT_CREATE_LIFERAY_PORTLET_WIZARD = 3;
     public final int INDEX_SPECIFY_PORTLET_DEPLOYMENT_DESCRIPTOR_PAGE = 5;
     public final int INDEX_SPECIFY_LIFERAY_PORTLET_DEPLOYMENT_DESCRIPTOR_PAGE = 6;
     public final int INDEX_SPECIFY_PARAMS_IN_PORTLET_CLASS_PAGE = 0;
-    
+
     public final int INDEX_NEW_SOURCE_FOLDER_VALIDATION_MESSAGE = 2;
-    
+
     public final String TOOLTIP_MENU_ITEM_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
 
     public final String LABEL_PORTLET_PLUGIN_PROJECT = "Portlet plugin project:";
@@ -148,14 +149,15 @@ public interface LiferayPortletWizard extends UIBase
             "Site Administration - Configuration", "Site Administration - Content", "Site Administration - Pages",
             "Site Administration - Users", "Control Panel - Sites", "Control Panel - Users" };
 
-    public String[] availableDisplayCategories70 = { "Community", "Configuration", "Undefined", "Sandbox", "Sun",
-        "System", "Gadgets", "Shopping", "Publishing Tools", "WSRP", "Test", "Portal", "Religion", "Google",
-        "Collaboration", "Alfresco", "Library", "Workflow", "News", "Knowledge Base", "Sample", "Entertainment",
-        "Content Management", "Spring", "Sites", "World of Liferay", "Users", "Science", "Development", "Apps",
-        "Finance", "Marketplace", "Social", "OpenSocial", "Content", "Admin", "Christianity", "Tools" };
+    public String[] availableDisplayCategories70 =
+        { "Community", "Configuration", "Undefined", "Sandbox", "Sun", "System", "Gadgets", "Shopping", "WSRP", "Test",
+            "Portal", "Religion", "Google", "Collaboration", "Alfresco", "Library", "Workflow", "News",
+            "Knowledge Base", "Sample", "Entertainment", "Content Management", "Spring", "Members", "Sites",
+            "World of Liferay", "Users", "Science", "Development", "Apps", "Finance", "Highlighted", "Publishing",
+            "OpenSocial", "Marketplace", "Social", "Navigation", "Content", "Admin", "Christianity", "Tools" };
 
     public String[] availableEntryCategories70 = { "Control Panel - null", "Control Panel - null",
         "My Account Administration", "Site Administration - Configuration", "Site Administration - Content",
-        "Site Administration - Pages", "Site Administration - Users", "Control Panel - null", "Control Panel - null" };
+        "Site Administration - null", "Site Administration - null", "Control Panel - null", "Control Panel - null" };
 
 }

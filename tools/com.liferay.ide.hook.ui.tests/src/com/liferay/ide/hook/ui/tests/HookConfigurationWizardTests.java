@@ -108,7 +108,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         eventActionPage.setEventActionclass( "portalPropertiesClass" );
         eventActionPage.confirm();
 
-        sleep(1000);
+        sleep( 1000 );
         portalPropertiesPage.next();
 
         // Service
@@ -139,8 +139,8 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         String fileName = "CustomJsps.jsp";
 
-        projectTree.expandNode( new String[] { projectHookName + "-hook", "docroot", "META-INF", "custom_jsps" } ).doubleClick(
-            fileName );
+        projectTree.expandNode(
+            new String[] { projectHookName + "-hook", "docroot", "META-INF", "custom_jsps" } ).doubleClick( fileName );
 
         fileName = "portal.properties";
 
@@ -157,8 +157,8 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         fileName = "languageTest.properties";
 
-        projectTree.expandNode( new String[] { projectHookName + "-hook", "docroot/WEB-INF/src", "content" } ).doubleClick(
-            fileName );
+        projectTree.expandNode(
+            new String[] { projectHookName + "-hook", "docroot/WEB-INF/src", "content" } ).doubleClick( fileName );
     }
 
     @Test
@@ -219,8 +219,8 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
 
         projectTree.expandNode(
-            new String[] { projectHookName + "-hook", "docroot", "META-INF", "custom_jsps", "html", "common", "themes" } ).doubleClick(
-            "bottom.jsp" );
+            new String[] { projectHookName + "-hook", "docroot", "META-INF", "custom_jsps", "html", "common",
+                "themes" } ).doubleClick( "bottom.jsp" );
 
     }
 
@@ -236,9 +236,8 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         newHookTypesPage.next();
 
-        LanguagePropertiesPO languagePropertiesPage =
-            new LanguagePropertiesPO(
-                bot, "New Liferay Hook Configuration", INDEX_LANGUAGE_PROPERTIES_VALIDATION_MESSAGE );
+        LanguagePropertiesPO languagePropertiesPage = new LanguagePropertiesPO(
+            bot, "New Liferay Hook Configuration", INDEX_LANGUAGE_PROPERTIES_VALIDATION_MESSAGE );
 
         assertEquals( defaultMessage, languagePropertiesPage.getValidationMessage() );
         assertEquals(
@@ -289,8 +288,9 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
 
-        projectTree.expandNode( new String[] { projectHookName + "-hook", "docroot/WEB-INF/src", "content" } ).doubleClick(
-            "test.properties" );
+        projectTree.expandNode(
+            new String[] { projectHookName + "-hook", "docroot/WEB-INF/src", "content" } ).doubleClick(
+                "test.properties" );
     }
 
     @Test
@@ -352,8 +352,9 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         EventSelectionPO eventSelectionPage = new EventSelectionPO( bot );
         eventActionPage.getSelectClass().click();
 
+        sleep( 20000 );
         eventSelectionPage.setEventAction( "ObjectAction" );
-        sleep( 10000 );
+
         eventSelectionPage.confirm();
 
         eventActionPage.confirm();
@@ -454,6 +455,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         servicesPage.getAddServiceWrapper().setFocus();
         serviceWrapperPage.getSelectImplClass( 1 ).click();
+        sleep( 10000 );
         serviceWarningPage.getOkButton().click();
 
         servicesPage.getAddServiceWrapper().setFocus();
@@ -469,6 +471,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         servicesPage.getAddButton().click();
         serviceWrapperPage.getSelectServiceType().click();
+        sleep( 15000 );
 
         SuperclassSelectionPO superclassPage = new SuperclassSelectionPO( bot );
 
@@ -493,8 +496,8 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         TreePO projectTree = eclipse.getPackageExporerView().getProjectTree();
 
         String fileName = "ExtAccountService.java";
-        projectTree.expandNode( new String[] { projectHookName + "-hook", "docroot/WEB-INF/src", "hookservice" } ).doubleClick(
-            fileName );
+        projectTree.expandNode(
+            new String[] { projectHookName + "-hook", "docroot/WEB-INF/src", "hookservice" } ).doubleClick( fileName );
 
         TextEditorPO textEditor = eclipse.getTextEditor( fileName );
 

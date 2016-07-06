@@ -50,6 +50,9 @@ import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements ServiceBuilderWizard, ProjectWizard
 {
 
+    ServiceBuilderWizardPO newServiceBuilderWizard = new ServiceBuilderWizardPO( bot, TITLE_NEW_SERVICE_BUILDER );
+    String author = System.getenv( "USERNAME" );
+
     @AfterClass
     public static void cleanAll()
     {
@@ -89,10 +92,10 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
 
         ServiceBuilderWizardPO newServiceBuilderWizard = new ServiceBuilderWizardPO( bot, TITLE_NEW_SERVICE_BUILDER );
 
-        newServiceBuilderWizard.waitForPageToOpen();
+        // newServiceBuilderWizard.waitForPageToOpen();
+        newServiceBuilderWizard.setFocus();
 
         // check initial state
-        String author = System.getenv( "USERNAME" );
         assertEquals( author, newServiceBuilderWizard.getAuthorText().getText() );
         assertEquals( projectName + "-portlet", newServiceBuilderWizard.getPluginProjectComboBox().getText() );
         assertEquals( TEXT_SERVICE_FILE_VALUE, newServiceBuilderWizard.getServiceFileText().getText() );
@@ -152,6 +155,7 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
         assertTrue( newServiceBuilderWizard.finishButton().isEnabled() );
 
         newServiceBuilderWizard.finish();
+        sleep();
 
         TreePO projectTree = eclipse.getPackageExporerView().getProjectTree();
 
@@ -241,12 +245,14 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
         createProjectWizard.cancel();
         noProjectDialog.cancel();
 
-        ServiceBuilderWizardPO newServiceBuilderWizard = new ServiceBuilderWizardPO( bot, TITLE_NEW_SERVICE_BUILDER );
+        /*
+         * ServiceBuilderWizardPO newServiceBuilderWizard = new ServiceBuilderWizardPO( bot, TITLE_NEW_SERVICE_BUILDER
+         * ); newServiceBuilderWizard.waitForPageToOpen();
+         */
 
-        newServiceBuilderWizard.waitForPageToOpen();
+        newServiceBuilderWizard.setFocus();
 
         // check service builder default initial state
-        String author = System.getenv( "USERNAME" );
         assertEquals( author, newServiceBuilderWizard.getAuthorText().getText() );
         assertEquals( TEXT_DEFAULT_PLUGIN_PROJECT_VALUE, newServiceBuilderWizard.getPluginProjectComboBox().getText() );
         assertEquals( TEXT_SERVICE_FILE_VALUE, newServiceBuilderWizard.getServiceFileText().getText() );
@@ -295,18 +301,21 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
 
         ServiceBuilderWizardPO newServiceBuilderWizard = new ServiceBuilderWizardPO( bot, TITLE_NEW_SERVICE_BUILDER );
 
-        newServiceBuilderWizard.waitForPageToOpen();
-        assertTrue( newServiceBuilderWizard.getBrowseButton().isEnabled() );
+        // newServiceBuilderWizard.waitForPageToOpen();
+        // assertTrue( newServiceBuilderWizard.getBrowseButton().isEnabled() );
 
         // package which is not exist test
+        newServiceBuilderWizard.setFocus();
         newServiceBuilderWizard.getBrowseButton().click();
 
         ServiceBuilderPackageSelectionPO chooseOnePackage =
             new ServiceBuilderPackageSelectionPO( bot, BUTTON_CANCEL, BUTTON_OK );
 
         chooseOnePackage.selectPackage( "a" );
+        sleep( 200 );
         assertFalse( chooseOnePackage.getOkButton().isEnabled() );
         chooseOnePackage.selectPackage( "" );
+        sleep( 200 );
         assertTrue( chooseOnePackage.getOkButton().isEnabled() );
         chooseOnePackage.confirm();
         assertEquals( TEXT_PACKAGE_PATH_EMPTY_MESSAGE, newServiceBuilderWizard.getValidationMessage() );
@@ -335,7 +344,7 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
         assertTrue( chooseOnePackage.getOkButton().isEnabled() );
         chooseOnePackage.confirm();
         newServiceBuilderWizard.getNamespaceText().setText( "namespace" );
-        newServiceBuilderWizard.getAuthorText().setText( "liferay-v" );
+        newServiceBuilderWizard.getAuthorText().setText( author+"-v" );
         newServiceBuilderWizard.getIncludeSampleEntityCheckBox().deselect();
         assertEquals( TEXT_NEW_SERVICE_BUILDER_XML_FILE, newServiceBuilderWizard.getValidationMessage() );
         assertTrue( newServiceBuilderWizard.finishButton().isEnabled() );
@@ -350,7 +359,7 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
 
         assertTrue( textEditor.isActive() );
 
-        String author = System.getenv( "USERNAME" );
+
         assertContains( "newpackage", textEditor.getText() );
         assertContains( "namespace", textEditor.getText() );
         assertContains( author + "-v", textEditor.getText() );

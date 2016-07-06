@@ -38,6 +38,7 @@ import com.liferay.ide.ui.tests.util.ZipUtil;
 /**
  * @author Li Lu
  */
+
 @RunWith( SWTBotJunit4ClassRunner.class )
 public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayProjectFromExistSourceWizard
 {
@@ -159,7 +160,10 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
         _wizard.getProjectDirectoryText().setText( projectCopyDir.toOSString() );
 
         sleep( 1000 );
-        assertTrue( _wizard.finishButton().isEnabled() );
+        assertFalse( _wizard.finishButton().isEnabled() );
+        assertEquals(
+            " Could not determine SDK from project location " + projectCopyDir.toOSString(),
+            _wizard.getValidationMessage() );
 
         // import project from another SDK
         IPath sdk2Dir = getLiferayPluginsSdkDir().removeLastSegments( 1 ).append( "sdk2" );

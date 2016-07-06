@@ -68,12 +68,11 @@ public class NewServerRuntimeWizardTests extends SWTBotBase implements ServerRun
         String serversStopped = "Liferay 7.x at localhost  [Stopped]";
         String serverStartButton = "Start the server (Ctrl+Alt+R)";
 
-        // Waiting for merging Lilu's server page object commit
         bot.tree( 1 ).getTreeItem( serversStopped ).select();
         bot.toolbarButtonWithTooltip( serverStartButton ).click();
 
-        sleep( 60000 );
-        assertTrue( checkServerConsoleMessage( SERVER_STARTUP_MESSAGE, "Liferay", 60000 ) );
+        sleep( 120000 );
+        assertTrue( checkServerConsoleMessage( SERVER_STARTUP_MESSAGE, "Liferay", 600000 ) );
         // Future: need to add jboss test
     }
 }
