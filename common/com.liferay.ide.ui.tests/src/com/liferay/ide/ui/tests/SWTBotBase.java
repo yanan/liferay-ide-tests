@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
@@ -192,6 +193,10 @@ public class SWTBotBase implements UIBase
     {
         FileUtil.deleteDir( getLiferayPluginsSdkDir().toFile(), true );
 
+        assertEquals(
+            "Expected file to be not exist:" + getLiferayPluginsSdkDir().toPortableString(), false,
+            getLiferayPluginsSdkDir().toFile().exists() );
+
         final File liferayPluginsSdkZipFile = getLiferayPluginsSDKZip().toFile();
 
         assertEquals(
@@ -235,15 +240,29 @@ public class SWTBotBase implements UIBase
         if( !userBuildFile.exists() )
         {
             userBuildFile.createNewFile();
-            Properties p = new Properties();
-            p.put( "app.server.parent.dir", getLiferayServerDir().toFile().toString() );
-            p.store( new FileOutputStream( userBuildFile ), "" );
+            String appServerParentDir =
+                "app.server.parent.dir=" + getLiferayServerDir().toFile().getPath().replace( "\\", "/" );
+            try
+            {
+                FileWriter writer = new FileWriter( userBuildFile.getPath(), true );
+                writer.write( appServerParentDir );
+                writer.close();
+            }
+            catch( IOException e )
+            {
+                e.printStackTrace();
+            }
         }
     }
 
     protected static void unzipServer() throws IOException
     {
         FileUtil.deleteDir( getLiferayServerDir().toFile(), true );
+
+        assertEquals(
+            "Expected file to be not exist:" + getLiferayServerDir().toPortableString(), false,
+            getLiferayServerDir().toFile().exists() );
+
         final File liferayServerZipFile = getLiferayServerZip().toFile();
 
         assertEquals(

@@ -174,7 +174,7 @@ public class NewLayoutTemplateWizardTests extends SWTBotBase implements CreateLa
 
         assertTrue( templateFileSelection.containsItem( "test.tpl" ) );
         assertTrue( templateFileSelection.containsItem( "test.png" ) );
-        assertTrue( templateFileSelection.containsItem( "test.wap.tpl" ) );
+        assertTrue( templateFileSelection.containsItem( "blank_columns.wap.tpl" ) );
 
         templateFileSelection.select( "WEB-INF" );
         assertEquals( TEXT_CHOOSE_VALID_PROJECT_FILE, templateFileSelection.getValidationMessage() );
@@ -203,14 +203,14 @@ public class NewLayoutTemplateWizardTests extends SWTBotBase implements CreateLa
 
         assertTrue( thumbnailFileSelection.containsItem( "test.tpl" ) );
         assertTrue( thumbnailFileSelection.containsItem( "test.png" ) );
-        assertTrue( thumbnailFileSelection.containsItem( "test.wap.tpl" ) );
+        assertTrue( thumbnailFileSelection.containsItem( "blank_columns.wap.tpl" ) );
 
         thumbnailFileSelection.select( "WEB-INF" );
 
         assertEquals( TEXT_CHOOSE_VALID_PROJECT_FILE, thumbnailFileSelection.getValidationMessage() );
         assertEquals( false, thumbnailFileSelection.canFinish() );
 
-        thumbnailFileSelection.select( "test.wap.tpl" );
+        thumbnailFileSelection.select( "blank_columns.wap.tpl" );
         thumbnailFileSelection.confirm();
 
         assertEquals( TEXT_THUMBNAIL_FILE_EXIST, page.getValidationMessage() );
@@ -233,13 +233,13 @@ public class NewLayoutTemplateWizardTests extends SWTBotBase implements CreateLa
 
         assertTrue( templateFileSelection.containsItem( "test.tpl" ) );
         assertTrue( templateFileSelection.containsItem( "test.png" ) );
-        assertTrue( templateFileSelection.containsItem( "test.wap.tpl" ) );
+        assertTrue( templateFileSelection.containsItem( "blank_columns.wap.tpl" ) );
 
         templateFileSelection.select( "WEB-INF" );
         assertEquals( TEXT_CHOOSE_VALID_PROJECT_FILE, templateFileSelection.getValidationMessage() );
         assertEquals( false, templateFileSelection.canFinish() );
 
-        templateFileSelection.select( "test.wap.tpl" );
+        templateFileSelection.select( "blank_columns.wap.tpl" );
         templateFileSelection.confirm();
 
         assertEquals( TEXT_WAP_TEMPLATE_FILE_EXIST, page.getValidationMessage() );
