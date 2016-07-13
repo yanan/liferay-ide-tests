@@ -56,6 +56,7 @@ public interface UIBase
     public final String LABEL_ERROR_LOG_FULL = "Error Log (Workspace Log)";
     public final String LABEL_LIFERAY_WORKSPACE = "Liferay Workspace";
     public final String LABEL_LIFERAY_PLUGINS = "Liferay Plugins";
+    public final String LABEL_LIFERAY_WORKSPACE = "Liferay Workspace";
     public final String LABEL_OTHER = "Other...";
     public final String LABEL_PACKAGE_EXPLORER = "Package Explorer";
     public final String LABEL_PROGRESS = "Progress";
@@ -86,6 +87,7 @@ public interface UIBase
     public final String LABEL_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
     public final String LABEL_NEW_LIFERAY_WORKSPACE_PROJECT = "New Liferay Workspace Project";
     public final String LABEL_NEW_LIFERAY_MODULE_FRAGMENT_PROJECT = "New Liferay Module Fragment Project";
+    public final String LABEL_NEW_LIFERAY_WORPSPACE_PROJECT = "New Liferay Workspace Project";
     public final String LABEL_NEW_LIFERAY_COMPONENT_CLASS = "New Liferay Component Class";
 
     public final String LABEL_LIFERAY_PLUGIN_PROJECT = "Liferay Plugin Project";

@@ -27,6 +27,7 @@ import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 /**
  * @author Terry Jia
  * @author Ying Xu
+ * @author Vicky Wang
  */
 public class EclipsePO extends AbstractPO implements UIBase
 {
