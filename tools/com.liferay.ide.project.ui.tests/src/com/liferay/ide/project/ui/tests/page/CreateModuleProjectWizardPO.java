@@ -36,10 +36,20 @@ public class CreateModuleProjectWizardPO extends WizardPO implements ModuleProje
         this( bot, TEXT_BLANK );
     }
 
+    public CreateModuleProjectWizardPO( SWTBot bot, int validationMessageIndex )
+    {
+        this( bot, TEXT_BLANK, validationMessageIndex );
+    }
+
     public CreateModuleProjectWizardPO( SWTBot bot, String title )
     {
-        super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT );
-        _projectTemplateNameComboBox = new ComboBoxPO( bot, LABEL_PROJECT_TEMPLATE_NAME );
+        this( bot, title, INDEX_DEFAULT_VALIDATION_MESSAGE );
+    }
+
+    public CreateModuleProjectWizardPO( SWTBot bot, String title, int validationMessageIndex )
+    {
+        super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT, validationMessageIndex );
+        _projectTemplateNameComboBox = new ComboBoxPO( bot, LABEL_MODULE_PROJECT_TEMPLATE_NAME );
         _projectNameText = new TextPO( bot, LABEL_MODULE_PROJECT_NAME );
     }
 
