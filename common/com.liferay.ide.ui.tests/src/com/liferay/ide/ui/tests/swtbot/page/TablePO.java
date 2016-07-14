@@ -69,4 +69,9 @@ public class TablePO extends AbstractWidgetPO
         return getWidget().containsItem( item );
     }
 
+    public void setText( int index, String text )
+    {
+        bot.text( index ).setText( text );
+    }
+
 }

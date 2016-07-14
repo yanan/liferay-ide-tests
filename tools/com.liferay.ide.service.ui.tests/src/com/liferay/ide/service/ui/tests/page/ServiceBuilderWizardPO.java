@@ -40,8 +40,6 @@ public class ServiceBuilderWizardPO extends WizardPO implements ServiceBuilderWi
     private ComboBoxPO _pluginProjectComboBox;
     private CheckBoxPO _includeSampleEntityCheckBox;
 
-    private int validationMessageIndex = -1;
-
     public ServiceBuilderWizardPO( SWTBot bot )
     {
         this( bot, TEXT_BLANK );
@@ -55,7 +53,6 @@ public class ServiceBuilderWizardPO extends WizardPO implements ServiceBuilderWi
     public ServiceBuilderWizardPO( SWTBot bot, String title, int validationMessageIndex )
     {
         super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BROWSE_WITH_DOT, TEXT_BLANK, validationMessageIndex );
-        this.validationMessageIndex = validationMessageIndex;
         _packagePath = new TextPO( bot, LABEL_PACKAGE_PATH );
         _namespace = new TextPO( bot, LABEL_NAMESPACE );
         _author = new TextPO( bot, LABEL_AUTHOR );
@@ -99,18 +96,6 @@ public class ServiceBuilderWizardPO extends WizardPO implements ServiceBuilderWi
     public TextPO getServiceFileText()
     {
         return _serviceFile;
-    }
-
-    public String getValidationMessage()
-    {
-        if( validationMessageIndex < 0 )
-        {
-            log.error( "Validation Message Index error" );
-
-            return null;
-        }
-
-        return bot.text( validationMessageIndex ).getText();
     }
 
     public void NewServiceBuilder( String packagePathText, String namespaceText )
