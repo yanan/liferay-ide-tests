@@ -15,10 +15,13 @@
 
 package com.liferay.ide.project.ui.tests;
 
+import static org.eclipse.swtbot.swt.finder.SWTBotAssert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.eclipse.swtbot.swt.finder.keyboard.Keyboard;
+import org.eclipse.swtbot.swt.finder.keyboard.KeyboardFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -27,6 +30,8 @@ import org.junit.Test;
 import com.liferay.ide.project.ui.tests.page.CreateModuleProjectWizardPO;
 import com.liferay.ide.project.ui.tests.page.ModuleProjectWizardSecondPagePO;
 import com.liferay.ide.ui.tests.SWTBotBase;
+import com.liferay.ide.ui.tests.swtbot.page.TextEditorPO;
+import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 
 /**
  * @author Ying Xu
@@ -79,10 +84,75 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
         assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
 
+        // add properties then check toolbarButton state
+        assertTrue( createModuleProjectSecondPageWizard.getAddPropertyKeyButton().isEnabled() );
+        assertFalse( createModuleProjectSecondPageWizard.getDeleteButton().isEnabled() );
+        assertFalse( createModuleProjectSecondPageWizard.getMoveUpButton().isEnabled() );
+        assertFalse( createModuleProjectSecondPageWizard.getMoveDownButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.getAddPropertyKeyButton().click();
+        sleep();
+        createModuleProjectSecondPageWizard.setPropertiesText( 2, "a" );
+        sleep();
+        createModuleProjectSecondPageWizard.getProperties().doubleClick( 0, 1 );
+        sleep();
+        createModuleProjectSecondPageWizard.setPropertiesText( 2, "b" );
+        sleep();
+
+        Keyboard keyPress = KeyboardFactory.getAWTKeyboard();
+        keyPress.pressShortcut( enter );
+        sleep();
+        assertTrue( createModuleProjectSecondPageWizard.getDeleteButton().isEnabled() );
+        assertFalse( createModuleProjectSecondPageWizard.getMoveUpButton().isEnabled() );
+        assertFalse( createModuleProjectSecondPageWizard.getMoveDownButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.getAddPropertyKeyButton().click();
+        sleep();
+        createModuleProjectSecondPageWizard.setPropertiesText( 2, "c" );
+        sleep();
+        createModuleProjectSecondPageWizard.getProperties().doubleClick( 1, 1 );
+        sleep();
+        createModuleProjectSecondPageWizard.setPropertiesText( 2, "d" );
+        sleep();
+
+        keyPress.pressShortcut( enter );
+        sleep();
+        assertTrue( createModuleProjectSecondPageWizard.getMoveUpButton().isEnabled() );
+        assertFalse( createModuleProjectSecondPageWizard.getMoveDownButton().isEnabled() );
+        createModuleProjectSecondPageWizard.getMoveUpButton().click();
+        assertFalse( createModuleProjectSecondPageWizard.getMoveUpButton().isEnabled() );
+        assertTrue( createModuleProjectSecondPageWizard.getMoveDownButton().isEnabled() );
+        createModuleProjectSecondPageWizard.getMoveDownButton().click();
+
+        createModuleProjectSecondPageWizard.getDeleteButton().click();
+        createModuleProjectSecondPageWizard.getDeleteButton().click();
+
         createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        TreePO projectTree = eclipse.getPackageExporerView().getProjectTree();
+
+        String javaFileName = "TestmvcportletprojectmvcportletPortlet.java";
+        projectTree.expandNode( projectName, "src/main/java", "com.example.portlet" ).doubleClick( javaFileName );
+
+        TextEditorPO checkJavaFile = eclipse.getTextEditor( javaFileName );
+
+        assertContains( "extends MVCPortlet", checkJavaFile.getText() );
+
+        projectTree.setFocus();
+
+        String buildGradleFileName = "build.gradle";
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
     }
 
-    // @Test
+    @Test
     public void validationProjectName()
     {
         CreateModuleProjectWizardPO createModuleProjectWizard =
@@ -120,7 +190,7 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
     @AfterClass
     public static void cleanAll()
     {
-        // eclipse.closeShell( LABEL_NEW_LIFERAY_MODULE_PROJECT );
-        // eclipse.getPackageExporerView().deleteResoucesByNames( new String[] {}, true );
+        eclipse.closeShell( LABEL_NEW_LIFERAY_MODULE_PROJECT );
+        eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, true );
     }
 }

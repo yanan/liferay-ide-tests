@@ -37,8 +37,6 @@ public class NewLiferayComponentWizardPO extends WizardPO implements NewLiferayC
     private ComboBoxPO _projectName;
     private ComboBoxPO _componentClassTemplate;
 
-    private int _validationMessageIndex = INDEX_DEFAULT_VALIDATION_MESSAGE;
-
     public NewLiferayComponentWizardPO( SWTBot bot, String title )
     {
         this( bot, title, INDEX_VALIDATION_MESSAGE );
@@ -47,7 +45,6 @@ public class NewLiferayComponentWizardPO extends WizardPO implements NewLiferayC
     public NewLiferayComponentWizardPO( SWTBot bot, String title, int validationMessageIndex )
     {
         super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT, validationMessageIndex );
-        this._validationMessageIndex = validationMessageIndex;
         _packageName = new TextPO( bot, LABEL_PACKAGE_NAME );
         _componentClassName = new TextPO( bot, LABEL_COMPONENT_CLASS_NAME );
         _projectName = new ComboBoxPO( bot, COMBOBOX_PROJECT_NAME );
@@ -103,18 +100,6 @@ public class NewLiferayComponentWizardPO extends WizardPO implements NewLiferayC
     public ComboBoxPO getComponentClassTemplate()
     {
         return _componentClassTemplate;
-    }
-
-    public String getValidationMessage()
-    {
-        if( _validationMessageIndex < 0 )
-        {
-            log.error( "Validation Message Index error" );
-
-            return null;
-        }
-
-        return bot.text( _validationMessageIndex ).getText();
     }
 
 }

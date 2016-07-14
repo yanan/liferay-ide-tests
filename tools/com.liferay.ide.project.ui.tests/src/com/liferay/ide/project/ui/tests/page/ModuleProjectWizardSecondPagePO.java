@@ -35,7 +35,7 @@ public class ModuleProjectWizardSecondPagePO extends WizardPO implements ModuleP
     private ToolbarButtonPO _browseButton;
     private ToolbarButtonPO _addPropertyKeyButton;
     private ToolbarButtonPO _moveUpButton;
-    private ToolbarButtonPO _moveDonwButton;
+    private ToolbarButtonPO _moveDownButton;
     private ToolbarButtonPO _deleteButton;
 
     public ModuleProjectWizardSecondPagePO( SWTBot bot )
@@ -62,7 +62,7 @@ public class ModuleProjectWizardSecondPagePO extends WizardPO implements ModuleP
         _browseButton = new ToolbarButtonPO( bot, BUTTON_BROWSE );
         _addPropertyKeyButton = new ToolbarButtonPO( bot, TOOLBARBOTTON_ADD_PROPERTY_KEY );
         _moveUpButton = new ToolbarButtonPO( bot, TOOLBARBOTTON_MOVE_UP );
-        _moveDonwButton = new ToolbarButtonPO( bot, TOOLBARBOTTON_MOVE_DOWN );
+        _moveDownButton = new ToolbarButtonPO( bot, TOOLBARBOTTON_MOVE_DOWN );
         _deleteButton = new ToolbarButtonPO( bot, TOOLBARBOTTON_DELETE );
     }
 
@@ -81,9 +81,9 @@ public class ModuleProjectWizardSecondPagePO extends WizardPO implements ModuleP
         return _moveUpButton;
     }
 
-    public ToolbarButtonPO getMoveDonwButton()
+    public ToolbarButtonPO getMoveDownButton()
     {
-        return _moveDonwButton;
+        return _moveDownButton;
     }
 
     public ToolbarButtonPO getDeleteButton()
@@ -106,7 +106,7 @@ public class ModuleProjectWizardSecondPagePO extends WizardPO implements ModuleP
         return _properties;
     }
 
-    public void setCcomponentClassName( TextPO _componentClassName )
+    public void setComponentClassName( TextPO _componentClassName )
     {
         this._componentClassName = _componentClassName;
     }
@@ -119,6 +119,16 @@ public class ModuleProjectWizardSecondPagePO extends WizardPO implements ModuleP
     public void setProperties( TablePO _properties )
     {
         this._properties = _properties;
+    }
+
+    public void doubleClick( int row, int column )
+    {
+        _properties.doubleClick( row, column );
+    }
+
+    public void setPropertiesText( int index, String text )
+    {
+        _properties.setText( index, text );
     }
 
 }
