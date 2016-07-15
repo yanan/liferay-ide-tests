@@ -13,7 +13,7 @@
  *
  *******************************************************************************/
 
-package com.liferay.ide.portlet.ui.tests.page;
+package com.liferay.ide.project.ui.tests.page;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
@@ -41,12 +41,12 @@ public class SelectTypePO extends WizardPO implements ProjectWizard
         _filterNameText = new TextPO( bot, TEXT_BLANK );
     }
 
-    public void createProject( String selectTypeTree, String selectTypeNode )
+    public void selectItem( String selectTypeTree, String selectTypeNode )
     {
-        createProject( TEXT_BLANK, selectTypeTree, selectTypeNode );
+        selectItem( TEXT_BLANK, selectTypeTree, selectTypeNode );
     }
 
-    public void createProject( String filterText, String selectTypeTree, String selectTypeNode )
+    public void selectItem( String filterText, String selectTypeTree, String selectTypeNode )
     {
         _filterNameText.setText( filterText );
 

@@ -62,6 +62,8 @@ public interface UIBase
     public final String LABEL_SHOW_VIEW = "Show View";
     public final String LABEL_WELCOME = "Welcome";
     public final String LABEL_WINDOW = "Window";
+    public final String LABEL_IMPORT = "Import...";
+    public final String LABEL_PROJECT_EXPLORER = "Project Explorer";
 
     public final String LABEL_SOURCE_FOLDER = "Source folder:";
     public final String LABEL_NAME = "Name:";

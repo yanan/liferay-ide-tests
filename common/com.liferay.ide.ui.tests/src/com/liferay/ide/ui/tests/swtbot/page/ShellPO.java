@@ -68,7 +68,7 @@ public abstract class ShellPO extends AbstractPO implements UIBase
         bot.waitUntil( new ShellCondition( title, true ) );
     }
 
-    protected void waitForPageToClose()
+    public void waitForPageToClose()
     {
         bot.waitUntil( new ShellCondition( title, false ) );
     }
