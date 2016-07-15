@@ -44,7 +44,7 @@ public interface NewLiferayComponentWizard extends UIBase
     public final String MENU_TEMPLATE_PORTLET_FILTER = "Portlet Filter";
     public final String MENU_TEMPLATE_REST = "Rest";
     public final String MENU_TEMPLATE_SERVICE_WRAPPER = "Service Wrapper";
-    public final String MENU_TEMPLATE_STRUTS_IN_ACTION = "Struct In Action";
+    public final String MENU_TEMPLATE_STRUTS_IN_ACTION = "Struts In Action";
     public final String MENU_TEMPLATE_STRUTS_PORTLET_ACTION = "Struts Portlet Action";
 
     public final String TEXT_DEFAULT_PROJECT_NAME_VALUE = "";

@@ -50,7 +50,7 @@ public interface ModuleProjectWizard extends UIBase
     public final String MENU_MODULE_CONTROLMENUENTRY = "controlmenuentry";
     public final String MENU_MODULE_PORTLET = "portlet";
     public final String MENU_MODULE_SERVICE = "service";
-    public final String MENU_MODULE_SERVICEBUILDER = "serivebuilder";
+    public final String MENU_MODULE_SERVICEBUILDER = "servicebuilder";
     public final String MENU_MODULE_SERVICEWRAPPER = "servicewrapper";
 
     public final String TEXT_BUILD_TYPE = "gradle-module";

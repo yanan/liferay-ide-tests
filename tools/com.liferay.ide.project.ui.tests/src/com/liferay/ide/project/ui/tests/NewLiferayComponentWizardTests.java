@@ -62,8 +62,6 @@ public class NewLiferayComponentWizardTests extends SWTBotBase implements NewLif
         assertEquals( TEXT_ENTER_PROJECT_NAME_MESSAGE, newLiferayComponentWizard.getValidationMessage() );
         assertFalse( newLiferayComponentWizard.finishButton().isEnabled() );
 
-        newLiferayComponentWizard.getTemplateCounts( 16 );
-
         String[] expectedComponentTemplateItems = { MENU_TEMPLATE_AUTH_FAILURES, MENU_TEMPLATE_AUTH_MAX_FAILURE,
             MENU_TEMPLATE_AUTHENTICATOR, MENU_TEMPLATE_FRIENDLY_URL_MAPPER, MENU_TEMPLATE_GOGO_COMMAND,
             MENU_TEMPLATE_INDEXER_POST_PROCESSOR, MENU_TEMPLATE_LOGIN_PRE_ACTION, MENU_TEMPLATE_MODEL_LISTENER,
@@ -71,9 +69,16 @@ public class NewLiferayComponentWizardTests extends SWTBotBase implements NewLif
             MENU_TEMPLATE_PORTLET_FILTER, MENU_TEMPLATE_REST, MENU_TEMPLATE_SERVICE_WRAPPER,
             MENU_TEMPLATE_STRUTS_IN_ACTION, MENU_TEMPLATE_STRUTS_PORTLET_ACTION };
 
-        for( String expectedComponentTemplateItem : expectedComponentTemplateItems )
+        String[] componentTemplateItems =
+            newLiferayComponentWizard.getComponentClassTemplate().getAvailableComboValues();
+
+        assertTrue( componentTemplateItems.length >= 1 );
+
+        assertEquals( expectedComponentTemplateItems.length, componentTemplateItems.length );
+
+        for( int i = 0; i < componentTemplateItems.length; i++ )
         {
-            assertTrue( matchItemInItems( expectedComponentTemplateItems, expectedComponentTemplateItem ) );
+            assertTrue( componentTemplateItems[i].equals( expectedComponentTemplateItems[i] ) );
         }
 
         newLiferayComponentWizard.cancel();

@@ -64,15 +64,21 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         createModuleProjectWizard.createModuleProject( projectName );
 
         assertEquals( MENU_MODULE_MVCPORTLET, createModuleProjectWizard.getProjectTemplateNameComboBox().getText() );
-        createModuleProjectWizard.getProjectTemplateNameComboBox().getComboBoxItemCounts( 9 );
 
-        String[] expectedModuleProjectTemplateItems = { MENU_MODULE_MVCPORTLET, MENU_MODULE_ACTIVATOR,
-            MENU_MODULE_CONTENTTARGETINGRULE, MENU_MODULE_CONTENTTARGETINGTRACKINGACTION, MENU_MODULE_CONTROLMENUENTRY,
+        String[] expectedModuleProjectTemplateItems = { MENU_MODULE_ACTIVATOR, MENU_MODULE_CONTENTTARGETINGRULE,
+            MENU_MODULE_CONTENTTARGETINGTRACKINGACTION, MENU_MODULE_CONTROLMENUENTRY, MENU_MODULE_MVCPORTLET,
             MENU_MODULE_PORTLET, MENU_MODULE_SERVICE, MENU_MODULE_SERVICEBUILDER, MENU_MODULE_SERVICEWRAPPER };
 
-        for( String expectedModuleProjectTemplateItem : expectedModuleProjectTemplateItems )
+        String[] moduleProjectTemplateItems =
+            createModuleProjectWizard.getProjectTemplateNameComboBox().getAvailableComboValues();
+
+        assertTrue( moduleProjectTemplateItems.length >= 1 );
+
+        assertEquals( expectedModuleProjectTemplateItems.length, moduleProjectTemplateItems.length );
+
+        for( int i = 0; i < moduleProjectTemplateItems.length; i++ )
         {
-            assertTrue( matchItemInItems( expectedModuleProjectTemplateItems, expectedModuleProjectTemplateItem ) );
+            assertTrue( moduleProjectTemplateItems[i].equals( expectedModuleProjectTemplateItems[i] ) );
         }
 
         createModuleProjectWizard.next();
