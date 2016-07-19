@@ -35,11 +35,11 @@ import com.liferay.ide.portlet.ui.tests.page.ModifiersInterfacesMethodStubsPO;
 import com.liferay.ide.portlet.ui.tests.page.NewSourceFolderPO;
 import com.liferay.ide.portlet.ui.tests.page.PackageSelectionPO;
 import com.liferay.ide.portlet.ui.tests.page.PortletDeploymentDescriptorPO;
-import com.liferay.ide.portlet.ui.tests.page.SelectTypePO;
 import com.liferay.ide.portlet.ui.tests.page.SuperclassSelectionPO;
 import com.liferay.ide.project.ui.tests.ProjectWizard;
 import com.liferay.ide.project.ui.tests.page.CreateProjectWizardPO;
 import com.liferay.ide.project.ui.tests.page.NewProjectPO;
+import com.liferay.ide.project.ui.tests.page.SelectTypePO;
 import com.liferay.ide.project.ui.tests.page.SetSDKLocationPO;
 import com.liferay.ide.ui.tests.SWTBotBase;
 import com.liferay.ide.ui.tests.swtbot.page.DialogPO;
@@ -193,7 +193,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
         SelectTypePO newProjectPage = new SelectTypePO( bot, validationIndex );
 
-        newProjectPage.createProject( filterText, projectTypeTree, projectTypeNode );
+        newProjectPage.selectItem( filterText, projectTypeTree, projectTypeNode );
         assertEquals( validateMessage1, newProjectPage.getValidationMessage() );
         newProjectPage.next();
 
@@ -262,7 +262,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
         SelectTypePO newSelectLiferayPage = new SelectTypePO( bot, INDEX_SELECT_A_WIZARD_VALIDATION_MESSAGE );
 
-        newSelectLiferayPage.createProject( "liferay", "Liferay", LABEL_LIFERAY_PORTLET );
+        newSelectLiferayPage.selectItem( "liferay", "Liferay", LABEL_LIFERAY_PORTLET );
         newSelectLiferayPage.next();
         newPortletPage.createLiferayPortlet( "test-portlet", "MySecondPortlet", TEXT_BLANK, null );
         newPortletPage.finish();
@@ -1110,7 +1110,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         portletXmlItem.doAction( "New", "Other..." );
         SelectTypePO newTypePage = new SelectTypePO( bot, INDEX_SELECT_A_WIZARD_VALIDATION_MESSAGE );
 
-        newTypePage.createProject( "Source Folder", "Java", "Source Folder" );
+        newTypePage.selectItem( "Source Folder", "Java", "Source Folder" );
         assertEquals( "Create a Java source folder", newTypePage.getValidationMessage() );
         newTypePage.next();
 

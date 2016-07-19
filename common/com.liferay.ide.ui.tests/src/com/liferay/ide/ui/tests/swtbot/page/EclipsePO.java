@@ -44,6 +44,7 @@ public class EclipsePO extends AbstractPO implements UIBase
     private ShowViewDialogPO _showViewDialog;
     private ErrorLogViewPO _errorLogView;
     private MenuPO _fileMenu;
+    private ViewPO _projectExplorerView;
 
     public EclipsePO( SWTWorkbenchBot bot )
     {
@@ -64,6 +65,9 @@ public class EclipsePO extends AbstractPO implements UIBase
         _showViewDialog = new ShowViewDialogPO( bot );
         _errorLogView = new ErrorLogViewPO( bot );
         _newToolbar = new NewToolbarDropDownButtonPO( bot );
+
+        _projectExplorerView = new ViewPO( bot, LABEL_PROJECT_EXPLORER );
+        _liferayWorkspacePerspective = new PerspectivePO( bot, LABEL_LIFERAY_WORKSPACE );
     }
 
     public void closeShell( String title )
@@ -111,6 +115,11 @@ public class EclipsePO extends AbstractPO implements UIBase
     public ViewPO getWelcomeView()
     {
         return _welcomeView;
+    }
+
+    public ViewPO getProjectExplorerView()
+    {
+        return _projectExplorerView;
     }
 
     public PackageExplorerViewPO showPackageExporerView()

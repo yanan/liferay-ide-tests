@@ -57,11 +57,11 @@ public class NewServerRuntimeWizardTests extends SWTBotBase implements ServerRun
         setRuntimePage.getServerLocation().setText(
             getLiferayServerDir().toString() + "/" + getLiferayPluginServerName() );
 
-        assertEquals( "tomcat", setRuntimePage.getPortalBundleType().getText() );
+        assertEquals( "Tomcat", setRuntimePage.getPortalBundleType().getText() );
 
         setRuntimePage.getServerLocation().setText( getLiferayServerDir().toOSString() );
 
-        assertEquals( "tomcat", setRuntimePage.getPortalBundleType().getText() );
+        assertEquals( "Tomcat", setRuntimePage.getPortalBundleType().getText() );
 
         setRuntimePage.finish();
 
