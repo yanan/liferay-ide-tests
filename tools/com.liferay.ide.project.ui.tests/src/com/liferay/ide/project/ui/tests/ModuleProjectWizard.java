@@ -52,6 +52,9 @@ public interface ModuleProjectWizard extends UIBase
     public final String MENU_MODULE_SERVICE = "service";
     public final String MENU_MODULE_SERVICEBUILDER = "servicebuilder";
     public final String MENU_MODULE_SERVICEWRAPPER = "servicewrapper";
+    public final String MENU_MODULE_CONTENTTARGETINGGREPORT = "contenttargetingreport";
+    public final String MENU_MODULE_PANELAPP = "panelapp";
+    public final String MENU_MODULE_PORTLETPROVIDER = "portletprovider";
 
     public final String TEXT_BUILD_TYPE = "gradle-module";
     public final String TEXT_ENTER_MODULE_PROJECT_NAME_MESSAGE = "Please enter a project name.";
@@ -63,8 +66,10 @@ public interface ModuleProjectWizard extends UIBase
     public final String TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME = " is an invalid character in resource name ";
     public final String TEXT_INVALID_NAME_ON_PLATFORM = " is an invalid name on this platform.";
     public final String TEXT_INVALID_NAME_FOR_GRADLE_PROJECT = " The project name is invalid for a gradle project";
+    public final String TEXT_SERVICE_NAME_MUST_BE_SPECIFIED = " Service Name must be specified";
 
     public final int INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE = 2;
     public final int INDEX_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE = 2;
+    public final int INDEX_MUST_SPECIFY_SERVICE_NAME_VALIDATIOIN_MESSAGE = 3;
 
 }

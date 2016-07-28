@@ -31,6 +31,7 @@ public class ModuleProjectWizardSecondPagePO extends WizardPO implements ModuleP
 
     private TextPO _componentClassName;
     private TextPO _packageName;
+    private TextPO _serviceName;
     private TablePO _properties;
     private ToolbarButtonPO _browseButton;
     private ToolbarButtonPO _addPropertyKeyButton;
@@ -58,6 +59,7 @@ public class ModuleProjectWizardSecondPagePO extends WizardPO implements ModuleP
         super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT, validationMessageIndex );
         _componentClassName = new TextPO( bot, LABEL_MODULE_COMPONENT_CLASS_NAME );
         _packageName = new TextPO( bot, LABEL_MODULE_PACKAGE_NAME );
+        _serviceName = new TextPO( bot, LABEL_MODULE_SERVICE_NAME );
         _properties = new TablePO( bot, LABEL_MODULE_PROPERTIES );
         _browseButton = new ToolbarButtonPO( bot, BUTTON_BROWSE );
         _addPropertyKeyButton = new ToolbarButtonPO( bot, TOOLBARBOTTON_ADD_PROPERTY_KEY );
@@ -99,6 +101,11 @@ public class ModuleProjectWizardSecondPagePO extends WizardPO implements ModuleP
     public TextPO getPackageName()
     {
         return _packageName;
+    }
+
+    public TextPO getServiceName()
+    {
+        return _serviceName;
     }
 
     public TablePO getProperties()
