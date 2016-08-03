@@ -32,27 +32,10 @@
 		<tycho-version>0.23.0</tycho-version>
 		<tycho-extras-version>0.23.0</tycho-extras-version>
 		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20160221192158/repository/</orbit-site>
-		<osgi-bundles-site>http://106.187.96.36/gamerson/osgi-bundles-repository/</osgi-bundles-site>
-		<sapphire-site>http://download.eclipse.org/sapphire/9.0.5/repository/</sapphire-site>
-		<ivy-site>https://dist.apache.org/repos/dist/release/ant/ivyde/updatesite/ivy-2.4.0.final_20141213170938/</ivy-site>
-		<ivyde-site>https://dist.apache.org/repos/dist/release/ant/ivyde/updatesite/ivyde-2.2.0.final-201311091524-RELEASE/</ivyde-site>
-		<m2e-site>http://download.eclipse.org/technology/m2e/milestones/1.6/1.6.2.20150902-0001/</m2e-site>
-		<m2e-wtp-site>http://download.eclipse.org/m2e-wtp/releases/mars/1.2/1.2.0.20150602-1740/</m2e-wtp-site>
-		<m2e-archiver-site>http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-mavenarchiver/0.17.0/N/LATEST/</m2e-archiver-site>
-		<eclipse-xml-search-site>http://106.187.96.36/gamerson/eclipse-wtp-xml-search-1.0.0.20150417/</eclipse-xml-search-site>
-		<tern-site>http://oss.opensagres.fr/tern.repository/1.1.0/</tern-site>
-		<webresources-site>http://oss.opensagres.fr/eclipse-wtp-webresources/1.0.0/</webresources-site>
-		<bndtools-site>https://dl.bintray.com/bndtools/bndtools/3.1.1/</bndtools-site>
-		<gradle-site>http://download.eclipse.org/buildship/updates/e45/milestones/1.0/1.0.13.v20160407-1626-m/</gradle-site>
-		<tycho-m2e-site>http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-tycho/0.8.0/N/LATEST/</tycho-m2e-site>
-		<blade-site>https://liferay-test-01.ci.cloudbees.com/job/blade.tools/lastSuccessfulBuild/artifact/p2_build/generated/p2/</blade-site>
-		<tm-site>http://download.eclipse.org/tm/terminal/updates/4.0</tm-site>
-		<swtbot-site>http://download.eclipse.org/technology/swtbot/releases/latest</swtbot-site>
+		<liferay-ide-site>http://files.liferay.org.es/staged/public-files/liferay-ide/unstable/build/com.liferay.ide-repository/target/repository/</liferay-ide-site>
+		<liferay-ide-swtbot-testing-site>http://files.liferay.org.es/staged/public-files/liferay-ide/unstable/build/com.liferay.ide.testing-repository/target/repository/</liferay-ide-swtbot-testing-site>
 		<eclipse-site>http://download.eclipse.org/releases/mars/</eclipse-site>
-		<eclipse-project-update-site>http://download.eclipse.org/eclipse/updates/4.5/</eclipse-project-update-site>
-		<liferay-ide-site>http://ide-build-1:9090/userContent/liferay-ide/latest/repository/</liferay-ide-site>
-		<liferay-ide-swtbot-testing-site>http://ide-build-1:9090/userContent/liferay-ide-swtbot-updatesite/repository/</liferay-ide-swtbot-testing-site>
-		<wtp-site>http://download.eclipse.org/webtools/downloads/drops/R3.7.2/R-3.7.2-20160217020110/repository/</wtp-site>
+		<swtbot-site>http://download.eclipse.org/technology/swtbot/releases/latest</swtbot-site>
 		<gmaven.runtime>1.8</gmaven.runtime>
 	</properties>
 
@@ -63,89 +46,14 @@
 			<url>${orbit-site}</url>
 		</repository>
 		<repository>
-			<id>lide-deps</id>
+			<id>eclipse-site</id>
 			<layout>p2</layout>
-			<url>${osgi-bundles-site}</url>
-		</repository>
-		<repository>
-			<id>sapphire</id>
-			<layout>p2</layout>
-			<url>${sapphire-site}</url>
-		</repository>
-		<repository>
-			<id>eclipse-xml-search</id>
-			<layout>p2</layout>
-			<url>${eclipse-xml-search-site}</url>
-		</repository>
-		<repository>
-			<id>tern</id>
-			<layout>p2</layout>
-			<url>${tern-site}</url>
-		</repository>
-		<repository>
-			<id>webresources</id>
-			<layout>p2</layout>
-			<url>${webresources-site}</url>
-		</repository>
-		<repository>
-			<id>bndtools</id>
-			<layout>p2</layout>
-			<url>${bndtools-site}</url>
-		</repository>
-		<repository>
-			<id>blade</id>
-			<layout>p2</layout>
-			<url>${blade-site}</url>
-		</repository>
-		<repository>
-			<id>gradle</id>
-			<layout>p2</layout>
-			<url>${gradle-site}</url>
-		</repository>
-		<repository>
-			<id>ivy</id>
-			<layout>p2</layout>
-			<url>${ivy-site}</url>
-		</repository>
-		<repository>
-			<id>ivyde</id>
-			<layout>p2</layout>
-			<url>${ivyde-site}</url>
-		</repository>
-		<repository>
-			<id>m2e</id>
-			<layout>p2</layout>
-			<url>${m2e-site}</url>
-		</repository>
-		<repository>
-			<id>m2e-wtp</id>
-			<layout>p2</layout>
-			<url>${m2e-wtp-site}</url>
-		</repository>
-		<repository>
-			<id>m2e-archiver</id>
-			<layout>p2</layout>
-			<url>${m2e-archiver-site}</url>
-		</repository>
-		<repository>
-			<id>tycho-m2e</id>
-			<layout>p2</layout>
-			<url>${tycho-m2e-site}</url>
-		</repository>
-		<repository>
-			<id>tm</id>
-			<layout>p2</layout>
-			<url>${tm-site}</url>
+			<url>${eclipse-site}</url>
 		</repository>
 		<repository>
 			<id>swtbot</id>
 			<layout>p2</layout>
 			<url>${swtbot-site}</url>
-		</repository>
-		<repository>
-			<id>eclipse-site</id>
-			<layout>p2</layout>
-			<url>${eclipse-site}</url>
 		</repository>
 		<repository>
 			<id>liferay-ide</id>
@@ -157,16 +65,6 @@
 			<layout>p2</layout>
 			<url>${liferay-ide-swtbot-testing-site}</url>
 		</repository> 
-		<repository>
-			<id>eclipse-project</id>
-			<layout>p2</layout>
-			<url>${eclipse-project-update-site}</url>
-		</repository>
-		<repository>
-			<id>wtp</id>
-			<layout>p2</layout>
-			<url>${wtp-site}</url>
-		</repository>
 	</repositories>
 
 	<build>
