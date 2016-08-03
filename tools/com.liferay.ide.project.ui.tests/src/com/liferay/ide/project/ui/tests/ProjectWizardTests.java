@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -205,8 +206,8 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
         createProjectWizard.createSDKProject( projectName, MENU_PORTLET, true, false );
 
-        assertTrue( createProjectWizard.get_includeSimpleCodeCheckBox().isChecked());
-        assertFalse( createProjectWizard.get_launchNewPortletWizardCheck().isChecked());
+        assertTrue( createProjectWizard.get_includeSimpleCodeCheckBox().isChecked() );
+        assertFalse( createProjectWizard.get_launchNewPortletWizardCheck().isChecked() );
 
         createProjectWizard.next();
 
@@ -272,8 +273,8 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
         createProjectWizard.createSDKProject( "NoSampleTest", MENU_PORTLET, false, true );
 
-        assertFalse( createProjectWizard.get_includeSimpleCodeCheckBox().isChecked());
-        assertTrue( createProjectWizard.get_launchNewPortletWizardCheck().isChecked());
+        assertFalse( createProjectWizard.get_includeSimpleCodeCheckBox().isChecked() );
+        assertTrue( createProjectWizard.get_launchNewPortletWizardCheck().isChecked() );
 
         createProjectWizard.next();
 
@@ -387,6 +388,8 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
     @Before
     public void openWizard()
     {
+        Assume.assumeTrue( runTest() || runAllTests() );
+
         hasAddedProject = addedProjects();
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();

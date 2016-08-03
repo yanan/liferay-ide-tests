@@ -19,8 +19,8 @@ import static org.eclipse.swtbot.swt.finder.SWTBotAssert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -62,8 +62,15 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
     @AfterClass
     public static void cleanAll()
     {
-        eclipse.closeShell( WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION );
-        eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, true );
+        try
+        {
+            eclipse.closeShell( WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION );
+            eclipse.getPackageExporerView().deleteProjectExcludeNames(
+                new String[] { getLiferayPluginsSdkName() }, true );
+        }
+        catch( Exception e )
+        {
+        }
     }
 
     private SetSDKLocationPO getSetSDKLoactionPage()
@@ -509,6 +516,8 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
     @Before
     public void openWizardCreateProject()
     {
+        Assume.assumeTrue( runTest() || runAllTests() );
+
         hasAddedProject = addedProjects();
 
         if( hasAddedProject )
@@ -537,10 +546,4 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
             page2.finish();
         }
     }
-
-    @After
-    public void waitForCreate()
-    {
-    }
-
 }

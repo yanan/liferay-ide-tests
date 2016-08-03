@@ -24,6 +24,7 @@ import org.eclipse.swtbot.swt.finder.keyboard.Keyboard;
 import org.eclipse.swtbot.swt.finder.keyboard.KeyboardFactory;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,7 +44,10 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
     @Before
     public void openWizard()
     {
+        Assume.assumeTrue( runTest() || runAllTests() );
+        
         eclipse.getLiferayWorkspacePerspective().activate();
+        
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
         sleep( 15000 );
     }

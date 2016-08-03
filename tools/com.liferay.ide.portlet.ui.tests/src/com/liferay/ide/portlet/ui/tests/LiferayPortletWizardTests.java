@@ -25,6 +25,7 @@ import java.util.Arrays;
 import org.eclipse.swtbot.swt.finder.keyboard.Keyboard;
 import org.eclipse.swtbot.swt.finder.keyboard.KeyboardFactory;
 import org.junit.After;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -256,9 +257,9 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
         assertTrue( portletJavaPage.isActive() );
         portletJavaPage.setFocus();
-        //keyPress.pressShortcut( ctrl, N );
+        // keyPress.pressShortcut( ctrl, N );
 
-        eclipse.getFileMenu().clickMenu( MENU_NEW, "Other...");
+        eclipse.getFileMenu().clickMenu( MENU_NEW, "Other..." );
 
         SelectTypePO newSelectLiferayPage = new SelectTypePO( bot, INDEX_SELECT_A_WIZARD_VALIDATION_MESSAGE );
 
@@ -1063,9 +1064,9 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
     }
 
     @Before
-
     public void preparePortletPlguinProject() throws Exception
     {
+        Assume.assumeTrue( runTest() || runAllTests() );
 
         Boolean hasProject = addedProjects();
 

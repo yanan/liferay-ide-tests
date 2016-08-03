@@ -47,14 +47,21 @@ import com.liferay.ide.ui.tests.util.ZipUtil;
 @RunWith( SWTBotJunit4ClassRunner.class )
 public class MigrationToolTests extends SWTBotBase implements MigrateProjectWizard
 {
+
     String MARKER_TYPE = "com.liferay.ide.project.core.MigrationProblemMarker";
     private static final String BUNDLE_ID = "com.liferay.ide.project.ui.tests";
     private static IProject project;
 
     @After
-    public void cleanup() throws CoreException
+    public void cleanup()
     {
-        eclipse.getPackageExporerView().deleteResouceByName( project.getName(), true );
+        try
+        {
+            eclipse.getPackageExporerView().deleteResouceByName( project.getName(), true );
+        }
+        catch( Exception e )
+        {
+        }
     }
 
     public void deleteMigrationMarkers( IResource resource ) throws CoreException
@@ -89,6 +96,9 @@ public class MigrationToolTests extends SWTBotBase implements MigrateProjectWiza
     @Before
     public void importProject() throws IOException
     {
+        if( !( runTest() || runAllTests() ) )
+            return;
+
         File projectZipFile = getProjectZip( BUNDLE_ID, "knowledge-base-portlet" );
         IPath copyDir = getLiferayPluginsSdkDir().append( "/portlets" );
 
@@ -102,9 +112,11 @@ public class MigrationToolTests extends SWTBotBase implements MigrateProjectWiza
     @Test
     public void testMigrateProjectHandlerCancelOnMenu() throws Exception
     {
+        if( !( runTest() || runAllTests() ) )
+            return;
 
         project = CoreUtil.getProject( "knowledge-base-portlet" );
-        
+
         sleep( 2000 );
         IMarker marker = findMigrationMarker( project, ".*", false );
         assertNull( marker );
