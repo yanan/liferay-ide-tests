@@ -237,6 +237,72 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
     }
 
     @Test
+    public void createServiceBuilderModuleProject()
+    {
+        String projectName = "testServiceBuilderProject";
+
+        CreateModuleProjectWizardPO createModuleProjectWizard = new CreateModuleProjectWizardPO( bot );
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICEBUILDER );
+        createModuleProjectWizard.next();
+
+        ModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard = new ModuleProjectWizardSecondPagePO(
+            bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        TreePO projectTree = eclipse.getPackageExporerView().getProjectTree();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue( projectTree.getTreeItem( projectName + "-api" ).isVisible() );
+        assertTrue( projectTree.getTreeItem( projectName + "-service" ).isVisible() );
+        assertTrue( projectTree.expandNode( projectName + "-service", "service.xml" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName + "-api" ).doubleClick( buildGradleFileName );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        buildGradleFile.close();
+
+        projectTree.setFocus();
+        projectTree.expandNode( projectName + "-service" ).doubleClick( buildGradleFileName );
+
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "buildService", buildGradleFile.getText() );
+        buildGradleFile.close();
+
+        projectTree.getTreeItem( projectName + "-service" ).doAction( "Liferay", "Gradle", "build-service" );
+        sleep( 10000 );
+
+        try
+        {
+            projectTree.getTreeItem( projectName ).doAction( "Gradle", "Refresh Gradle Project" );
+        }
+        catch( Exception e )
+        {
+            projectTree.getTreeItem( projectName ).doAction( "Gradle", "Refresh Gradle Project" );
+        }
+
+        sleep( 10000 );
+
+        assertTrue(
+            projectTree.expandNode( projectName + "-api", "src/main/java", "com.example.service" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName + "-service", "src/main/java", "com.example.service.impl" ).isVisible() );
+
+        eclipse.getPackageExporerView().deleteResouceByName( projectName, true );
+    }
+
+    @Test
     public void validationProjectName()
     {
         CreateModuleProjectWizardPO createModuleProjectWizard =
