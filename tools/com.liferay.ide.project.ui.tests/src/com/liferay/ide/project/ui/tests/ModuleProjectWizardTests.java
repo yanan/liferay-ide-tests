@@ -29,6 +29,7 @@ import org.junit.Test;
 
 import com.liferay.ide.project.ui.tests.page.CreateModuleProjectWizardPO;
 import com.liferay.ide.project.ui.tests.page.ModuleProjectWizardSecondPagePO;
+import com.liferay.ide.project.ui.tests.page.SelectModuleServiceNamePO;
 import com.liferay.ide.ui.tests.SWTBotBase;
 import com.liferay.ide.ui.tests.swtbot.page.TextEditorPO;
 import com.liferay.ide.ui.tests.swtbot.page.TreePO;
@@ -65,9 +66,10 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
 
         assertEquals( MENU_MODULE_MVCPORTLET, createModuleProjectWizard.getProjectTemplateNameComboBox().getText() );
 
-        String[] expectedModuleProjectTemplateItems = { MENU_MODULE_ACTIVATOR, MENU_MODULE_CONTENTTARGETINGRULE,
-            MENU_MODULE_CONTENTTARGETINGTRACKINGACTION, MENU_MODULE_CONTROLMENUENTRY, MENU_MODULE_MVCPORTLET,
-            MENU_MODULE_PORTLET, MENU_MODULE_SERVICE, MENU_MODULE_SERVICEBUILDER, MENU_MODULE_SERVICEWRAPPER };
+        String[] expectedModuleProjectTemplateItems = { MENU_MODULE_ACTIVATOR, MENU_MODULE_CONTENTTARGETINGGREPORT,
+            MENU_MODULE_CONTENTTARGETINGRULE, MENU_MODULE_CONTENTTARGETINGTRACKINGACTION, MENU_MODULE_CONTROLMENUENTRY,
+            MENU_MODULE_MVCPORTLET, MENU_MODULE_PANELAPP, MENU_MODULE_PORTLET, MENU_MODULE_PORTLETPROVIDER,
+            MENU_MODULE_SERVICE, MENU_MODULE_SERVICEBUILDER, MENU_MODULE_SERVICEWRAPPER };
 
         String[] moduleProjectTemplateItems =
             createModuleProjectWizard.getProjectTemplateNameComboBox().getAvailableComboValues();
@@ -138,12 +140,88 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
 
         TreePO projectTree = eclipse.getPackageExporerView().getProjectTree();
 
+        projectTree.setFocus();
         String javaFileName = "TestmvcportletprojectmvcportletPortlet.java";
         projectTree.expandNode( projectName, "src/main/java", "com.example.portlet" ).doubleClick( javaFileName );
 
         TextEditorPO checkJavaFile = eclipse.getTextEditor( javaFileName );
 
         assertContains( "extends MVCPortlet", checkJavaFile.getText() );
+
+        projectTree.setFocus();
+
+        String buildGradleFileName = "build.gradle";
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+    }
+
+    @Test
+    public void createServiceModuleProject()
+    {
+        String projectName = "testServiceProject";
+
+        CreateModuleProjectWizardPO createModuleProjectWizard = new CreateModuleProjectWizardPO( bot );
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICE );
+        createModuleProjectWizard.next();
+
+        ModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
+            new ModuleProjectWizardSecondPagePO( bot, INDEX_MUST_SPECIFY_SERVICE_NAME_VALIDATIOIN_MESSAGE );
+
+        assertEquals( TEXT_SERVICE_NAME_MUST_BE_SPECIFIED, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getServiceName().getText() );
+        assertFalse( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.getBrowseButton().click();
+        sleep( 5000 );
+
+        SelectModuleServiceNamePO selectOneServiceName = new SelectModuleServiceNamePO( bot );
+
+        selectOneServiceName.selectServiceName( "gg" );
+        sleep( 2000 );
+        assertFalse( selectOneServiceName.confirmButton().isEnabled() );
+        selectOneServiceName.selectServiceName( "*lifecycleAction" );
+        sleep();
+        assertTrue( selectOneServiceName.confirmButton().isEnabled() );
+        selectOneServiceName.confirm();
+
+        assertEquals(
+            "com.liferay.portal.kernel.events.LifecycleAction",
+            createModuleProjectSecondPageWizard.getServiceName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.getAddPropertyKeyButton().click();
+        sleep();
+        createModuleProjectSecondPageWizard.setPropertiesText( 3, "key" );
+        sleep();
+        createModuleProjectSecondPageWizard.getProperties().doubleClick( 0, 1 );
+        sleep();
+        createModuleProjectSecondPageWizard.setPropertiesText( 3, "login.events.pre" );
+        sleep();
+
+        Keyboard keyPress = KeyboardFactory.getAWTKeyboard();
+        keyPress.pressShortcut( enter );
+        sleep();
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        TreePO projectTree = eclipse.getPackageExporerView().getProjectTree();
+
+        String javaFileName = "Testserviceprojectservice.java";
+        projectTree.expandNode( projectName, "src/main/java", "com.example" ).doubleClick( javaFileName );
+
+        TextEditorPO checkJavaFile = eclipse.getTextEditor( javaFileName );
+
+        assertContains( "implements LifecycleAction", checkJavaFile.getText() );
 
         projectTree.setFocus();
 
