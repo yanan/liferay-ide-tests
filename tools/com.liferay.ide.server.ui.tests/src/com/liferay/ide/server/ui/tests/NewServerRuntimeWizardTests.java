@@ -18,9 +18,12 @@ package com.liferay.ide.server.ui.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.liferay.ide.server.ui.tests.page.NewServerPO;
@@ -34,6 +37,13 @@ public class NewServerRuntimeWizardTests extends SWTBotBase implements ServerRun
 {
 
     NewServerPO newServerPage = new NewServerPO( bot );
+
+    @BeforeClass
+    public static void prepareServer() throws IOException
+    {
+        unzipServer();
+    }
+
     NewServerRuntimeEnvPO setRuntimePage = new NewServerRuntimeEnvPO( bot );
 
     @After

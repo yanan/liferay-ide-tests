@@ -120,9 +120,6 @@ public class SWTBotBase implements UIBase
         SWTBotPreferences.TIMEOUT = 30000;
 
         SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
-
-        unzipPluginsSDK();
-        unzipServer();
     }
 
     protected static boolean runAllTests()

@@ -18,9 +18,12 @@ package com.liferay.ide.module.fragment.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
 import org.junit.AfterClass;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.liferay.ide.module.fragment.ui.tests.page.AddFilesToOverridePO;
@@ -45,6 +48,12 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
     public static void cleanAll()
     {
         eclipse.closeShell( WINDOW_NEW_LIFERAY_MODULE_FRAGMENT );
+    }
+
+    @BeforeClass
+    public static void prepareServer() throws IOException
+    {
+        unzipServer();
     }
 
     @Test

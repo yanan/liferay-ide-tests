@@ -18,6 +18,8 @@ package com.liferay.ide.layouttpl.ui.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.Assume;
 import org.junit.Before;
@@ -41,8 +43,11 @@ public class NewLayoutTemplateWizardTests extends SWTBotBase implements CreateLa
     static String projectName = "test-layouttpl";
 
     @BeforeClass
-    public static void createProject()
+    public static void createProject() throws IOException
     {
+        unzipPluginsSDK();
+        unzipServer();
+
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
 
         CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot );
@@ -117,8 +122,8 @@ public class NewLayoutTemplateWizardTests extends SWTBotBase implements CreateLa
         page.finish();
 
         sleep( 2000 );
-        assertEquals( true, eclipse.getProjectTree().hasTreeItem( projectName, "docroot", "testtemplate.tpl" ) );
-        assertEquals( true, eclipse.getProjectTree().hasTreeItem( projectName, "docroot", "testtemplate.wap.tpl" ) );
+        assertEquals( true, eclipse.getProjectTree().hasTreeItem( projectName, "docroot", "test.tpl" ) );
+        assertEquals( true, eclipse.getProjectTree().hasTreeItem( projectName, "docroot", "blank_columns.wap.tpl" ) );
         assertEquals( true, eclipse.getProjectTree().hasTreeItem( projectName, "docroot", "testtemplate.png" ) );
 
     }

@@ -47,6 +47,9 @@ public class NewVaadinPortletWizardTests extends SWTBotBase
     @BeforeClass
     public static void createJSFPortletProject() throws Exception
     {
+        unzipPluginsSDK();
+        unzipServer();
+
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
 
         CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot );

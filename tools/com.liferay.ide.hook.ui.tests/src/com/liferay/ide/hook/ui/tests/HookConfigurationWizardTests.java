@@ -19,9 +19,12 @@ import static org.eclipse.swtbot.swt.finder.SWTBotAssert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
 import org.junit.AfterClass;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.liferay.ide.hook.ui.tests.page.AddEventActionPO;
@@ -71,6 +74,13 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         catch( Exception e )
         {
         }
+    }
+
+    @BeforeClass
+    public static void unzipServerAndSdk() throws IOException
+    {
+        unzipPluginsSDK();
+        unzipServer();
     }
 
     private SetSDKLocationPO getSetSDKLoactionPage()

@@ -62,56 +62,6 @@ public class ImportLiferayModuleProjectTests extends SWTBotBase implements Impor
         eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, false );
     }
 
-    public void importLiferayModuleProjects()
-    {
-        eclipse.getFileMenu().clickMenu( LABEL_IMPORT );
-
-        selectImportPage.selectItem( "liferay", "Liferay", LABEL_IMPORT_MODULE_PROJECTS );
-        assertEquals(
-            TEXT_SELECT_IMPORT_LIFERAY_MODULE_PROJECTS_VALIDATION_MESSAGE, selectImportPage.getValidationMessage() );
-
-        selectImportPage.next();
-    }
-
-    @Before
-    public void importModuleProject()
-    {
-        Assume.assumeTrue( runTest() || runAllTests() );
-
-        importLiferayModuleProjects();
-    }
-
-    @Test
-    public void importMultipleModules()
-    {
-        importLiferayModulePage.get_locationText().setText( moduleRootPath + "/projects" );
-
-        sleep();
-        assertFalse( importLiferayModulePage.finishButton().isEnabled() );
-        assertContains(
-            TEXT_LOCATION_NOT_RECOGNIZED_AS_A_VALID_PROJECT_TYPE, importLiferayModulePage.getValidationMessage() );
-
-        importLiferayModulePage.get_locationText().setText( moduleRootPath + "/projects/testWorkspace" );
-
-        sleep();
-        assertContains( TEXT_SELECT_LOCATION_OF_MODULE_PROJECT_DIRECTORY,
-            importLiferayModulePage.getValidationMessage() );
-
-        importLiferayModulePage.finish();
-        importLiferayModulePage.waitForPageToClose();
-
-        assertTrue( projectTree.getTreeItem( "testWorkspace" ).isVisible() );
-
-        eclipse.getLiferayWorkspacePerspective().activate();
-
-        projectTree.expandNode( "testWorkspace", "modules" );
-
-        assertTrue( projectTree.getTreeItem( "testWorkspace" ).getTreeItem( "modules", "PortletModule" ).isVisible() );
-        assertTrue(
-            projectTree.getTreeItem( "testWorkspace" ).getTreeItem( "modules", "ServicewrapperModule" ).isVisible() );
-
-    }
-
     @Test
     public void importASingleModule()
     {
@@ -206,6 +156,56 @@ public class ImportLiferayModuleProjectTests extends SWTBotBase implements Impor
         importLiferayModulePage.cancel();
 
         eclipse.getPackageExporerView().deleteResouceByName( "ServicebuilderModule", false );
+    }
+
+    public void importLiferayModuleProjects()
+    {
+        eclipse.getFileMenu().clickMenu( LABEL_IMPORT );
+
+        selectImportPage.selectItem( "liferay", "Liferay", LABEL_IMPORT_MODULE_PROJECTS );
+        assertEquals(
+            TEXT_SELECT_IMPORT_LIFERAY_MODULE_PROJECTS_VALIDATION_MESSAGE, selectImportPage.getValidationMessage() );
+
+        selectImportPage.next();
+    }
+
+    @Before
+    public void importModuleProject()
+    {
+        Assume.assumeTrue( runTest() || runAllTests() );
+
+        importLiferayModuleProjects();
+    }
+
+    @Test
+    public void importMultipleModules()
+    {
+        importLiferayModulePage.get_locationText().setText( moduleRootPath + "/projects" );
+
+        sleep();
+        assertFalse( importLiferayModulePage.finishButton().isEnabled() );
+        assertContains(
+            TEXT_LOCATION_NOT_RECOGNIZED_AS_A_VALID_PROJECT_TYPE, importLiferayModulePage.getValidationMessage() );
+
+        importLiferayModulePage.get_locationText().setText( moduleRootPath + "/projects/testWorkspace" );
+
+        sleep();
+        assertContains( TEXT_SELECT_LOCATION_OF_MODULE_PROJECT_DIRECTORY,
+            importLiferayModulePage.getValidationMessage() );
+
+        importLiferayModulePage.finish();
+        importLiferayModulePage.waitForPageToClose();
+
+        assertTrue( projectTree.getTreeItem( "testWorkspace" ).isVisible() );
+
+        eclipse.getLiferayWorkspacePerspective().activate();
+
+        projectTree.expandNode( "testWorkspace", "modules" );
+
+        assertTrue( projectTree.getTreeItem( "testWorkspace" ).getTreeItem( "modules", "PortletModule" ).isVisible() );
+        assertTrue(
+            projectTree.getTreeItem( "testWorkspace" ).getTreeItem( "modules", "ServicewrapperModule" ).isVisible() );
+
     }
 
     @Test
