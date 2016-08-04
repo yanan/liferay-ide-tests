@@ -20,6 +20,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.AfterClass;
+import org.junit.Assume;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.liferay.ide.project.ui.tests.page.ComponentPackageSelectionPO;
@@ -39,6 +41,12 @@ public class NewLiferayComponentWizardTests extends SWTBotBase implements NewLif
     public static void cleanAll()
     {
         eclipse.closeShell( LABEL_NEW_LIFERAY_COMPONENT );
+    }
+
+    @Before
+    public void shouldRunTests()
+    {
+        Assume.assumeTrue( runTest() || runAllTests() );
     }
 
     @Test

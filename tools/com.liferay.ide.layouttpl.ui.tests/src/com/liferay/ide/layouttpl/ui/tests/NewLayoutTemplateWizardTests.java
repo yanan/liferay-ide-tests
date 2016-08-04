@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -73,6 +74,8 @@ public class NewLayoutTemplateWizardTests extends SWTBotBase implements CreateLa
     @Before
     public void openWizard()
     {
+        Assume.assumeTrue( runTest() || runAllTests() );
+
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayLayoutTemplate().click();
     }
 

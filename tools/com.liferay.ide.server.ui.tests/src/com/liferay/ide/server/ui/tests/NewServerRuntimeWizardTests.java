@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,6 +45,8 @@ public class NewServerRuntimeWizardTests extends SWTBotBase implements ServerRun
     @Before
     public void openWizard()
     {
+        Assume.assumeTrue( runTest() || runAllTests() );
+
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayServer().click();
     }
 

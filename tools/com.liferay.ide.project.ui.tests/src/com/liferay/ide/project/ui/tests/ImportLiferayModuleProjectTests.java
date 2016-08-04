@@ -19,6 +19,7 @@ import static org.eclipse.swtbot.swt.finder.SWTBotAssert.*;
 import static org.junit.Assert.*;
 
 import org.junit.After;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -75,6 +76,8 @@ public class ImportLiferayModuleProjectTests extends SWTBotBase implements Impor
     @Before
     public void importModuleProject()
     {
+        Assume.assumeTrue( runTest() || runAllTests() );
+
         importLiferayModuleProjects();
     }
 
@@ -112,7 +115,6 @@ public class ImportLiferayModuleProjectTests extends SWTBotBase implements Impor
     @Test
     public void importASingleModule()
     {
-
         // import module that out of liferay workpsace
         importLiferayModulePage.get_locationText().setText( moduleRootPath + "/projects/MvcportletModule" );
 
@@ -131,7 +133,7 @@ public class ImportLiferayModuleProjectTests extends SWTBotBase implements Impor
         projectTree.getTreeItem( "MvcportletModule" ).getTreeItem( "build.gradle" ).doubleClick();
 
         assertContains( "com.liferay.gradle.plugins", buildGradleText.getText() );
-        
+
         projectTree.getTreeItem( "MvcportletModule" ).collapse();
 
         // import an existing module project
@@ -155,7 +157,7 @@ public class ImportLiferayModuleProjectTests extends SWTBotBase implements Impor
 
         importLiferayModulePage.finish();
         importLiferayModulePage.waitForPageToClose();
-        sleep(5000);
+        sleep( 5000 );
 
         projectTree.expandNode( "ServicebuilderModule" );
         sleep();
@@ -175,7 +177,7 @@ public class ImportLiferayModuleProjectTests extends SWTBotBase implements Impor
             buildGradleText.getText() );
 
         projectTree.expandNode( "ServicebuilderModule-service" );
-        projectTree.getTreeItem( "ServicebuilderModule-service" ).getTreeItem( "build.gradle" ).doubleClick( );
+        projectTree.getTreeItem( "ServicebuilderModule-service" ).getTreeItem( "build.gradle" ).doubleClick();
         sleep( 200 );
 
         TreeItemPO serviceXml = new TreeItemPO( bot, projectTree, "ServicebuilderModule-service", "service.xml" );
@@ -209,7 +211,6 @@ public class ImportLiferayModuleProjectTests extends SWTBotBase implements Impor
     @Test
     public void liferayModuleLocationTest()
     {
-
         // initial state check
         assertContains(
             TEXT_SELECT_LOCATION_OF_MODULE_PROJECT_DIRECTORY, importLiferayModulePage.getValidationMessage() );

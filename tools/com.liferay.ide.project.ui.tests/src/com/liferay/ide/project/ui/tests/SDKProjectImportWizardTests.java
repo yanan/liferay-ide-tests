@@ -25,6 +25,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assume;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -44,6 +46,12 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
 {
 
     private static final String BUNDLE_ID = "com.liferay.ide.project.ui.tests";
+
+    @Before
+    public void shouldRunTests()
+    {
+        Assume.assumeTrue( runTest() || runAllTests() );
+    }
 
     @AfterClass
     public static void deleteSDK()

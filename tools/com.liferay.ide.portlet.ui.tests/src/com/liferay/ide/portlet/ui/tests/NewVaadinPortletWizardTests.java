@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -90,6 +91,8 @@ public class NewVaadinPortletWizardTests extends SWTBotBase
     @Before
     public void openWizard()
     {
+        Assume.assumeTrue( runTest() || runAllTests() );
+
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayVaadinPortlet().click();
     }
 
