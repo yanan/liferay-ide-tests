@@ -29,6 +29,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.liferay.ide.project.ui.tests.ProjectWizard;
@@ -52,6 +53,7 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
 {
 
     ServiceBuilderWizardPO newServiceBuilderWizard = new ServiceBuilderWizardPO( bot, TITLE_NEW_SERVICE_BUILDER );
+
     String author = System.getenv( "USERNAME" );
 
     @AfterClass
@@ -68,6 +70,13 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
         catch( Exception e )
         {
         }
+    }
+
+    @BeforeClass
+    public static void unzipServerAndSdk() throws IOException
+    {
+        unzipServer();
+        unzipPluginsSDK();
     }
 
     @Test

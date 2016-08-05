@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import org.eclipse.swtbot.swt.finder.keyboard.Keyboard;
@@ -27,6 +28,7 @@ import org.eclipse.swtbot.swt.finder.keyboard.KeyboardFactory;
 import org.junit.After;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.liferay.ide.portlet.ui.tests.page.CreateLiferayPortletWizardPO;
@@ -69,6 +71,13 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
     PortletDeploymentDescriptorPO specifyPortletDeploymentDescriptorPage =
         new PortletDeploymentDescriptorPO( bot, INDEX_SPECIFY_PORTLET_DEPLOYMENT_DESCRIPTOR_PAGE );
+
+    @BeforeClass
+    public static void unzipServerAndSdk() throws IOException
+    {
+        unzipPluginsSDK();
+        unzipServer();
+    }
 
     @After
     public void cleanAll()

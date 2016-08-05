@@ -30,6 +30,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -51,6 +52,13 @@ public class MigrationToolTests extends SWTBotBase implements MigrateProjectWiza
     String MARKER_TYPE = "com.liferay.ide.project.core.MigrationProblemMarker";
     private static final String BUNDLE_ID = "com.liferay.ide.project.ui.tests";
     private static IProject project;
+
+    @BeforeClass
+    public static void unzipServerAndSdk() throws IOException
+    {
+        unzipServer();
+        unzipPluginsSDK();
+    }
 
     @After
     public void cleanup()

@@ -43,60 +43,6 @@ public class NewLiferayComponentWizardTests extends SWTBotBase implements NewLif
         eclipse.closeShell( LABEL_NEW_LIFERAY_COMPONENT );
     }
 
-    @Before
-    public void shouldRunTests()
-    {
-        Assume.assumeTrue( runTest() || runAllTests() );
-    }
-
-    @Test
-    public void newLiferayComponentClassWithoutAvailableModuleProject()
-    {
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayComponentClass().click();
-
-        NewLiferayComponentWizardPO newLiferayComponentWizard =
-            new NewLiferayComponentWizardPO( bot, LABEL_NEW_LIFERAY_COMPONENT, INDEX_VALIDATION_MESSAGE );
-
-        newLiferayComponentWizard.waitForPageToOpen();
-
-        // check default initial state
-        assertEquals( TEXT_DEFAULT_PROJECT_NAME_VALUE, newLiferayComponentWizard.getProjectName().getText() );
-        assertEquals( TEXT_DEFAULT_PACKAGE_NAME_VALUE, newLiferayComponentWizard.getPackageName().getText() );
-        assertEquals(
-            TEXT_DEFAULT_COMPONENT_CLASS_NAME_VALUE, newLiferayComponentWizard.getComponentClassName().getText() );
-        assertEquals(
-            TEXT_DEFAULT_COMPONENT_CLASS_TEMPLATE_VALUE,
-            newLiferayComponentWizard.getComponentClassTemplate().getText() );
-        assertEquals( TEXT_ENTER_PROJECT_NAME_MESSAGE, newLiferayComponentWizard.getValidationMessage() );
-        assertFalse( newLiferayComponentWizard.finishButton().isEnabled() );
-
-        String[] expectedComponentTemplateItems = { MENU_TEMPLATE_AUTH_FAILURES, MENU_TEMPLATE_AUTH_MAX_FAILURE,
-            MENU_TEMPLATE_AUTHENTICATOR, MENU_TEMPLATE_FRIENDLY_URL_MAPPER, MENU_TEMPLATE_GOGO_COMMAND,
-            MENU_TEMPLATE_INDEXER_POST_PROCESSOR, MENU_TEMPLATE_LOGIN_PRE_ACTION, MENU_TEMPLATE_MODEL_LISTENER,
-            MENU_TEMPLATE_POLLER_PROCESSOR, MENU_TEMPLATE_PORTLET, MENU_TEMPLATE_PORTLET_ACTION_COMMAND,
-            MENU_TEMPLATE_PORTLET_FILTER, MENU_TEMPLATE_REST, MENU_TEMPLATE_SERVICE_WRAPPER,
-            MENU_TEMPLATE_STRUTS_IN_ACTION, MENU_TEMPLATE_STRUTS_PORTLET_ACTION };
-
-        String[] componentTemplateItems =
-            newLiferayComponentWizard.getComponentClassTemplate().getAvailableComboValues();
-
-        assertTrue( componentTemplateItems.length >= 1 );
-
-        assertEquals( expectedComponentTemplateItems.length, componentTemplateItems.length );
-
-        for( int i = 0; i < componentTemplateItems.length; i++ )
-        {
-            assertTrue( componentTemplateItems[i].equals( expectedComponentTemplateItems[i] ) );
-        }
-
-        newLiferayComponentWizard.cancel();
-
-        // create Liferay Fragment project (to do in the future)
-
-        // open component wizard again then check state to make sure it couldn't support new component class
-
-    }
-
     @Test
     public void newLiferayComponentClass()
     {
@@ -209,6 +155,60 @@ public class NewLiferayComponentWizardTests extends SWTBotBase implements NewLif
 
         eclipse.getPackageExporerView().deleteResouceByName( "testComponent", true );
 
+    }
+
+    @Test
+    public void newLiferayComponentClassWithoutAvailableModuleProject()
+    {
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayComponentClass().click();
+
+        NewLiferayComponentWizardPO newLiferayComponentWizard =
+            new NewLiferayComponentWizardPO( bot, LABEL_NEW_LIFERAY_COMPONENT, INDEX_VALIDATION_MESSAGE );
+
+        newLiferayComponentWizard.waitForPageToOpen();
+
+        // check default initial state
+        assertEquals( TEXT_DEFAULT_PROJECT_NAME_VALUE, newLiferayComponentWizard.getProjectName().getText() );
+        assertEquals( TEXT_DEFAULT_PACKAGE_NAME_VALUE, newLiferayComponentWizard.getPackageName().getText() );
+        assertEquals(
+            TEXT_DEFAULT_COMPONENT_CLASS_NAME_VALUE, newLiferayComponentWizard.getComponentClassName().getText() );
+        assertEquals(
+            TEXT_DEFAULT_COMPONENT_CLASS_TEMPLATE_VALUE,
+            newLiferayComponentWizard.getComponentClassTemplate().getText() );
+        assertEquals( TEXT_ENTER_PROJECT_NAME_MESSAGE, newLiferayComponentWizard.getValidationMessage() );
+        assertFalse( newLiferayComponentWizard.finishButton().isEnabled() );
+
+        String[] expectedComponentTemplateItems = { MENU_TEMPLATE_AUTH_FAILURES, MENU_TEMPLATE_AUTH_MAX_FAILURE,
+            MENU_TEMPLATE_AUTHENTICATOR, MENU_TEMPLATE_FRIENDLY_URL_MAPPER, MENU_TEMPLATE_GOGO_COMMAND,
+            MENU_TEMPLATE_INDEXER_POST_PROCESSOR, MENU_TEMPLATE_LOGIN_PRE_ACTION, MENU_TEMPLATE_MODEL_LISTENER,
+            MENU_TEMPLATE_POLLER_PROCESSOR, MENU_TEMPLATE_PORTLET, MENU_TEMPLATE_PORTLET_ACTION_COMMAND,
+            MENU_TEMPLATE_PORTLET_FILTER, MENU_TEMPLATE_REST, MENU_TEMPLATE_SERVICE_WRAPPER,
+            MENU_TEMPLATE_STRUTS_IN_ACTION, MENU_TEMPLATE_STRUTS_PORTLET_ACTION };
+
+        String[] componentTemplateItems =
+            newLiferayComponentWizard.getComponentClassTemplate().getAvailableComboValues();
+
+        assertTrue( componentTemplateItems.length >= 1 );
+
+        assertEquals( expectedComponentTemplateItems.length, componentTemplateItems.length );
+
+        for( int i = 0; i < componentTemplateItems.length; i++ )
+        {
+            assertTrue( componentTemplateItems[i].equals( expectedComponentTemplateItems[i] ) );
+        }
+
+        newLiferayComponentWizard.cancel();
+
+        // create Liferay Fragment project (to do in the future)
+
+        // open component wizard again then check state to make sure it couldn't support new component class
+
+    }
+
+    @Before
+    public void shouldRunTests()
+    {
+        Assume.assumeTrue( runTest() || runAllTests() );
     }
 
 }

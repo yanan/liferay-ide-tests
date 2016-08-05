@@ -20,10 +20,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.liferay.ide.project.ui.tests.page.CreateProjectWizardPO;
@@ -44,18 +47,19 @@ import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 {
 
-    @After
-    public void waitForCreate()
-    {
-        sleep( 5000 );
-    }
-
     @AfterClass
     public static void cleanAll()
     {
         eclipse.closeShell( LABEL_NEW_LIFERAY_PLUGIN_PROJECT );
         eclipse.closeShell( LABEL_NEW_LIFERAY_PORTLET );
         eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, true );
+    }
+
+    @BeforeClass
+    public static void unzipServerAndSdk() throws IOException
+    {
+        unzipServer();
+        unzipPluginsSDK();
     }
 
     @Test
@@ -90,54 +94,6 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
         CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot );
 
         createProjectWizard.createSDKProject( "text", MENU_HOOK );
-
-        if( hasAddedProject )
-        {
-            createProjectWizard.finish();
-        }
-        else
-        {
-            createProjectWizard.next();
-
-            SetSDKLocationPO setSDKLocation = new SetSDKLocationPO( bot );
-
-            setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
-
-            setSDKLocation.finish();
-        }
-    }
-
-    @Test
-    public void createServiceBuilderPortletProject()
-    {
-        CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot );
-
-        createProjectWizard.createSDKProject( "textsb", MENU_SERVICE_BUILDER_PORTLET, true );
-
-        if( hasAddedProject )
-        {
-            createProjectWizard.finish();
-
-            sleep();
-        }
-        else
-        {
-            createProjectWizard.next();
-
-            SetSDKLocationPO setSDKLocation = new SetSDKLocationPO( bot );
-
-            setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
-
-            setSDKLocation.finish();
-        }
-    }
-
-    @Test
-    public void createServiceBuilderPortletProjectWithoutSampleCode()
-    {
-        CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot );
-
-        createProjectWizard.createSDKProject( "textsbwithoutcode", MENU_SERVICE_BUILDER_PORTLET, false );
 
         if( hasAddedProject )
         {
@@ -305,6 +261,54 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
     }
 
     @Test
+    public void createServiceBuilderPortletProject()
+    {
+        CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot );
+
+        createProjectWizard.createSDKProject( "textsb", MENU_SERVICE_BUILDER_PORTLET, true );
+
+        if( hasAddedProject )
+        {
+            createProjectWizard.finish();
+
+            sleep();
+        }
+        else
+        {
+            createProjectWizard.next();
+
+            SetSDKLocationPO setSDKLocation = new SetSDKLocationPO( bot );
+
+            setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
+
+            setSDKLocation.finish();
+        }
+    }
+
+    @Test
+    public void createServiceBuilderPortletProjectWithoutSampleCode()
+    {
+        CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot );
+
+        createProjectWizard.createSDKProject( "textsbwithoutcode", MENU_SERVICE_BUILDER_PORTLET, false );
+
+        if( hasAddedProject )
+        {
+            createProjectWizard.finish();
+        }
+        else
+        {
+            createProjectWizard.next();
+
+            SetSDKLocationPO setSDKLocation = new SetSDKLocationPO( bot );
+
+            setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
+
+            setSDKLocation.finish();
+        }
+    }
+
+    @Test
     public void createThemeProject()
     {
         CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot );
@@ -369,6 +373,16 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
         }
     }
 
+    @Before
+    public void openWizard()
+    {
+        Assume.assumeTrue( runTest() || runAllTests() );
+
+        hasAddedProject = addedProjects();
+
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
+    }
+
     @Test
     public void validationProjectName()
     {
@@ -385,14 +399,10 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
         createProjectWizard.cancel();
     }
 
-    @Before
-    public void openWizard()
+    @After
+    public void waitForCreate()
     {
-        Assume.assumeTrue( runTest() || runAllTests() );
-
-        hasAddedProject = addedProjects();
-
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
+        sleep( 5000 );
     }
 
 }

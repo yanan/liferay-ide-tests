@@ -20,6 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
@@ -27,6 +28,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -47,21 +49,17 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
 
     private static final String BUNDLE_ID = "com.liferay.ide.project.ui.tests";
 
-    @Before
-    public void shouldRunTests()
-    {
-        Assume.assumeTrue( runTest() || runAllTests() );
-    }
-
     @AfterClass
     public static void deleteSDK()
     {
         eclipse.getPackageExporerView().deleteResouceByName( getLiferayPluginsSdkName(), true );
     }
 
-    public void openWizard()
+    @BeforeClass
+    public static void unzipServerAndSdk() throws IOException
     {
-        eclipse.getCreateLiferayProjectToolbar().menuClick( MENU_NEW_LIFERAY_PROJECT_EXIS_SOURCE );
+        unzipServer();
+        unzipPluginsSDK();
     }
 
     private LiferayProjectFromExistSourceWizardPO _wizard = new LiferayProjectFromExistSourceWizardPO( bot );
@@ -108,6 +106,17 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
         TreeItemPO sdkTreeItem =
             eclipse.getPackageExporerView().getProjectTree().getTreeItem( getLiferayPluginsSdkName() );
         assertTrue( sdkTreeItem.isVisible() );
+    }
+
+    public void openWizard()
+    {
+        eclipse.getCreateLiferayProjectToolbar().menuClick( MENU_NEW_LIFERAY_PROJECT_EXIS_SOURCE );
+    }
+
+    @Before
+    public void shouldRunTests()
+    {
+        Assume.assumeTrue( runTest() || runAllTests() );
     }
 
     @Test

@@ -41,21 +41,11 @@ import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjectWizard
 {
 
-    @Before
-    public void openWizard()
+    @AfterClass
+    public static void cleanAll()
     {
-        Assume.assumeTrue( runTest() || runAllTests() );
-        
-        eclipse.getLiferayWorkspacePerspective().activate();
-        
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
-        sleep( 15000 );
-    }
-
-    @After
-    public void waitForCreate()
-    {
-        sleep();
+        eclipse.closeShell( LABEL_NEW_LIFERAY_MODULE_PROJECT );
+        eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, true );
     }
 
     @Test
@@ -240,6 +230,17 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         assertContains( "repositories", buildGradleFile.getText() );
     }
 
+    @Before
+    public void openWizard()
+    {
+        Assume.assumeTrue( runTest() || runAllTests() );
+
+        eclipse.getLiferayWorkspacePerspective().activate();
+
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
+        sleep( 15000 );
+    }
+
     @Test
     public void createServiceBuilderModuleProject()
     {
@@ -341,10 +342,9 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         createModuleProjectWizard.cancel();
     }
 
-    @AfterClass
-    public static void cleanAll()
+    @After
+    public void waitForCreate()
     {
-        eclipse.closeShell( LABEL_NEW_LIFERAY_MODULE_PROJECT );
-        eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, true );
+        sleep();
     }
 }
