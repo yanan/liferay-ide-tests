@@ -49,6 +49,8 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
 
     private static final String BUNDLE_ID = "com.liferay.ide.project.ui.tests";
 
+    private LiferayProjectFromExistSourceWizardPO _wizard = new LiferayProjectFromExistSourceWizardPO( bot );
+
     @AfterClass
     public static void deleteSDK()
     {
@@ -62,16 +64,20 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
         unzipPluginsSDK();
     }
 
-    private LiferayProjectFromExistSourceWizardPO _wizard = new LiferayProjectFromExistSourceWizardPO( bot );
-
     @After
     public void cleanUp()
     {
-        DialogPO shell = new DialogPO( bot, TITLE_NEW_LIFERAY_PROJECT_EXIS_SOURCE );
-        shell.closeIfOpen();
+        try
+        {
+            DialogPO shell = new DialogPO( bot, TITLE_NEW_LIFERAY_PROJECT_EXIS_SOURCE );
+            shell.closeIfOpen();
 
-        eclipse.getPackageExporerView().deleteProjectExcludeNames(
-            ( new String[] { getLiferayPluginsSdkName() } ), true );
+            eclipse.getPackageExporerView().deleteProjectExcludeNames(
+                ( new String[] { getLiferayPluginsSdkName() } ), true );
+        }
+        catch( Exception e )
+        {
+        }
     }
 
     public void importSDKProject( String path, String projectName ) throws Exception
