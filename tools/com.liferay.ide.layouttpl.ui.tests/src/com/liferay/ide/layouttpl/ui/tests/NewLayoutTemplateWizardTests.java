@@ -260,4 +260,4 @@ public class NewLayoutTemplateWizardTests extends SWTBotBase implements CreateLa
         page.setWapTemplateFileText( "/aa.wap.tpl" );
         assertEquals( true, page.finishButton().isEnabled() );
     }
-}
+}qwqwqw
