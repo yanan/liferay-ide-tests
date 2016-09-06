@@ -13,44 +13,31 @@
  *
  *******************************************************************************/
 
-package com.liferay.ide.ui.tests.swtbot.page;
+package com.liferay.ide.project.ui.tests.page;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
+
+import com.liferay.ide.project.ui.tests.LiferayModuleFragementWizard;
+import com.liferay.ide.ui.tests.swtbot.page.TextPO;
+import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
 /**
- * @author Ashley Yuan
  * @author Ying Xu
  */
-public class ToolbarButtonWithTooltipPO extends AbstractWidgetPO
+public class NewModuleFragmentWizardPO extends WizardPO implements LiferayModuleFragementWizard
 {
 
-    public ToolbarButtonWithTooltipPO( SWTBot bot, String label )
+    private TextPO _projectNameText;
+
+    public NewModuleFragmentWizardPO( SWTBot bot )
     {
-        super( bot, label );
+        super( bot, TEXT_BLANK, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT );
+        _projectNameText = new TextPO( bot, LABEL_PROJECT_NAME );
     }
 
-    public ToolbarButtonWithTooltipPO( SWTBot bot, String label, int index )
+    public void setProjectName( String projectName )
     {
-        super( bot, label, index );
-    }
-
-    @Override
-    protected SWTBotToolbarButton getWidget()
-    {
-        if( index > 0 )
-        {
-            return bot.toolbarButtonWithTooltip( label, index );
-        }
-        else
-        {
-            return bot.toolbarButtonWithTooltip( label );
-        }
-    }
-
-    public void click()
-    {
-        getWidget().click();
+        this._projectNameText.setText( projectName );
     }
 
 }

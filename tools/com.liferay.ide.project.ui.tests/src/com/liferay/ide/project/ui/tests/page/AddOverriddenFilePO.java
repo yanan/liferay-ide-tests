@@ -13,44 +13,31 @@
  *
  *******************************************************************************/
 
-package com.liferay.ide.ui.tests.swtbot.page;
+package com.liferay.ide.project.ui.tests.page;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
+
+import com.liferay.ide.project.ui.tests.LiferayModuleFragementWizard;
+import com.liferay.ide.ui.tests.swtbot.page.DialogPO;
+import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 
 /**
- * @author Ashley Yuan
  * @author Ying Xu
  */
-public class ToolbarButtonWithTooltipPO extends AbstractWidgetPO
+public class AddOverriddenFilePO extends DialogPO implements LiferayModuleFragementWizard
 {
 
-    public ToolbarButtonWithTooltipPO( SWTBot bot, String label )
+    private TreePO _addFilesToOverride;
+
+    public AddOverriddenFilePO( SWTBot bot )
     {
-        super( bot, label );
+        super( bot, BUTTON_CANCEL, BUTTON_OK );
+        _addFilesToOverride = new TreePO( bot );
     }
 
-    public ToolbarButtonWithTooltipPO( SWTBot bot, String label, int index )
+    public void select( String... items )
     {
-        super( bot, label, index );
-    }
-
-    @Override
-    protected SWTBotToolbarButton getWidget()
-    {
-        if( index > 0 )
-        {
-            return bot.toolbarButtonWithTooltip( label, index );
-        }
-        else
-        {
-            return bot.toolbarButtonWithTooltip( label );
-        }
-    }
-
-    public void click()
-    {
-        getWidget().click();
+        _addFilesToOverride.hasTreeItem( items );
     }
 
 }
