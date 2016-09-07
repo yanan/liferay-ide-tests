@@ -19,7 +19,7 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import com.liferay.ide.project.ui.tests.LiferayProjectFromExistSourceWizard;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
-import com.liferay.ide.ui.tests.swtbot.page.ToolbarButtonPO;
+import com.liferay.ide.ui.tests.swtbot.page.ToolbarButtonWithTooltipPO;
 import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
 /**
@@ -28,7 +28,7 @@ import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 public class LiferayProjectFromExistSourceWizardPO extends WizardPO implements LiferayProjectFromExistSourceWizard
 {
 
-    private ToolbarButtonPO _browseProjectDirectory;
+    private ToolbarButtonWithTooltipPO _browseProjectDirectory;
 
     private TextPO _pluginTypeText;
 
@@ -49,10 +49,10 @@ public class LiferayProjectFromExistSourceWizardPO extends WizardPO implements L
         _pluginTypeText = new TextPO( bot, LABLE_PLUGIN_TYPE );
         _projectDirectoryText = new TextPO( bot, LABLE_PROJECT_DIRECTORY );
         _sdkVersionText = new TextPO( bot, LABLE_SDK_VERSION );
-        _browseProjectDirectory = new ToolbarButtonPO( bot, LABLE_BROWSE_PROJECT );
+        _browseProjectDirectory = new ToolbarButtonWithTooltipPO( bot, LABLE_BROWSE_PROJECT );
     }
 
-    public ToolbarButtonPO getBrowseProjectDirectory()
+    public ToolbarButtonWithTooltipPO getBrowseProjectDirectory()
     {
         return _browseProjectDirectory;
     }

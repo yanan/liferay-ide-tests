@@ -138,7 +138,7 @@ public class MigrationToolTests extends SWTBotBase implements MigrateProjectWiza
         migrateDialog.waitForPageToOpen();
         assertTrue( migrateDialog.isOpen() );
 
-        sleep( 40000 );
+        sleep( 120000 );
         ViewPO view = new ViewPO( bot, TITLE_LIFERAY7_MIGRATION_PROBLEMS );
         assertTrue( view.isActive() );
 

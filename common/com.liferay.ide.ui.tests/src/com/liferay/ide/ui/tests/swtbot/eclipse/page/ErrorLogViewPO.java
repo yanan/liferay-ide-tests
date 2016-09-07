@@ -18,7 +18,7 @@ package com.liferay.ide.ui.tests.swtbot.eclipse.page;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 
 import com.liferay.ide.ui.tests.UIBase;
-import com.liferay.ide.ui.tests.swtbot.page.ToolbarButtonPO;
+import com.liferay.ide.ui.tests.swtbot.page.ToolbarButtonWithTooltipPO;
 import com.liferay.ide.ui.tests.swtbot.page.ViewPO;
 
 /**
@@ -27,13 +27,13 @@ import com.liferay.ide.ui.tests.swtbot.page.ViewPO;
 public class ErrorLogViewPO extends ViewPO implements UIBase
 {
 
-    private ToolbarButtonPO clearLogViewerToolbar;
+    private ToolbarButtonWithTooltipPO clearLogViewerToolbar;
 
     public ErrorLogViewPO( SWTWorkbenchBot bot )
     {
         super( bot, LABEL_ERROR_LOG_FULL );
 
-        clearLogViewerToolbar =  new ToolbarButtonPO( bot, LABEL_CLEAR_LOG_VIEWER );
+        clearLogViewerToolbar = new ToolbarButtonWithTooltipPO( bot, LABEL_CLEAR_LOG_VIEWER );
     }
 
     public void clearLogViewer()
@@ -46,7 +46,7 @@ public class ErrorLogViewPO extends ViewPO implements UIBase
 
     public boolean hasProblems()
     {
-        //return( problemTree.getAllItems().length > 0 );
+        // return( problemTree.getAllItems().length > 0 );
         return true;
     }
 

@@ -55,6 +55,11 @@ public interface ModuleProjectWizard extends UIBase
     public final String MENU_MODULE_CONTENTTARGETINGGREPORT = "contenttargetingreport";
     public final String MENU_MODULE_PANELAPP = "panelapp";
     public final String MENU_MODULE_PORTLETPROVIDER = "portletprovider";
+    public final String MENU_MODULE_API = "api";
+    public final String MENU_MODULE_PORTLETCONFIGURATIONICON = "portletconfigurationicon";
+    public final String MENU_MODULE_PORTLETTOOLBARCONTRIBUTOR = "portlettoolbarcontributor";
+    public final String MENU_MODULE_SIMULATIONPANELENTRY = "simulationpanelentry";
+    public final String MENU_MODULE_TEMPLATECONTEXTCONTRIBUTOR = "templatecontextcontributor";
 
     public final String TEXT_BUILD_TYPE = "gradle-module";
     public final String TEXT_ENTER_MODULE_PROJECT_NAME_MESSAGE = "Please enter a project name.";
