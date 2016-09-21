@@ -21,6 +21,7 @@ package com.liferay.ide.ui.tests;
  * @author Ying Xu
  * @author Vicky Wang
  * @author Li Lu
+ * 
  */
 public interface UIBase
 {

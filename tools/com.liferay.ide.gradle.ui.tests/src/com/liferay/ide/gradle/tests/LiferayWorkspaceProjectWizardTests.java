@@ -16,7 +16,6 @@
 package com.liferay.ide.gradle.tests;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
