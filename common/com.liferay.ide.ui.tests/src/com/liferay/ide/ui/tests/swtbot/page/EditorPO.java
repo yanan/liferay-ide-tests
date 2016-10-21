@@ -27,38 +27,38 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
  */
 public class EditorPO extends AbstractPO
 {
-
+    
     private final String _editorName;
-
+    
     public EditorPO( SWTBot bot, String editorName )
     {
         super( bot );
-
+        
         _editorName = editorName;
     }
-
+    
     public void close()
     {
         getEditor().close();
-
+        
         bot.waitUntil( new EditorActiveCondition( _editorName, false ) );
     }
-
+    
     protected SWTBotEditor getEditor()
     {
         return ( (SWTWorkbenchBot) bot ).editorByTitle( _editorName );
     }
-
+    
     public boolean isActive()
     {
         return getEditor().isActive();
     }
-
+    
     public void setFocus()
     {
         getEditor().setFocus();
     }
-
+    
     public void save()
     {
         getEditor().save();
