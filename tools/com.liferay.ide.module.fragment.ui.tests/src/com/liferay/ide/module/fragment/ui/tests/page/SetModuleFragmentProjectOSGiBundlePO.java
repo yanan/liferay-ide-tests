@@ -16,9 +16,10 @@
 package com.liferay.ide.module.fragment.ui.tests.page;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
+
 import com.liferay.ide.module.fragment.tests.ModuleFragmentProjectWizard;
 import com.liferay.ide.ui.tests.swtbot.page.TablePO;
-import com.liferay.ide.ui.tests.swtbot.page.ToolbarButtonPO;
+import com.liferay.ide.ui.tests.swtbot.page.ToolbarButtonWithTooltipPO;
 import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
 /**
@@ -27,10 +28,10 @@ import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 public class SetModuleFragmentProjectOSGiBundlePO extends WizardPO implements ModuleFragmentProjectWizard
 {
 
-    private ToolbarButtonPO _addOverriddenFilesButton;
-    private ToolbarButtonPO _addOverrideFilePathButton;
+    private ToolbarButtonWithTooltipPO _addOverriddenFilesButton;
+    private ToolbarButtonWithTooltipPO _addOverrideFilePathButton;
     private TablePO _overriddenFilesTable;
-    private ToolbarButtonPO _selectOSGiBundleButton;
+    private ToolbarButtonWithTooltipPO _selectOSGiBundleButton;
 
     public SetModuleFragmentProjectOSGiBundlePO( SWTBot bot, int index )
     {
@@ -41,18 +42,18 @@ public class SetModuleFragmentProjectOSGiBundlePO extends WizardPO implements Mo
     {
         super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT, validationMessageIndex );
 
-        _selectOSGiBundleButton = new ToolbarButtonPO( bot, BUTTON_OSGI_BUNDLE_BROWSE );
-        _addOverriddenFilesButton = new ToolbarButtonPO( bot, BUTTON_ADD_FILES_TO_OVERRIDE );
-        _addOverrideFilePathButton = new ToolbarButtonPO( bot, BUTTON_ADD_FILE_PATH );
+        _selectOSGiBundleButton = new ToolbarButtonWithTooltipPO( bot, BUTTON_OSGI_BUNDLE_BROWSE );
+        _addOverriddenFilesButton = new ToolbarButtonWithTooltipPO( bot, BUTTON_ADD_FILES_TO_OVERRIDE );
+        _addOverrideFilePathButton = new ToolbarButtonWithTooltipPO( bot, BUTTON_ADD_FILE_PATH );
         _overriddenFilesTable = new TablePO( bot, LABLE_OVERRIDDEN_FILES );
     }
 
-    public ToolbarButtonPO getAddOverriddenFilesButton()
+    public ToolbarButtonWithTooltipPO getAddOverriddenFilesButton()
     {
         return _addOverriddenFilesButton;
     }
 
-    public ToolbarButtonPO getAddOverrideFilePathButton()
+    public ToolbarButtonWithTooltipPO getAddOverrideFilePathButton()
     {
         return _addOverrideFilePathButton;
     }
@@ -62,7 +63,7 @@ public class SetModuleFragmentProjectOSGiBundlePO extends WizardPO implements Mo
         return _overriddenFilesTable;
     }
 
-    public ToolbarButtonPO getSelectOSGiBundleButton()
+    public ToolbarButtonWithTooltipPO getSelectOSGiBundleButton()
     {
         return _selectOSGiBundleButton;
     }

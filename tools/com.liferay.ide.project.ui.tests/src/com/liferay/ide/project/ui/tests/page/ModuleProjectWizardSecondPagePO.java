@@ -20,7 +20,7 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 import com.liferay.ide.project.ui.tests.ModuleProjectWizard;
 import com.liferay.ide.ui.tests.swtbot.page.TablePO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
-import com.liferay.ide.ui.tests.swtbot.page.ToolbarButtonPO;
+import com.liferay.ide.ui.tests.swtbot.page.ToolbarButtonWithTooltipPO;
 import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
 /**
@@ -33,11 +33,11 @@ public class ModuleProjectWizardSecondPagePO extends WizardPO implements ModuleP
     private TextPO _packageName;
     private TextPO _serviceName;
     private TablePO _properties;
-    private ToolbarButtonPO _browseButton;
-    private ToolbarButtonPO _addPropertyKeyButton;
-    private ToolbarButtonPO _moveUpButton;
-    private ToolbarButtonPO _moveDownButton;
-    private ToolbarButtonPO _deleteButton;
+    private ToolbarButtonWithTooltipPO _browseButton;
+    private ToolbarButtonWithTooltipPO _addPropertyKeyButton;
+    private ToolbarButtonWithTooltipPO _moveUpButton;
+    private ToolbarButtonWithTooltipPO _moveDownButton;
+    private ToolbarButtonWithTooltipPO _deleteButton;
 
     public ModuleProjectWizardSecondPagePO( SWTBot bot )
     {
@@ -61,34 +61,34 @@ public class ModuleProjectWizardSecondPagePO extends WizardPO implements ModuleP
         _packageName = new TextPO( bot, LABEL_MODULE_PACKAGE_NAME );
         _serviceName = new TextPO( bot, LABEL_MODULE_SERVICE_NAME );
         _properties = new TablePO( bot, LABEL_MODULE_PROPERTIES );
-        _browseButton = new ToolbarButtonPO( bot, BUTTON_BROWSE );
-        _addPropertyKeyButton = new ToolbarButtonPO( bot, TOOLBARBOTTON_ADD_PROPERTY_KEY );
-        _moveUpButton = new ToolbarButtonPO( bot, TOOLBARBOTTON_MOVE_UP );
-        _moveDownButton = new ToolbarButtonPO( bot, TOOLBARBOTTON_MOVE_DOWN );
-        _deleteButton = new ToolbarButtonPO( bot, TOOLBARBOTTON_DELETE );
+        _browseButton = new ToolbarButtonWithTooltipPO( bot, BUTTON_BROWSE );
+        _addPropertyKeyButton = new ToolbarButtonWithTooltipPO( bot, TOOLBARBOTTON_ADD_PROPERTY_KEY );
+        _moveUpButton = new ToolbarButtonWithTooltipPO( bot, TOOLBARBOTTON_MOVE_UP );
+        _moveDownButton = new ToolbarButtonWithTooltipPO( bot, TOOLBARBOTTON_MOVE_DOWN );
+        _deleteButton = new ToolbarButtonWithTooltipPO( bot, TOOLBARBOTTON_DELETE );
     }
 
-    public ToolbarButtonPO getBrowseButton()
+    public ToolbarButtonWithTooltipPO getBrowseButton()
     {
         return _browseButton;
     }
 
-    public ToolbarButtonPO getAddPropertyKeyButton()
+    public ToolbarButtonWithTooltipPO getAddPropertyKeyButton()
     {
         return _addPropertyKeyButton;
     }
 
-    public ToolbarButtonPO getMoveUpButton()
+    public ToolbarButtonWithTooltipPO getMoveUpButton()
     {
         return _moveUpButton;
     }
 
-    public ToolbarButtonPO getMoveDownButton()
+    public ToolbarButtonWithTooltipPO getMoveDownButton()
     {
         return _moveDownButton;
     }
 
-    public ToolbarButtonPO getDeleteButton()
+    public ToolbarButtonWithTooltipPO getDeleteButton()
     {
         return _deleteButton;
     }
