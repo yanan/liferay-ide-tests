@@ -20,7 +20,7 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 import com.liferay.ide.project.ui.tests.NewLiferayComponentWizard;
 import com.liferay.ide.ui.tests.swtbot.page.ComboBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
-import com.liferay.ide.ui.tests.swtbot.page.ToolbarButtonPO;
+import com.liferay.ide.ui.tests.swtbot.page.ToolbarButtonWithTooltipPO;
 import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
 /**
@@ -31,8 +31,11 @@ public class NewLiferayComponentWizardPO extends WizardPO implements NewLiferayC
 
     private TextPO _packageName;
     private TextPO _componentClassName;
+    private TextPO _modelClass;
+    private TextPO _serviceName;
 
-    private ToolbarButtonPO _browseButton;
+    private ToolbarButtonWithTooltipPO _browseButton;
+    private ToolbarButtonWithTooltipPO _packageBrowseButton;
 
     private ComboBoxPO _projectName;
     private ComboBoxPO _componentClassTemplate;
@@ -47,9 +50,12 @@ public class NewLiferayComponentWizardPO extends WizardPO implements NewLiferayC
         super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT, validationMessageIndex );
         _packageName = new TextPO( bot, LABEL_PACKAGE_NAME );
         _componentClassName = new TextPO( bot, LABEL_COMPONENT_CLASS_NAME );
+        _serviceName = new TextPO( bot, LABEL_SERVICE_NAME );
+        _modelClass = new TextPO( bot, LABEL_MODEL_CLASS );
         _projectName = new ComboBoxPO( bot, COMBOBOX_PROJECT_NAME );
         _componentClassTemplate = new ComboBoxPO( bot, COMBOBOX_COMPONENT_CLASS_TEMPLATE );
-        _browseButton = new ToolbarButtonPO( bot, BUTTON_BROWSE );
+        _browseButton = new ToolbarButtonWithTooltipPO( bot, BUTTON_BROWSE, 1 );
+        _packageBrowseButton = new ToolbarButtonWithTooltipPO( bot, BUTTON_BROWSE, 0 );
     }
 
     public void selectProject( String projectName )
@@ -60,11 +66,6 @@ public class NewLiferayComponentWizardPO extends WizardPO implements NewLiferayC
     public void selectTemplate( String componentClassTemplate )
     {
         _componentClassTemplate.setSelection( componentClassTemplate );
-    }
-
-    public void getTemplateCounts( int count )
-    {
-        _componentClassTemplate.getComboBoxItemCounts( count );
     }
 
     public TextPO getPackageName()
@@ -87,9 +88,34 @@ public class NewLiferayComponentWizardPO extends WizardPO implements NewLiferayC
         this._componentClassName = _componentClassName;
     }
 
-    public ToolbarButtonPO getBrowseButton()
+    public TextPO getModelClaa()
+    {
+        return _modelClass;
+    }
+
+    public void setModelClassName( String modelClassNameText )
+    {
+        _modelClass.setText( modelClassNameText );
+    }
+
+    public TextPO getServiceName()
+    {
+        return _serviceName;
+    }
+
+    public void setServiceName( String serviceNameText )
+    {
+        _serviceName.setText( serviceNameText );
+    }
+
+    public ToolbarButtonWithTooltipPO getBrowseButton()
     {
         return _browseButton;
+    }
+
+    public ToolbarButtonWithTooltipPO getPackageBrowseButton()
+    {
+        return _packageBrowseButton;
     }
 
     public ComboBoxPO getProjectName()

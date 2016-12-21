@@ -13,44 +13,31 @@
  *
  *******************************************************************************/
 
-package com.liferay.ide.ui.tests.swtbot.page;
+package com.liferay.ide.project.ui.tests.page;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
+
+import com.liferay.ide.project.ui.tests.NewServerRuntimeWizard;
+import com.liferay.ide.ui.tests.swtbot.page.TreePO;
+import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
 /**
- * @author Ashley Yuan
  * @author Ying Xu
  */
-public class ToolbarButtonWithTooltipPO extends AbstractWidgetPO
+public class NewLiferayServerPO extends WizardPO implements NewServerRuntimeWizard
 {
 
-    public ToolbarButtonWithTooltipPO( SWTBot bot, String label )
+    TreePO _serverTypeTree;
+
+    public NewLiferayServerPO( SWTBot bot )
     {
-        super( bot, label );
+        super( bot, TEXT_BLANK, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT );
+        _serverTypeTree = new TreePO( bot );
     }
 
-    public ToolbarButtonWithTooltipPO( SWTBot bot, String label, int index )
+    public TreePO getServerTypeTree()
     {
-        super( bot, label, index );
-    }
-
-    @Override
-    protected SWTBotToolbarButton getWidget()
-    {
-        if( index > 0 )
-        {
-            return bot.toolbarButtonWithTooltip( label, index );
-        }
-        else
-        {
-            return bot.toolbarButtonWithTooltip( label );
-        }
-    }
-
-    public void click()
-    {
-        getWidget().click();
+        return _serverTypeTree;
     }
 
 }

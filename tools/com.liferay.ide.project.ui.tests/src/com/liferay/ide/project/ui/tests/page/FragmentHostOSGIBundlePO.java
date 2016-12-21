@@ -13,44 +13,31 @@
  *
  *******************************************************************************/
 
-package com.liferay.ide.ui.tests.swtbot.page;
+package com.liferay.ide.project.ui.tests.page;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
+
+import com.liferay.ide.project.ui.tests.LiferayModuleFragementWizard;
+import com.liferay.ide.ui.tests.swtbot.page.DialogPO;
+import com.liferay.ide.ui.tests.swtbot.page.TextPO;
 
 /**
- * @author Ashley Yuan
  * @author Ying Xu
  */
-public class ToolbarButtonWithTooltipPO extends AbstractWidgetPO
+public class FragmentHostOSGIBundlePO extends DialogPO implements LiferayModuleFragementWizard
 {
 
-    public ToolbarButtonWithTooltipPO( SWTBot bot, String label )
+    private TextPO _osgiBundleText;
+
+    public FragmentHostOSGIBundlePO( SWTBot bot, String title )
     {
-        super( bot, label );
+        super( bot, title, BUTTON_CANCEL, BUTTON_OK );
+        _osgiBundleText = new TextPO( bot, LABLE_SELECT_OSGI_BUNDLE );
     }
 
-    public ToolbarButtonWithTooltipPO( SWTBot bot, String label, int index )
+    public void setOSGiBundle( String osgiBundleText )
     {
-        super( bot, label, index );
-    }
-
-    @Override
-    protected SWTBotToolbarButton getWidget()
-    {
-        if( index > 0 )
-        {
-            return bot.toolbarButtonWithTooltip( label, index );
-        }
-        else
-        {
-            return bot.toolbarButtonWithTooltip( label );
-        }
-    }
-
-    public void click()
-    {
-        getWidget().click();
+        _osgiBundleText.setText( osgiBundleText );
     }
 
 }

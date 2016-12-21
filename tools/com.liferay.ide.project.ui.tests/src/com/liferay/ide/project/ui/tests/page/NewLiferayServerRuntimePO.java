@@ -13,44 +13,30 @@
  *
  *******************************************************************************/
 
-package com.liferay.ide.ui.tests.swtbot.page;
+package com.liferay.ide.project.ui.tests.page;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
+
+import com.liferay.ide.project.ui.tests.NewServerRuntimeWizard;
+import com.liferay.ide.ui.tests.swtbot.page.TextPO;
+import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
 /**
- * @author Ashley Yuan
  * @author Ying Xu
  */
-public class ToolbarButtonWithTooltipPO extends AbstractWidgetPO
+public class NewLiferayServerRuntimePO extends WizardPO implements NewServerRuntimeWizard
 {
 
-    public ToolbarButtonWithTooltipPO( SWTBot bot, String label )
+    private TextPO _serverLocation;
+
+    public NewLiferayServerRuntimePO( SWTBot bot )
     {
-        super( bot, label );
+        super( bot, TEXT_BLANK, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT );
+        _serverLocation = new TextPO( bot, LABEL_SERVER_LOCATION );
     }
 
-    public ToolbarButtonWithTooltipPO( SWTBot bot, String label, int index )
+    public TextPO getServerLocation()
     {
-        super( bot, label, index );
+        return _serverLocation;
     }
-
-    @Override
-    protected SWTBotToolbarButton getWidget()
-    {
-        if( index > 0 )
-        {
-            return bot.toolbarButtonWithTooltip( label, index );
-        }
-        else
-        {
-            return bot.toolbarButtonWithTooltip( label );
-        }
-    }
-
-    public void click()
-    {
-        getWidget().click();
-    }
-
 }
