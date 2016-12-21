@@ -63,11 +63,11 @@ import com.liferay.ide.ui.tests.util.ZipUtil;
 public class SWTBotBase implements UIBase
 {
 
-    public final static String BUNDLE_ZIP = "liferay-ce-portal-tomcat-7.0-ga2-20160610113014153.zip";
-    public final static String BUNDLE_DIR = "liferay-ce-portal-7.0-ga2";
+    public final static String BUNDLE_ZIP = "liferay-ce-portal-tomcat-7.0-ga3-20160804222206210.zip";
+    public final static String BUNDLE_DIR = "liferay-ce-portal-7.0-ga3";
     public final static String TOMCAT_NAME = "tomcat-8.0.32";
     public final static String IVY_CACHE_ZIP = "ivy-cache-7.0.zip";
-    public final static String PLUGINS_SDK_ZIP = "com.liferay.portal.plugins.sdk-7.0-ga2-20160610113014153.zip";
+    public final static String PLUGINS_SDK_ZIP = "com.liferay.portal.plugins.sdk-7.0-ga3-20160804222206210.zip";
     public final static String PLUGINS_SDK_DIR = "com.liferay.portal.plugins.sdk-7.0";
 
     private final static String liferayBundlesDir = System.getProperty( "liferay.bundles.dir" );
