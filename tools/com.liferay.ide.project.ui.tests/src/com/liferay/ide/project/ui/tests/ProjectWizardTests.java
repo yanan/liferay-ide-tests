@@ -27,6 +27,7 @@ import org.junit.AfterClass;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.liferay.ide.project.ui.tests.page.CreateProjectWizardPO;
@@ -155,7 +156,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
             assertTrue( matchItemInItems( expectedPluginTypeItems, expectedPluginTypeItem ) );
         }
 
-        assertFalse( createProjectWizard.backButton().isEnabled() );
+        assertTrue( createProjectWizard.backButton().isEnabled() );
         assertFalse( createProjectWizard.nextButton().isEnabled() );
         assertFalse( createProjectWizard.finishButton().isEnabled() );
         assertTrue( createProjectWizard.cancelButton().isEnabled() );
@@ -198,7 +199,10 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
         assertContains( "sample", editor.getText() );
 
         // Regression test IDE-1226,project already exists
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
+        eclipse.getFileMenu().clickMenu("New", "Other...");
+		bot.tree().getTreeItem("Liferay").expand();
+		bot.tree().getTreeItem("Liferay").getNode("Liferay Plugin Project (Liferay 6.x)").select();
+		bot.button("Next >").click();
 
         createProjectWizard.createSDKPortletProject( projectName );
         assertEquals( TEXT_PROJECT_ALREADY_EXISTS, createProjectWizard.getValidationMessage() );
@@ -209,8 +213,10 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
         createProjectWizard.cancel();
 
         // Regression test IDE-1976,project name with space test
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
-
+        eclipse.getFileMenu().clickMenu("New", "Other...");
+		bot.tree().getTreeItem("Liferay").expand();
+		bot.tree().getTreeItem("Liferay").getNode("Liferay Plugin Project (Liferay 6.x)").select();
+		bot.button("Next >").click();
         createProjectWizard.createSDKPortletProject( "test with space" );
 
         assertContains( TEXT_CREATE_NEW_PROJECT_AS_LIFERAY_PLUGIN, createProjectWizard.getValidationMessage() );
@@ -249,7 +255,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
         createProjectWizard.finish();
 
-        ShellPO newPortletPage = new ShellPO( bot, "New Liferay Portlet" )
+        ShellPO newPortletPage = new ShellPO( bot, "New Liferay Portlet (Liferay 6.x)" )
         {
         };
 
@@ -320,34 +326,37 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
         createProjectWizard.createSDKProject( projectThemeName, MENU_THEME );
 
-        createProjectWizard.next();
-
-        assertEquals( THEME_DEFAULT_MESSAGE, selectThemeOptions.getValidationMessage() );
-
-        selectThemeOptions.setParentFramework( MENU_THEME_PARENT_UNSTYLED, MENU_THEME_FRAMEWORK_JSP );
-        assertEquals( THEME_WARNING_MESSAGE, selectThemeOptions.getValidationMessage() );
-
-        selectThemeOptions.setParentFramework( MENU_THEME_PARENT_CLASSIC, MENU_THEME_FRAMEWORK_VELOCITY );
-        assertEquals( THEME_DEFAULT_MESSAGE, selectThemeOptions.getValidationMessage() );
-
-        selectThemeOptions.setParentFramework( MENU_THEME_PARENT_STYLED, MENU_THEME_FRAMEWORK_FREEMARKER );
-
         if( hasAddedProject )
         {
-            selectThemeOptions.finish();
+        	//TO-DO
+        	//assertEquals( THEME_DONOT_SUPPORT_MESSAGE, setSDKLocation.getValidationMessage() );
+        	createProjectWizard.cancel();
         }
         else
         {
+            createProjectWizard.next();
+
+            assertEquals( THEME_DEFAULT_MESSAGE, selectThemeOptions.getValidationMessage() );
+
+            selectThemeOptions.setParentFramework( MENU_THEME_PARENT_UNSTYLED, MENU_THEME_FRAMEWORK_JSP );
+            assertEquals( THEME_WARNING_MESSAGE, selectThemeOptions.getValidationMessage() );
+
+            selectThemeOptions.setParentFramework( MENU_THEME_PARENT_CLASSIC, MENU_THEME_FRAMEWORK_VELOCITY );
+            assertEquals( THEME_DEFAULT_MESSAGE, selectThemeOptions.getValidationMessage() );
+
+            selectThemeOptions.setParentFramework( MENU_THEME_PARENT_STYLED, MENU_THEME_FRAMEWORK_FREEMARKER );
+
             selectThemeOptions.next();
 
             SetSDKLocationPO setSDKLocation = new SetSDKLocationPO( bot );
 
             setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
 
-            setSDKLocation.finish();
+            //TO-DO
+        	//assertEquals( THEME_DONOT_SUPPORT_MESSAGE, setSDKLocation.getValidationMessage() );
+            
+            setSDKLocation.cancel();
         }
-
-        eclipse.getPackageExporerView().deleteResouceByName( projectThemeName + "-theme", true );
     }
 
     @Test
@@ -379,8 +388,12 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
         Assume.assumeTrue( runTest() || runAllTests() );
 
         hasAddedProject = addedProjects();
-
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
+        
+		eclipse.getFileMenu().clickMenu("New", "Other...");
+		bot.tree().getTreeItem("Liferay").expand();
+		bot.tree().getTreeItem("Liferay").getNode("Liferay Plugin Project (Liferay 6.x)").select();
+		bot.button("Next >").click();
+        //eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
     }
 
     @Test

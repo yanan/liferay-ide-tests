@@ -72,6 +72,8 @@ public class WizardPO extends CancelPO
     public void finish()
     {
         clickClosingButton( finishButton() );
+
+        sleep(5000);
     }
 
     public SWTBotButton finishButton()

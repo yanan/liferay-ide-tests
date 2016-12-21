@@ -105,6 +105,9 @@ public interface ProjectWizard extends UIBase
     public final String THEME_FARMEWORK_TYPE = "Theme framework:";
     public final String THEME_PARENT_TYPE = "Theme parent:";
     public final String THEME_DEFAULT_MESSAGE = "Select options for creating new theme project.";
+
+    public final String THEME_DONOT_SUPPORT_MESSAGE = "Select options for creating new theme project.";
+    
     public final String THEME_WARNING_MESSAGE = " For advanced theme developers only.";
 
     public final String TOOLTIP_LEARN_MORE = "Learn More...";
