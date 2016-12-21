@@ -75,9 +75,9 @@ public interface UIBase
     public final String TEXT_BLANK = "";
     public final String TEXT_NO_OPERTAIONS = "No operations to display at this time.";
 
-    public final String TOOLBAR_CREATE_LIFERAY_PROJECT = "Create a new Liferay Plugin Project";
+    public final String TOOLBAR_CREATE_LIFERAY_PROJECT = "Create a new Liferay Module Project";
 
-    public final String LABEL_NEW_LIFERAY_PLUGIN_PROJECT = "New Liferay Plugin Project";
+    public final String LABEL_NEW_LIFERAY_PLUGIN_PROJECT = "New Liferay Plugin Project (Liferay 6.x)";
     public final String LABEL_NEW_LIFERAY_MODULE_PROJECT = "New Liferay Module Project";
     public final String LABEL_NEW_LIFERAY_HOOK_CONFIGURATION = "New Liferay Hook Configuration";
     public final String LABEL_NEW_LIFERAY_SERVER = "New Liferay Server";
@@ -85,7 +85,7 @@ public interface UIBase
     public final String LABEL_NEW_LIFERAY_LAYOUT_TMEPLATE = "New Liferay Layout Template";
     public final String LABEL_NEW_LIFERAY_JSF_PORTLET = "New Liferay JSF Portlet";
     public final String LABEL_NEW_LIFERAY_VAADIN_PORTLET = "New Liferay Vaadin Portlet";
-    public final String LABEL_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
+    public final String LABEL_NEW_LIFERAY_PORTLET = "New Liferay Portlet (Liferay 6.x)";
     public final String LABEL_NEW_LIFERAY_WORKSPACE_PROJECT = "New Liferay Workspace Project";
     public final String LABEL_NEW_LIFERAY_MODULE_FRAGMENT_PROJECT = "New Liferay Module Fragment Project";
     public final String LABEL_NEW_LIFERAY_WORPSPACE_PROJECT = "New Liferay Workspace Project";
