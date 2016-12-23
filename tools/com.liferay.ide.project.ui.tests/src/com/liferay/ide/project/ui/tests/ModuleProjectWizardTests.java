@@ -85,14 +85,8 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         CreateModuleProjectWizardPO createModuleProjectWizard =
             new CreateModuleProjectWizardPO( bot, INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE );
 
+        sleep( 150000 );
         assertEquals( TEXT_ENTER_MODULE_PROJECT_NAME_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-
-        createModuleProjectWizard.createModuleProject( "test" );
-        sleep( 1000 );
-        assertEquals( TEXT_DOWNLOADING_TEMPLATE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-
-        sleep( 45000 );
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
 
         createModuleProjectWizard.cancel();
     }
@@ -130,18 +124,20 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         }
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
+        sleep( 10000 );
 
         createModuleProjectWizard.createModuleProject( projectName );
 
-        assertEquals( MENU_MODULE_MVCPORTLET, createModuleProjectWizard.getProjectTemplateNameComboBox().getText() );
+        assertEquals( MENU_MODULE_MVC_PORTLET, createModuleProjectWizard.getProjectTemplateNameComboBox().getText() );
 
         String[] expectedModuleProjectTemplateItems =
-            { MENU_MODULE_ACTIVATOR, MENU_MODULE_API, MENU_MODULE_CONTENTTARGETINGGREPORT,
-                MENU_MODULE_CONTENTTARGETINGRULE, MENU_MODULE_CONTENTTARGETINGTRACKINGACTION,
-                MENU_MODULE_CONTROLMENUENTRY, MENU_MODULE_MVCPORTLET, MENU_MODULE_PANELAPP, MENU_MODULE_PORTLET,
-                MENU_MODULE_PORTLETCONFIGURATIONICON, MENU_MODULE_PORTLETPROVIDER,
-                MENU_MODULE_PORTLETTOOLBARCONTRIBUTOR, MENU_MODULE_SERVICE, MENU_MODULE_SERVICEBUILDER,
-                MENU_MODULE_SERVICEWRAPPER, MENU_MODULE_SIMULATIONPANELENTRY, MENU_MODULE_TEMPLATECONTEXTCONTRIBUTOR };
+            { MENU_MODULE_ACTIVATOR, MENU_MODULE_API, MENU_MODULE_CONTENT_TARGETING_REPORT,
+                MENU_MODULE_CONTENT_TARGETING_RULE, MENU_MODULE_CONTENT_TARGETING_TRACKING_ACTION,
+                MENU_MODULE_CONTROL_MENU_ENTRY, MENU_MODULE_MVC_PORTLET, MENU_MODULE_PANEL_APP, MENU_MODULE_PORTLET,
+                MENU_MODULE_PORTLET_CONFIGURATION_ICON, MENU_MODULE_PORTLET_PROVIDER,
+                MENU_MODULE_PORTLET_TOOLBAR_CONTRIBUTOR, MENU_MODULE_REST, MENU_MODULE_SERVICE,
+                MENU_MODULE_SERVICE_BUILDER, MENU_MODULE_SERVICE_WRAPPER, MENU_MODULE_SIMULATION_PANEL_ENTRY,
+                MENU_MODULE_TEMPLATE_CONTEXT_CONTRIBUTOR, MENU_MODULE_THEME, MENU_MODULE_THEME_CONTRIBUTOR };
 
         String[] moduleProjectTemplateItems =
             createModuleProjectWizard.getProjectTemplateNameComboBox().getAvailableComboValues();
@@ -253,12 +249,13 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         }
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
+        sleep( 10000 );
 
         String projectName = "testMvcportletInLS";
 
         createModuleProjectWizard.createModuleProject( projectName );
 
-        assertEquals( MENU_MODULE_MVCPORTLET, createModuleProjectWizard.getProjectTemplateNameComboBox().getText() );
+        assertEquals( MENU_MODULE_MVC_PORTLET, createModuleProjectWizard.getProjectTemplateNameComboBox().getText() );
 
         createModuleProjectWizard.next();
 
@@ -332,6 +329,7 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         }
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
+        sleep( 10000 );
 
         createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICE );
         createModuleProjectWizard.next();
@@ -339,11 +337,10 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         ModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
             new ModuleProjectWizardSecondPagePO( bot, INDEX_MUST_SPECIFY_SERVICE_NAME_VALIDATIOIN_MESSAGE );
 
-        assertEquals( TEXT_SERVICE_NAME_MUST_BE_SPECIFIED, createModuleProjectSecondPageWizard.getValidationMessage() );
         assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
         assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
         assertEquals( "", createModuleProjectSecondPageWizard.getServiceName().getText() );
-        assertFalse( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
 
         createModuleProjectSecondPageWizard.getBrowseButton().click();
         sleep( 5000 );
@@ -419,6 +416,7 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         }
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
+        sleep( 10000 );
 
         createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICE );
         createModuleProjectWizard.next();
@@ -426,11 +424,10 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         ModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
             new ModuleProjectWizardSecondPagePO( bot, INDEX_MUST_SPECIFY_SERVICE_NAME_VALIDATIOIN_MESSAGE );
 
-        assertEquals( TEXT_SERVICE_NAME_MUST_BE_SPECIFIED, createModuleProjectSecondPageWizard.getValidationMessage() );
         assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
         assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
         assertEquals( "", createModuleProjectSecondPageWizard.getServiceName().getText() );
-        assertFalse( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
 
         createModuleProjectSecondPageWizard.getBrowseButton().click();
         sleep( 5000 );
@@ -519,14 +516,14 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         }
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
+        sleep( 10000 );
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICEBUILDER );
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICE_BUILDER );
         createModuleProjectWizard.next();
 
         ModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard = new ModuleProjectWizardSecondPagePO(
             bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
 
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
         assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
         assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
 
@@ -610,8 +607,9 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
 
         try
         {
-            assertTrue( projectTree.expandNode(
-                projectName + "-api", "src/main/java", "testservicebuilderproject.service" ).isVisible() );
+            assertTrue(
+                projectTree.expandNode(
+                    projectName + "-api", "src/main/java", "testservicebuilderproject.service" ).isVisible() );
         }
         catch( Exception e )
         {
@@ -654,14 +652,14 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         }
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
+        sleep( 10000 );
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICEBUILDER );
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICE_BUILDER );
         createModuleProjectWizard.next();
 
         ModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard = new ModuleProjectWizardSecondPagePO(
             bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
 
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
         assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
         assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
 
@@ -703,8 +701,8 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
 
         try
         {
-            projectTree.expandNode( liferayWorkspaceName, "modules", projectName ).doAction( "Gradle",
-                "Refresh Gradle Project" );
+            projectTree.expandNode( liferayWorkspaceName, "modules", projectName ).doAction(
+                "Gradle", "Refresh Gradle Project" );
         }
         catch( Exception e )
         {
@@ -714,9 +712,10 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
 
         sleep( 10000 );
 
-        assertTrue( projectTree.expandNode(
-            liferayWorkspaceName, "modules", projectName, projectName + "-api", "src/main/java",
-            "testservicebuilderprojectinls.service" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                liferayWorkspaceName, "modules", projectName, projectName + "-api", "src/main/java",
+                "testservicebuilderprojectinls.service" ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 liferayWorkspaceName, "modules", projectName, projectName + "-service", "src/main/java",
@@ -729,6 +728,7 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         newLiferayWorkspace.cancel();
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
+        sleep( 10000 );
 
         CreateModuleProjectWizardPO createModuleProjectWizard =
             new CreateModuleProjectWizardPO( bot, INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE );
@@ -742,8 +742,8 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
         createModuleProjectWizard.createModuleProject( "/" );
         sleep( 1000 );
-        assertEquals( " /" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'/'.",
-            createModuleProjectWizard.getValidationMessage() );
+        assertEquals(
+            " /" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'/'.", createModuleProjectWizard.getValidationMessage() );
         assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
         createModuleProjectWizard.createModuleProject( "$" );
         sleep( 1000 );
