@@ -97,7 +97,8 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
         HostOSGiBundlePO selectOSGiBundlePage = new HostOSGiBundlePO( bot );
         AddFilesToOverridePO addJSPFilesPage = new AddFilesToOverridePO( bot );
 
-        selectOSGiBundlePage.setOSGiBundle( "com.liferay.amazon.rankings.web.jar" );
+        selectOSGiBundlePage.setOSGiBundle( "com.liferay.announcements." );
+        sleep(4000);
         selectOSGiBundlePage.confirm();
 
         moduleFragmentOSGiBundlePage.getAddOverriddenFilesButton().click();
@@ -105,7 +106,7 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
         addJSPFilesPage.confirm();
 
         moduleFragmentOSGiBundlePage.getSelectOSGiBundleButton().click();
-        selectOSGiBundlePage.setOSGiBundle( "com.liferay.blogs.web.jar" );
+        selectOSGiBundlePage.setOSGiBundle( "com.liferay.blogs.web" );
         selectOSGiBundlePage.confirm();
 
         moduleFragmentOSGiBundlePage.getOverriddenFiles().containsItem( null );
@@ -152,6 +153,7 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
         projectTree.expandNode( pathTree ).doubleClick( "init.jsp" );
     }
 
+
     @Before
     public void openWizard()
     {
@@ -167,7 +169,7 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
 
         setRuntimePage.getServerLocation().setText( getLiferayServerDir().toOSString() );
 
-        assertEquals( "tomcat", setRuntimePage.getPortalBundleType().getText() );
+        assertEquals( "Tomcat", setRuntimePage.getPortalBundleType().getText() );
 
         setRuntimePage.finish();
 
