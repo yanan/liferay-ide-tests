@@ -87,7 +87,7 @@ public interface UIBase
     public final String LABEL_NEW_LIFERAY_VAADIN_PORTLET = "New Liferay Vaadin Portlet";
     public final String LABEL_NEW_LIFERAY_PORTLET = "New Liferay Portlet (Liferay 6.x)";
     public final String LABEL_NEW_LIFERAY_WORKSPACE_PROJECT = "New Liferay Workspace Project";
-    public final String LABEL_NEW_LIFERAY_MODULE_FRAGMENT_PROJECT = "New Liferay Module Fragment Project";
+    public final String LABEL_NEW_LIFERAY_MODULE_PROJECT_FRAGMENT = "New Liferay Module Project Fragment";
     public final String LABEL_NEW_LIFERAY_WORPSPACE_PROJECT = "New Liferay Workspace Project";
     public final String LABEL_NEW_LIFERAY_COMPONENT_CLASS = "New Liferay Component Class";
 
