@@ -73,8 +73,8 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
 
         newModuleFragmentPage.setProjectName( "*" );
         sleep();
-        assertEquals( " *" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'*'.",
-            newModuleFragmentPage.getValidationMessage() );
+        assertEquals(
+            " *" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'*'.", newModuleFragmentPage.getValidationMessage() );
 
         newModuleFragmentPage.setProjectName( TEXT_BLANK );
         sleep();
@@ -96,6 +96,15 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
 
         HostOSGiBundlePO selectOSGiBundlePage = new HostOSGiBundlePO( bot );
         AddFilesToOverridePO addJSPFilesPage = new AddFilesToOverridePO( bot );
+
+        selectOSGiBundlePage.setOSGiBundle( "com.liferay.announcements." );
+        selectOSGiBundlePage.confirm();
+
+        moduleFragmentOSGiBundlePage.getAddOverriddenFilesButton().click();
+        addJSPFilesPage.select( "META-INF/resources/configuration.jsp" );
+        addJSPFilesPage.confirm();
+
+        moduleFragmentOSGiBundlePage.getSelectOSGiBundleButton().click();
 
         selectOSGiBundlePage.setOSGiBundle( "com.liferay.blogs.web" );
         selectOSGiBundlePage.confirm();
