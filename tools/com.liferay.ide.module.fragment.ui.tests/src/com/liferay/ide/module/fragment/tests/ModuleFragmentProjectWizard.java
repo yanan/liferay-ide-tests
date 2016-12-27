@@ -42,7 +42,7 @@ public interface ModuleFragmentProjectWizard extends UIBase
 
     public final String TEXT_ENTER_PROJECT_NAME = " Project name must be specified";
     public final String TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME = " is an invalid character in resource name ";
-    public final String TEXT_INVALID_GRADLE_PROJECT = "The project name is invalid for a gradle project";
+    public final String TEXT_INVALID_GRADLE_PROJECT = "The project name is invalid.";
     public final String TEXT_INVALID_NAME_ON_PLATFORM = " is an invalid name on this platform.";
     public final String TEXT_OSGI_BUNDLE_BLANK = " Host OSGi Bundle must be specified";
 
