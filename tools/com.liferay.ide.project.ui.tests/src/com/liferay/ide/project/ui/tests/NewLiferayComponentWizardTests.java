@@ -103,18 +103,18 @@ public class NewLiferayComponentWizardTests extends SWTBotBase
         assertFalse( newLiferayComponentWizard.finishButton().isEnabled() );
         newLiferayComponentWizard.getPackageName().setText( "-" );
         sleep( 1000 );
-        assertEquals( " \"-\"" + TEXT_VALIDATION_PACKAGE_NAME_MESSAGE,
-            newLiferayComponentWizard.getValidationMessage() );
+        assertEquals(
+            " \"-\"" + TEXT_VALIDATION_PACKAGE_NAME_MESSAGE, newLiferayComponentWizard.getValidationMessage() );
         assertFalse( newLiferayComponentWizard.finishButton().isEnabled() );
         newLiferayComponentWizard.getPackageName().setText( "." );
         sleep( 1000 );
-        assertEquals( " \".\"" + TEXT_VALIDATION_PACKAGE_NAME_MESSAGE,
-            newLiferayComponentWizard.getValidationMessage() );
+        assertEquals(
+            " \".\"" + TEXT_VALIDATION_PACKAGE_NAME_MESSAGE, newLiferayComponentWizard.getValidationMessage() );
         assertFalse( newLiferayComponentWizard.finishButton().isEnabled() );
         newLiferayComponentWizard.getPackageName().setText( "/" );
         sleep( 1000 );
-        assertEquals( " \"/\"" + TEXT_VALIDATION_PACKAGE_NAME_MESSAGE,
-            newLiferayComponentWizard.getValidationMessage() );
+        assertEquals(
+            " \"/\"" + TEXT_VALIDATION_PACKAGE_NAME_MESSAGE, newLiferayComponentWizard.getValidationMessage() );
         assertFalse( newLiferayComponentWizard.finishButton().isEnabled() );
         newLiferayComponentWizard.getPackageName().setText( "a" );
         sleep( 1000 );
@@ -134,23 +134,23 @@ public class NewLiferayComponentWizardTests extends SWTBotBase
         // validation test for Component Class Name
         newLiferayComponentWizard.getComponentClassName().setText( "1" );
         sleep( 1000 );
-        assertEquals( TEXT_VALIDATION_COMPONENT_CLASS_TEMPLATE_MESSAGE,
-            newLiferayComponentWizard.getValidationMessage() );
+        assertEquals(
+            TEXT_VALIDATION_COMPONENT_CLASS_TEMPLATE_MESSAGE, newLiferayComponentWizard.getValidationMessage() );
         assertFalse( newLiferayComponentWizard.finishButton().isEnabled() );
         newLiferayComponentWizard.getComponentClassName().setText( "-" );
         sleep( 1000 );
-        assertEquals( TEXT_VALIDATION_COMPONENT_CLASS_TEMPLATE_MESSAGE,
-            newLiferayComponentWizard.getValidationMessage() );
+        assertEquals(
+            TEXT_VALIDATION_COMPONENT_CLASS_TEMPLATE_MESSAGE, newLiferayComponentWizard.getValidationMessage() );
         assertFalse( newLiferayComponentWizard.finishButton().isEnabled() );
         newLiferayComponentWizard.getComponentClassName().setText( "." );
         sleep( 1000 );
-        assertEquals( TEXT_VALIDATION_COMPONENT_CLASS_TEMPLATE_MESSAGE,
-            newLiferayComponentWizard.getValidationMessage() );
+        assertEquals(
+            TEXT_VALIDATION_COMPONENT_CLASS_TEMPLATE_MESSAGE, newLiferayComponentWizard.getValidationMessage() );
         assertFalse( newLiferayComponentWizard.finishButton().isEnabled() );
         newLiferayComponentWizard.getComponentClassName().setText( "/" );
         sleep( 1000 );
-        assertEquals( TEXT_VALIDATION_COMPONENT_CLASS_TEMPLATE_MESSAGE,
-            newLiferayComponentWizard.getValidationMessage() );
+        assertEquals(
+            TEXT_VALIDATION_COMPONENT_CLASS_TEMPLATE_MESSAGE, newLiferayComponentWizard.getValidationMessage() );
         assertFalse( newLiferayComponentWizard.finishButton().isEnabled() );
         newLiferayComponentWizard.getComponentClassName().setText( "a" );
         sleep( 1000 );
@@ -220,23 +220,23 @@ public class NewLiferayComponentWizardTests extends SWTBotBase
         assertEquals( "", newLiferayComponentWizard.getModelClaa().getText() );
         newLiferayComponentWizard.setModelClassName( "tt" );
         sleep();
-        assertEquals( " \"tt\"" + TEXT_NOT_AMONG_POSSIBLE_VALUES_MESSAGE,
-            newLiferayComponentWizard.getValidationMessage() );
+        assertEquals(
+            " \"tt\"" + TEXT_NOT_AMONG_POSSIBLE_VALUES_MESSAGE, newLiferayComponentWizard.getValidationMessage() );
         assertFalse( newLiferayComponentWizard.finishButton().isEnabled() );
         newLiferayComponentWizard.setModelClassName( "1" );
         sleep();
-        assertEquals( " \"1\"" + TEXT_NOT_AMONG_POSSIBLE_VALUES_MESSAGE,
-            newLiferayComponentWizard.getValidationMessage() );
+        assertEquals(
+            " \"1\"" + TEXT_NOT_AMONG_POSSIBLE_VALUES_MESSAGE, newLiferayComponentWizard.getValidationMessage() );
         assertFalse( newLiferayComponentWizard.finishButton().isEnabled() );
         newLiferayComponentWizard.setModelClassName( "-" );
         sleep();
-        assertEquals( " \"-\"" + TEXT_NOT_AMONG_POSSIBLE_VALUES_MESSAGE,
-            newLiferayComponentWizard.getValidationMessage() );
+        assertEquals(
+            " \"-\"" + TEXT_NOT_AMONG_POSSIBLE_VALUES_MESSAGE, newLiferayComponentWizard.getValidationMessage() );
         assertFalse( newLiferayComponentWizard.finishButton().isEnabled() );
         newLiferayComponentWizard.setModelClassName( "." );
         sleep();
-        assertEquals( " \".\"" + TEXT_NOT_AMONG_POSSIBLE_VALUES_MESSAGE,
-            newLiferayComponentWizard.getValidationMessage() );
+        assertEquals(
+            " \".\"" + TEXT_NOT_AMONG_POSSIBLE_VALUES_MESSAGE, newLiferayComponentWizard.getValidationMessage() );
         assertFalse( newLiferayComponentWizard.finishButton().isEnabled() );
         newLiferayComponentWizard.setModelClassName( "" );
         sleep();
@@ -339,7 +339,8 @@ public class NewLiferayComponentWizardTests extends SWTBotBase
         selectServiceName.confirm();
         sleep( 2000 );
 
-        assertEquals( "com.liferay.bookmarks.service.BookmarksEntryLocalServiceWrapper",
+        assertEquals(
+            "com.liferay.bookmarks.service.BookmarksEntryLocalServiceWrapper",
             newLiferayComponentWizard.getServiceName().getText() );
         newLiferayComponentWizard.finish();
         sleep( 5000 );
@@ -388,10 +389,10 @@ public class NewLiferayComponentWizardTests extends SWTBotBase
 
         String[] expectedComponentTemplateItems = { MENU_TEMPLATE_AUTH_FAILURES, MENU_TEMPLATE_AUTH_MAX_FAILURE,
             MENU_TEMPLATE_AUTHENTICATOR, MENU_TEMPLATE_FRIENDLY_URL_MAPPER, MENU_TEMPLATE_GOGO_COMMAND,
-            MENU_TEMPLATE_INDEXER_POST_PROCESSOR, MENU_TEMPLATE_LOGIN_PRE_ACTION, MENU_TEMPLATE_MODEL_LISTENER,
-            MENU_TEMPLATE_POLLER_PROCESSOR, MENU_TEMPLATE_PORTLET, MENU_TEMPLATE_PORTLET_ACTION_COMMAND,
-            MENU_TEMPLATE_PORTLET_FILTER, MENU_TEMPLATE_REST, MENU_TEMPLATE_SERVICE_WRAPPER,
-            MENU_TEMPLATE_STRUTS_IN_ACTION, MENU_TEMPLATE_STRUTS_PORTLET_ACTION };
+            MENU_TEMPLATE_INDEXER_POST_PROCESSOR, MENU_TEMPLATE_LOGIN_PRE_ACTION, MENU_TEMPLATE_MVC_PORTLET,
+            MENU_TEMPLATE_MODEL_LISTENER, MENU_TEMPLATE_POLLER_PROCESSOR, MENU_TEMPLATE_PORTLET,
+            MENU_TEMPLATE_PORTLET_ACTION_COMMAND, MENU_TEMPLATE_PORTLET_FILTER, MENU_TEMPLATE_REST,
+            MENU_TEMPLATE_SERVICE_WRAPPER, MENU_TEMPLATE_STRUTS_IN_ACTION, MENU_TEMPLATE_STRUTS_PORTLET_ACTION };
 
         String[] componentTemplateItems =
             newLiferayComponentWizard.getComponentClassTemplate().getAvailableComboValues();
@@ -455,6 +456,34 @@ public class NewLiferayComponentWizardTests extends SWTBotBase
 
         eclipse.getPackageExporerView().deleteResouceByName( "fragmentTest", true );
 
+        // create module theme project
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
+        sleep( 10000 );
+
+        createModuleProjectWizard.createModuleProject( "themeTest", MENU_MODULE_THEME );
+        createModuleProjectWizard.finish();
+        sleep( 15000 );
+
+        // open component wizard again then check state to make sure it couldn't support new component class
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayComponentClass().click();
+
+        newLiferayComponentWizard.waitForPageToOpen();
+
+        // check default state again
+        assertEquals( TEXT_DEFAULT_PROJECT_NAME_VALUE, newLiferayComponentWizard.getProjectName().getText() );
+        assertEquals( TEXT_DEFAULT_PACKAGE_NAME_VALUE, newLiferayComponentWizard.getPackageName().getText() );
+        assertEquals(
+            TEXT_DEFAULT_COMPONENT_CLASS_NAME_VALUE, newLiferayComponentWizard.getComponentClassName().getText() );
+        assertEquals(
+            TEXT_DEFAULT_COMPONENT_CLASS_TEMPLATE_VALUE,
+            newLiferayComponentWizard.getComponentClassTemplate().getText() );
+        assertEquals( TEXT_ENTER_PROJECT_NAME_MESSAGE, newLiferayComponentWizard.getValidationMessage() );
+        assertFalse( newLiferayComponentWizard.finishButton().isEnabled() );
+
+        newLiferayComponentWizard.cancel();
+
+        eclipse.getPackageExporerView().deleteResouceByName( "themeTest", true );
+
     }
 
     @Before
@@ -476,7 +505,7 @@ public class NewLiferayComponentWizardTests extends SWTBotBase
             new CreateModuleProjectWizardPO( bot, INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE );
 
         createModuleProjectWizard.createModuleProject( "test" );
-        sleep( 60000 );
+        sleep( 120000 );
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
 
         createModuleProjectWizard.cancel();

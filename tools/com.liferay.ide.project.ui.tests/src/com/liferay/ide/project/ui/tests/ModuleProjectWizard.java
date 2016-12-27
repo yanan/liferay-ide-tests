@@ -43,34 +43,37 @@ public interface ModuleProjectWizard extends UIBase
     public final String TOOLBARBOTTON_MOVE_DOWN = "Move Down";
     public final String TOOLBARBOTTON_DELETE = "Delete";
 
-    public final String MENU_MODULE_MVCPORTLET = "mvcportlet";
+    public final String MENU_MODULE_MVC_PORTLET = "mvc-portlet";
     public final String MENU_MODULE_ACTIVATOR = "activator";
-    public final String MENU_MODULE_CONTENTTARGETINGRULE = "contenttargetingrule";
-    public final String MENU_MODULE_CONTENTTARGETINGTRACKINGACTION = "contenttargetingtrackingaction";
-    public final String MENU_MODULE_CONTROLMENUENTRY = "controlmenuentry";
+    public final String MENU_MODULE_CONTENT_TARGETING_RULE = "content-targeting-rule";
+    public final String MENU_MODULE_CONTENT_TARGETING_TRACKING_ACTION = "content-targeting-tracking-action";
+    public final String MENU_MODULE_CONTROL_MENU_ENTRY = "control-menu-entry";
     public final String MENU_MODULE_PORTLET = "portlet";
     public final String MENU_MODULE_SERVICE = "service";
-    public final String MENU_MODULE_SERVICEBUILDER = "servicebuilder";
-    public final String MENU_MODULE_SERVICEWRAPPER = "servicewrapper";
-    public final String MENU_MODULE_CONTENTTARGETINGGREPORT = "contenttargetingreport";
-    public final String MENU_MODULE_PANELAPP = "panelapp";
-    public final String MENU_MODULE_PORTLETPROVIDER = "portletprovider";
+    public final String MENU_MODULE_SERVICE_BUILDER = "service-builder";
+    public final String MENU_MODULE_SERVICE_WRAPPER = "service-wrapper";
+    public final String MENU_MODULE_CONTENT_TARGETING_REPORT = "content-targeting-report";
+    public final String MENU_MODULE_PANEL_APP = "panel-app";
+    public final String MENU_MODULE_PORTLET_PROVIDER = "portlet-provider";
     public final String MENU_MODULE_API = "api";
-    public final String MENU_MODULE_PORTLETCONFIGURATIONICON = "portletconfigurationicon";
-    public final String MENU_MODULE_PORTLETTOOLBARCONTRIBUTOR = "portlettoolbarcontributor";
-    public final String MENU_MODULE_SIMULATIONPANELENTRY = "simulationpanelentry";
-    public final String MENU_MODULE_TEMPLATECONTEXTCONTRIBUTOR = "templatecontextcontributor";
+    public final String MENU_MODULE_PORTLET_CONFIGURATION_ICON = "portlet-configuration-icon";
+    public final String MENU_MODULE_PORTLET_TOOLBAR_CONTRIBUTOR = "portlet-toolbar-contributor";
+    public final String MENU_MODULE_SIMULATION_PANEL_ENTRY = "simulation-panel-entry";
+    public final String MENU_MODULE_TEMPLATE_CONTEXT_CONTRIBUTOR = "template-context-contributor";
+    public final String MENU_MODULE_REST = "rest";
+    public final String MENU_MODULE_THEME = "theme";
+    public final String MENU_MODULE_THEME_CONTRIBUTOR = "theme-contributor";
 
     public final String TEXT_BUILD_TYPE = "gradle-module";
+    public final String TEXT_BUILD_TYPE_MAVEN = "maven-module";
     public final String TEXT_ENTER_MODULE_PROJECT_NAME_MESSAGE = "Please enter a project name.";
-    public final String TEXT_DOWNLOADING_TEMPLATE_MESSAGE = " Downloading templates, please wait...";
     public final String TEXT_NEW_LIFERAY_MODULE_MESSAGE =
         "Enter a name and choose a template to use for a new Liferay module.";
     public final String TEXT_MUST_SPECIFIED_PROJECT_NAME = " Project name must be specified";
     public final String TEXT_CONFIGURE_COMPONENT_CLASS = "Configure Component Class";
     public final String TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME = " is an invalid character in resource name ";
     public final String TEXT_INVALID_NAME_ON_PLATFORM = " is an invalid name on this platform.";
-    public final String TEXT_INVALID_NAME_FOR_GRADLE_PROJECT = " The project name is invalid for a gradle project";
+    public final String TEXT_INVALID_NAME_FOR_GRADLE_PROJECT = " The project name is invalid.";
     public final String TEXT_SERVICE_NAME_MUST_BE_SPECIFIED = " Service Name must be specified";
 
     public final int INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE = 2;
