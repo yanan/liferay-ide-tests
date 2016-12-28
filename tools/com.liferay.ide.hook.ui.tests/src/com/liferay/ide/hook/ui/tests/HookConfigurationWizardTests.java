@@ -17,6 +17,7 @@ package com.liferay.ide.hook.ui.tests;
 
 import static org.eclipse.swtbot.swt.finder.SWTBotAssert.assertContains;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -29,7 +30,6 @@ import org.junit.Test;
 
 import com.liferay.ide.hook.ui.tests.page.AddEventActionPO;
 import com.liferay.ide.hook.ui.tests.page.AddJSPFilePathPO;
-import com.liferay.ide.hook.ui.tests.page.AddLanguagePropertyPO;
 import com.liferay.ide.hook.ui.tests.page.AddPortalPropertiesOverridePO;
 import com.liferay.ide.hook.ui.tests.page.AddServiceWarningPO;
 import com.liferay.ide.hook.ui.tests.page.AddServiceWrapperPO;
@@ -54,6 +54,7 @@ import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 
 /**
  * @author Vicky Wang
+ * @author Ying Xu
  */
 public class HookConfigurationWizardTests extends SWTBotBase implements HookConfigurationWizard
 {
@@ -83,15 +84,6 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         unzipServer();
     }
 
-    private SetSDKLocationPO getSetSDKLoactionPage()
-    {
-        SetSDKLocationPO page = new SetSDKLocationPO( bot );
-
-        page.setSdkLocation( getLiferayPluginsSdkDir().toString() );
-
-        return page;
-    }
-
     @Test
     public void hookConfigurationAllHookTypes()
     {
@@ -104,6 +96,15 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         newHookTypesPage.getServices().select();
         newHookTypesPage.getLanguageProperties().select();
 
+        LanguagePropertiesPO languagePropertiesPage = new LanguagePropertiesPO(
+            bot, WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION, INDEX_LANGUAGE_PROPERTIES_VALIDATION_MESSAGE );
+
+        assertEquals(
+            " Modifying Language properties in Plugins SDK 7.0 is not supported, use Liferay module instead.",
+            languagePropertiesPage.getValidationMessage() );
+        assertFalse( languagePropertiesPage.nextButton().isEnabled() );
+
+        newHookTypesPage.getLanguageProperties().deselect();
         newHookTypesPage.next();
 
         // Custom JSPs
@@ -139,18 +140,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         serviceWrapperPage.setImplClassText( "com.liferay.portal.service.AddressServiceWrapper" );
         serviceWrapperPage.confirm();
 
-        servicesPage.next();
-
-        // Language Properties
-        LanguagePropertiesPO languagePropertiesPage =
-            new LanguagePropertiesPO( bot, INDEX_LANGUAGE_PROPERTIES_VALIDATION_MESSAGE );
-
-        AddLanguagePropertyPO languageProperty = new AddLanguagePropertyPO( bot );
-
-        languagePropertiesPage.getAddButton().click();
-        languageProperty.setLanguagePropertyFileText( "languageTest.properties" );
-        languageProperty.confirm();
-        languagePropertiesPage.finish();
+        servicesPage.finish();
 
         TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
 
@@ -170,12 +160,6 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         assertContains( "portalProperties=portalPropertiesClass", textEditor.getText() );
 
-        projectTree = eclipse.showPackageExporerView().getProjectTree();
-
-        fileName = "languageTest.properties";
-
-        projectTree.expandNode(
-            new String[] { projectHookName + "-hook", "docroot/WEB-INF/src", "content" } ).doubleClick( fileName );
     }
 
     @Test
@@ -244,70 +228,21 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
     @Test
     public void hookConfigurationLanguageProperties()
     {
-        String defaultMessage = "Create new Language properties files.";
-        String errorMessage = " Content folder not configured.";
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayHookConfigration().click();
 
         newHookTypesPage.getLanguageProperties().select();
 
-        newHookTypesPage.next();
-
         LanguagePropertiesPO languagePropertiesPage = new LanguagePropertiesPO(
-            bot, "New Liferay Hook Configuration", INDEX_LANGUAGE_PROPERTIES_VALIDATION_MESSAGE );
+            bot, WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION, INDEX_LANGUAGE_PROPERTIES_VALIDATION_MESSAGE );
 
-        assertEquals( defaultMessage, languagePropertiesPage.getValidationMessage() );
         assertEquals(
-            "/hook-configuration-wizard-hook/docroot/WEB-INF/src/content",
-            languagePropertiesPage.getContentFolderText() );
+            " Modifying Language properties in Plugins SDK 7.0 is not supported, use Liferay module instead.",
+            languagePropertiesPage.getValidationMessage() );
+        assertFalse( languagePropertiesPage.nextButton().isEnabled() );
 
-        languagePropertiesPage.setContentFolderText( "" );
-        // sleep( 500 );
+        newHookTypesPage.cancel();
 
-        assertEquals( errorMessage, languagePropertiesPage.getValidationMessage() );
-
-        languagePropertiesPage.getBrowseButton().click();
-        // sleep( 500 );
-        ContainerSelectionPO chooseFolder = new ContainerSelectionPO( bot );
-
-        chooseFolder.select( "hook-configuration-wizard-hook", "docroot", "WEB-INF", "src" );
-
-        chooseFolder.confirm();
-
-        // sleep( 500 );
-
-        // Language property files
-        languagePropertiesPage.getAddButton().click();
-
-        AddLanguagePropertyPO languageProperty = new AddLanguagePropertyPO( bot );
-        languageProperty.setLanguagePropertyFileText( "test.properties" );
-        languageProperty.confirm();
-
-        languagePropertiesPage.getAddButton().click();
-
-        languageProperty.setLanguagePropertyFileText( "test-hook" );
-        languageProperty.confirm();
-
-        languagePropertiesPage.setFocus();
-        languagePropertiesPage.clickLanguagePropertyFiles( 1 );
-
-        languagePropertiesPage.getEditButton().click();
-
-        languageProperty.setLanguagePropertyFileText( "hook" );
-        languageProperty.confirm();
-
-        languagePropertiesPage.setFocus();
-        languagePropertiesPage.clickLanguagePropertyFiles( 1 );
-
-        languagePropertiesPage.getRemoveButton().click();
-
-        languagePropertiesPage.finish();
-
-        TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
-
-        projectTree.expandNode(
-            new String[] { projectHookName + "-hook", "docroot/WEB-INF/src", "content" } ).doubleClick(
-                "test.properties" );
     }
 
     @Test
@@ -369,7 +304,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         EventSelectionPO eventSelectionPage = new EventSelectionPO( bot );
         eventActionPage.getSelectClass().click();
 
-        sleep( 20000 );
+        sleep( 30000 );
         eventSelectionPage.setEventAction( "ObjectAction" );
 
         eventSelectionPage.confirm();
@@ -537,23 +472,25 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
 
-        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot );
+        CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot );
 
         String projectHookName = "hook-configuration-wizard";
 
-        page1.createSDKProject( projectHookName, MENU_HOOK );
+        createProjectWizard.createSDKProject( projectHookName, MENU_HOOK );
 
         if( hasAddedProject )
         {
-            page1.finish();
+            createProjectWizard.finish();
         }
         else
         {
-            page1.next();
+            createProjectWizard.next();
 
-            SetSDKLocationPO page2 = getSetSDKLoactionPage();
+            SetSDKLocationPO setSDKLocation = new SetSDKLocationPO( bot );
 
-            page2.finish();
+            setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
+
+            setSDKLocation.finish();
         }
     }
 }
