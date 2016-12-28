@@ -36,6 +36,7 @@ import com.liferay.ide.ui.tests.SWTBotBase;
 
 /**
  * @author Li Lu
+ * @author Ying Xu
  */
 public class NewLayoutTemplateWizardTests extends SWTBotBase implements CreateLayouttplWizard, ProjectWizard
 {
@@ -50,25 +51,29 @@ public class NewLayoutTemplateWizardTests extends SWTBotBase implements CreateLa
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
 
-        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot );
-        page1.createSDKProject( projectName, MENU_LAYOUT_TEMPLATE );
+        CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot );
 
-        if( page1.finishButton().isEnabled() )
+        createProjectWizard.createSDKProject( projectName, MENU_LAYOUT_TEMPLATE );
+
+        if( createProjectWizard.finishButton().isEnabled() )
         {
-            page1.finish();
+            createProjectWizard.finish();
         }
         else
         {
-            page1.next();
-            SetSDKLocationPO page2 = new SetSDKLocationPO( bot, "" );
-            page2.setSdkLocation( getLiferayPluginsSdkDir().toString() );
-            page2.finish();
+            createProjectWizard.next();
+
+            SetSDKLocationPO setSDKLocation = new SetSDKLocationPO( bot, "" );
+
+            setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
+
+            setSDKLocation.finish();
         }
     }
 
-    CreateLayoutTemplateWizardPO page = new CreateLayoutTemplateWizardPO( bot );
+    CreateLayoutTemplateWizardPO createLayoutTemplate = new CreateLayoutTemplateWizardPO( bot );
 
-    ChooseInitialTemplatePO page2 = new ChooseInitialTemplatePO( bot );
+    ChooseInitialTemplatePO chooseOneInitialTemplate = new ChooseInitialTemplatePO( bot );
 
     @After
     public void closeWizard()
@@ -87,39 +92,39 @@ public class NewLayoutTemplateWizardTests extends SWTBotBase implements CreateLa
     @Test
     public void testContentDefaultValues() throws Exception
     {
-        // check default values page 1
-        assertEquals( projectName, page.getLayoutPluginProjectText() );
-        assertEquals( "New Template", page.getNameText() );
-        assertEquals( "newtemplate", page.getIdText() );
-        assertEquals( "/newtemplate.tpl", page.getTemplateFileText() );
-        assertEquals( "/newtemplate.wap.tpl", page.getWapTemplateFileText() );
-        assertEquals( "/newtemplate.png", page.getThumbnailFileText() );
-        // page2
-        page.next();
-        assertEquals( true, page2.isRadioSelected( 0 ) );
-        assertEquals( false, page2.isRadioSelected( 1 ) );
-        assertEquals( false, page2.isRadioSelected( 2 ) );
-        assertEquals( false, page2.isRadioSelected( 3 ) );
-        assertEquals( false, page2.isRadioSelected( 4 ) );
-        assertEquals( false, page2.isRadioSelected( 5 ) );
-        assertEquals( false, page2.isRadioSelected( 6 ) );
-        assertEquals( false, page2.isRadioSelected( 7 ) );
-        assertEquals( false, page2.isRadioSelected( 8 ) );
+        // check default values
+        assertEquals( projectName, createLayoutTemplate.getLayoutPluginProjectText() );
+        assertEquals( "New Template", createLayoutTemplate.getNameText() );
+        assertEquals( "newtemplate", createLayoutTemplate.getIdText() );
+        assertEquals( "/newtemplate.tpl", createLayoutTemplate.getTemplateFileText() );
+        assertEquals( "/newtemplate.wap.tpl", createLayoutTemplate.getWapTemplateFileText() );
+        assertEquals( "/newtemplate.png", createLayoutTemplate.getThumbnailFileText() );
+        // Select initial template to start designing.
+        createLayoutTemplate.next();
+        assertEquals( true, chooseOneInitialTemplate.isRadioSelected( 0 ) );
+        assertEquals( false, chooseOneInitialTemplate.isRadioSelected( 1 ) );
+        assertEquals( false, chooseOneInitialTemplate.isRadioSelected( 2 ) );
+        assertEquals( false, chooseOneInitialTemplate.isRadioSelected( 3 ) );
+        assertEquals( false, chooseOneInitialTemplate.isRadioSelected( 4 ) );
+        assertEquals( false, chooseOneInitialTemplate.isRadioSelected( 5 ) );
+        assertEquals( false, chooseOneInitialTemplate.isRadioSelected( 6 ) );
+        assertEquals( false, chooseOneInitialTemplate.isRadioSelected( 7 ) );
+        assertEquals( false, chooseOneInitialTemplate.isRadioSelected( 8 ) );
     }
 
     @Test
     public void testCreateLayoutTemplate()
     {
-        page.setNameText( "Test Template" );
-        page.setIdText( "testtesttemplate" );
-        page.setTemplateFileText( "testtemplate.tpl" );
-        page.setWapTemplateFileText( "testtemplate.wap.tpl" );
-        page.setThumbnailFileText( "testtemplate.png" );
+        createLayoutTemplate.setNameText( "Test Template" );
+        createLayoutTemplate.setIdText( "testtesttemplate" );
+        createLayoutTemplate.setTemplateFileText( "testtemplate.tpl" );
+        createLayoutTemplate.setWapTemplateFileText( "testtemplate.wap.tpl" );
+        createLayoutTemplate.setThumbnailFileText( "testtemplate.png" );
 
-        page.next();
-        ChooseInitialTemplatePO page2 = new ChooseInitialTemplatePO( bot );
-        page2.selectRadio( 1 );
-        page.finish();
+        createLayoutTemplate.next();
+        ChooseInitialTemplatePO chooseOneInitialTemplate = new ChooseInitialTemplatePO( bot );
+        chooseOneInitialTemplate.selectRadio( 1 );
+        createLayoutTemplate.finish();
 
         sleep( 2000 );
         assertEquals( true, eclipse.getProjectTree().hasTreeItem( projectName, "docroot", "test.tpl" ) );
@@ -131,52 +136,52 @@ public class NewLayoutTemplateWizardTests extends SWTBotBase implements CreateLa
     @Test
     public void testID()
     {
-        page.setIdText( "" );
+        createLayoutTemplate.setIdText( "" );
 
-        assertEquals( "New Template", page.getNameText() );
-        assertEquals( "/.tpl", page.getTemplateFileText() );
-        assertEquals( "/.wap.tpl", page.getWapTemplateFileText() );
-        assertEquals( "/.png", page.getThumbnailFileText() );
-        assertEquals( TEXT_ID_CANNT_BE_EMPTY, page.getValidationMessage() );
-        assertEquals( false, page.finishButton().isEnabled() );
+        assertEquals( "New Template", createLayoutTemplate.getNameText() );
+        assertEquals( "/.tpl", createLayoutTemplate.getTemplateFileText() );
+        assertEquals( "/.wap.tpl", createLayoutTemplate.getWapTemplateFileText() );
+        assertEquals( "/.png", createLayoutTemplate.getThumbnailFileText() );
+        assertEquals( TEXT_ID_CANNT_BE_EMPTY, createLayoutTemplate.getValidationMessage() );
+        assertEquals( false, createLayoutTemplate.finishButton().isEnabled() );
 
-        page.setIdText( "layout test" );
-        assertEquals( "New Template", page.getNameText() );
-        assertEquals( "/layout test.tpl", page.getTemplateFileText() );
-        assertEquals( "/layout test.wap.tpl", page.getWapTemplateFileText() );
-        assertEquals( "/layout test.png", page.getThumbnailFileText() );
-        assertEquals( TEXT_ID_INVALID, page.getValidationMessage() );
-        assertEquals( false, page.finishButton().isEnabled() );
+        createLayoutTemplate.setIdText( "layout test" );
+        assertEquals( "New Template", createLayoutTemplate.getNameText() );
+        assertEquals( "/layout test.tpl", createLayoutTemplate.getTemplateFileText() );
+        assertEquals( "/layout test.wap.tpl", createLayoutTemplate.getWapTemplateFileText() );
+        assertEquals( "/layout test.png", createLayoutTemplate.getThumbnailFileText() );
+        assertEquals( TEXT_ID_INVALID, createLayoutTemplate.getValidationMessage() );
+        assertEquals( false, createLayoutTemplate.finishButton().isEnabled() );
 
-        page.setIdText( "newtemplate" );
-        assertEquals( TEXT_DEFAULT_MESSAGE, page.getValidationMessage() );
+        createLayoutTemplate.setIdText( "newtemplate" );
+        assertEquals( TEXT_DEFAULT_MESSAGE, createLayoutTemplate.getValidationMessage() );
     }
 
     @Test
     public void testName()
     {
-        page.setNameText( "" );
+        createLayoutTemplate.setNameText( "" );
 
-        assertEquals( "", page.getIdText() );
-        assertEquals( "/.tpl", page.getTemplateFileText() );
-        assertEquals( "/.wap.tpl", page.getWapTemplateFileText() );
-        assertEquals( "/.png", page.getThumbnailFileText() );
-        assertEquals( TEXT_ID_CANNT_BE_EMPTY, page.getValidationMessage() );
-        assertEquals( false, page.finishButton().isEnabled() );
+        assertEquals( "", createLayoutTemplate.getIdText() );
+        assertEquals( "/.tpl", createLayoutTemplate.getTemplateFileText() );
+        assertEquals( "/.wap.tpl", createLayoutTemplate.getWapTemplateFileText() );
+        assertEquals( "/.png", createLayoutTemplate.getThumbnailFileText() );
+        assertEquals( TEXT_ID_CANNT_BE_EMPTY, createLayoutTemplate.getValidationMessage() );
+        assertEquals( false, createLayoutTemplate.finishButton().isEnabled() );
 
-        page.setNameText( "New_ Template" );
-        assertEquals( "newtemplate", page.getIdText() );
-        assertEquals( TEXT_DEFAULT_MESSAGE, page.getValidationMessage() );
+        createLayoutTemplate.setNameText( "New_ Template" );
+        assertEquals( "newtemplate", createLayoutTemplate.getIdText() );
+        assertEquals( TEXT_DEFAULT_MESSAGE, createLayoutTemplate.getValidationMessage() );
 
-        page.setNameText( "" );
-        page.setIdText( "newtemplate" );
-        assertEquals( TEXT_DEFAULT_MESSAGE, page.getValidationMessage() );
+        createLayoutTemplate.setNameText( "" );
+        createLayoutTemplate.setIdText( "newtemplate" );
+        assertEquals( TEXT_DEFAULT_MESSAGE, createLayoutTemplate.getValidationMessage() );
     }
 
     @Test
     public void testTemplateFile()
     {
-        page.clickBrowseButton( 0 );
+        createLayoutTemplate.clickBrowseButton( 0 );
 
         TempalteSelectionDialogPO templateFileSelection = new TempalteSelectionDialogPO( bot );
 
@@ -191,21 +196,21 @@ public class NewLayoutTemplateWizardTests extends SWTBotBase implements CreateLa
         templateFileSelection.select( "test.tpl" );
         templateFileSelection.confirm();
 
-        assertEquals( TEXT_TEMPLATE_FILE_EXIST, page.getValidationMessage() );
-        assertEquals( true, page.finishButton().isEnabled() );
+        assertEquals( TEXT_TEMPLATE_FILE_EXIST, createLayoutTemplate.getValidationMessage() );
+        assertEquals( true, createLayoutTemplate.finishButton().isEnabled() );
 
-        page.setTemplateFileText( "" );
-        assertEquals( TEXT_TEMPLATE_FILE_INVALID, page.getValidationMessage() );
-        assertEquals( false, page.finishButton().isEnabled() );
+        createLayoutTemplate.setTemplateFileText( "" );
+        assertEquals( TEXT_TEMPLATE_FILE_INVALID, createLayoutTemplate.getValidationMessage() );
+        assertEquals( false, createLayoutTemplate.finishButton().isEnabled() );
 
-        page.setTemplateFileText( "aa.tpl" );
-        assertEquals( true, page.finishButton().isEnabled() );
+        createLayoutTemplate.setTemplateFileText( "aa.tpl" );
+        assertEquals( true, createLayoutTemplate.finishButton().isEnabled() );
     }
 
     @Test
     public void testThumbnailFile()
     {
-        page.clickBrowseButton( 2 );
+        createLayoutTemplate.clickBrowseButton( 2 );
 
         TempalteSelectionDialogPO thumbnailFileSelection = new TempalteSelectionDialogPO( bot );
 
@@ -221,21 +226,21 @@ public class NewLayoutTemplateWizardTests extends SWTBotBase implements CreateLa
         thumbnailFileSelection.select( "blank_columns.wap.tpl" );
         thumbnailFileSelection.confirm();
 
-        assertEquals( TEXT_THUMBNAIL_FILE_EXIST, page.getValidationMessage() );
-        assertEquals( true, page.finishButton().isEnabled() );
+        assertEquals( TEXT_THUMBNAIL_FILE_EXIST, createLayoutTemplate.getValidationMessage() );
+        assertEquals( true, createLayoutTemplate.finishButton().isEnabled() );
 
-        page.setThumbnailFileText( "" );
-        assertEquals( TEXT_THUMBNAIL_FILE_INVALID, page.getValidationMessage() );
-        assertEquals( false, page.finishButton().isEnabled() );
+        createLayoutTemplate.setThumbnailFileText( "" );
+        assertEquals( TEXT_THUMBNAIL_FILE_INVALID, createLayoutTemplate.getValidationMessage() );
+        assertEquals( false, createLayoutTemplate.finishButton().isEnabled() );
 
-        page.setThumbnailFileText( "/aa.wap.tpl" );
-        assertEquals( true, page.finishButton().isEnabled() );
+        createLayoutTemplate.setThumbnailFileText( "/aa.wap.tpl" );
+        assertEquals( true, createLayoutTemplate.finishButton().isEnabled() );
     }
 
     @Test
     public void testWapTemplateFile()
     {
-        page.clickBrowseButton( 1 );
+        createLayoutTemplate.clickBrowseButton( 1 );
 
         TempalteSelectionDialogPO templateFileSelection = new TempalteSelectionDialogPO( bot );
 
@@ -250,14 +255,14 @@ public class NewLayoutTemplateWizardTests extends SWTBotBase implements CreateLa
         templateFileSelection.select( "blank_columns.wap.tpl" );
         templateFileSelection.confirm();
 
-        assertEquals( TEXT_WAP_TEMPLATE_FILE_EXIST, page.getValidationMessage() );
-        assertEquals( true, page.finishButton().isEnabled() );
+        assertEquals( TEXT_WAP_TEMPLATE_FILE_EXIST, createLayoutTemplate.getValidationMessage() );
+        assertEquals( true, createLayoutTemplate.finishButton().isEnabled() );
 
-        page.setWapTemplateFileText( "" );
-        assertEquals( TEXT_WAP_TEMPLATE_FILE_INVALID, page.getValidationMessage() );
-        assertEquals( false, page.finishButton().isEnabled() );
+        createLayoutTemplate.setWapTemplateFileText( "" );
+        assertEquals( TEXT_WAP_TEMPLATE_FILE_INVALID, createLayoutTemplate.getValidationMessage() );
+        assertEquals( false, createLayoutTemplate.finishButton().isEnabled() );
 
-        page.setWapTemplateFileText( "/aa.wap.tpl" );
-        assertEquals( true, page.finishButton().isEnabled() );
+        createLayoutTemplate.setWapTemplateFileText( "/aa.wap.tpl" );
+        assertEquals( true, createLayoutTemplate.finishButton().isEnabled() );
     }
 }
