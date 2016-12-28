@@ -19,6 +19,7 @@ import com.liferay.ide.ui.tests.UIBase;
 
 /**
  * @author Vicky Wang
+ * @author Ying Xu
  */
 public interface HookConfigurationWizard extends UIBase
 {
@@ -30,7 +31,7 @@ public interface HookConfigurationWizard extends UIBase
     public final String BUTTON_SELECT = "Select...";
 
     public final int INDEX_CUSTOM_JSPS_VALIDATION_MESSAGE = 3;
-    public final int INDEX_LANGUAGE_PROPERTIES_VALIDATION_MESSAGE = 1;
+    public final int INDEX_LANGUAGE_PROPERTIES_VALIDATION_MESSAGE = 0;
     public final int INDEX_PORTAL_PROPERTIES_VALIDATION_MESSAGE = 1;
     public final int INDEX_SERVICES_MESSAGE = 0;
     public final int INDEX_VALIDATION_MESSAGE = 2;
@@ -77,6 +78,6 @@ public interface HookConfigurationWizard extends UIBase
     public final String WINDOW_ADD_PROPERTY_OVERRIDE = "Add Property Override";
     public final String WINDOW_ADD_SERVICE = "Add Service";
     public final String WINDOW_ADD_SERVICE_WRAPPER = "Add Service Wrapper";
-    public final String WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION = "New Liferay Hook Configuration";
+    public final String WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION = "New Liferay Hook (Liferay 6.x)";
 
 }
