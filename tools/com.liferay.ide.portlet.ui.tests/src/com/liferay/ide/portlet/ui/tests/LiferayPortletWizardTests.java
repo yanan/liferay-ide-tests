@@ -64,7 +64,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         new CreateProjectWizardPO( bot, LABEL_NEW_LIFERAY_PLUGIN_PROJECT, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_WIZARD );
 
     CreateLiferayPortletWizardPO newPortletPage =
-        new CreateLiferayPortletWizardPO( bot, LABEL_NEW_LIFERAY_PORTLET, INDEX_DEFAULT_CREATE_LIFERAY_PORTLET_WIZARD );
+        new CreateLiferayPortletWizardPO( bot, TITLE_NEW_LIFERAY_PORTLET, INDEX_DEFAULT_CREATE_LIFERAY_PORTLET_WIZARD );
 
     LiferayPortletDeploymentDescriptorPO specifyLiferayPortletDeploymentDescriptorPage =
         new LiferayPortletDeploymentDescriptorPO( bot, INDEX_SPECIFY_LIFERAY_PORTLET_DEPLOYMENT_DESCRIPTOR_PAGE );
@@ -368,7 +368,8 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         specifyLiferayPortletDeploymentDescriptorPage.specifyLiferayDisplay( null, true, null, null, true, null );
 
         assertTrue(
-            Arrays.equals( availableEntryCategories70,
+            Arrays.equals(
+                availableEntryCategories70,
                 specifyLiferayPortletDeploymentDescriptorPage.getEntryCategoryAvailableComboValues() ) );
         assertEquals( "1.5", specifyLiferayPortletDeploymentDescriptorPage.getEntryWeightText() );
         assertEquals(
@@ -407,7 +408,8 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
             "unexistentIcon", false, "unexistentCss", "unexistentJavaScript", null );
 
         assertTrue(
-            isInAvailableLists( specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryAvailableComboValues(),
+            isInAvailableLists(
+                specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryAvailableComboValues(),
                 "my1category" ) );
 
         // entry tests after checked add to control panel
@@ -512,7 +514,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
     }
 
     @Test
-    public void LiferayPorletInfo()
+    public void liferayPorletInfo()
     {
 
         // browse icon tests
@@ -637,7 +639,8 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
         assertEquals( "Sample", specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryCombobox() );
         assertTrue(
-            Arrays.equals( specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryAvailableComboValues(),
+            Arrays.equals(
+                specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryAvailableComboValues(),
                 availableDisplayCategories70 ) );
 
         assertFalse( specifyLiferayPortletDeploymentDescriptorPage.isAddToControlPanelChecked() );
@@ -876,7 +879,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
     }
 
     @Test
-    public void portletDeplymentDesriptorInitialState()
+    public void portletDeploymentDesriptorInitialState()
     {
 
         // relate ticket IDE-2156, regression for IDE-119
@@ -1093,7 +1096,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
             setSdkPage.setSdkLocation( getLiferayPluginsSdkDir().toString() );
         }
-
+        sleep( 4000 );
         newLiferayProjectPage.finish();
 
         sleep( 4000 );
@@ -1172,7 +1175,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
     }
 
     @Test
-    public void specifyPortletClssPageInitialState()
+    public void specifyPortletClassPageInitialState()
     {
 
         // check specfy modifier, interface and method stubs using GenericPortlet superclass
