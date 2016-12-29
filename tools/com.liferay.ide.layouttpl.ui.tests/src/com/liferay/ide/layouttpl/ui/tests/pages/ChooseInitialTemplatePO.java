@@ -44,8 +44,18 @@ public class ChooseInitialTemplatePO extends WizardPO implements CreateLayouttpl
         return new RadioPO( bot, index ).isSelected();
     }
 
+    public boolean isRadioSelected( String label )
+    {
+        return new RadioPO( bot, label ).isSelected();
+    }
+
     public void selectRadio( int index )
     {
         new RadioPO( bot, index ).click();
+    }
+
+    public void selectRadio( String label )
+    {
+        new RadioPO( bot, label ).click();
     }
 }
