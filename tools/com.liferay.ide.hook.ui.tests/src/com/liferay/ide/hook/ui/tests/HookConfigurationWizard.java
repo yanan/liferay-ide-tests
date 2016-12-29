@@ -19,6 +19,7 @@ import com.liferay.ide.ui.tests.UIBase;
 
 /**
  * @author Vicky Wang
+ * @author Ying Xu
  */
 public interface HookConfigurationWizard extends UIBase
 {
@@ -31,6 +32,7 @@ public interface HookConfigurationWizard extends UIBase
 
     public final int INDEX_CUSTOM_JSPS_VALIDATION_MESSAGE = 3;
     public final int INDEX_LANGUAGE_PROPERTIES_VALIDATION_MESSAGE = 1;
+    public final int INDEX_LANGUAGE_PROPERTIES_WITH_SDK7_VALIDATION_MESSAGE = 0;
     public final int INDEX_PORTAL_PROPERTIES_VALIDATION_MESSAGE = 1;
     public final int INDEX_SERVICES_MESSAGE = 0;
     public final int INDEX_VALIDATION_MESSAGE = 2;
@@ -71,12 +73,14 @@ public interface HookConfigurationWizard extends UIBase
     public final String LABLE_SPECIFY_PROPERTIES = "Specify properties to override:";
     public final String LABLE_VALUE = "Value:";
     public final String LABLE_WEB_ROOT_FOLDER = "Web root folder:";
+    public final String LABLE_LANGUAGE_PROPERTIES_IN_SDK7_IS_NOT_SUPPORTED =
+        " Modifying Language properties in Plugins SDK 7.0 is not supported, use Liferay module instead.";
 
     public final String MENU_HOOK = "Hook";
     public final String WINDOW_ADD_EVENT_ACTION = "Add Event Action";
     public final String WINDOW_ADD_PROPERTY_OVERRIDE = "Add Property Override";
     public final String WINDOW_ADD_SERVICE = "Add Service";
     public final String WINDOW_ADD_SERVICE_WRAPPER = "Add Service Wrapper";
-    public final String WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION = "New Liferay Hook Configuration";
+    public final String WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION = "New Liferay Hook (Liferay 6.x)";
 
 }
