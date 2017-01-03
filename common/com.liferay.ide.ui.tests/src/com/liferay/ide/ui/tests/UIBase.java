@@ -85,13 +85,13 @@ public interface UIBase
     public final String LABEL_NEW_LIFERAY_LAYOUT_TMEPLATE = "New Liferay Layout Template";
     public final String LABEL_NEW_LIFERAY_JSF_PORTLET = "New Liferay JSF Portlet";
     public final String LABEL_NEW_LIFERAY_VAADIN_PORTLET = "New Liferay Vaadin Portlet";
-    public final String LABEL_NEW_LIFERAY_PORTLET = "New Liferay Portlet (Liferay 6.x)";
+    public final String LABEL_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
     public final String LABEL_NEW_LIFERAY_WORKSPACE_PROJECT = "New Liferay Workspace Project";
     public final String LABEL_NEW_LIFERAY_MODULE_PROJECT_FRAGMENT = "New Liferay Module Project Fragment";
     public final String LABEL_NEW_LIFERAY_WORPSPACE_PROJECT = "New Liferay Workspace Project";
     public final String LABEL_NEW_LIFERAY_COMPONENT_CLASS = "New Liferay Component Class";
 
-    public final String LABEL_LIFERAY_PLUGIN_PROJECT = "Liferay Plugin Project";
+    public final String LABEL_LIFERAY_PLUGIN_PROJECT = "Liferay Plugin Project (Liferay 6.x)";
     public final String LABEL_LIFERAY_MODULE_PROJECT = "Liferay Module Project";
     public final String LABEL_LIFERAY_PORTLET = "Liferay Portlet";
     public final String LABEL_LIFERAY_JSF_PORTLET = "Liferay JSF Portlet";
@@ -106,9 +106,10 @@ public interface UIBase
     public final String TITLE_DELETE_RESOURCES = "Delete Resources";
     public final String TOOLBAR_PACKAGE = "Package";
 
-    public final String MENU_NEW_LIFERAY_PROJECT_EXIS_SOURCE = "New Liferay Plugin Project from Existing Source";
+    public final String MENU_NEW_LIFERAY_PROJECT_EXIS_SOURCE = "New Liferay Plugin Project from Existing Source (Liferay 6.x)";
     public final String TITLE_NEW_LAYOUT_TEMPLATE = "New Layout Template";
     public final String TITLE_NEW_SERVICE_BUILDER = "New Service Builder";
+    public final String TITLE_NEW_LIFERAY_PORTLET = "New Liferay Portlet (Liferay 6.x)";
 
     public final String CREATE_MENU_NEW_LIFERAY_PLUGIN_PROJECT = "Create a new Liferay Plugin Project";
 
