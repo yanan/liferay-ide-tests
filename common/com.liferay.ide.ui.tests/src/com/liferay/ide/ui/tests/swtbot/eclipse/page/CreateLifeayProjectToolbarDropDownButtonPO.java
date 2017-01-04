@@ -38,7 +38,7 @@ public class CreateLifeayProjectToolbarDropDownButtonPO extends ToolbarDropDownB
     private MenuItemPO _newLiferayServiceBuilder;
     private MenuItemPO _newLiferayVaadinPortlet;
     private MenuItemPO _newLiferayLayouTemplate;
-    private MenuItemPO _newLiferayModuleFragmentProject;
+    private MenuItemPO _newLiferayModuleProjectFragment;
     private MenuItemPO _newLiferayWorkspaceProject;
     private MenuItemPO _newLiferayComponentClass;
     private MenuItemPO _newLiferayModuleProject;
@@ -55,7 +55,7 @@ public class CreateLifeayProjectToolbarDropDownButtonPO extends ToolbarDropDownB
         _newLiferayJSFPortlet = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_JSF_PORTLET );
         _newLiferayVaadinPortlet = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_VAADIN_PORTLET );
         _newLiferayLayouTemplate = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_LAYOUT_TMEPLATE );
-        _newLiferayModuleFragmentProject = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_MODULE_PROJECT_FRAGMENT );
+        _newLiferayModuleProjectFragment = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_MODULE_PROJECT_FRAGMENT );
         _newLiferayWorkspaceProject = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_WORKSPACE_PROJECT );
         _newLiferayComponentClass = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_COMPONENT_CLASS );
         _newLiferayModuleProject = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_MODULE_PROJECT );
@@ -104,7 +104,7 @@ public class CreateLifeayProjectToolbarDropDownButtonPO extends ToolbarDropDownB
 
     public MenuItemPO getNewLiferayModuleFragmentProject()
     {
-        return _newLiferayModuleFragmentProject;
+        return _newLiferayModuleProjectFragment;
     }
 
     public MenuItemPO getNewLiferayWorkspaceProject()

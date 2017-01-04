@@ -27,7 +27,6 @@ import org.junit.AfterClass;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.liferay.ide.project.ui.tests.page.CreateProjectWizardPO;
@@ -199,10 +198,10 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
         assertContains( "sample", editor.getText() );
 
         // Regression test IDE-1226,project already exists
-        eclipse.getFileMenu().clickMenu("New", "Other...");
-		bot.tree().getTreeItem("Liferay").expand();
-		bot.tree().getTreeItem("Liferay").getNode("Liferay Plugin Project (Liferay 6.x)").select();
-		bot.button("Next >").click();
+        eclipse.getFileMenu().clickMenu( "New", "Other..." );
+        bot.tree().getTreeItem( "Liferay" ).expand();
+        bot.tree().getTreeItem( "Liferay" ).getNode( "Liferay Plugin Project (Liferay 6.x)" ).select();
+        bot.button( "Next >" ).click();
 
         createProjectWizard.createSDKPortletProject( projectName );
         assertEquals( TEXT_PROJECT_ALREADY_EXISTS, createProjectWizard.getValidationMessage() );
@@ -213,10 +212,10 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
         createProjectWizard.cancel();
 
         // Regression test IDE-1976,project name with space test
-        eclipse.getFileMenu().clickMenu("New", "Other...");
-		bot.tree().getTreeItem("Liferay").expand();
-		bot.tree().getTreeItem("Liferay").getNode("Liferay Plugin Project (Liferay 6.x)").select();
-		bot.button("Next >").click();
+        eclipse.getFileMenu().clickMenu( "New", "Other..." );
+        bot.tree().getTreeItem( "Liferay" ).expand();
+        bot.tree().getTreeItem( "Liferay" ).getNode( "Liferay Plugin Project (Liferay 6.x)" ).select();
+        bot.button( "Next >" ).click();
         createProjectWizard.createSDKPortletProject( "test with space" );
 
         assertContains( TEXT_CREATE_NEW_PROJECT_AS_LIFERAY_PLUGIN, createProjectWizard.getValidationMessage() );
@@ -261,7 +260,8 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
         newPortletPage.waitForPageToOpen();
 
-        assertEquals( LABEL_NEW_LIFERAY_PORTLET, newPortletPage.getTitle() );
+        sleep();
+        assertContains( LABEL_NEW_LIFERAY_PORTLET, newPortletPage.getTitle() );
 
         newPortletPage.closeIfOpen();
     }
@@ -328,9 +328,9 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
         if( hasAddedProject )
         {
-        	//TO-DO
-        	//assertEquals( THEME_DONOT_SUPPORT_MESSAGE, setSDKLocation.getValidationMessage() );
-        	createProjectWizard.cancel();
+            // TO-DO
+            // assertEquals( THEME_DONOT_SUPPORT_MESSAGE, setSDKLocation.getValidationMessage() );
+            createProjectWizard.cancel();
         }
         else
         {
@@ -352,9 +352,9 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
             setSDKLocation.setSdkLocation( getLiferayPluginsSdkDir().toString() );
 
-            //TO-DO
-        	//assertEquals( THEME_DONOT_SUPPORT_MESSAGE, setSDKLocation.getValidationMessage() );
-            
+            // TO-DO
+            // assertEquals( THEME_DONOT_SUPPORT_MESSAGE, setSDKLocation.getValidationMessage() );
+
             setSDKLocation.cancel();
         }
     }
@@ -388,12 +388,13 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
         Assume.assumeTrue( runTest() || runAllTests() );
 
         hasAddedProject = addedProjects();
-        
-		eclipse.getFileMenu().clickMenu("New", "Other...");
-		bot.tree().getTreeItem("Liferay").expand();
-		bot.tree().getTreeItem("Liferay").getNode("Liferay Plugin Project (Liferay 6.x)").select();
-		bot.button("Next >").click();
-        //eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
+
+        eclipse.getFileMenu().clickMenu( "New", "Other..." );
+
+        bot.tree().getTreeItem( "Liferay" ).expand();
+        bot.tree().getTreeItem( "Liferay" ).getNode( "Liferay Plugin Project (Liferay 6.x)" ).select();
+
+        bot.button( "Next >" ).click();
     }
 
     @Test
