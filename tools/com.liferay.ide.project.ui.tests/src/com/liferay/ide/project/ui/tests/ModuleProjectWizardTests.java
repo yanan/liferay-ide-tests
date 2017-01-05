@@ -169,11 +169,11 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         createModuleProjectSecondPageWizard.getAddPropertyKeyButton().click();
         sleep();
         createModuleProjectSecondPageWizard.setPropertiesText( 2, "a" );
-        sleep();
+        sleep( 3000 );
         createModuleProjectSecondPageWizard.getProperties().doubleClick( 0, 1 );
         sleep();
         createModuleProjectSecondPageWizard.setPropertiesText( 2, "b" );
-        sleep();
+        sleep( 3000 );
 
         keyPress.pressShortcut( enter );
         sleep();
@@ -185,11 +185,11 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         createModuleProjectSecondPageWizard.getAddPropertyKeyButton().click();
         sleep();
         createModuleProjectSecondPageWizard.setPropertiesText( 2, "c" );
-        sleep();
+        sleep( 3000 );
         createModuleProjectSecondPageWizard.getProperties().doubleClick( 1, 1 );
         sleep();
         createModuleProjectSecondPageWizard.setPropertiesText( 2, "d" );
-        sleep();
+        sleep( 3000 );
 
         keyPress.pressShortcut( enter );
         sleep();
@@ -209,9 +209,9 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
 
         projectTree.setFocus();
 
-        String javaFileName = "TestmvcportletprojectPortlet.java";
+        String javaFileName = "TestMvcportletProjectPortlet.java";
 
-        projectTree.expandNode( projectName, "src/main/java", "testmvcportletproject.portlet" ).doubleClick(
+        projectTree.expandNode( projectName, "src/main/java", "testMvcportletProject.portlet" ).doubleClick(
             javaFileName );
 
         TextEditorPO checkJavaFile = eclipse.getTextEditor( javaFileName );
@@ -271,10 +271,10 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
 
         projectTree.setFocus();
 
-        String javaFileName = "TestmvcportletinlsPortlet.java";
+        String javaFileName = "TestMvcportletInLSPortlet.java";
 
         projectTree.expandNode(
-            liferayWorkspaceName, "modules", projectName, "src/main/java", "testmvcportletinls.portlet" ).doubleClick(
+            liferayWorkspaceName, "modules", projectName, "src/main/java", "testMvcportletInLS.portlet" ).doubleClick(
                 javaFileName );
 
         TextEditorPO checkJavaFile = eclipse.getTextEditor( javaFileName );
@@ -363,11 +363,11 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         createModuleProjectSecondPageWizard.getAddPropertyKeyButton().click();
         sleep();
         createModuleProjectSecondPageWizard.setPropertiesText( 3, "key" );
-        sleep();
+        sleep( 3000 );
         createModuleProjectSecondPageWizard.getProperties().doubleClick( 0, 1 );
         sleep();
         createModuleProjectSecondPageWizard.setPropertiesText( 3, "login.events.pre" );
-        sleep();
+        sleep( 3000 );
 
         keyPress.pressShortcut( enter );
         sleep();
@@ -375,9 +375,9 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         createModuleProjectSecondPageWizard.finish();
         sleep( 10000 );
 
-        String javaFileName = "Testserviceproject.java";
+        String javaFileName = "TestServiceProject.java";
 
-        projectTree.expandNode( projectName, "src/main/java", "testserviceproject" ).doubleClick( javaFileName );
+        projectTree.expandNode( projectName, "src/main/java", "testServiceProject" ).doubleClick( javaFileName );
 
         TextEditorPO checkJavaFile = eclipse.getTextEditor( javaFileName );
 
@@ -447,11 +447,11 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         createModuleProjectSecondPageWizard.getAddPropertyKeyButton().click();
         sleep();
         createModuleProjectSecondPageWizard.setPropertiesText( 3, "key" );
-        sleep();
+        sleep( 3000 );
         createModuleProjectSecondPageWizard.getProperties().doubleClick( 0, 1 );
         sleep();
         createModuleProjectSecondPageWizard.setPropertiesText( 3, "login.events.pre" );
-        sleep();
+        sleep( 3000 );
 
         keyPress.pressShortcut( enter );
         sleep();
@@ -459,10 +459,10 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         createModuleProjectSecondPageWizard.finish();
         sleep( 10000 );
 
-        String javaFileName = "Testserviceprojectinls.java";
+        String javaFileName = "TestServiceProjectInLS.java";
 
         projectTree.expandNode(
-            liferayWorkspaceName, "modules", projectName, "src/main/java", "testserviceprojectinls" ).doubleClick(
+            liferayWorkspaceName, "modules", projectName, "src/main/java", "testServiceProjectInLS" ).doubleClick(
                 javaFileName );
 
         TextEditorPO checkJavaFile = eclipse.getTextEditor( javaFileName );
@@ -531,60 +531,22 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         sleep( 10000 );
 
         assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
-
-        try
-        {
-            assertTrue( projectTree.getTreeItem( projectName + "-api" ).isVisible() );
-        }
-        catch( Exception e )
-        {
-            assertTrue( projectTree.expandNode( projectName, projectName + "-api" ).isVisible() );
-        }
-
-        try
-        {
-            assertTrue( projectTree.getTreeItem( projectName + "-service" ).isVisible() );
-        }
-        catch( Exception e )
-        {
-            assertTrue( projectTree.expandNode( projectName, projectName + "-service" ).isVisible() );
-        }
-
-        try
-        {
-            assertTrue( projectTree.expandNode( projectName + "-service", "service.xml" ).isVisible() );
-        }
-        catch( Exception e )
-        {
-            assertTrue( projectTree.expandNode( projectName, projectName + "-service", "service.xml" ).isVisible() );
-        }
+        assertTrue( projectTree.expandNode( projectName, projectName + "-api" ).isVisible() );
+        assertTrue( projectTree.expandNode( projectName, projectName + "-service" ).isVisible() );
+        assertTrue( projectTree.expandNode( projectName, projectName + "-service", "service.xml" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
 
         TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
 
-        try
-        {
-            projectTree.expandNode( projectName + "-api" ).doubleClick( buildGradleFileName );
-        }
-        catch( Exception e )
-        {
-            projectTree.expandNode( projectName, projectName + "-api" ).doubleClick( buildGradleFileName );
-        }
+        projectTree.expandNode( projectName, projectName + "-api" ).doubleClick( buildGradleFileName );
 
         assertContains( "dependencies", buildGradleFile.getText() );
         buildGradleFile.close();
 
         projectTree.setFocus();
 
-        try
-        {
-            projectTree.expandNode( projectName + "-service" ).doubleClick( buildGradleFileName );
-        }
-        catch( Exception e )
-        {
-            projectTree.expandNode( projectName, projectName + "-service" ).doubleClick( buildGradleFileName );
-        }
+        projectTree.expandNode( projectName, projectName + "-service" ).doubleClick( buildGradleFileName );
 
         assertContains( "apply plugin", buildGradleFile.getText() );
         assertContains( "dependencies", buildGradleFile.getText() );
@@ -605,33 +567,14 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
 
         sleep( 10000 );
 
-        try
-        {
-            assertTrue(
-                projectTree.expandNode(
-                    projectName + "-api", "src/main/java", "testservicebuilderproject.service" ).isVisible() );
-        }
-        catch( Exception e )
-        {
-            assertTrue(
-                projectTree.expandNode(
-                    projectName, projectName + "-api", "src/main/java",
-                    "testservicebuilderproject.service" ).isVisible() );
-        }
+        assertTrue(
+            projectTree.expandNode(
+                projectName, projectName + "-api", "src/main/java", "testServiceBuilderProject.service" ).isVisible() );
 
-        try
-        {
-            assertTrue(
-                projectTree.expandNode(
-                    projectName + "-service", "src/main/java", "testservicebuilderproject.model.impl" ).isVisible() );
-        }
-        catch( Exception e )
-        {
-            assertTrue(
-                projectTree.expandNode(
-                    projectName, projectName + "-service", "src/main/java",
-                    "testservicebuilderproject.model.impl" ).isVisible() );
-        }
+        assertTrue(
+            projectTree.expandNode(
+                projectName, projectName + "-service", "src/main/java",
+                "testServiceBuilderProject.model.impl" ).isVisible() );
 
         eclipse.getPackageExporerView().deleteResouceByName( projectName, true );
     }
@@ -715,11 +658,11 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         assertTrue(
             projectTree.expandNode(
                 liferayWorkspaceName, "modules", projectName, projectName + "-api", "src/main/java",
-                "testservicebuilderprojectinls.service" ).isVisible() );
+                "testServiceBuilderProjectInLS.service" ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 liferayWorkspaceName, "modules", projectName, projectName + "-service", "src/main/java",
-                "testservicebuilderprojectinls.model.impl" ).isVisible() );
+                "testServiceBuilderProjectInLS.model.impl" ).isVisible() );
     }
 
     @Test
