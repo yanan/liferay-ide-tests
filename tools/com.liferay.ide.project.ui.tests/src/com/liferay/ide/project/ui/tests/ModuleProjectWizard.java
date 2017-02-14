@@ -63,6 +63,7 @@ public interface ModuleProjectWizard extends UIBase
     public final String MENU_MODULE_REST = "rest";
     public final String MENU_MODULE_THEME = "theme";
     public final String MENU_MODULE_THEME_CONTRIBUTOR = "theme-contributor";
+    public final String MENU_MODULE_FORM_FIELD="form-field";
 
     public final String TEXT_BUILD_TYPE = "gradle-module";
     public final String TEXT_BUILD_TYPE_MAVEN = "maven-module";
