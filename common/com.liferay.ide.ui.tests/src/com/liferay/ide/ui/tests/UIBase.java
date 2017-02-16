@@ -106,7 +106,8 @@ public interface UIBase
     public final String TITLE_DELETE_RESOURCES = "Delete Resources";
     public final String TOOLBAR_PACKAGE = "Package";
 
-    public final String MENU_NEW_LIFERAY_PROJECT_EXIS_SOURCE = "New Liferay Plugin Project from Existing Source (Liferay 6.x)";
+    public final String MENU_NEW_LIFERAY_PROJECT_EXIS_SOURCE =
+        "New Liferay Plugin Project from Existing Source (Liferay 6.x)";
     public final String TITLE_NEW_LAYOUT_TEMPLATE = "New Layout Template";
     public final String TITLE_NEW_SERVICE_BUILDER = "New Service Builder";
     public final String TITLE_NEW_LIFERAY_PORTLET = "New Liferay Portlet (Liferay 6.x)";

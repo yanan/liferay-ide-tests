@@ -15,8 +15,7 @@
 
 package com.liferay.ide.module.fragment.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 
@@ -38,16 +37,42 @@ import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 
 /**
  * @author Vicky Wang
+ * @author Sunny Shi
  */
 public class ModuleFragmentProjectWizardTests extends SWTBotBase implements ModuleFragmentProjectWizard
 {
 
     String projectName = "module-fragment-project";
+    NewServerPO newServerPage = new NewServerPO( bot );
+    NewServerRuntimeEnvPO setRuntimePage = new NewServerRuntimeEnvPO( bot );
+    CreateModuleFragmentProjectWizardPO newModuleFragmentPage =
+        new CreateModuleFragmentProjectWizardPO( bot, INDEX_VALIDATION_PAGE_MESSAGE3 );
+
+    @Before
+    public void isRunTest()
+    {
+        Assume.assumeTrue( runTest() || runAllTests() );
+    }
+
+    public void addLiferayServerAndOpenWizard()
+    {
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayServer().click();
+
+        newServerPage.getServerTypeTree().selectTreeItem( NODE_LIFERAY_INC, NODE_LIFERAY_7X );
+        newServerPage.next();
+
+        setRuntimePage.getServerLocation().setText( getLiferayServerDir().toOSString() );
+
+        assertEquals( "Tomcat", setRuntimePage.getPortalBundleType().getText() );
+        setRuntimePage.finish();
+
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleFragmentProject().click();
+    }
 
     @AfterClass
     public static void cleanAll()
     {
-        eclipse.closeShell( WINDOW_NEW_LIFERAY_MODULE_FRAGMENT );
+        eclipse.closeShell( LABEL_NEW_LIFERAY_MODULE_PROJECT_FRAGMENT );
     }
 
     @BeforeClass
@@ -57,14 +82,42 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
     }
 
     @Test
-    public void moduleFragmentProjectWizard()
+    public void moduleFragmentProjectWizardWithoutServer()
     {
-        CreateModuleFragmentProjectWizardPO newModuleFragmentPage =
-            new CreateModuleFragmentProjectWizardPO( bot, INDEX_VALIDATION_PAGE_MESSAGE3 );
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleFragmentProject().click();
 
         newModuleFragmentPage.setProjectName( ".." );
         sleep();
+        assertEquals( " '..'" + TEXT_INVALID_NAME_ON_PLATFORM, newModuleFragmentPage.getValidationMessage() );
 
+        newModuleFragmentPage.setProjectName( "##" );
+        sleep();
+        assertEquals( " " + TEXT_INVALID_GRADLE_PROJECT, newModuleFragmentPage.getValidationMessage() );
+
+        newModuleFragmentPage.setProjectName( "*" );
+        sleep();
+        assertEquals(
+            " *" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'*'.", newModuleFragmentPage.getValidationMessage() );
+
+        newModuleFragmentPage.setProjectName( TEXT_BLANK );
+        sleep();
+        assertEquals( TEXT_ENTER_PROJECT_NAME, newModuleFragmentPage.getValidationMessage() );
+
+        newModuleFragmentPage.setProjectName( projectName );
+        sleep( 2000 );
+        assertEquals( TEXT_LIFERAY_RUNTIME_MUST_BE_CONFIGURED, newModuleFragmentPage.getValidationMessage() );
+
+        assertTrue( newModuleFragmentPage.isLiferayRuntimeTextEnabled() );
+        newModuleFragmentPage.cancel();
+    }
+
+    @Test
+    public void moduleFragmentProjectWizard()
+    {
+        addLiferayServerAndOpenWizard();
+
+        newModuleFragmentPage.setProjectName( ".." );
+        sleep();
         assertEquals( " '..'" + TEXT_INVALID_NAME_ON_PLATFORM, newModuleFragmentPage.getValidationMessage() );
 
         newModuleFragmentPage.setProjectName( "##" );
@@ -123,11 +176,9 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
         }
 
         moduleFragmentOSGiBundlePage.finish();
-
-        sleep();
+        sleep( 60000 );
 
         DialogPO dialogPage = new DialogPO( bot, "Open Associated Perspective", BUTTON_YES, BUTTON_NO );
-
         dialogPage.confirm();
 
         TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
@@ -151,28 +202,6 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
         pathTree = new String[] { projectName, "src/main/resources", "META-INF", "resources", "blogs_aggregator" };
 
         projectTree.expandNode( pathTree ).doubleClick( "init.jsp" );
-    }
-
-    @Before
-    public void openWizard()
-    {
-        Assume.assumeTrue( runTest() || runAllTests() );
-
-        NewServerPO newServerPage = new NewServerPO( bot );
-        NewServerRuntimeEnvPO setRuntimePage = new NewServerRuntimeEnvPO( bot );
-
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayServer().click();
-
-        newServerPage.getServerTypeTree().selectTreeItem( NODE_LIFERAY_INC, NODE_LIFERAY_7X );
-        newServerPage.next();
-
-        setRuntimePage.getServerLocation().setText( getLiferayServerDir().toOSString() );
-
-        assertEquals( "Tomcat", setRuntimePage.getPortalBundleType().getText() );
-
-        setRuntimePage.finish();
-
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleFragmentProject().click();
     }
 
 }

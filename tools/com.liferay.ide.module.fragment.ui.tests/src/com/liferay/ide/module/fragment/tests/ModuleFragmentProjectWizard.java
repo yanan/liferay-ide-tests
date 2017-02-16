@@ -12,7 +12,7 @@
  * details.
  *
  *******************************************************************************/
- 
+
 package com.liferay.ide.module.fragment.tests;
 
 import com.liferay.ide.ui.tests.UIBase;
@@ -45,7 +45,6 @@ public interface ModuleFragmentProjectWizard extends UIBase
     public final String TEXT_INVALID_GRADLE_PROJECT = "The project name is invalid.";
     public final String TEXT_INVALID_NAME_ON_PLATFORM = " is an invalid name on this platform.";
     public final String TEXT_OSGI_BUNDLE_BLANK = " Host OSGi Bundle must be specified";
-
-    public final String WINDOW_NEW_LIFERAY_MODULE_FRAGMENT = "New Liferay Module Fragment Project";
+    public final String TEXT_LIFERAY_RUNTIME_MUST_BE_CONFIGURED = " Liferay runtime must be configured.";
 
 }
