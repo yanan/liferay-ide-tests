@@ -31,6 +31,7 @@
 		<swtbot-site>http://download.eclipse.org/technology/swtbot/releases/latest</swtbot-site>
 		<gmaven.runtime>1.8</gmaven.runtime>
 		<os-jvm-flags/>
+        <jacoco-version>0.7.9</jacoco-version>
 	</properties>
 
 	<repositories>
@@ -92,36 +93,43 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
-
 			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.5.201505241946</version>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-version}</version>
 				<executions>
-					<execution>
-						<id>pre-unit-test</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-						<configuration>
-							<destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
-								<propertyName>surefireArgLine</propertyName>
-						</configuration>
-					</execution>
-					<execution>
-						<id>post-unit-test</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-						<configuration>
-							<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
-							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 
+<execution>
+            <id>pre-unit-test</id>
+            <goals>
+                <goal>prepare-agent</goal>
+            </goals>
+            <configuration>
+                <!-- Sets the path to the file which contains the execution data. -->
+                <destFile>${rootdir}/../target/coverage-reports/jacoco-ut.exec</destFile>
+                <!--
+                    Sets the name of the property containing the settings
+                    for JaCoCo runtime agent.
+                -->
+                <propertyName>surefireArgLine</propertyName>
+            </configuration>
+        </execution>
+
+						<execution>
+            <id>post-unit-test</id>
+            <phase>test</phase>
+            <goals>
+                <goal>report</goal>
+            </goals>
+            <configuration>
+                <!-- Sets the path to the file which contains the execution data. -->
+                <dataFile>${rootdir}/../target/coverage-reports/jacoco-ut.exec</dataFile>
+                <!-- Sets the output directory for the code coverage report. -->
+                <outputDirectory>${rootdir}/../target/coverage-reports/jacoco-ut</outputDirectory>
+            </configuration>
+        </execution>
+                    </executions>
+            </plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
