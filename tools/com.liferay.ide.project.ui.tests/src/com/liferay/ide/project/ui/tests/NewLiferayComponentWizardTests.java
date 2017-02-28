@@ -426,7 +426,7 @@ public class NewLiferayComponentWizardTests extends SWTBotBase
 
         AddOverriddenFilePO addJSPFiles = new AddOverriddenFilePO( bot );
 
-        selectOSGiBundle.setOSGiBundle( "*bookmarks" );
+        selectOSGiBundle.setOSGiBundle( "*com.liferay.bookmarks.web" );
         selectOSGiBundle.confirm();
 
         setModuleFragmentOSGiBundle.getAddOverridFilesButton().click();
