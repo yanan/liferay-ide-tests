@@ -18,6 +18,7 @@ package com.liferay.ide.project.ui.tests.page;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import com.liferay.ide.project.ui.tests.ModuleProjectWizard;
+import com.liferay.ide.ui.tests.swtbot.page.CheckBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.ComboBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
 import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
@@ -30,6 +31,8 @@ public class CreateModuleProjectWizardPO extends WizardPO implements ModuleProje
 
     private ComboBoxPO _projectTemplateNameComboBox;
     private TextPO _projectNameText;
+    private CheckBoxPO _useDefaultLocation;
+    private TextPO _location;
 
     public CreateModuleProjectWizardPO( SWTBot bot )
     {
@@ -51,6 +54,8 @@ public class CreateModuleProjectWizardPO extends WizardPO implements ModuleProje
         super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT, validationMessageIndex );
         _projectTemplateNameComboBox = new ComboBoxPO( bot, LABEL_MODULE_PROJECT_TEMPLATE_NAME );
         _projectNameText = new TextPO( bot, LABEL_MODULE_PROJECT_NAME );
+        _useDefaultLocation = new CheckBoxPO( bot, CHECKBOX_USE_DEFAULT_LOCATION );
+        _location = new TextPO( bot, LABEL_MODULE_LOCATION );
     }
 
     public void createModuleProject( String projectName )
@@ -72,6 +77,16 @@ public class CreateModuleProjectWizardPO extends WizardPO implements ModuleProje
     public TextPO getProjectNameText()
     {
         return _projectNameText;
+    }
+
+    public void deSelectDefaultLocation()
+    {
+        _useDefaultLocation.deselect();
+    }
+
+    public void setLocation( String location )
+    {
+        _location.setText( location );
     }
 
 }
