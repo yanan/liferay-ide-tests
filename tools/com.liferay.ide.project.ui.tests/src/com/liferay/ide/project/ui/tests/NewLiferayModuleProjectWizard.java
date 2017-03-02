@@ -20,7 +20,7 @@ import com.liferay.ide.ui.tests.UIBase;
 /**
  * @author Ying Xu
  */
-public interface ModuleProjectWizard extends UIBase
+public interface NewLiferayModuleProjectWizard extends UIBase
 {
 
     public final String LABEL_MODULE_PROJECT_NAME = "Project name:";
