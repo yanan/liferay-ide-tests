@@ -20,17 +20,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.eclipse.swtbot.swt.finder.keyboard.Keyboard;
-import org.eclipse.swtbot.swt.finder.keyboard.KeyboardFactory;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.liferay.ide.project.ui.tests.page.CreateModuleProjectWizardPO;
-import com.liferay.ide.project.ui.tests.page.ModuleProjectWizardSecondPagePO;
+import com.liferay.ide.project.ui.tests.page.NewLiferayModuleProjectWizardPO;
+import com.liferay.ide.project.ui.tests.page.NewLiferayModuleProjectWizardSecondPagePO;
 import com.liferay.ide.project.ui.tests.page.NewLiferayWorkspaceProjectWizardPO;
 import com.liferay.ide.project.ui.tests.page.SelectModuleServiceNamePO;
 import com.liferay.ide.ui.tests.SWTBotBase;
@@ -42,25 +39,12 @@ import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 /**
  * @author Ying Xu
  */
-public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjectWizard
+public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements NewLiferayModuleProjectWizard
 {
-
-    public static boolean finishButtonState = false;
-
-    String liferayWorkspaceName = "liferayWorkspace";
-
-    Keyboard keyPress = KeyboardFactory.getAWTKeyboard();
-
-    NewLiferayWorkspaceProjectWizardPO newLiferayWorkspace = new NewLiferayWorkspaceProjectWizardPO( bot );
 
     TreePO projectTree = eclipse.getPackageExporerView().getProjectTree();
 
-    DeleteResourcesDialogPO deleteResources = new DeleteResourcesDialogPO( bot );
-
-    DeleteResourcesContinueDialogPO continueDeleteResources =
-        new DeleteResourcesContinueDialogPO( bot, "Delete Resources" );
-
-    CreateModuleProjectWizardPO createModuleProjectWizard = new CreateModuleProjectWizardPO( bot );
+    NewLiferayModuleProjectWizardPO createModuleProjectWizard = new NewLiferayModuleProjectWizardPO( bot );
 
     @AfterClass
     public static void cleanAll()
@@ -69,62 +53,22 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, true );
     }
 
-    public boolean ifAddedLiferayWorksapce()
-    {
-        newLiferayWorkspace.setWorkspaceNameText( liferayWorkspaceName );
-        sleep( 2000 );
-
-        return newLiferayWorkspace.finishButton().isEnabled();
-    }
-
     @BeforeClass
-    public static void waitForOpenModuleProjectWizard()
+    public static void switchToLiferayWorkspacePerspective()
     {
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
-
-        CreateModuleProjectWizardPO createModuleProjectWizard =
-            new CreateModuleProjectWizardPO( bot, INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE );
-
-        sleep( 5000 );
-        assertEquals( TEXT_ENTER_MODULE_PROJECT_NAME_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-
-        createModuleProjectWizard.cancel();
+        eclipse.getLiferayWorkspacePerspective().activate();
     }
 
     @Test
     public void createMvcportletModuleProject()
     {
+        NewLiferayModuleProjectWizardPO createModuleProjectWizard =
+            new NewLiferayModuleProjectWizardPO( bot, INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE );
+
+        sleep( 3000 );
+        assertEquals( TEXT_ENTER_MODULE_PROJECT_NAME_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+
         String projectName = "testMvcportletProject";
-
-        if( !finishButtonState )
-        {
-            newLiferayWorkspace.cancel();
-            sleep();
-
-            projectTree.getTreeItem( liferayWorkspaceName ).doAction( BUTTON_DELETE );
-            sleep( 2000 );
-
-            deleteResources.confirmDeleteFromDisk();
-            deleteResources.confirm();
-
-            try
-            {
-                continueDeleteResources.clickContinueButton();
-            }
-            catch( Exception e )
-            {
-                e.printStackTrace();
-            }
-
-            sleep( 5000 );
-        }
-        else
-        {
-            newLiferayWorkspace.cancel();
-        }
-
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
-        sleep( 10000 );
 
         createModuleProjectWizard.createModuleProject( projectName );
 
@@ -153,8 +97,8 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
 
         createModuleProjectWizard.next();
 
-        ModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
-            new ModuleProjectWizardSecondPagePO( bot, INDEX_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
+        NewLiferayModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
+            new NewLiferayModuleProjectWizardSecondPagePO( bot, INDEX_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
 
         assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
         assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
@@ -238,18 +182,21 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
     @Test
     public void createMvcportletModuleProjectInLiferayWorkspace()
     {
-        if( finishButtonState )
-        {
-            newLiferayWorkspace.finish();
-            sleep( 20000 );
-        }
-        else
-        {
-            newLiferayWorkspace.cancel();
-        }
+        createModuleProjectWizard.cancel();
+
+        String liferayWorkspaceName = "liferayWorkspace";
+
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayWorkspaceProject().click();
+        sleep( 2000 );
+
+        NewLiferayWorkspaceProjectWizardPO newLiferayWorkspace = new NewLiferayWorkspaceProjectWizardPO( bot );
+
+        newLiferayWorkspace.setWorkspaceNameText( liferayWorkspaceName );
+        newLiferayWorkspace.finish();
+        sleep( 20000 );
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
-        sleep( 10000 );
+        sleep( 3000 );
 
         String projectName = "testMvcportletInLS";
 
@@ -259,8 +206,8 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
 
         createModuleProjectWizard.next();
 
-        ModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
-            new ModuleProjectWizardSecondPagePO( bot, INDEX_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
+        NewLiferayModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
+            new NewLiferayModuleProjectWizardSecondPagePO( bot, INDEX_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
 
         assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
         assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
@@ -293,6 +240,26 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
         assertContains( "dependencies", buildGradleFile.getText() );
 
         buildGradleFile.close();
+
+        DeleteResourcesDialogPO deleteResources = new DeleteResourcesDialogPO( bot );
+
+        DeleteResourcesContinueDialogPO continueDeleteResources =
+            new DeleteResourcesContinueDialogPO( bot, "Delete Resources" );
+
+        projectTree.getTreeItem( liferayWorkspaceName ).doAction( BUTTON_DELETE );
+        sleep( 2000 );
+
+        deleteResources.confirmDeleteFromDisk();
+        deleteResources.confirm();
+
+        try
+        {
+            continueDeleteResources.clickContinueButton();
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -300,42 +267,11 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
     {
         String projectName = "testServiceProject";
 
-        if( !finishButtonState )
-        {
-            newLiferayWorkspace.cancel();
-            sleep();
-
-            projectTree.getTreeItem( liferayWorkspaceName ).doAction( BUTTON_DELETE );
-            sleep( 2000 );
-
-            deleteResources.confirmDeleteFromDisk();
-            deleteResources.confirm();
-            sleep();
-
-            try
-            {
-                continueDeleteResources.clickContinueButton();
-            }
-            catch( Exception e )
-            {
-                e.printStackTrace();
-            }
-
-            sleep( 5000 );
-        }
-        else
-        {
-            newLiferayWorkspace.cancel();
-        }
-
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
-        sleep( 10000 );
-
         createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICE );
         createModuleProjectWizard.next();
 
-        ModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
-            new ModuleProjectWizardSecondPagePO( bot, INDEX_MUST_SPECIFY_SERVICE_NAME_VALIDATIOIN_MESSAGE );
+        NewLiferayModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
+            new NewLiferayModuleProjectWizardSecondPagePO( bot, INDEX_MUST_SPECIFY_SERVICE_NAME_VALIDATIOIN_MESSAGE );
 
         assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
         assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
@@ -401,128 +337,16 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
     }
 
     @Test
-    public void createServiceModuleProjectInLiferayWorkspace()
-    {
-        String projectName = "testServiceProjectInLS";
-
-        if( finishButtonState )
-        {
-            newLiferayWorkspace.finish();
-            sleep( 20000 );
-        }
-        else
-        {
-            newLiferayWorkspace.cancel();
-        }
-
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
-        sleep( 10000 );
-
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICE );
-        createModuleProjectWizard.next();
-
-        ModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
-            new ModuleProjectWizardSecondPagePO( bot, INDEX_MUST_SPECIFY_SERVICE_NAME_VALIDATIOIN_MESSAGE );
-
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getServiceName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.getBrowseButton().click();
-        sleep( 5000 );
-
-        SelectModuleServiceNamePO selectOneServiceName = new SelectModuleServiceNamePO( bot );
-
-        selectOneServiceName.selectServiceName( "*lifecycleAction" );
-        sleep();
-        assertTrue( selectOneServiceName.confirmButton().isEnabled() );
-        selectOneServiceName.confirm();
-
-        assertEquals(
-            "com.liferay.portal.kernel.events.LifecycleAction",
-            createModuleProjectSecondPageWizard.getServiceName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.getAddPropertyKeyButton().click();
-        sleep();
-        createModuleProjectSecondPageWizard.setPropertiesText( 3, "key" );
-        sleep( 3000 );
-        createModuleProjectSecondPageWizard.getProperties().doubleClick( 0, 1 );
-        sleep();
-        createModuleProjectSecondPageWizard.setPropertiesText( 3, "login.events.pre" );
-        sleep( 3000 );
-        
-        createModuleProjectSecondPageWizard.getProperties().setFocus();
-        sleep();
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        String javaFileName = "TestServiceProjectInLS.java";
-
-        projectTree.expandNode(
-            liferayWorkspaceName, "modules", projectName, "src/main/java", "testServiceProjectInLS" ).doubleClick(
-                javaFileName );
-
-        TextEditorPO checkJavaFile = eclipse.getTextEditor( javaFileName );
-
-        assertContains( "implements LifecycleAction", checkJavaFile.getText() );
-        checkJavaFile.close();
-
-        projectTree.setFocus();
-
-        String buildGradleFileName = "build.gradle";
-
-        projectTree.expandNode( liferayWorkspaceName, "modules", projectName ).doubleClick( buildGradleFileName );
-
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        assertContains( "dependencies", buildGradleFile.getText() );
-
-        buildGradleFile.close();
-    }
-
-    @Test
     public void createServiceBuilderModuleProject()
     {
         String projectName = "testServiceBuilderProject";
 
-        if( !finishButtonState )
-        {
-            newLiferayWorkspace.cancel();
-            sleep();
-
-            projectTree.getTreeItem( liferayWorkspaceName ).doAction( BUTTON_DELETE );
-            sleep( 2000 );
-
-            deleteResources.confirmDeleteFromDisk();
-            deleteResources.confirm();
-
-            try
-            {
-                continueDeleteResources.clickContinueButton();
-            }
-            catch( Exception e )
-            {
-                e.printStackTrace();
-            }
-
-            sleep( 5000 );
-        }
-        else
-        {
-            newLiferayWorkspace.cancel();
-        }
-
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
-        sleep( 10000 );
-
         createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICE_BUILDER );
         createModuleProjectWizard.next();
 
-        ModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard = new ModuleProjectWizardSecondPagePO(
-            bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
+        NewLiferayModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
+            new NewLiferayModuleProjectWizardSecondPagePO(
+                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
 
         assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
         assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
@@ -580,101 +404,10 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
     }
 
     @Test
-    public void createServiceBuilderModuleProjectInLiferayWorkspace()
-    {
-        String projectName = "testServiceBuilderProjectInLS";
-
-        if( finishButtonState )
-        {
-            newLiferayWorkspace.finish();
-            sleep( 20000 );
-        }
-        else
-        {
-            newLiferayWorkspace.cancel();
-        }
-
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
-        sleep( 10000 );
-
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICE_BUILDER );
-        createModuleProjectWizard.next();
-
-        ModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard = new ModuleProjectWizardSecondPagePO(
-            bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
-
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        assertTrue( projectTree.expandNode( liferayWorkspaceName, "modules", projectName ).isVisible() );
-        assertTrue(
-            projectTree.expandNode( liferayWorkspaceName, "modules", projectName, projectName + "-api" ).isVisible() );
-        assertTrue(
-            projectTree.expandNode(
-                liferayWorkspaceName, "modules", projectName, projectName + "-service" ).isVisible() );
-        assertTrue(
-            projectTree.expandNode(
-                liferayWorkspaceName, "modules", projectName, projectName + "-service", "service.xml" ).isVisible() );
-
-        String buildGradleFileName = "build.gradle";
-
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        projectTree.expandNode( liferayWorkspaceName, "modules", projectName, projectName + "-api" ).doubleClick(
-            buildGradleFileName );
-
-        assertContains( "dependencies", buildGradleFile.getText() );
-        buildGradleFile.close();
-
-        projectTree.setFocus();
-
-        projectTree.expandNode( liferayWorkspaceName, "modules", projectName, projectName + "-service" ).doubleClick(
-            buildGradleFileName );
-
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "buildService", buildGradleFile.getText() );
-        buildGradleFile.close();
-
-        projectTree.expandNode( liferayWorkspaceName, "modules", projectName, projectName + "-service" ).doAction(
-            "Liferay", "build-service" );
-        sleep( 10000 );
-
-        try
-        {
-            projectTree.expandNode( liferayWorkspaceName, "modules", projectName ).doAction(
-                "Gradle", "Refresh Gradle Project" );
-        }
-        catch( Exception e )
-        {
-            projectTree.expandNode( liferayWorkspaceName, "modules", projectName ).doAction(
-                "Gradle", "Refresh Gradle Project" );
-        }
-
-        sleep( 10000 );
-
-        assertTrue(
-            projectTree.expandNode(
-                liferayWorkspaceName, "modules", projectName, projectName + "-api", "src/main/java",
-                "testServiceBuilderProjectInLS.service" ).isVisible() );
-        assertTrue(
-            projectTree.expandNode(
-                liferayWorkspaceName, "modules", projectName, projectName + "-service", "src/main/java",
-                "testServiceBuilderProjectInLS.model.impl" ).isVisible() );
-    }
-
-    @Test
     public void validationProjectName()
     {
-        newLiferayWorkspace.cancel();
-
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
-        sleep( 10000 );
-
-        CreateModuleProjectWizardPO createModuleProjectWizard =
-            new CreateModuleProjectWizardPO( bot, INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE );
+        NewLiferayModuleProjectWizardPO createModuleProjectWizard =
+            new NewLiferayModuleProjectWizardPO( bot, INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE );
 
         assertEquals( TEXT_ENTER_MODULE_PROJECT_NAME_MESSAGE, createModuleProjectWizard.getValidationMessage() );
         assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
@@ -706,21 +439,12 @@ public class ModuleProjectWizardTests extends SWTBotBase implements ModuleProjec
     }
 
     @Before
-    public void openLiferayWorkspaceWizard()
+    public void openWizard()
     {
         Assume.assumeTrue( runTest() || runAllTests() );
 
-        eclipse.getLiferayWorkspacePerspective().activate();
-
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayWorkspaceProject().click();
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
         sleep( 2000 );
-
-        finishButtonState = ifAddedLiferayWorksapce();
     }
 
-    @After
-    public void waitForCreate()
-    {
-        sleep();
-    }
 }

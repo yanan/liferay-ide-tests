@@ -17,14 +17,14 @@ package com.liferay.ide.project.ui.tests.page;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
-import com.liferay.ide.project.ui.tests.ModuleProjectWizard;
+import com.liferay.ide.project.ui.tests.NewLiferayModuleProjectWizard;
 import com.liferay.ide.ui.tests.swtbot.page.DialogPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
 
 /**
  * @author Ying Xu
  */
-public class SelectModuleServiceNamePO extends DialogPO implements ModuleProjectWizard
+public class SelectModuleServiceNamePO extends DialogPO implements NewLiferayModuleProjectWizard
 {
 
     private TextPO _serviceNameText;
