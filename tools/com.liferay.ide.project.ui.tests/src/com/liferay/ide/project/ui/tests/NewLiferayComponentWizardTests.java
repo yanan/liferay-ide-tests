@@ -31,7 +31,7 @@ import org.junit.Test;
 import com.liferay.ide.project.ui.tests.page.AddOverriddenFilePO;
 import com.liferay.ide.project.ui.tests.page.ComponentModelClassSelectionPO;
 import com.liferay.ide.project.ui.tests.page.ComponentPackageSelectionPO;
-import com.liferay.ide.project.ui.tests.page.CreateModuleProjectWizardPO;
+import com.liferay.ide.project.ui.tests.page.NewLiferayModuleProjectWizardPO;
 import com.liferay.ide.project.ui.tests.page.FragmentHostOSGIBundlePO;
 import com.liferay.ide.project.ui.tests.page.NewLiferayComponentWizardPO;
 import com.liferay.ide.project.ui.tests.page.NewLiferayServerPO;
@@ -47,12 +47,12 @@ import com.liferay.ide.ui.tests.swtbot.page.TreePO;
  * @author Ying Xu
  */
 public class NewLiferayComponentWizardTests extends SWTBotBase
-    implements NewLiferayComponentWizard, ModuleProjectWizard, NewServerRuntimeWizard
+    implements NewLiferayComponentWizard, NewLiferayModuleProjectWizard, NewServerRuntimeWizard
 {
 
     static String projectName = "testComponent";
 
-    CreateModuleProjectWizardPO createModuleProjectWizard = new CreateModuleProjectWizardPO( bot );
+    NewLiferayModuleProjectWizardPO createModuleProjectWizard = new NewLiferayModuleProjectWizardPO( bot );
 
     @AfterClass
     public static void cleanAll()
@@ -501,8 +501,8 @@ public class NewLiferayComponentWizardTests extends SWTBotBase
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
 
-        CreateModuleProjectWizardPO createModuleProjectWizard =
-            new CreateModuleProjectWizardPO( bot, INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE );
+        NewLiferayModuleProjectWizardPO createModuleProjectWizard =
+            new NewLiferayModuleProjectWizardPO( bot, INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE );
 
         createModuleProjectWizard.createModuleProject( "test" );
         sleep( 120000 );
