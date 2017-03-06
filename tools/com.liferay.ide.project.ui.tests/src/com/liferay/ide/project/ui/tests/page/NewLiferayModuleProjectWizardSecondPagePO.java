@@ -17,7 +17,7 @@ package com.liferay.ide.project.ui.tests.page;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
-import com.liferay.ide.project.ui.tests.ModuleProjectWizard;
+import com.liferay.ide.project.ui.tests.NewLiferayModuleProjectWizard;
 import com.liferay.ide.ui.tests.swtbot.page.TablePO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
 import com.liferay.ide.ui.tests.swtbot.page.ToolbarButtonWithTooltipPO;
@@ -26,7 +26,7 @@ import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 /**
  * @author Ying Xu
  */
-public class ModuleProjectWizardSecondPagePO extends WizardPO implements ModuleProjectWizard
+public class NewLiferayModuleProjectWizardSecondPagePO extends WizardPO implements NewLiferayModuleProjectWizard
 {
 
     private TextPO _componentClassName;
@@ -39,22 +39,22 @@ public class ModuleProjectWizardSecondPagePO extends WizardPO implements ModuleP
     private ToolbarButtonWithTooltipPO _moveDownButton;
     private ToolbarButtonWithTooltipPO _deleteButton;
 
-    public ModuleProjectWizardSecondPagePO( SWTBot bot )
+    public NewLiferayModuleProjectWizardSecondPagePO( SWTBot bot )
     {
         this( bot, TEXT_BLANK );
     }
 
-    public ModuleProjectWizardSecondPagePO( SWTBot bot, int validationMessageIndex )
+    public NewLiferayModuleProjectWizardSecondPagePO( SWTBot bot, int validationMessageIndex )
     {
         this( bot, TEXT_BLANK, validationMessageIndex );
     }
 
-    public ModuleProjectWizardSecondPagePO( SWTBot bot, String title )
+    public NewLiferayModuleProjectWizardSecondPagePO( SWTBot bot, String title )
     {
         this( bot, title, INDEX_DEFAULT_VALIDATION_MESSAGE );
     }
 
-    public ModuleProjectWizardSecondPagePO( SWTBot bot, String title, int validationMessageIndex )
+    public NewLiferayModuleProjectWizardSecondPagePO( SWTBot bot, String title, int validationMessageIndex )
     {
         super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT, validationMessageIndex );
         _componentClassName = new TextPO( bot, LABEL_MODULE_COMPONENT_CLASS_NAME );
