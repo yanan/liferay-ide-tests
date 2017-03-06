@@ -54,6 +54,7 @@ import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 
 /**
  * @author Ashley Yuan
+ * @author Sunny Shi
  */
 public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPortletWizard, ProjectWizard
 {
@@ -82,10 +83,17 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
     @After
     public void cleanAll()
     {
+        if( addedProjects() )
+        {
+            eclipse.getProjectTree().setFocus();
+            eclipse.getPackageExporerView().deleteProjectExcludeNames(
+                new String[] { getLiferayPluginsSdkName() }, true );
+        }
+
         sleep( 3000 );
+
         eclipse.closeShell( LABEL_NEW_LIFERAY_PLUGIN_PROJECT );
         eclipse.closeShell( LABEL_NEW_LIFERAY_PORTLET );
-        eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, true );
     }
 
     @Test
@@ -332,7 +340,6 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
         assertContains( "<portlet-name>new</portlet-name>", portletEditor.getText() );
         assertContains( "com.liferay.util.bridges.mvc.MVCPortlet", portletEditor.getText() );
-
     }
 
     @Test
@@ -516,7 +523,6 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
     @Test
     public void liferayPorletInfo()
     {
-
         // browse icon tests
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayPortlet().click();
 
@@ -885,8 +891,10 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         // relate ticket IDE-2156, regression for IDE-119
         TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
 
-        eclipse.showPackageExporerView().getProjectTree().getTreeItem( "test-portlet" ).getTreeItem(
-            "docroot", "WEB-INF", "liferay-display.xml" ).doAction( BUTTON_DELETE );
+        projectTree.expandNode( "test-portlet" );
+        sleep( 5000 );
+        projectTree.getTreeItem( "test-portlet" ).getTreeItem( "docroot", "WEB-INF", "liferay-display.xml" ).doAction(
+            BUTTON_DELETE );
 
         DialogPO deleteDialog = new DialogPO( bot, "New Liferay Portlet", BUTTON_CANCEL, BUTTON_OK );
         deleteDialog.confirm();
@@ -1098,8 +1106,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         }
         sleep( 4000 );
         newLiferayProjectPage.finish();
-
-        sleep( 4000 );
+        sleep( 20000 );
 
     }
 
