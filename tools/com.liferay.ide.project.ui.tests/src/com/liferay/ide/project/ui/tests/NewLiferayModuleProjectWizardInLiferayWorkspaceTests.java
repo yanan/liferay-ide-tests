@@ -264,7 +264,8 @@ public class NewLiferayModuleProjectWizardInLiferayWorkspaceTests extends SWTBot
         createModuleProjectWizard.next();
 
         NewLiferayModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO( bot, INDEX_MUST_SPECIFY_SERVICE_NAME_VALIDATIOIN_MESSAGE );
+            new NewLiferayModuleProjectWizardSecondPagePO(
+                bot, INDEX_SERVICE_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
 
         assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
         assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
@@ -334,8 +335,7 @@ public class NewLiferayModuleProjectWizardInLiferayWorkspaceTests extends SWTBot
         createModuleProjectWizard.next();
 
         NewLiferayModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
+            new NewLiferayModuleProjectWizardSecondPagePO( bot, INDEX_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
 
         assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
         assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );

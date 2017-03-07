@@ -33,6 +33,7 @@ public class NewLiferayModuleProjectWizardPO extends WizardPO implements NewLife
     private TextPO _projectNameText;
     private CheckBoxPO _useDefaultLocation;
     private TextPO _location;
+    private ComboBoxPO _buildType;
 
     public NewLiferayModuleProjectWizardPO( SWTBot bot )
     {
@@ -56,6 +57,7 @@ public class NewLiferayModuleProjectWizardPO extends WizardPO implements NewLife
         _projectNameText = new TextPO( bot, LABEL_MODULE_PROJECT_NAME );
         _useDefaultLocation = new CheckBoxPO( bot, CHECKBOX_USE_DEFAULT_LOCATION );
         _location = new TextPO( bot, LABEL_MODULE_LOCATION );
+        _buildType = new ComboBoxPO( bot, LABEL_MODULE_BUILD_TYPE );
     }
 
     public void createModuleProject( String projectName )
@@ -87,6 +89,16 @@ public class NewLiferayModuleProjectWizardPO extends WizardPO implements NewLife
     public void setLocation( String location )
     {
         _location.setText( location );
+    }
+
+    public ComboBoxPO getBuildType()
+    {
+        return _buildType;
+    }
+
+    public void setBuildType( String buildType )
+    {
+        _buildType.setSelection( buildType );
     }
 
 }
