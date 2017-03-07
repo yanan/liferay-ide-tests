@@ -20,6 +20,7 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 import com.liferay.ide.hook.ui.tests.HookConfigurationWizard;
 import com.liferay.ide.project.ui.tests.ProjectWizard;
 import com.liferay.ide.ui.tests.swtbot.page.DialogPO;
+import com.liferay.ide.ui.tests.swtbot.page.TextPO;
 import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 
 /**
@@ -29,6 +30,7 @@ public class PropertySelectionPO extends DialogPO implements HookConfigurationWi
 {
 
     private TreePO _pathTree;
+    private TextPO _pleaseSelectProperty;
 
     public PropertySelectionPO( SWTBot bot )
     {
@@ -38,8 +40,18 @@ public class PropertySelectionPO extends DialogPO implements HookConfigurationWi
     public PropertySelectionPO( SWTBot bot, String title )
     {
         super( bot, title, BUTTON_CANCEL, BUTTON_OK );
-
         _pathTree = new TreePO( bot );
+        _pleaseSelectProperty = new TextPO( bot, LABLE_PLEASE_SELECT_A_PROPERTY );
+    }
+
+    public TextPO getPleaseSelectProperty()
+    {
+        return _pleaseSelectProperty;
+    }
+
+    public void setPleaseSelectProperty( String pleaseSelectProperty )
+    {
+        this._pleaseSelectProperty.setText( pleaseSelectProperty );;
     }
 
     public void select( String... items )
