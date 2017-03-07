@@ -16,10 +16,10 @@
 package com.liferay.ide.hook.ui.tests.page;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
-
 import com.liferay.ide.hook.ui.tests.HookConfigurationWizard;
 import com.liferay.ide.project.ui.tests.ProjectWizard;
 import com.liferay.ide.ui.tests.swtbot.page.DialogPO;
+import com.liferay.ide.ui.tests.swtbot.page.TextPO;
 import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 
 /**
@@ -29,6 +29,7 @@ public class LiferayCustomJSPPO extends DialogPO implements HookConfigurationWiz
 {
 
     private TreePO _pathTree;
+    private TextPO _selectJspToCustomize;
 
     public LiferayCustomJSPPO( SWTBot bot )
     {
@@ -40,11 +41,22 @@ public class LiferayCustomJSPPO extends DialogPO implements HookConfigurationWiz
         super( bot, title, BUTTON_CANCEL, BUTTON_OK );
 
         _pathTree = new TreePO( bot );
+        _selectJspToCustomize = new TextPO( bot, LABEL_SELECT_A_JSP_TO_CUSTOMIZE );
     }
 
     public void select( String... items )
     {
         _pathTree.selectTreeItem( items );
+    }
+
+    public TextPO getSelectJspToCustomize()
+    {
+        return _selectJspToCustomize;
+    }
+
+    public void setSelectJspToCustomize( String selectJspToCustomize )
+    {
+        this._selectJspToCustomize.setText( selectJspToCustomize );;
     }
 
 }

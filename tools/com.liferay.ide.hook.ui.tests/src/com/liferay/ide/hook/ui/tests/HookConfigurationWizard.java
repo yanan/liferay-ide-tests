@@ -36,6 +36,7 @@ public interface HookConfigurationWizard extends UIBase
     public final int INDEX_PORTAL_PROPERTIES_VALIDATION_MESSAGE = 1;
     public final int INDEX_SERVICES_MESSAGE = 0;
     public final int INDEX_VALIDATION_MESSAGE = 2;
+    public final int INDEX_NEW_LIFERAY_HOOK_VALIDATION_MESSAGE = 0;
 
     public final String LABEL_BUILD_TYPE = "Build type:";
     public final String LABEL_DISPLAY_NAME = "Display name:";
@@ -65,7 +66,6 @@ public interface HookConfigurationWizard extends UIBase
     public final String LABLE_PORTAL_PROPERTIES = "Portal properties";
     public final String LABLE_PORTAL_PROPERTIES_FILE = "Portal properties file:";
     public final String LABLE_PROPERTY = "Property:";
-    public final String LABLE_SELECT_A_PROPERTY = "Please select a property";
     public final String LABLE_SELECT_AN_EVENT_ACTION = "Select an event action:";
     public final String LABLE_SELECTED_PROJECT = "Selected project:";
     public final String LABLE_SERVICE_TYPE = "Service Type:";
@@ -75,6 +75,13 @@ public interface HookConfigurationWizard extends UIBase
     public final String LABLE_WEB_ROOT_FOLDER = "Web root folder:";
     public final String LABLE_LANGUAGE_PROPERTIES_IN_SDK7_IS_NOT_SUPPORTED =
         " Modifying Language properties in Plugins SDK 7.0 is not supported, use Liferay module instead.";
+    public final String LABEL_SELECT_A_JSP_TO_CUSTOMIZE = "Select a JSP to customize:";
+
+    public final String COMBOBOX_HOOK_PLUGIN_PROJECT = "Hook plugin project:";
+    public final String COMBOBOX_SUPERCLASS = "Superclass:";
+    public final String CHECKBOX_DISABLE_JSP_SYNTAX_VALIDATION =
+        "Disable JSP syntax validation for custom JSP folder (recommended).";
+    public final String TEXT_ENTER_A_PROJECT_NAME = " Enter a project name.";
 
     public final String MENU_HOOK = "Hook";
     public final String WINDOW_ADD_EVENT_ACTION = "Add Event Action";

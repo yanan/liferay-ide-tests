@@ -20,27 +20,45 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 import com.liferay.ide.hook.ui.tests.HookConfigurationWizard;
 import com.liferay.ide.project.ui.tests.ProjectWizard;
 import com.liferay.ide.ui.tests.swtbot.page.CheckBoxPO;
+import com.liferay.ide.ui.tests.swtbot.page.ComboBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
 /**
  * @author Vicky Wang
  */
-public class HookTypesToCreatePO extends WizardPO implements HookConfigurationWizard, ProjectWizard
+public class CreateLiferayHookConfigurationPO extends WizardPO implements HookConfigurationWizard, ProjectWizard
 {
 
     private CheckBoxPO _customJSPsCheckBox;
     private CheckBoxPO _languagePropertiesCheckBox;
     private CheckBoxPO _portalPropertiesCheckBox;
     private CheckBoxPO _servicesCheckBox;
+    private ComboBoxPO _hookPluginProjectComboBox;
 
-    public HookTypesToCreatePO( SWTBot bot, String title )
+    public CreateLiferayHookConfigurationPO( SWTBot bot )
     {
-        super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT );
+        this( bot, INDEX_DEFAULT_VALIDATION_MESSAGE );
+    }
+
+    public CreateLiferayHookConfigurationPO( SWTBot bot, int index )
+    {
+        this( bot, TEXT_BLANK, index );
+    }
+
+    public CreateLiferayHookConfigurationPO( SWTBot bot, String title )
+    {
+        this( bot, title, INDEX_DEFAULT_VALIDATION_MESSAGE );
+    }
+
+    public CreateLiferayHookConfigurationPO( SWTBot bot, String title, int validationMessageIndex )
+    {
+        super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT, validationMessageIndex );
 
         _customJSPsCheckBox = new CheckBoxPO( bot, LABLE_CUSTOM_JSPS );
         _portalPropertiesCheckBox = new CheckBoxPO( bot, LABLE_PORTAL_PROPERTIES );
         _servicesCheckBox = new CheckBoxPO( bot, LABLE_SERVICES );
         _languagePropertiesCheckBox = new CheckBoxPO( bot, LABLE_LANGUAGE_PROPERTIES );
+        _hookPluginProjectComboBox = new ComboBoxPO( bot, COMBOBOX_HOOK_PLUGIN_PROJECT );
     }
 
     public CheckBoxPO getCustomJSPs()
@@ -61,6 +79,16 @@ public class HookTypesToCreatePO extends WizardPO implements HookConfigurationWi
     public CheckBoxPO getServices()
     {
         return _servicesCheckBox;
+    }
+
+    public ComboBoxPO getHookPluginProjectComboBox()
+    {
+        return _hookPluginProjectComboBox;
+    }
+
+    public void setHookPluginProjectComboBox( String hookPluginProjectComboBox )
+    {
+        this._hookPluginProjectComboBox.setText( hookPluginProjectComboBox );
     }
 
 }

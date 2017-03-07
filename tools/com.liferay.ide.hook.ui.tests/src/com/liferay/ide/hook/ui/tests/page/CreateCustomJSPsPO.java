@@ -20,6 +20,7 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 import com.liferay.ide.hook.ui.tests.HookConfigurationWizard;
 import com.liferay.ide.project.ui.tests.ProjectWizard;
 import com.liferay.ide.ui.tests.swtbot.page.ButtonPO;
+import com.liferay.ide.ui.tests.swtbot.page.CheckBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.TablePO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
 import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
@@ -39,6 +40,7 @@ public class CreateCustomJSPsPO extends WizardPO implements HookConfigurationWiz
     private TablePO _jspFilesToOverrideTable;
     private TextPO _selectedProjectText;
     private TextPO _webRootFolderText;
+    private CheckBoxPO _disableJspSyntaxValidation;
 
     public CreateCustomJSPsPO( SWTBot bot, int indexCustomJSPsValidationMessage )
     {
@@ -58,6 +60,7 @@ public class CreateCustomJSPsPO extends WizardPO implements HookConfigurationWiz
         _addButton = new ButtonPO( bot, BUTTON_ADD );
         _editButton = new ButtonPO( bot, BUTTON_EDIT );
         _removeButton = new ButtonPO( bot, BUTTON_REMOVE_WITH_DOT );
+        _disableJspSyntaxValidation = new CheckBoxPO( bot, CHECKBOX_DISABLE_JSP_SYNTAX_VALIDATION );
     }
 
     public ButtonPO getAddButton()
@@ -108,6 +111,16 @@ public class CreateCustomJSPsPO extends WizardPO implements HookConfigurationWiz
     public TextPO getWebRootFolder()
     {
         return _webRootFolderText;
+    }
+
+    public CheckBoxPO getDisableJspSyntaxValidation()
+    {
+        return _disableJspSyntaxValidation;
+    }
+
+    public void setDisableJspSyntaxValidation( CheckBoxPO disableJspSyntaxValidation )
+    {
+        this._disableJspSyntaxValidation = disableJspSyntaxValidation;
     }
 
 }
