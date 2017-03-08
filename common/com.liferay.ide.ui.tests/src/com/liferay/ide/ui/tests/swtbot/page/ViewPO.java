@@ -29,6 +29,10 @@ public class ViewPO extends AbstractPO
 
     private final boolean isId;
 
+    private ToolbarButtonWithTooltipPO maximizeButton;
+    private ToolbarButtonWithTooltipPO minimizeButton;
+    private ToolbarButtonWithTooltipPO restoreButton;
+
     public ViewPO( SWTWorkbenchBot bot, String identifier, boolean isId )
     {
         super( bot );
@@ -36,6 +40,10 @@ public class ViewPO extends AbstractPO
         this.identifier = identifier;
 
         this.isId = isId;
+
+        maximizeButton = new ToolbarButtonWithTooltipPO( bot, "Maximize" );
+        minimizeButton = new ToolbarButtonWithTooltipPO( bot, "Minimize" );
+        restoreButton = new ToolbarButtonWithTooltipPO( bot, "Restore" );
     }
 
     public ViewPO( SWTWorkbenchBot bot, String viewIdentifier )
@@ -60,10 +68,29 @@ public class ViewPO extends AbstractPO
         }
     }
 
-    public void show() {
+    public void maximize()
+    {
+        getView().setFocus();
+        maximizeButton.click();
+    }
+
+    public void minimize()
+    {
+        getView().setFocus();
+        minimizeButton.click();
+    }
+
+    public void restore()
+    {
+        getView().setFocus();
+        restoreButton.click();
+    }
+
+    public void show()
+    {
         getView().show();
     }
-    
+
     public boolean isActive()
     {
         return getView().isActive();

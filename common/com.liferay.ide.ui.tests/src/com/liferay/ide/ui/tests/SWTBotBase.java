@@ -37,6 +37,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
+import org.eclipse.swtbot.swt.finder.keyboard.Keyboard;
+import org.eclipse.swtbot.swt.finder.keyboard.KeyboardFactory;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
@@ -78,8 +80,11 @@ public class SWTBotBase implements UIBase
     private final long DEFAULT_SLEEP_MILLIS = 1000;
     private static IPath liferayBundlesPath;
 
+    protected Keyboard keyPress = KeyboardFactory.getAWTKeyboard();
+
     protected KeyStroke ctrl = KeyStroke.getInstance( SWT.CTRL, 0 );
     protected KeyStroke N = KeyStroke.getInstance( 'N' );
+    protected KeyStroke M = KeyStroke.getInstance( 'M' );
     protected KeyStroke alt = KeyStroke.getInstance( SWT.ALT, 0 );
     protected KeyStroke enter = KeyStroke.getInstance( KeyEvent.VK_ENTER );
     protected KeyStroke up = KeyStroke.getInstance( KeyEvent.VK_UP );

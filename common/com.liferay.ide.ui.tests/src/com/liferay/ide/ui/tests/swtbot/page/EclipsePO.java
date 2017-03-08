@@ -15,14 +15,19 @@
 
 package com.liferay.ide.ui.tests.swtbot.page;
 
+import org.eclipse.jface.bindings.keys.KeyStroke;
+import org.eclipse.swt.SWT;
+import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
+import org.eclipse.swtbot.swt.finder.keyboard.Keyboard;
+import org.eclipse.swtbot.swt.finder.keyboard.KeyboardFactory;
+
 import com.liferay.ide.ui.tests.UIBase;
+import com.liferay.ide.ui.tests.swtbot.eclipse.page.CodeUpgradeViewPO;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.CreateLifeayProjectToolbarDropDownButtonPO;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.ErrorLogViewPO;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.NewToolbarDropDownButtonPO;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.PackageExplorerViewPO;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.ProgressViewPO;
-
-import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 
 /**
  * @author Terry Jia
@@ -31,6 +36,10 @@ import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
  */
 public class EclipsePO extends AbstractPO implements UIBase
 {
+
+    protected Keyboard keyPress = KeyboardFactory.getAWTKeyboard();
+    protected KeyStroke ctrl = KeyStroke.getInstance( SWT.CTRL, 0 );
+    protected KeyStroke M = KeyStroke.getInstance( 'M' );
 
     private CreateLifeayProjectToolbarDropDownButtonPO _createLiferayProjectToolbar;
     private NewToolbarDropDownButtonPO _newToolbar;
@@ -45,6 +54,7 @@ public class EclipsePO extends AbstractPO implements UIBase
     private ErrorLogViewPO _errorLogView;
     private MenuPO _fileMenu;
     private ViewPO _projectExplorerView;
+    private CodeUpgradeViewPO _codeUpgradeView;
 
     public EclipsePO( SWTWorkbenchBot bot )
     {
@@ -62,12 +72,14 @@ public class EclipsePO extends AbstractPO implements UIBase
         String[] otherLabel = { LABEL_WINDOW, LABEL_SHOW_VIEW, LABEL_OTHER };
 
         _otherMenu = new MenuPO( bot, otherLabel );
+
         _showViewDialog = new ShowViewDialogPO( bot );
         _errorLogView = new ErrorLogViewPO( bot );
         _newToolbar = new NewToolbarDropDownButtonPO( bot );
 
         _projectExplorerView = new ViewPO( bot, LABEL_PROJECT_EXPLORER );
         _liferayWorkspacePerspective = new PerspectivePO( bot, LABEL_LIFERAY_WORKSPACE );
+        _codeUpgradeView = new CodeUpgradeViewPO( bot, LABEL_LIFERAY_CODE_UPGRADE );
     }
 
     public void closeShell( String title )
@@ -127,6 +139,28 @@ public class EclipsePO extends AbstractPO implements UIBase
         _packageExporerView.show();
 
         return _packageExporerView;
+    }
+
+    public CodeUpgradeViewPO showCodeUpgradeView()
+    {
+        try
+        {
+            _codeUpgradeView.show();
+        }
+        catch( Exception e )
+        {
+            _otherMenu.click();
+
+            _showViewDialog.setSearchText( "Liferay Code Upgrade" );
+
+            sleep( 500 );
+
+            _showViewDialog.confirm();
+
+            _codeUpgradeView.show();
+        }
+
+        return _codeUpgradeView;
     }
 
     public ProgressViewPO showProgressView()

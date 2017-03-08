@@ -42,6 +42,7 @@
 		<module>com.liferay.ide.layouttpl.ui.tests</module>
 		<module>com.liferay.ide.service.ui.tests</module>
 		<module>com.liferay.ide.gradle.ui.tests</module>
+		<module>com.liferay.ide.project.code.upgrade.ui.tests</module>
 	</modules>
 </project>
 	

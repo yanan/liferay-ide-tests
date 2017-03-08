@@ -64,14 +64,15 @@ public interface UIBase
     public final String LABEL_WINDOW = "Window";
     public final String LABEL_IMPORT = "Import...";
     public final String LABEL_PROJECT_EXPLORER = "Project Explorer";
+    public final String LABEL_LIFERAY_CODE_UPGRADE = "Liferay Code Upgrade";
 
     public final String LABEL_SOURCE_FOLDER = "Source folder:";
     public final String LABEL_NAME = "Name:";
 
     public final String MENU_DELETE = "Delete";
     public final String MENU_FILE = "File";
+    public final String MENU_PROJECT = "Project";
     public final String MENU_NEW = "New";
-    public final String MENU_PROJECT = "Project...";
     public final String TEXT_BLANK = "";
     public final String TEXT_NO_OPERTAIONS = "No operations to display at this time.";
 
