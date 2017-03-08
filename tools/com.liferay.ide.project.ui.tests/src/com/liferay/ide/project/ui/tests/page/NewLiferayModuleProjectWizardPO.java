@@ -16,7 +16,6 @@
 package com.liferay.ide.project.ui.tests.page;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
-
 import com.liferay.ide.project.ui.tests.NewLiferayModuleProjectWizard;
 import com.liferay.ide.ui.tests.swtbot.page.CheckBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.ComboBoxPO;
@@ -25,11 +24,13 @@ import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
 /**
  * @author Ying Xu
+ * @author Sunny Shi
  */
 public class NewLiferayModuleProjectWizardPO extends WizardPO implements NewLiferayModuleProjectWizard
 {
 
     private ComboBoxPO _projectTemplateNameComboBox;
+    private ComboBoxPO _buildType;
     private TextPO _projectNameText;
     private CheckBoxPO _useDefaultLocation;
     private TextPO _location;
@@ -56,6 +57,7 @@ public class NewLiferayModuleProjectWizardPO extends WizardPO implements NewLife
         _projectNameText = new TextPO( bot, LABEL_MODULE_PROJECT_NAME );
         _useDefaultLocation = new CheckBoxPO( bot, CHECKBOX_USE_DEFAULT_LOCATION );
         _location = new TextPO( bot, LABEL_MODULE_LOCATION );
+        _buildType = new ComboBoxPO( bot, LABEL_MODULE_BUILD_TYPE );
     }
 
     public void createModuleProject( String projectName )
@@ -67,6 +69,13 @@ public class NewLiferayModuleProjectWizardPO extends WizardPO implements NewLife
     {
         _projectTemplateNameComboBox.setSelection( projectTemplate );
         _projectNameText.setText( projectName );
+    }
+
+    public void createModuleProject( String projectName, String projectTemplate, String buildType )
+    {
+        _projectTemplateNameComboBox.setSelection( projectTemplate );
+        _projectNameText.setText( projectName );
+        _buildType.setSelection( buildType );
     }
 
     public ComboBoxPO getProjectTemplateNameComboBox()
@@ -87,6 +96,11 @@ public class NewLiferayModuleProjectWizardPO extends WizardPO implements NewLife
     public void setLocation( String location )
     {
         _location.setText( location );
+    }
+
+    public ComboBoxPO getBuildType()
+    {
+        return _buildType;
     }
 
 }
