@@ -23,8 +23,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.util.Arrays;
 
-import org.eclipse.swtbot.swt.finder.keyboard.Keyboard;
-import org.eclipse.swtbot.swt.finder.keyboard.KeyboardFactory;
 import org.junit.After;
 import org.junit.Assume;
 import org.junit.Before;
@@ -58,8 +56,6 @@ import com.liferay.ide.ui.tests.swtbot.page.TreePO;
  */
 public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPortletWizard, ProjectWizard
 {
-
-    Keyboard keyPress = KeyboardFactory.getAWTKeyboard();
 
     CreateProjectWizardPO newLiferayProjectPage =
         new CreateProjectWizardPO( bot, LABEL_NEW_LIFERAY_PLUGIN_PROJECT, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_WIZARD );
