@@ -19,6 +19,7 @@ import com.liferay.ide.ui.tests.UIBase;
 
 /**
  * @author Ying Xu
+ * @author Sunny Shi
  */
 public interface NewLiferayModuleProjectWizard extends UIBase
 {
@@ -63,7 +64,7 @@ public interface NewLiferayModuleProjectWizard extends UIBase
     public final String MENU_MODULE_REST = "rest";
     public final String MENU_MODULE_THEME = "theme";
     public final String MENU_MODULE_THEME_CONTRIBUTOR = "theme-contributor";
-    public final String MENU_MODULE_FORM_FIELD="form-field";
+    public final String MENU_MODULE_FORM_FIELD = "form-field";
 
     public final String TEXT_BUILD_TYPE = "gradle-module";
     public final String TEXT_BUILD_TYPE_MAVEN = "maven-module";
@@ -71,6 +72,10 @@ public interface NewLiferayModuleProjectWizard extends UIBase
     public final String TEXT_NEW_LIFERAY_MODULE_MESSAGE =
         "Enter a name and choose a template to use for a new Liferay module.";
     public final String TEXT_MUST_SPECIFIED_PROJECT_NAME = " Project name must be specified";
+    public final String TEXT_NAME_MUST_BE_SPECIFIED = " Name must be specified";
+    public final String TEXT_VALUE_MUST_BE_SPECIFIED = " Value must be specified";
+    public final String TEXT_INVALID_CLASS_NAME = " Invalid class name";
+    public final String TEXT_INVALID_PACKAGE_NAME = " Invalid package name";
     public final String TEXT_CONFIGURE_COMPONENT_CLASS = "Configure Component Class";
     public final String TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME = " is an invalid character in resource name ";
     public final String TEXT_INVALID_NAME_ON_PLATFORM = " is an invalid name on this platform.";
