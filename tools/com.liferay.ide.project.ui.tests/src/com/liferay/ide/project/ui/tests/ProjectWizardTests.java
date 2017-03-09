@@ -152,7 +152,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
         for( String expectedPluginTypeItem : expectedPluginTypeItems )
         {
-            assertTrue( matchItemInItems( expectedPluginTypeItems, expectedPluginTypeItem ) );
+            assertTrue( isInAvailableLists( expectedPluginTypeItems, expectedPluginTypeItem ) );
         }
 
         assertTrue( createProjectWizard.backButton().isEnabled() );
