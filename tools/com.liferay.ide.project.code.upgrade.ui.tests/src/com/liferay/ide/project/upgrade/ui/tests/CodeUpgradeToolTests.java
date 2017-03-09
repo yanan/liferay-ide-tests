@@ -31,6 +31,7 @@ public class CodeUpgradeToolTests extends SWTBotBase implements CodeUpgradeTool
     {
         CodeUpgradeViewPO codeUpgrade = eclipse.showCodeUpgradeView();
 
+        codeUpgrade.getGear().clickGear( 0 );
         keyPress.pressShortcut( ctrl, M );
 
         // the number of gears starts from 0, that means, the Import Page should be 1 or not 2

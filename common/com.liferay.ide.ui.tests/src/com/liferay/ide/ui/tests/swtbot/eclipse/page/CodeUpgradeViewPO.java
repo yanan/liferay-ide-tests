@@ -45,10 +45,10 @@ public class CodeUpgradeViewPO extends ViewPO implements UIBase
         gear = new GearPO( bot, 3 );
         navigator = new CanvasPO( bot, 4 );
 
-        showAllPagesButton = new ToolbarButtonWithTooltipPO( bot, "Show All Pages" );
-        restartButton = new ToolbarButtonWithTooltipPO( bot, "Restart Upgrade" );
-        restartDialog = new DialogPO( bot, "Restart code upgrade?", "No", "Yes" );
-        showAllPagesDialog = new DialogPO( bot, "Show All Pages", "No", "Yes" );
+        showAllPagesButton = new ToolbarButtonWithTooltipPO( bot, BUTTON_SHOW_ALL_PAGES );
+        restartButton = new ToolbarButtonWithTooltipPO( bot, BUTTON_RESTART_UPGRADE );
+        restartDialog = new DialogPO( bot, LABEL_RESTART_CODE_UPGRADE , BUTTON_NO, BUTTON_YES );
+        showAllPagesDialog = new DialogPO( bot, BUTTON_SHOW_ALL_PAGES, BUTTON_NO, BUTTON_YES );
     }
 
     public GearPO getGear()

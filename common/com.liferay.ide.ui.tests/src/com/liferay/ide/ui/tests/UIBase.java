@@ -41,6 +41,9 @@ public interface UIBase
     public final String BUTTON_REMOVE_WITH_DOT = "Remove...";
     public final String BUTTON_YES = "Yes";
     public final String BUTTON_MORE_WITH_DOT = "More...";
+    public final String BUTTON_SHOW_ALL_PAGES = "Show All Pages";
+    public final String BUTTON_RESTART_UPGRADE = "Restart Upgrade";
+    
     public final String CHECKBOX_INCLUDE_SAMPLE_CODE = "Include sample code";
     public final String CHECKBOX_ADD_PROJECT_TO_WORKING_SET = "Add project to working set";
     public final String COMBOBOX_WORKING_SET = "Working set:";
@@ -65,6 +68,7 @@ public interface UIBase
     public final String LABEL_IMPORT = "Import...";
     public final String LABEL_PROJECT_EXPLORER = "Project Explorer";
     public final String LABEL_LIFERAY_CODE_UPGRADE = "Liferay Code Upgrade";
+    public final String LABEL_RESTART_CODE_UPGRADE = "Restart code upgrade?";
 
     public final String LABEL_SOURCE_FOLDER = "Source folder:";
     public final String LABEL_NAME = "Name:";
@@ -112,8 +116,6 @@ public interface UIBase
     public final String TITLE_NEW_LAYOUT_TEMPLATE = "New Layout Template";
     public final String TITLE_NEW_SERVICE_BUILDER = "New Service Builder";
     public final String TITLE_NEW_LIFERAY_PORTLET = "New Liferay Portlet (Liferay 6.x)";
-
-    public final String CREATE_MENU_NEW_LIFERAY_PLUGIN_PROJECT = "Create a new Liferay Plugin Project";
 
     public final String MENU_LIFERAY = "Liferay";
 
