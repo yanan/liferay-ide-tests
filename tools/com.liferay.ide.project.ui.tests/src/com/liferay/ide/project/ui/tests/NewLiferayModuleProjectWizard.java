@@ -63,7 +63,7 @@ public interface NewLiferayModuleProjectWizard extends UIBase
     public final String MENU_MODULE_REST = "rest";
     public final String MENU_MODULE_THEME = "theme";
     public final String MENU_MODULE_THEME_CONTRIBUTOR = "theme-contributor";
-    public final String MENU_MODULE_FORM_FIELD="form-field";
+    public final String MENU_MODULE_FORM_FIELD = "form-field";
 
     public final String TEXT_BUILD_TYPE = "gradle-module";
     public final String TEXT_BUILD_TYPE_MAVEN = "maven-module";
@@ -79,7 +79,7 @@ public interface NewLiferayModuleProjectWizard extends UIBase
 
     public final int INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE = 2;
     public final int INDEX_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE = 2;
-    public final int INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE = 1;
-    public final int INDEX_MUST_SPECIFY_SERVICE_NAME_VALIDATIOIN_MESSAGE = 3;
+    public final int INDEX_SERVICE_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE = 3;
+    public final int INDEX_SERVICE_WRAPPER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE = 3;
 
 }
