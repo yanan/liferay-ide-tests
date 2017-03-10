@@ -367,16 +367,6 @@ public class SWTBotBase implements UIBase
 
     }
 
-    public boolean matchItemInItems( String[] items, String expectedItems )
-    {
-        for( String item : items )
-        {
-            if( item.equals( expectedItems ) )
-                return true;
-        }
-        return false;
-    }
-
     protected void sleep()
     {
         sleep( DEFAULT_SLEEP_MILLIS );
