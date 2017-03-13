@@ -185,9 +185,9 @@ public class CreateProjectWizardPO extends WizardPO implements ProjectWizard
         return _projectNameText;
     }
 
-    public void set_projectNameText( TextPO _projectNameText )
+    public void set_projectNameText( String _projectNameText )
     {
-        this._projectNameText = _projectNameText;
+        this._projectNameText.setText( _projectNameText );
     }
 
 }

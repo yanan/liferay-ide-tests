@@ -20,8 +20,10 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 import com.liferay.ide.hook.ui.tests.HookConfigurationWizard;
 import com.liferay.ide.project.ui.tests.ProjectWizard;
 import com.liferay.ide.ui.tests.swtbot.page.ButtonPO;
+import com.liferay.ide.ui.tests.swtbot.page.ComboBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.DialogPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
+import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 
 /**
  * @author Vicky Wang
@@ -31,8 +33,15 @@ public class NewClassPO extends DialogPO implements HookConfigurationWizard, Pro
 
     private TextPO _classNameText;
     private TextPO _javaPackageText;
-
     private ButtonPO _createButton;
+    private ButtonPO _browseButton;
+    private TreePO _pathTree;
+    private ComboBoxPO _superClass;
+
+    public void select( String... items )
+    {
+        _pathTree.selectTreeItem( items );
+    }
 
     public NewClassPO( SWTBot bot )
     {
@@ -46,6 +55,19 @@ public class NewClassPO extends DialogPO implements HookConfigurationWizard, Pro
         _classNameText = new TextPO( bot, LABLE_CLASS_NAME );
         _javaPackageText = new TextPO( bot, LABLE_JAVA_PACKAGE );
         _createButton = new ButtonPO( bot, BUTTON_CREATE );
+        _browseButton = new ButtonPO( bot, BUTTON_BROWSE_WITH_DOT );
+        _pathTree = new TreePO( bot );
+        _superClass = new ComboBoxPO( bot, COMBOBOX_SUPERCLASS );
+    }
+
+    public ComboBoxPO getSuperClass()
+    {
+        return _superClass;
+    }
+
+    public void setSuperClass( String superClass )
+    {
+        this._superClass.setText( superClass );;
     }
 
     public ButtonPO getCreateButton()
@@ -66,6 +88,11 @@ public class NewClassPO extends DialogPO implements HookConfigurationWizard, Pro
     public void setClassName( String text )
     {
         _classNameText.setText( text );
+    }
+
+    public ButtonPO getBrowseButton()
+    {
+        return _browseButton;
     }
 
 }

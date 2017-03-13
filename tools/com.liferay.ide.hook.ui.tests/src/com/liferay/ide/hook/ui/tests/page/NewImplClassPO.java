@@ -31,6 +31,8 @@ public class NewImplClassPO extends DialogPO implements HookConfigurationWizard,
 
     private ButtonPO _createButton;
     private TextPO _javaPackageText;
+    private TextPO _classname;
+    private ButtonPO _browseButton;
 
     public NewImplClassPO( SWTBot bot )
     {
@@ -43,6 +45,8 @@ public class NewImplClassPO extends DialogPO implements HookConfigurationWizard,
 
         _javaPackageText = new TextPO( bot, LABLE_JAVA_PACKAGE );
         _createButton = new ButtonPO( bot, BUTTON_CREATE );
+        _classname = new TextPO( bot, LABLE_CLASS_NAME );
+        _browseButton = new ButtonPO( bot, BUTTON_BROWSE_WITH_DOT );
     }
 
     public ButtonPO getCreateButton()
@@ -58,6 +62,21 @@ public class NewImplClassPO extends DialogPO implements HookConfigurationWizard,
     public TextPO getJavaPackage()
     {
         return _javaPackageText;
+    }
+
+    public TextPO getClassname()
+    {
+        return _classname;
+    }
+
+    public void setClassname( String classname )
+    {
+        this._classname.setText( classname );
+    }
+
+    public ButtonPO getBrowseButton()
+    {
+        return _browseButton;
     }
 
 }
