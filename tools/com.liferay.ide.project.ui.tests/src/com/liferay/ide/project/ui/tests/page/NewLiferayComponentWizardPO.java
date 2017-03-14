@@ -88,7 +88,7 @@ public class NewLiferayComponentWizardPO extends WizardPO implements NewLiferayC
         this._componentClassName = _componentClassName;
     }
 
-    public TextPO getModelClaa()
+    public TextPO getModelClass()
     {
         return _modelClass;
     }
