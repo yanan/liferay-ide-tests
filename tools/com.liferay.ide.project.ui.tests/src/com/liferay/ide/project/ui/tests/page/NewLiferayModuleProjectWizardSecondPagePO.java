@@ -113,19 +113,14 @@ public class NewLiferayModuleProjectWizardSecondPagePO extends WizardPO implemen
         return _properties;
     }
 
-    public void setComponentClassName( TextPO _componentClassName )
+    public void setComponentClassName( String componentClassName )
     {
-        this._componentClassName = _componentClassName;
+        _componentClassName.setText( componentClassName );
     }
 
-    public void setPackageName( TextPO _packageName )
+    public void setPackageName( String packageName )
     {
-        this._packageName = _packageName;
-    }
-
-    public void setProperties( TablePO _properties )
-    {
-        this._properties = _properties;
+        _packageName.setText( packageName );
     }
 
     public void doubleClick( int row, int column )
