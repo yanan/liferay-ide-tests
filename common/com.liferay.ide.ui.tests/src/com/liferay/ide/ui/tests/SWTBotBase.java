@@ -18,10 +18,14 @@ package com.liferay.ide.ui.tests;
 import static org.junit.Assert.assertEquals;
 
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.filesystem.EFS;
@@ -394,6 +398,37 @@ public class SWTBotBase implements UIBase
             }
         }
         return false;
+    }
+
+    public void killGradleProcess() throws IOException
+    {
+        String jpsCmd = "jps";
+
+        Process proc = Runtime.getRuntime().exec( jpsCmd );
+
+        BufferedReader in = new BufferedReader( new InputStreamReader( proc.getInputStream() ) );
+
+        String string_Temp = in.readLine();
+
+        List<String> result = new ArrayList<String>();
+
+        while( string_Temp != null )
+        {
+            string_Temp = in.readLine();
+
+            if( string_Temp != null && string_Temp.contains( "GradleDaemon" ) )
+            {
+                result.add( string_Temp );
+            }
+        }
+
+        for( String pid : result )
+        {
+            String allGradleProcess[] = pid.split( " " );
+
+            Runtime.getRuntime().exec( "taskkill /F /PID " + allGradleProcess[0] );
+        }
+
     }
 
 }
