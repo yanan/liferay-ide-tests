@@ -20,6 +20,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
 import org.junit.AfterClass;
 import org.junit.Assume;
 import org.junit.Before;
@@ -44,7 +46,11 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
 
     TreePO projectTree = eclipse.getPackageExporerView().getProjectTree();
 
-    NewLiferayModuleProjectWizardPO createModuleProjectWizard = new NewLiferayModuleProjectWizardPO( bot );
+    NewLiferayModuleProjectWizardPO createModuleProjectWizard =
+        new NewLiferayModuleProjectWizardPO( bot, INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE );
+
+    NewLiferayModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
+        new NewLiferayModuleProjectWizardSecondPagePO( bot, INDEX_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
 
     @AfterClass
     public static void cleanAll()
@@ -62,16 +68,15 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     @Test
     public void createMvcportletModuleProject()
     {
-        NewLiferayModuleProjectWizardPO createModuleProjectWizard =
-            new NewLiferayModuleProjectWizardPO( bot, INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE );
-
-        sleep( 3000 );
         assertEquals( TEXT_ENTER_MODULE_PROJECT_NAME_MESSAGE, createModuleProjectWizard.getValidationMessage() );
 
         String projectName = "testMvcportletProject";
 
         createModuleProjectWizard.createModuleProject( projectName );
+        sleep();
 
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
         assertEquals( MENU_MODULE_MVC_PORTLET, createModuleProjectWizard.getProjectTemplateNameComboBox().getText() );
 
         String[] expectedModuleProjectTemplateItems =
@@ -155,6 +160,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
 
         String javaFileName = "TestMvcportletProjectPortlet.java";
 
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         projectTree.expandNode( projectName, "src/main/java", "testMvcportletProject.portlet" ).doubleClick(
             javaFileName );
 
@@ -180,7 +186,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     }
 
     @Test
-    public void createMvcportletModuleProjectInLiferayWorkspace()
+    public void createMvcportletModuleProjectInLiferayWorkspace() throws IOException
     {
         createModuleProjectWizard.cancel();
 
@@ -206,9 +212,6 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
 
         createModuleProjectWizard.next();
 
-        NewLiferayModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO( bot, INDEX_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
-
         assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
         assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
         assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
@@ -220,6 +223,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
 
         String javaFileName = "TestMvcportletInLSPortlet.java";
 
+        assertTrue( projectTree.expandNode( liferayWorkspaceName, "modules", projectName ).isVisible() );
         projectTree.expandNode(
             liferayWorkspaceName, "modules", projectName, "src/main/java", "testMvcportletInLS.portlet" ).doubleClick(
                 javaFileName );
@@ -240,6 +244,9 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         assertContains( "dependencies", buildGradleFile.getText() );
 
         buildGradleFile.close();
+        sleep( 2000 );
+
+        killGradleProcess();
 
         DeleteResourcesDialogPO deleteResources = new DeleteResourcesDialogPO( bot );
 
@@ -268,11 +275,18 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         String projectName = "testServiceProject";
 
         createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICE );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
         createModuleProjectWizard.next();
 
         NewLiferayModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO( bot, INDEX_MUST_SPECIFY_SERVICE_NAME_VALIDATIOIN_MESSAGE );
+            new NewLiferayModuleProjectWizardSecondPagePO(
+                bot, INDEX_SERVICE_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
 
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
         assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
         assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
         assertEquals( "", createModuleProjectSecondPageWizard.getServiceName().getText() );
@@ -313,6 +327,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
 
         String javaFileName = "TestServiceProject.java";
 
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         projectTree.expandNode( projectName, "src/main/java", "testServiceProject" ).doubleClick( javaFileName );
 
         TextEditorPO checkJavaFile = eclipse.getTextEditor( javaFileName );
@@ -342,12 +357,15 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         String projectName = "testServiceBuilderProject";
 
         createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICE_BUILDER );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
         createModuleProjectWizard.next();
 
-        NewLiferayModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
-
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
         assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
         assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
 
@@ -404,6 +422,871 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     }
 
     @Test
+    public void createActivatorModuleProject()
+    {
+        String projectName = "testActivatorProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_ACTIVATOR );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", projectName, "TestActivatorProjectActivator.java" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createApiModuleProject()
+    {
+        String projectName = "testApiProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_API );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testApiProject.api", "TestApiProject.java" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createContentTargetingReportModuleProject()
+    {
+        String projectName = "testContentTargetingReportProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_CONTENT_TARGETING_REPORT );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testContentTargetingReportProject.content.targeting.report",
+                "TestContentTargetingReportProjectReport.java" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createContentTargetingRuleModuleProject()
+    {
+        String projectName = "testContentTargetingRuleProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_CONTENT_TARGETING_RULE );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testContentTargetingRuleProject.content.targeting.rule",
+                "TestContentTargetingRuleProjectRule.java" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createContentTargetingTrackingActionModuleProject()
+    {
+        String projectName = "testContentTargetingTrackingActionProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_CONTENT_TARGETING_TRACKING_ACTION );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java",
+                "testContentTargetingTrackingActionProject.content.targeting.tracking.action",
+                "TestContentTargetingTrackingActionProjectTrackingAction.java" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createControlMenuEntryModuleProject()
+    {
+        String projectName = "testControlMenuEntryProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_CONTROL_MENU_ENTRY );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testControlMenuEntryProject.control.menu",
+                "TestControlMenuEntryProjectProductNavigationControlMenuEntry.java" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createFormFieldModuleProject()
+    {
+        String projectName = "testFormFieldProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_FORM_FIELD );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testFormFieldProject.form.field",
+                "TestFormFieldProjectDDMFormFieldRenderer.java" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testFormFieldProject.form.field",
+                "TestFormFieldProjectDDMFormFieldType.java" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+        assertContains( "task wrapSoyTemplates", buildGradleFile.getText() );
+        assertContains( "classes", buildGradleFile.getText() );
+        assertContains( "transpileJS", buildGradleFile.getText() );
+        assertContains( "wrapSoyTemplates", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createPanelAppModuleProject()
+    {
+        String projectName = "testPanelAppProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_PANEL_APP );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testPanelAppProject.application.list" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testPanelAppProject.application.list",
+                "TestPanelAppProjectPanelApp.java" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testPanelAppProject.application.list",
+                "TestPanelAppProjectPanelCategory.java" ).isVisible() );
+
+        assertTrue(
+            projectTree.expandNode( projectName, "src/main/java", "testPanelAppProject.constants" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testPanelAppProject.constants",
+                "TestPanelAppProjectPanelCategoryKeys.java" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testPanelAppProject.constants",
+                "TestPanelAppProjectPortletKeys.java" ).isVisible() );
+
+        assertTrue( projectTree.expandNode( projectName, "src/main/java", "testPanelAppProject.portlet" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testPanelAppProject.portlet",
+                "TestPanelAppProjectPortlet.java" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createPortletModuleProject()
+    {
+        String projectName = "testPortletProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_PORTLET );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.getComponentClassName().setText( "testComponentClass" );
+        createModuleProjectSecondPageWizard.getPackageName().setText( "testPackage" );
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue( projectTree.expandNode( projectName, "src/main/java", "testPackage.portlet" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testPackage.portlet", "testComponentClassPortlet.java" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createPortletConfigurationIconModuleProject()
+    {
+        String projectName = "testPortletConfigurationIconProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_PORTLET_CONFIGURATION_ICON );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testPortletConfigurationIconProject.portlet.configuration.icon",
+                "TestPortletConfigurationIconProjectPortletConfigurationIcon.java" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createPortletProviderModuleProject()
+    {
+        String projectName = "testPortletProviderProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_PORTLET_PROVIDER );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testPortletProviderProject.constants" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testPortletProviderProject.constants",
+                "TestPortletProviderProjectPortletKeys.java" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testPortletProviderProject.constants",
+                "TestPortletProviderProjectWebKeys.java" ).isVisible() );
+
+        assertTrue(
+            projectTree.expandNode( projectName, "src/main/java", "testPortletProviderProject.portlet" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testPortletProviderProject.portlet",
+                "TestPortletProviderProjectAddPortletProvider.java" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testPortletProviderProject.portlet",
+                "TestPortletProviderProjectPortlet.java" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createPortletToolbarContributorModuleProject()
+    {
+        String projectName = "testPortletToolbarContributorProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_PORTLET_TOOLBAR_CONTRIBUTOR );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testPortletToolbarContributorProject.portlet.toolbar.contributor",
+                "TestPortletToolbarContributorProjectPortletToolbarContributor.java" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createRestModuleProject()
+    {
+        String projectName = "testRestProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_REST );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testRestProject.application",
+                "TestRestProjectApplication.java" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createServiceWrapperModuleProject()
+    {
+        String projectName = "testServiceWrapperProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICE_WRAPPER );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        NewLiferayModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
+            new NewLiferayModuleProjectWizardSecondPagePO(
+                bot, INDEX_SERVICE_WRAPPER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.getBrowseButton().click();
+        sleep( 5000 );
+
+        SelectModuleServiceNamePO selectOneServiceName = new SelectModuleServiceNamePO( bot );
+
+        selectOneServiceName.selectServiceName( "gg" );
+        sleep( 2000 );
+        assertFalse( selectOneServiceName.confirmButton().isEnabled() );
+        selectOneServiceName.selectServiceName( "*BookmarksEntryLocalServiceWrapper" );
+        sleep();
+        assertTrue( selectOneServiceName.confirmButton().isEnabled() );
+        selectOneServiceName.confirm();
+
+        assertEquals(
+            "com.liferay.bookmarks.service.BookmarksEntryLocalServiceWrapper",
+            createModuleProjectSecondPageWizard.getServiceName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        String javaFileName = "TestServiceWrapperProject.java";
+
+        TextEditorPO checkJavaFile = eclipse.getTextEditor( javaFileName );
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", projectName, "TestServiceWrapperProject.java" ).isVisible() );
+
+        projectTree.expandNode( projectName, "src/main/java", projectName ).doubleClick( javaFileName );
+        sleep( 2000 );
+
+        assertContains( "extends BookmarksEntryLocalServiceWrapper", checkJavaFile.getText() );
+        checkJavaFile.close();
+
+        projectTree.setFocus();
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createSimulationPanelEntryModuleProject()
+    {
+        String projectName = "testSimulationPanelEntryProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SIMULATION_PANEL_ENTRY );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testSimulationPanelEntryProject.application.list",
+                "TestSimulationPanelEntryProjectSimulationPanelApp.java" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createTemplateContextContributorModuleProject()
+    {
+        String projectName = "testTemplateContextContributorProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_TEMPLATE_CONTEXT_CONTRIBUTOR );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/java", "testTemplateContextContributorProject.context.contributor",
+                "TestTemplateContextContributorProjectTemplateContextContributor.java" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createThemeModuleProject()
+    {
+        String projectName = "testThemeProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_THEME );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertFalse( createModuleProjectWizard.nextButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue( projectTree.expandNode( projectName, "src", "main", "webapp", "css", "_custom.scss" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
+    public void createThemeContributorModuleProject()
+    {
+        String projectName = "testThemeContributorProject";
+
+        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_THEME_CONTRIBUTOR );
+        sleep();
+
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+
+        createModuleProjectWizard.next();
+
+        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
+        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
+        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
+        createModuleProjectSecondPageWizard.finish();
+        sleep( 10000 );
+
+        projectTree.setFocus();
+
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/resources", "META-INF", "resources", "css", projectName,
+                "_body.scss" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/resources", "META-INF", "resources", "css", projectName,
+                "_control_menu.scss" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/resources", "META-INF", "resources", "css", projectName,
+                "_product_menu.scss" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/resources", "META-INF", "resources", "css", projectName,
+                "_simulation_panel.scss" ).isVisible() );
+
+        String buildGradleFileName = "build.gradle";
+
+        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+
+        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+
+        assertContains( "buildscript", buildGradleFile.getText() );
+        assertContains( "apply plugin", buildGradleFile.getText() );
+        assertContains( "dependencies", buildGradleFile.getText() );
+        assertContains( "repositories", buildGradleFile.getText() );
+
+        buildGradleFile.close();
+    }
+
+    @Test
     public void validationProjectName()
     {
         NewLiferayModuleProjectWizardPO createModuleProjectWizard =
@@ -445,6 +1328,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
         sleep( 2000 );
+        createModuleProjectWizard.setBuildType( TEXT_BUILD_TYPE );
     }
 
 }
