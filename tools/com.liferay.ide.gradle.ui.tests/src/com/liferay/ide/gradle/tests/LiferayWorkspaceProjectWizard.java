@@ -26,7 +26,6 @@ public interface LiferayWorkspaceProjectWizard extends UIBase
 
     public final String LABEL_DOWNLOAD_LIFERAY_BUNDLE = "Download Liferay bundle";
     public final String LABEL_SERVER_NAME = "Server name:";
-    public final String LABEL_WORKSPACE_NAME = "Workspace name:";
 
     public final String NODE_LIFERAY_7X = "Liferay 7.x";
 

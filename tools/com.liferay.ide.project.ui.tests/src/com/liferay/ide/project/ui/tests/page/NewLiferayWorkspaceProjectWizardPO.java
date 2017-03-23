@@ -18,26 +18,35 @@ package com.liferay.ide.project.ui.tests.page;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import com.liferay.ide.project.ui.tests.NewLiferayModuleProjectWizard;
+import com.liferay.ide.ui.tests.swtbot.page.ComboBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
 import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
 /**
  * @author Ying Xu
+ * @author Ashley Xu
  */
 public class NewLiferayWorkspaceProjectWizardPO extends WizardPO implements NewLiferayModuleProjectWizard
 {
 
     private TextPO _workspaceNameText;
+    private ComboBoxPO _buildType;
 
     public NewLiferayWorkspaceProjectWizardPO( SWTBot bot )
     {
         super( bot, TEXT_BLANK, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT );
-        _workspaceNameText = new TextPO( bot, "Workspace name:" );
+        _workspaceNameText = new TextPO( bot, LABEL_WORKSPACE_NAME );
+        _buildType = new ComboBoxPO( bot, LABLE_WORKSPACE_BUILD_TYPE );
     }
 
     public void setWorkspaceNameText( String workspaceNameText )
     {
         _workspaceNameText.setText( workspaceNameText );
+    }
+
+    public ComboBoxPO get_buildType()
+    {
+        return _buildType;
     }
 
 }

@@ -91,7 +91,7 @@ public class PackageExplorerViewPO extends ViewPO implements UIBase
 
         _projectsTree.getTreeItem( name ).doAction( BUTTON_DELETE );
 
-        sleep( 500 );
+        sleep( 1000 );
 
         if( deleteFromDisk )
         {

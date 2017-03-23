@@ -43,7 +43,7 @@ public interface UIBase
     public final String BUTTON_MORE_WITH_DOT = "More...";
     public final String BUTTON_SHOW_ALL_PAGES = "Show All Pages";
     public final String BUTTON_RESTART_UPGRADE = "Restart Upgrade";
-    
+
     public final String CHECKBOX_INCLUDE_SAMPLE_CODE = "Include sample code";
     public final String CHECKBOX_ADD_PROJECT_TO_WORKING_SET = "Add project to working set";
     public final String COMBOBOX_WORKING_SET = "Working set:";
@@ -118,5 +118,11 @@ public interface UIBase
     public final String TITLE_NEW_LIFERAY_PORTLET = "New Liferay Portlet (Liferay 6.x)";
 
     public final String MENU_LIFERAY = "Liferay";
+
+    public final String TEXT_LIFERAY_WORKSPACE_BUILD_TYPE_GRADLE = "Gradle";
+    public final String TEXT_LIFERAY_WORKSPACE_BUILD_TYPE_MAVEN = "Maven";
+
+    public final String LABEL_WORKSPACE_NAME = "Workspace name:";
+    public final String LABLE_WORKSPACE_BUILD_TYPE = "Build type:";
 
 }

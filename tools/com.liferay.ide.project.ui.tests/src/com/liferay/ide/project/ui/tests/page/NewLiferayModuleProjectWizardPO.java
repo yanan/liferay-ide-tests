@@ -25,6 +25,7 @@ import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 /**
  * @author Ying Xu
  * @author Sunny Shi
+ * @author Ashley Yuan
  */
 public class NewLiferayModuleProjectWizardPO extends WizardPO implements NewLiferayModuleProjectWizard
 {
@@ -88,9 +89,9 @@ public class NewLiferayModuleProjectWizardPO extends WizardPO implements NewLife
         return _projectNameText;
     }
 
-    public void deSelectDefaultLocation()
+    public CheckBoxPO get_useDefaultLocation()
     {
-        _useDefaultLocation.deselect();
+        return _useDefaultLocation;
     }
 
     public TextPO getLocation()
