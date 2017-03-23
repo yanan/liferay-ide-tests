@@ -20,6 +20,7 @@ import com.liferay.ide.ui.tests.UIBase;
 /**
  * @author Ying Xu
  * @author Sunny Shi
+ * @author Ashley Yuan
  */
 public interface NewLiferayModuleProjectWizard extends UIBase
 {
@@ -66,11 +67,12 @@ public interface NewLiferayModuleProjectWizard extends UIBase
     public final String MENU_MODULE_THEME_CONTRIBUTOR = "theme-contributor";
     public final String MENU_MODULE_FORM_FIELD = "form-field";
 
-    public final String TEXT_BUILD_TYPE = "gradle-module";
-    public final String TEXT_BUILD_TYPE_MAVEN = "maven-module";
+    public final String TEXT_BUILD_TYPE = "Gradle";
+    public final String TEXT_BUILD_TYPE_MAVEN = "Maven";
     public final String TEXT_ENTER_MODULE_PROJECT_NAME_MESSAGE = "Please enter a project name.";
     public final String TEXT_NEW_LIFERAY_MODULE_MESSAGE =
         "Enter a name and choose a template to use for a new Liferay module.";
+    public final String TEXT_LOCATION_MUST_BE_SPECIFIED = " Location must be specified.";
     public final String TEXT_MUST_SPECIFIED_PROJECT_NAME = " Project name must be specified";
     public final String TEXT_NAME_MUST_BE_SPECIFIED = " Name must be specified";
     public final String TEXT_VALUE_MUST_BE_SPECIFIED = " Value must be specified";
@@ -87,5 +89,17 @@ public interface NewLiferayModuleProjectWizard extends UIBase
     public final int INDEX_SERVICE_BUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE = 2;
     public final int INDEX_SERVICE_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE = 3;
     public final int INDEX_SERVICE_WRAPPER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE = 3;
+
+    String[] expectedModuleProjectTemplateItems = { MENU_MODULE_ACTIVATOR, MENU_MODULE_API,
+        MENU_MODULE_CONTENT_TARGETING_REPORT, MENU_MODULE_CONTENT_TARGETING_RULE,
+        MENU_MODULE_CONTENT_TARGETING_TRACKING_ACTION, MENU_MODULE_CONTROL_MENU_ENTRY, MENU_MODULE_FORM_FIELD,
+        MENU_MODULE_MVC_PORTLET, MENU_MODULE_PANEL_APP, MENU_MODULE_PORTLET, MENU_MODULE_PORTLET_CONFIGURATION_ICON,
+        MENU_MODULE_PORTLET_PROVIDER, MENU_MODULE_PORTLET_TOOLBAR_CONTRIBUTOR, MENU_MODULE_REST, MENU_MODULE_SERVICE,
+        MENU_MODULE_SERVICE_BUILDER, MENU_MODULE_SERVICE_WRAPPER, MENU_MODULE_SIMULATION_PANEL_ENTRY,
+        MENU_MODULE_TEMPLATE_CONTEXT_CONTRIBUTOR, MENU_MODULE_THEME, MENU_MODULE_THEME_CONTRIBUTOR };
+
+    String[] templatesWithoutPropertyKeys = { MENU_MODULE_ACTIVATOR, MENU_MODULE_API,
+        MENU_MODULE_CONTENT_TARGETING_REPORT, MENU_MODULE_CONTENT_TARGETING_RULE,
+        MENU_MODULE_CONTENT_TARGETING_TRACKING_ACTION, MENU_MODULE_THEME_CONTRIBUTOR,MENU_MODULE_PORTLET_PROVIDER };
 
 }

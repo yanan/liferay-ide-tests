@@ -30,6 +30,7 @@ import java.util.Map;
 
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -83,6 +84,8 @@ public class SWTBotBase implements UIBase
 
     private final long DEFAULT_SLEEP_MILLIS = 1000;
     private static IPath liferayBundlesPath;
+
+    protected final static String eclipseWorkspace = ResourcesPlugin.getWorkspace().getRoot().getLocation().toString();
 
     protected Keyboard keyPress = KeyboardFactory.getAWTKeyboard();
 
