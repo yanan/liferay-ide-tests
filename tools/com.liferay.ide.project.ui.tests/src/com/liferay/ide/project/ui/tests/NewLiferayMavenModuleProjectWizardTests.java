@@ -17,7 +17,6 @@ package com.liferay.ide.project.ui.tests;
 
 import static org.eclipse.swtbot.swt.finder.SWTBotAssert.assertContains;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -45,8 +44,12 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
 {
 
     TreePO projectTree = eclipse.getPackageExporerView().getProjectTree();
+
     NewLiferayModuleProjectWizardPO createMavenModuleProjectWizard =
         new NewLiferayModuleProjectWizardPO( bot, INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE );
+
+    NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
+        new NewLiferayModuleProjectWizardSecondPagePO( bot );
 
     @After
     public void cleanAll()
@@ -268,9 +271,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICE, TEXT_BUILD_TYPE_MAVEN );
         createMavenModuleProjectWizard.next();
 
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO( bot, INDEX_MUST_SPECIFY_SERVICE_NAME_VALIDATIOIN_MESSAGE );
-
         assertEquals( "", createMavenModuleProjectSecondPageWizard.getComponentClassName().getText() );
         assertEquals( "", createMavenModuleProjectSecondPageWizard.getPackageName().getText() );
         assertEquals( "", createMavenModuleProjectSecondPageWizard.getServiceName().getText() );
@@ -348,10 +348,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
             projectName, MENU_MODULE_SERVICE_BUILDER, TEXT_BUILD_TYPE_MAVEN );
         createMavenModuleProjectWizard.next();
 
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
-
         assertEquals( "", createMavenModuleProjectSecondPageWizard.getPackageName().getText() );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
 
@@ -413,9 +409,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
 
         sleep();
 
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
         createMavenModuleProjectSecondPageWizard.finish();
         sleep( 10000 );
@@ -457,9 +450,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.next();
 
         sleep();
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
 
         createMavenModuleProjectSecondPageWizard.finish();
@@ -502,10 +492,8 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.next();
 
         sleep();
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
+
         createMavenModuleProjectSecondPageWizard.finish();
 
         sleep( 10000 );
@@ -550,9 +538,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.next();
 
         sleep();
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
         createMavenModuleProjectSecondPageWizard.finish();
 
@@ -598,9 +583,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.next();
 
         sleep();
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
         createMavenModuleProjectSecondPageWizard.finish();
 
@@ -647,9 +629,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.next();
 
         sleep();
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
         createMavenModuleProjectSecondPageWizard.finish();
 
@@ -695,9 +674,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.next();
 
         sleep();
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
         createMavenModuleProjectSecondPageWizard.finish();
 
@@ -748,9 +724,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.next();
 
         sleep();
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
         createMavenModuleProjectSecondPageWizard.finish();
 
@@ -801,9 +774,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.next();
 
         sleep();
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
         createMavenModuleProjectSecondPageWizard.finish();
 
@@ -850,9 +820,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.next();
 
         sleep();
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
         createMavenModuleProjectSecondPageWizard.finish();
 
@@ -899,9 +866,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.next();
 
         sleep();
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
         createMavenModuleProjectSecondPageWizard.finish();
 
@@ -960,9 +924,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.next();
 
         sleep();
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
         createMavenModuleProjectSecondPageWizard.finish();
 
@@ -1009,9 +970,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.next();
 
         sleep();
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
         createMavenModuleProjectSecondPageWizard.finish();
 
@@ -1058,9 +1016,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.next();
 
         sleep();
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
 
         SelectModuleServiceNamePO selectOneServiceName = new SelectModuleServiceNamePO( bot );
@@ -1113,9 +1068,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.next();
 
         sleep();
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
 
         createMavenModuleProjectSecondPageWizard.finish();
@@ -1164,9 +1116,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.next();
 
         sleep();
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
 
         createMavenModuleProjectSecondPageWizard.finish();
@@ -1259,9 +1208,6 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
         createMavenModuleProjectWizard.next();
 
         sleep();
-        NewLiferayModuleProjectWizardSecondPagePO createMavenModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICEBUILDER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
         assertTrue( createMavenModuleProjectSecondPageWizard.finishButton().isEnabled() );
 
         createMavenModuleProjectSecondPageWizard.finish();

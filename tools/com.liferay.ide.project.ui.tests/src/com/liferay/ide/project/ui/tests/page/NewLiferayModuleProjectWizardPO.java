@@ -93,6 +93,11 @@ public class NewLiferayModuleProjectWizardPO extends WizardPO implements NewLife
         _useDefaultLocation.deselect();
     }
 
+    public TextPO getLocation()
+    {
+        return _location;
+    }
+
     public void setLocation( String location )
     {
         _location.setText( location );
@@ -101,6 +106,11 @@ public class NewLiferayModuleProjectWizardPO extends WizardPO implements NewLife
     public ComboBoxPO getBuildType()
     {
         return _buildType;
+    }
+
+    public void setBuildType( String buildType )
+    {
+        _buildType.setSelection( buildType );
     }
 
 }
