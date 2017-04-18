@@ -32,6 +32,7 @@ import com.liferay.ide.ui.tests.SWTBotBase;
 
 /**
  * @author Vicky Wang
+ * @author Ashley Yuan
  */
 public class NewServerRuntimeWizardTests extends SWTBotBase implements ServerRuntimeWizard
 {
@@ -42,6 +43,8 @@ public class NewServerRuntimeWizardTests extends SWTBotBase implements ServerRun
     public static void prepareServer() throws IOException
     {
         unzipServer();
+
+        copyFileToStartServer();
     }
 
     NewServerRuntimeEnvPO setRuntimePage = new NewServerRuntimeEnvPO( bot );
