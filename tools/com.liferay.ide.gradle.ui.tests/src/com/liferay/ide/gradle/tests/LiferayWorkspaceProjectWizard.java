@@ -12,7 +12,7 @@
  * details.
  *
  *******************************************************************************/
- 
+
 package com.liferay.ide.gradle.tests;
 
 import com.liferay.ide.ui.tests.UIBase;
@@ -22,6 +22,7 @@ import com.liferay.ide.ui.tests.UIBase;
  */
 public interface LiferayWorkspaceProjectWizard extends UIBase
 {
+
     public final int INDEX_VALIDATION_PAGE_MESSAGE3 = 2;
 
     public final String LABEL_DOWNLOAD_LIFERAY_BUNDLE = "Download Liferay bundle";
@@ -31,7 +32,8 @@ public interface LiferayWorkspaceProjectWizard extends UIBase
 
     public final String TEXT_ENTER_PROJECT_NAME = " Liferay Workspace name could not be empty.";
     public final String TEXT_INVALID_CHARACTER_IN_WORKSPACE_NAME = " is an invalid character in resource name ";
-    public final String TEXT_INVALID_NAME_ON_PLATFORM = " is an invalid name on this platform.";
+    public final String TEXT_PLEASE_ENTER_THE_WORKSPACE_NAME = "Please enter the workspace name.";
+    public final String TEXT_PLEASE_ENTER_A_PROJECT_NAME = "Please enter a project name.";
     public final String TEXT_INVALID_NAME_PROJECT = "The name is invalid for a project.";
 
     public final String WINDOW_NEW_LIFERAY_WORKSPACE = "New Liferay Workspace Project";

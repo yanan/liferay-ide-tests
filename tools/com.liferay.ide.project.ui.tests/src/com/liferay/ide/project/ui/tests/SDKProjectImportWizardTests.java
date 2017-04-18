@@ -51,12 +51,6 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
 
     private LiferayProjectFromExistSourceWizardPO _wizard = new LiferayProjectFromExistSourceWizardPO( bot );
 
-    @AfterClass
-    public static void deleteSDK()
-    {
-        eclipse.getPackageExporerView().deleteResouceByName( getLiferayPluginsSdkName(), true );
-    }
-
     @BeforeClass
     public static void unzipServerAndSdk() throws IOException
     {
