@@ -75,7 +75,7 @@ public interface UIBase
 
     public final String MENU_DELETE = "Delete";
     public final String MENU_FILE = "File";
-    public final String MENU_PROJECT = "Project";
+    public final String MENU_PROJECT = "Project...";
     public final String MENU_NEW = "New";
     public final String TEXT_BLANK = "";
     public final String TEXT_NO_OPERTAIONS = "No operations to display at this time.";
