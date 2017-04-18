@@ -88,6 +88,5 @@ public interface HookConfigurationWizard extends UIBase
     public final String WINDOW_ADD_PROPERTY_OVERRIDE = "Add Property Override";
     public final String WINDOW_ADD_SERVICE = "Add Service";
     public final String WINDOW_ADD_SERVICE_WRAPPER = "Add Service Wrapper";
-    public final String WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION = "New Liferay Hook (Liferay 6.x)";
 
 }

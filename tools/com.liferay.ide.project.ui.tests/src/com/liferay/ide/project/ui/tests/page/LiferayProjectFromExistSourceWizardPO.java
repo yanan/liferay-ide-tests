@@ -18,22 +18,25 @@ package com.liferay.ide.project.ui.tests.page;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import com.liferay.ide.project.ui.tests.LiferayProjectFromExistSourceWizard;
+import com.liferay.ide.ui.tests.swtbot.page.ButtonPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
 import com.liferay.ide.ui.tests.swtbot.page.ToolbarButtonWithTooltipPO;
 import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
 /**
  * @author Li Lu
+ * @author Ying Xu
  */
 public class LiferayProjectFromExistSourceWizardPO extends WizardPO implements LiferayProjectFromExistSourceWizard
 {
 
-    private ToolbarButtonWithTooltipPO _browseProjectDirectory;
+    private ToolbarButtonWithTooltipPO _browseSDKDirectory;
 
-    private TextPO _pluginTypeText;
+    private ButtonPO _selectAllButton;
+    private ButtonPO _deselectAllButton;
+    private ButtonPO _refreshButton;
 
-    private TextPO _projectDirectoryText;
-
+    private TextPO _sdkDirectoryText;
     private TextPO _sdkVersionText;
 
     public LiferayProjectFromExistSourceWizardPO( SWTBot bot )
@@ -46,25 +49,38 @@ public class LiferayProjectFromExistSourceWizardPO extends WizardPO implements L
         String nextButtonText, int validationMessageIndex )
     {
         super( bot, title, cancelButtonText, finishButtonText, backButtonText, nextButtonText, validationMessageIndex );
-        _pluginTypeText = new TextPO( bot, LABLE_PLUGIN_TYPE );
-        _projectDirectoryText = new TextPO( bot, LABLE_PROJECT_DIRECTORY );
+        _sdkDirectoryText = new TextPO( bot, LABEL_SDK_DIRECTORY );
         _sdkVersionText = new TextPO( bot, LABLE_SDK_VERSION );
-        _browseProjectDirectory = new ToolbarButtonWithTooltipPO( bot, LABLE_BROWSE_PROJECT );
+        _browseSDKDirectory = new ToolbarButtonWithTooltipPO( bot, BUTTON_BROWSE );
+        _selectAllButton = new ButtonPO( bot, BUTTON_SELECT_ALL );
+        _deselectAllButton = new ButtonPO( bot, BUTTON_DESELECT_ALL );
+        _refreshButton = new ButtonPO( bot, BUTTON_REFRESH );
+
     }
 
-    public ToolbarButtonWithTooltipPO getBrowseProjectDirectory()
+    public ToolbarButtonWithTooltipPO getBrowseSdkDirectory()
     {
-        return _browseProjectDirectory;
+        return _browseSDKDirectory;
     }
 
-    public TextPO getPluginTypeText()
+    public ButtonPO getSelectAllButton()
     {
-        return _pluginTypeText;
+        return _selectAllButton;
     }
 
-    public TextPO getProjectDirectoryText()
+    public ButtonPO getDeselectAllButton()
     {
-        return _projectDirectoryText;
+        return _deselectAllButton;
+    }
+
+    public ButtonPO getRefreshButton()
+    {
+        return _refreshButton;
+    }
+
+    public TextPO getSdkDirectoryText()
+    {
+        return _sdkDirectoryText;
     }
 
     public TextPO getSdkVersionText()
@@ -74,7 +90,7 @@ public class LiferayProjectFromExistSourceWizardPO extends WizardPO implements L
 
     public void importProject( String path )
     {
-        getProjectDirectoryText().setText( path );
+        getSdkDirectoryText().setText( path );
 
         finish();
         waitForPageToClose();
