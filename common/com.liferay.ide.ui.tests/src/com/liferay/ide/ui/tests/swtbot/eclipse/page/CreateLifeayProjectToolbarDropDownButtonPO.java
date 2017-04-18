@@ -30,7 +30,7 @@ import com.liferay.ide.ui.tests.swtbot.page.ToolbarDropDownButtonPO;
 public class CreateLifeayProjectToolbarDropDownButtonPO extends ToolbarDropDownButtonPO implements UIBase
 {
 
-    private MenuItemPO _newLiferayHookConfigration;
+    private MenuItemPO _newLiferayHookConfiguration;
     private MenuItemPO _newLiferayJSFPortlet;
     private MenuItemPO _newLiferayPluginProject;
     private MenuItemPO _newLiferayPortlet;
@@ -49,7 +49,7 @@ public class CreateLifeayProjectToolbarDropDownButtonPO extends ToolbarDropDownB
 
         _newLiferayPluginProject = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_PLUGIN_PROJECT );
         _newLiferayPortlet = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_PORTLET );
-        _newLiferayHookConfigration = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_HOOK_CONFIGURATION );
+        _newLiferayHookConfiguration = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_HOOK_CONFIGURATION );
         _newLiferayServer = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_SERVER );
         _newLiferayServiceBuilder = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_SERVICE_BUILDER );
         _newLiferayJSFPortlet = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_JSF_PORTLET );
@@ -62,9 +62,9 @@ public class CreateLifeayProjectToolbarDropDownButtonPO extends ToolbarDropDownB
 
     }
 
-    public MenuItemPO getNewLiferayHookConfigration()
+    public MenuItemPO getNewLiferayHookConfiguration()
     {
-        return _newLiferayHookConfigration;
+        return _newLiferayHookConfiguration;
     }
 
     public MenuItemPO getNewLiferayJSFPortlet()

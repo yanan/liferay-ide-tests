@@ -82,7 +82,7 @@ public interface UIBase
 
     public final String TOOLBAR_CREATE_LIFERAY_PROJECT = "Create a new Liferay Module Project";
 
-    public final String LABEL_NEW_LIFERAY_PLUGIN_PROJECT = "New Liferay Plugin Project (Liferay 6.x)";
+    public final String LABEL_NEW_LIFERAY_PLUGIN_PROJECT = "New Liferay Plugin Project";
     public final String LABEL_NEW_LIFERAY_MODULE_PROJECT = "New Liferay Module Project";
     public final String LABEL_NEW_LIFERAY_HOOK_CONFIGURATION = "New Liferay Hook Configuration";
     public final String LABEL_NEW_LIFERAY_SERVER = "New Liferay Server";
@@ -96,7 +96,7 @@ public interface UIBase
     public final String LABEL_NEW_LIFERAY_WORPSPACE_PROJECT = "New Liferay Workspace Project";
     public final String LABEL_NEW_LIFERAY_COMPONENT_CLASS = "New Liferay Component Class";
 
-    public final String LABEL_LIFERAY_PLUGIN_PROJECT = "Liferay Plugin Project (Liferay 6.x)";
+    public final String LABEL_LIFERAY_PLUGIN_PROJECT = "Liferay Plugin Project";
     public final String LABEL_LIFERAY_MODULE_PROJECT = "Liferay Module Project";
     public final String LABEL_LIFERAY_PORTLET = "Liferay Portlet";
     public final String LABEL_LIFERAY_JSF_PORTLET = "Liferay JSF Portlet";
@@ -112,11 +112,12 @@ public interface UIBase
     public final String TOOLBAR_PACKAGE = "Package";
 
     public final String MENU_NEW_LIFERAY_PROJECT_EXIS_SOURCE =
-        "New Liferay Plugin Project from Existing Source (Liferay 6.x)";
+        "New Liferay Plugin Projects from Existing Source";
     public final String TITLE_NEW_LAYOUT_TEMPLATE = "New Layout Template";
     public final String TITLE_NEW_SERVICE_BUILDER = "New Service Builder";
-    public final String TITLE_NEW_LIFERAY_PORTLET = "New Liferay Portlet (Liferay 6.x)";
-
+    public final String TITLE_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
+    public final String WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION = "New Liferay Hook";
+    
     public final String MENU_LIFERAY = "Liferay";
 
 }
