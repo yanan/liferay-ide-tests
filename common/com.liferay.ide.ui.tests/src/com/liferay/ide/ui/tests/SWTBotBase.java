@@ -127,6 +127,24 @@ public class SWTBotBase implements UIBase
         SWTBotPreferences.KEYBOARD_LAYOUT = "EN_US";
     }
 
+    protected static void copyFileToStartServer()
+    {
+
+        String filename = "com.liferay.ip.geocoder.internal.IPGeocoderConfiguration.cfg";
+
+        File source = new File( liferayBundlesDir + "/" + filename );
+        File dest = new File( getLiferayServerDir().toString() + "osgi/configs/" + filename );
+
+        try
+        {
+            FileUtil.copyFile( source, dest );
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+        }
+    }
+
     protected static boolean runAllTests()
     {
         return( "".equals( runTest ) || runTest == null );
