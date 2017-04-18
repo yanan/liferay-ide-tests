@@ -82,11 +82,21 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         if( addedProjects() )
         {
             eclipse.getProjectTree().setFocus();
+
             eclipse.getPackageExporerView().deleteProjectExcludeNames(
                 new String[] { getLiferayPluginsSdkName() }, true );
         }
 
         sleep( 3000 );
+
+        try
+        {
+            eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() },
+                true );
+        }
+        catch( Exception e )
+        {
+        }
 
         eclipse.closeShell( LABEL_NEW_LIFERAY_PLUGIN_PROJECT );
         eclipse.closeShell( LABEL_NEW_LIFERAY_PORTLET );
@@ -371,8 +381,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         specifyLiferayPortletDeploymentDescriptorPage.specifyLiferayDisplay( null, true, null, null, true, null );
 
         assertTrue(
-            Arrays.equals(
-                availableEntryCategories70,
+            Arrays.equals( availableEntryCategories70,
                 specifyLiferayPortletDeploymentDescriptorPage.getEntryCategoryAvailableComboValues() ) );
         assertEquals( "1.5", specifyLiferayPortletDeploymentDescriptorPage.getEntryWeightText() );
         assertEquals(
@@ -411,8 +420,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
             "unexistentIcon", false, "unexistentCss", "unexistentJavaScript", null );
 
         assertTrue(
-            isInAvailableLists(
-                specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryAvailableComboValues(),
+            isInAvailableLists( specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryAvailableComboValues(),
                 "my1category" ) );
 
         // entry tests after checked add to control panel
@@ -641,8 +649,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
         assertEquals( "Sample", specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryCombobox() );
         assertTrue(
-            Arrays.equals(
-                specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryAvailableComboValues(),
+            Arrays.equals( specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryAvailableComboValues(),
                 availableDisplayCategories70 ) );
 
         assertFalse( specifyLiferayPortletDeploymentDescriptorPage.isAddToControlPanelChecked() );
