@@ -36,11 +36,13 @@ import com.liferay.ide.project.ui.tests.page.LiferayProjectFromExistSourceWizard
 import com.liferay.ide.ui.tests.SWTBotBase;
 import com.liferay.ide.ui.tests.swtbot.page.DialogPO;
 import com.liferay.ide.ui.tests.swtbot.page.TreeItemPO;
+import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 import com.liferay.ide.ui.tests.util.FileUtil;
 import com.liferay.ide.ui.tests.util.ZipUtil;
 
 /**
  * @author Li Lu
+ * @author Ying Xu
  */
 
 @RunWith( SWTBotJunit4ClassRunner.class )
@@ -50,6 +52,10 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
     private static final String BUNDLE_ID = "com.liferay.ide.project.ui.tests";
 
     private LiferayProjectFromExistSourceWizardPO _wizard = new LiferayProjectFromExistSourceWizardPO( bot );
+
+    TreePO projectTreeItem = eclipse.getPackageExporerView().getProjectTree();
+
+    TreeItemPO sdkTreeItem = eclipse.getPackageExporerView().getProjectTree().getTreeItem( getLiferayPluginsSdkName() );
 
     @AfterClass
     public static void deleteSDK()
@@ -80,38 +86,13 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
         }
     }
 
-    public void importSDKProject( String path, String projectName ) throws Exception
+    public void unzipSDKProject( String path, String projectName ) throws Exception
     {
-
         path = getLiferayPluginsSdkDir().append( path ).toOSString();
 
         final File projectZipFile = getProjectZip( BUNDLE_ID, projectName );
 
         ZipUtil.unzip( projectZipFile, new File( path ) );
-
-        openWizard();
-
-        _wizard.getProjectDirectoryText().setText( path + "/" + projectName );
-
-        String FILE_SEPARATOR = System.getProperty( "file.separator" );
-        String[] sdkPath = path.split( "\\" + FILE_SEPARATOR );
-
-        String projectFolder = sdkPath[sdkPath.length - 1];
-
-        String pluginType = projectFolder.endsWith( "s" )
-            ? projectFolder.substring( 0, projectFolder.lastIndexOf( 's' ) ) : projectFolder;
-
-        sleep( 1000 );
-        assertEquals( pluginType, _wizard.getPluginTypeText().getText() );
-
-        assertEquals( "7.0.0", _wizard.getSdkVersionText().getText() );
-
-        assertTrue( _wizard.finishButton().isEnabled() );
-        bot.button( "Finish" ).click();
-
-        TreeItemPO sdkTreeItem =
-            eclipse.getPackageExporerView().getProjectTree().getTreeItem( getLiferayPluginsSdkName() );
-        assertTrue( sdkTreeItem.isVisible() );
     }
 
     public void openWizard()
@@ -128,106 +109,128 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
     @Test
     public void testDefaults()
     {
+        if( sdkTreeItem.isVisible() )
+        {
+            eclipse.getPackageExporerView().deleteResouceByName( getLiferayPluginsSdkName(), true );
+        }
+
         openWizard();
 
         assertEquals( MESSAGE_DEFAULT, _wizard.getValidationMessage() );
 
-        assertTrue( _wizard.getProjectDirectoryText().isEnabled() );
-        assertTrue( _wizard.getBrowseProjectDirectory().isEnabled() );
-        assertTrue( _wizard.getPluginTypeText().isEnabled() );
+        assertTrue( _wizard.getSdkDirectoryText().isEnabled() );
+        assertTrue( _wizard.getBrowseSdkDirectory().isEnabled() );
         assertTrue( _wizard.getSdkVersionText().isEnabled() );
 
-        assertTrue( _wizard.getProjectDirectoryText().isActive() );
-        assertFalse( _wizard.getBrowseProjectDirectory().isActive() );
-        assertFalse( _wizard.getPluginTypeText().isActive() );
+        assertTrue( _wizard.getSdkDirectoryText().isActive() );
+        assertFalse( _wizard.getBrowseSdkDirectory().isActive() );
         assertFalse( _wizard.getSdkVersionText().isActive() );
+
+        assertTrue( _wizard.getSelectAllButton().isEnabled() );
+        assertTrue( _wizard.getDeselectAllButton().isEnabled() );
+        assertTrue( _wizard.getRefreshButton().isEnabled() );
 
         _wizard.cancel();
     }
 
     @Test
-    public void testPluginType() throws Exception
+    public void testAllPlugins() throws Exception
     {
-        importSDKProject( "hooks", "Import-223-hook" );
-        importSDKProject( "themes", "Import-223-theme" );
-        importSDKProject( "ext", "Import-223-ext" );
-        importSDKProject( "layouttpl", "Import-223-layouttpl" );
+        unzipSDKProject( "portlets", "Import-223-portlet" );
+        unzipSDKProject( "hooks", "Import-223-hook" );
+        unzipSDKProject( "themes", "Import-223-theme" );
+        unzipSDKProject( "ext", "Import-223-ext" );
+        unzipSDKProject( "layouttpl", "Import-223-layouttpl" );
+
+        openWizard();
+
+        if( _wizard.getBrowseSdkDirectory().isEnabled() )
+        {
+            _wizard.getSdkDirectoryText().setText( getLiferayPluginsSdkDir().toString() );
+        }
+
+        sleep( 1000 );
+        assertEquals( MESSAGE_DEFAULT, _wizard.getValidationMessage() );
+
+        _wizard.getSelectAllButton().click();
+        _wizard.getDeselectAllButton().click();
+        _wizard.getRefreshButton().click();
+
+        _wizard.getSelectAllButton().click();
+        assertEquals( "7.0.0", _wizard.getSdkVersionText().getText() );
+        assertTrue( _wizard.finishButton().isEnabled() );
+
+        _wizard.finish();
+
+        assertTrue( sdkTreeItem.isVisible() );
+
+        assertTrue( projectTreeItem.getTreeItem( "Import-223-portlet" ).isVisible() );
+        assertTrue( projectTreeItem.getTreeItem( "Import-223-hook" ).isVisible() );
+        assertTrue( projectTreeItem.getTreeItem( "Import-223-theme" ).isVisible() );
+        assertTrue( projectTreeItem.getTreeItem( "Import-223-ext" ).isVisible() );
+        assertTrue( projectTreeItem.getTreeItem( "Import-223-layouttpl" ).isVisible() );
     }
 
     @Test
-    public void testProjectDirValidation() throws Exception
+    public void testSdkDirValidation() throws Exception
     {
         openWizard();
-        _wizard.getProjectDirectoryText().setText( "AAA" );
+
+        if( !_wizard.getBrowseSdkDirectory().isEnabled() )
+        {
+            _wizard.cancel();
+
+            eclipse.getPackageExporerView().deleteResouceByName( getLiferayPluginsSdkName(), true );
+
+            openWizard();
+        }
+
+        unzipPluginsSDK();
+
+        _wizard.getSdkDirectoryText().setText( "AAA" );
         sleep( 1000 );
         assertEquals( " \"AAA\" is not an absolute path.", _wizard.getValidationMessage() );
         assertFalse( _wizard.finishButton().isEnabled() );
 
-        _wizard.getProjectDirectoryText().setText( "C:/" );
+        _wizard.getSdkDirectoryText().setText( "C:/" );
         sleep( 1000 );
         assertEquals( MESSAGE_INVALID_PROJECT_LOCATION, _wizard.getValidationMessage() );
         assertFalse( _wizard.finishButton().isEnabled() );
-        _wizard.cancel();
 
-        // import project outside of SDK
-        importSDKProject( "portlets", "Import-223-portlet" );
-        IPath projectDir = getLiferayPluginsSdkDir().append( "/portlets/Import-223-portlet" ).makeAbsolute();
-        IPath projectCopyDir =
-            getLiferayPluginsSdkDir().removeLastSegments( 2 ).append( "/Import-223-portlet" ).makeAbsolute();
+        unzipSDKProject( "portlets", "Import-223-portlet" );
 
-        FileUtil.copyDirectiory( projectDir.toOSString(), projectCopyDir.toOSString() );
-
-        eclipse.getPackageExporerView().deleteResouceByName( "Import-223-portlet", false );
-
-        openWizard();
-        _wizard.getProjectDirectoryText().setText( projectCopyDir.toOSString() );
-
+        _wizard.getSdkDirectoryText().setText( getLiferayPluginsSdkDir().toString() );
         sleep( 1000 );
-        assertFalse( _wizard.finishButton().isEnabled() );
-        assertEquals(
-            " Could not determine SDK from project location " + projectCopyDir.toOSString(),
-            _wizard.getValidationMessage() );
+        assertEquals( MESSAGE_MUST_SPECIFY_ONE_PROJECT, _wizard.getValidationMessage() );
+
+        _wizard.getSelectAllButton().click();
+        assertEquals( "7.0.0", _wizard.getSdkVersionText().getText() );
+        assertTrue( _wizard.finishButton().isEnabled() );
+
+        _wizard.finish();
+
+        TreeItemPO sdkTreeItem =
+            eclipse.getPackageExporerView().getProjectTree().getTreeItem( getLiferayPluginsSdkName() );
+
+        assertTrue( sdkTreeItem.isVisible() );
+
+        assertTrue( projectTreeItem.getTreeItem( "Import-223-portlet" ).isVisible() );
 
         // import project from another SDK
         IPath sdk2Dir = getLiferayPluginsSdkDir().removeLastSegments( 1 ).append( "sdk2" );
 
         FileUtil.copyDirectiory( getLiferayPluginsSdkDir().toOSString(), sdk2Dir.toOSString() );
 
-        FileUtil.copyDirectiory(
-            projectCopyDir.toOSString(), sdk2Dir.append( "/portlets/Import-223-portlet" ).toOSString() );
-
-        _wizard.getProjectDirectoryText().setText( sdk2Dir.append( "/portlets/Import-223-portlet" ).toString() );
-
+        openWizard();
         sleep( 1000 );
-        assertEquals( MESSAGE_PROJECT_HAS_DIFF_SDK, _wizard.getValidationMessage() );
 
+        assertFalse( _wizard.getSdkDirectoryText().isEnabled() );
+        assertFalse( _wizard.getBrowseSdkDirectory().isEnabled() );
+        assertFalse( _wizard.getSdkVersionText().isEnabled() );
         assertFalse( _wizard.finishButton().isEnabled() );
 
         _wizard.cancel();
 
         FileUtil.deleteDir( sdk2Dir.toFile(), true );
-        FileUtil.deleteDir( projectCopyDir.toFile(), true );
-    }
-
-    @Test
-    public void testValidationNoSDK() throws Exception
-    {
-        // test import project when no sdk in wrokspace
-        importSDKProject( "portlet", "Import-223-portlet" );
-
-        TreeItemPO sdkTreeItem =
-            eclipse.getPackageExporerView().getProjectTree().getTreeItem( getLiferayPluginsSdkName() );
-        assertTrue( sdkTreeItem.isEnabled() );
-
-        String projectPath = getLiferayPluginsSdkDir().append( "portlet/Import-223-portlet" ).toOSString();
-
-        openWizard();
-        _wizard.getProjectDirectoryText().setText( projectPath );
-
-        sleep( 1000 );
-        assertEquals( MESSAGE_PROJECT_NAME_EXSIT, _wizard.getValidationMessage() );
-        assertFalse( _wizard.finishButton().isEnabled() );
-
-        _wizard.cancel();
     }
 }
