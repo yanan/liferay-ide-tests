@@ -57,12 +57,6 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
 
     TreeItemPO sdkTreeItem = eclipse.getPackageExporerView().getProjectTree().getTreeItem( getLiferayPluginsSdkName() );
 
-    @AfterClass
-    public static void deleteSDK()
-    {
-        eclipse.getPackageExporerView().deleteResouceByName( getLiferayPluginsSdkName(), true );
-    }
-
     @BeforeClass
     public static void unzipServerAndSdk() throws IOException
     {
