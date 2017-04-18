@@ -27,6 +27,7 @@ import org.junit.AfterClass;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.liferay.ide.project.ui.tests.page.CreateProjectWizardPO;
@@ -62,6 +63,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
         unzipPluginsSDK();
     }
 
+    @Ignore
     @Test
     public void createExtProject()
     {
@@ -200,7 +202,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
         // Regression test IDE-1226,project already exists
         eclipse.getFileMenu().clickMenu( "New", "Other..." );
         bot.tree().getTreeItem( "Liferay" ).expand();
-        bot.tree().getTreeItem( "Liferay" ).getNode( "Liferay Plugin Project (Liferay 6.x)" ).select();
+        bot.tree().getTreeItem( "Liferay" ).getNode( "Liferay Plugin Project" ).select();
         bot.button( "Next >" ).click();
 
         createProjectWizard.createSDKPortletProject( projectName );
@@ -214,7 +216,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
         // Regression test IDE-1976,project name with space test
         eclipse.getFileMenu().clickMenu( "New", "Other..." );
         bot.tree().getTreeItem( "Liferay" ).expand();
-        bot.tree().getTreeItem( "Liferay" ).getNode( "Liferay Plugin Project (Liferay 6.x)" ).select();
+        bot.tree().getTreeItem( "Liferay" ).getNode( "Liferay Plugin Project" ).select();
         bot.button( "Next >" ).click();
         createProjectWizard.createSDKPortletProject( "test with space" );
 
@@ -254,7 +256,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 
         createProjectWizard.finish();
 
-        ShellPO newPortletPage = new ShellPO( bot, "New Liferay Portlet (Liferay 6.x)" )
+        ShellPO newPortletPage = new ShellPO( bot, "New Liferay Portlet" )
         {
         };
 
@@ -392,7 +394,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
         eclipse.getFileMenu().clickMenu( "New", "Other..." );
 
         bot.tree().getTreeItem( "Liferay" ).expand();
-        bot.tree().getTreeItem( "Liferay" ).getNode( "Liferay Plugin Project (Liferay 6.x)" ).select();
+        bot.tree().getTreeItem( "Liferay" ).getNode( "Liferay Plugin Project" ).select();
 
         bot.button( "Next >" ).click();
     }
