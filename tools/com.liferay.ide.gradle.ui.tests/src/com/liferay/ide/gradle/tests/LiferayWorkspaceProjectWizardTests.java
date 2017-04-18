@@ -29,25 +29,28 @@ import com.liferay.ide.gradle.ui.tests.page.CreateWorkspaceProjectWizardPO;
  */
 public class LiferayWorkspaceProjectWizardTests extends SWTBotBase implements LiferayWorkspaceProjectWizard
 {
+
     String projectName = "workspace-project";
     String serverName = "Liferay 7.0 CE Server";
 
     @AfterClass
     public static void cleanAll()
     {
+
         eclipse.closeShell( WINDOW_NEW_LIFERAY_WORKSPACE );
     }
 
     @Test
     public void liferayWorksapceProjectWizard()
     {
+
         CreateWorkspaceProjectWizardPO newWorkspaceProjectPage =
             new CreateWorkspaceProjectWizardPO( bot, INDEX_VALIDATION_PAGE_MESSAGE3 );
 
         newWorkspaceProjectPage.setWorkspaceName( ".." );
         sleep();
 
-        assertEquals( " '..'" + TEXT_INVALID_NAME_ON_PLATFORM, newWorkspaceProjectPage.getValidationMessage() );
+        assertEquals( TEXT_PLEASE_ENTER_THE_WORKSPACE_NAME, newWorkspaceProjectPage.getValidationMessage() );
 
         newWorkspaceProjectPage.setWorkspaceName( "##" );
         sleep();
@@ -55,11 +58,12 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase implements Li
 
         newWorkspaceProjectPage.setWorkspaceName( "*" );
         sleep();
-        assertEquals( " *" + TEXT_INVALID_CHARACTER_IN_WORKSPACE_NAME + "'*'.", newWorkspaceProjectPage.getValidationMessage() );
+        assertEquals(
+            " *" + TEXT_INVALID_CHARACTER_IN_WORKSPACE_NAME + "'*'.", newWorkspaceProjectPage.getValidationMessage() );
 
         newWorkspaceProjectPage.setWorkspaceName( TEXT_BLANK );
         sleep();
-        assertEquals(  TEXT_ENTER_PROJECT_NAME, newWorkspaceProjectPage.getValidationMessage() );
+        assertEquals( TEXT_ENTER_PROJECT_NAME, newWorkspaceProjectPage.getValidationMessage() );
 
         newWorkspaceProjectPage.setWorkspaceName( projectName );
         sleep();
@@ -73,14 +77,13 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase implements Li
         sleep( 20000 );
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayWorkspaceProject().click();
-        assertEquals( " A Liferay Workspace project already exists in this Eclipse instance.", 
-            newWorkspaceProjectPage.getValidationMessage() );
-
+        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, newWorkspaceProjectPage.getValidationMessage() );
     }
 
     @Before
     public void openWizard()
     {
+
         eclipse.getLiferayWorkspacePerspective().activate();
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayWorkspaceProject().click();
     }
