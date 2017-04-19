@@ -69,6 +69,7 @@ public interface UIBase
     public final String LABEL_PROJECT_EXPLORER = "Project Explorer";
     public final String LABEL_LIFERAY_CODE_UPGRADE = "Liferay Code Upgrade";
     public final String LABEL_RESTART_CODE_UPGRADE = "Restart code upgrade?";
+    public final String LABEL_BUILD_TYPE = "Build type:";
 
     public final String LABEL_SOURCE_FOLDER = "Source folder:";
     public final String LABEL_NAME = "Name:";
@@ -117,6 +118,12 @@ public interface UIBase
     public final String TITLE_NEW_SERVICE_BUILDER = "New Service Builder";
     public final String TITLE_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
     public final String WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION = "New Liferay Hook";
+
+    public final String TEXT_IS_NOT_AN_ABSOLUTE_PATH= " is not an absolute path.";
+    public final String TEXT_DIRECTORY_DOESNT_EXIST = " Directory doesn't exist.";
+    public final String TEXT_IS_NOT_A_VALID_PATH = " is not a valid path";
+    
+    public final String TEXT_PLEASE_SELECT_THE_WORKSPACE_LOCATION= "Please select the workspace location.";
     
     public final String MENU_LIFERAY = "Liferay";
 
