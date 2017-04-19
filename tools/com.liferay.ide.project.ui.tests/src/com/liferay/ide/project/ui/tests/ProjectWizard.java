@@ -40,7 +40,6 @@ public interface ProjectWizard extends UIBase
 
     public final String LABEL_ACTIVE_PROFILES = "Active profiles:";
     public final String LABEL_ARTIFACT_VERSION = "Artifact version:";
-    public final String LABEL_BUILD_TYPE = "Build type:";
     public final String LABEL_GROUP_ID = "Group id:";
     public final String LABEL_DISPLAY_NAME = "Display name:";
     public final String LABEL_FOLDER_NAME = "Folder name:";
