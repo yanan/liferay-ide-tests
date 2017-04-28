@@ -55,10 +55,10 @@ public class NewLiferayModuleProjectWizardPO extends WizardPO implements NewLife
     {
         super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT, validationMessageIndex );
         _projectTemplateNameComboBox = new ComboBoxPO( bot, LABEL_MODULE_PROJECT_TEMPLATE_NAME );
-        _projectNameText = new TextPO( bot, LABEL_MODULE_PROJECT_NAME );
+        _projectNameText = new TextPO( bot, LABEL_PROJECT_NAME );
         _useDefaultLocation = new CheckBoxPO( bot, CHECKBOX_USE_DEFAULT_LOCATION );
-        _location = new TextPO( bot, LABEL_MODULE_LOCATION );
-        _buildType = new ComboBoxPO( bot, LABEL_MODULE_BUILD_TYPE );
+        _location = new TextPO( bot, LABEL_LOCATION );
+        _buildType = new ComboBoxPO( bot, LABEL_BUILD_TYPE );
     }
 
     public void createModuleProject( String projectName )

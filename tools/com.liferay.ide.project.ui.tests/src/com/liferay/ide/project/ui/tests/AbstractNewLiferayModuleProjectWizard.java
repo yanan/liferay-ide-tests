@@ -80,7 +80,7 @@ public abstract class AbstractNewLiferayModuleProjectWizard extends SWTBotBase i
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
         sleep( 2000 );
 
-        assertEquals( TEXT_ENTER_MODULE_PROJECT_NAME_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, createModuleProjectWizard.getValidationMessage() );
         assertEquals( MENU_MODULE_MVC_PORTLET, createModuleProjectWizard.getProjectTemplateNameComboBox().getText() );
         assertTrue( createModuleProjectWizard.get_useDefaultLocation().isChecked() );
 

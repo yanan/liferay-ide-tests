@@ -15,11 +15,11 @@
 
 package com.liferay.ide.module.fragment.tests;
 
+import static org.eclipse.swtbot.swt.finder.SWTBotAssert.assertContains;
+
 import static org.junit.Assert.*;
-
 import java.io.IOException;
-
-import org.junit.AfterClass;
+import org.junit.After;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -32,7 +32,9 @@ import com.liferay.ide.module.fragment.ui.tests.page.SetModuleFragmentProjectOSG
 import com.liferay.ide.server.ui.tests.page.NewServerPO;
 import com.liferay.ide.server.ui.tests.page.NewServerRuntimeEnvPO;
 import com.liferay.ide.ui.tests.SWTBotBase;
+import com.liferay.ide.ui.tests.swtbot.page.CTabItemPO;
 import com.liferay.ide.ui.tests.swtbot.page.DialogPO;
+import com.liferay.ide.ui.tests.swtbot.page.TextEditorPO;
 import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 
 /**
@@ -43,10 +45,21 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
 {
 
     String projectName = "module-fragment-project";
+
     NewServerPO newServerPage = new NewServerPO( bot );
+
     NewServerRuntimeEnvPO setRuntimePage = new NewServerRuntimeEnvPO( bot );
+
     CreateModuleFragmentProjectWizardPO newModuleFragmentPage =
         new CreateModuleFragmentProjectWizardPO( bot, INDEX_VALIDATION_PAGE_MESSAGE3 );
+
+    SetModuleFragmentProjectOSGiBundlePO moduleFragmentOSGiBundlePage =
+        new SetModuleFragmentProjectOSGiBundlePO( bot, INDEX_VALIDATION_MESSAGE2 );
+
+    HostOSGiBundlePO selectOSGiBundlePage = new HostOSGiBundlePO( bot );
+    AddFilesToOverridePO addJSPFilesPage = new AddFilesToOverridePO( bot );
+
+    TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
 
     @Before
     public void isRunTest()
@@ -59,20 +72,52 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayServer().click();
 
         newServerPage.getServerTypeTree().selectTreeItem( NODE_LIFERAY_INC, NODE_LIFERAY_7X );
-        newServerPage.next();
 
-        setRuntimePage.getServerLocation().setText( getLiferayServerDir().toOSString() );
+        sleep( 3000 );
 
-        assertEquals( "Tomcat", setRuntimePage.getPortalBundleType().getText() );
-        setRuntimePage.finish();
+        if( !newServerPage.finishButton().isEnabled() )
+        {
+            newServerPage.next();
+
+            sleep();
+
+            setRuntimePage.getServerLocation().setText( getLiferayServerDir().toOSString() );
+
+            assertEquals( "Tomcat", setRuntimePage.getPortalBundleType().getText() );
+            setRuntimePage.finish();
+        }
+        else
+        {
+            newServerPage.finish();
+        }
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleFragmentProject().click();
     }
 
-    @AfterClass
-    public static void cleanAll()
+    public void checkBuildType()
+    {
+        String[] expectedFragmentBuildTypeItems = { TEXT_BUILD_TYPE, TEXT_BUILD_TYPE_MAVEN };
+        String[] fragmentBuildTypeItems = newModuleFragmentPage.getBuildType().getAvailableComboValues();
+        assertTrue( fragmentBuildTypeItems.length >= 1 );
+        assertEquals( expectedFragmentBuildTypeItems.length, fragmentBuildTypeItems.length );
+
+        for( int j = 0; j < fragmentBuildTypeItems.length; j++ )
+        {
+            assertTrue( fragmentBuildTypeItems[j].equals( expectedFragmentBuildTypeItems[j] ) );
+        }
+
+    }
+
+    @After
+    public void deleteProject()
     {
         eclipse.closeShell( LABEL_NEW_LIFERAY_MODULE_PROJECT_FRAGMENT );
+
+        if( addedProjects() )
+        {
+            eclipse.getPackageExporerView().deleteProjectExcludeNames(
+                new String[] { getLiferayPluginsSdkName() }, true );
+        }
     }
 
     @BeforeClass
@@ -101,7 +146,7 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
 
         newModuleFragmentPage.setProjectName( TEXT_BLANK );
         sleep();
-        assertEquals( TEXT_ENTER_PROJECT_NAME, newModuleFragmentPage.getValidationMessage() );
+        assertEquals( TEXT_PROJECT_NAME_MUST_BE_SPECIFIED, newModuleFragmentPage.getValidationMessage() );
 
         newModuleFragmentPage.setProjectName( projectName );
         sleep( 2000 );
@@ -116,39 +161,16 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
     {
         addLiferayServerAndOpenWizard();
 
-        newModuleFragmentPage.setProjectName( ".." );
+        checkBuildType();
+        newModuleFragmentPage.setProjectName( projectName, TEXT_BUILD_TYPE );
         sleep();
-        assertEquals( " '..'" + TEXT_INVALID_NAME_ON_PLATFORM, newModuleFragmentPage.getValidationMessage() );
-
-        newModuleFragmentPage.setProjectName( "##" );
-        sleep();
-        assertEquals( " " + TEXT_INVALID_GRADLE_PROJECT, newModuleFragmentPage.getValidationMessage() );
-
-        newModuleFragmentPage.setProjectName( "*" );
-        sleep();
-        assertEquals(
-            " *" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'*'.", newModuleFragmentPage.getValidationMessage() );
-
-        newModuleFragmentPage.setProjectName( TEXT_BLANK );
-        sleep();
-        assertEquals( TEXT_ENTER_PROJECT_NAME, newModuleFragmentPage.getValidationMessage() );
-
-        newModuleFragmentPage.setProjectName( projectName );
-        sleep();
-
         assertTrue( newModuleFragmentPage.isLiferayRuntimeTextEnabled() );
         newModuleFragmentPage.next();
 
         // select OSGi Bundle and Overridden files
-        SetModuleFragmentProjectOSGiBundlePO moduleFragmentOSGiBundlePage =
-            new SetModuleFragmentProjectOSGiBundlePO( bot, INDEX_VALIDATION_MESSAGE2 );
-
         assertEquals( TEXT_OSGI_BUNDLE_BLANK, moduleFragmentOSGiBundlePage.getValidationMessage() );
 
         moduleFragmentOSGiBundlePage.getSelectOSGiBundleButton().click();
-
-        HostOSGiBundlePO selectOSGiBundlePage = new HostOSGiBundlePO( bot );
-        AddFilesToOverridePO addJSPFilesPage = new AddFilesToOverridePO( bot );
 
         selectOSGiBundlePage.setOSGiBundle( "com.liferay.announcements." );
         selectOSGiBundlePage.confirm();
@@ -176,12 +198,10 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
         }
 
         moduleFragmentOSGiBundlePage.finish();
-        sleep( 60000 );
+        sleep( 40000 );
 
         DialogPO dialogPage = new DialogPO( bot, "Open Associated Perspective", BUTTON_YES, BUTTON_NO );
         dialogPage.confirm();
-
-        TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
 
         String[] pathTree = new String[] { projectName, "src/main/java" };
 
@@ -202,6 +222,82 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
         pathTree = new String[] { projectName, "src/main/resources", "META-INF", "resources", "blogs_aggregator" };
 
         projectTree.expandNode( pathTree ).doubleClick( "init.jsp" );
+    }
+
+    @Test
+    public void mavenModuleFragmentProjectWizard()
+    {
+        addLiferayServerAndOpenWizard();
+
+        String projectName = "maven-fragment-project";
+
+        checkBuildType();
+        newModuleFragmentPage.setProjectName( projectName, TEXT_BUILD_TYPE_MAVEN );
+        sleep();
+        assertTrue( newModuleFragmentPage.isLiferayRuntimeTextEnabled() );
+        newModuleFragmentPage.next();
+
+        // select OSGi Bundle and Overridden files
+
+        assertEquals( TEXT_OSGI_BUNDLE_BLANK, moduleFragmentOSGiBundlePage.getValidationMessage() );
+
+        moduleFragmentOSGiBundlePage.getSelectOSGiBundleButton().click();
+
+        selectOSGiBundlePage.setOSGiBundle( "com.liferay.blogs.web" );
+        selectOSGiBundlePage.confirm();
+
+        moduleFragmentOSGiBundlePage.getOverriddenFiles().containsItem( null );
+
+        String[] files = new String[] { "META-INF/resources/blogs_admin/configuration.jsp",
+            "META-INF/resources/blogs_aggregator/init.jsp", "META-INF/resources/blogs/asset/abstract.jsp",
+            "META-INF/resources/blogs/edit_entry.jsp", "portlet.properties" };
+
+        for( String file : files )
+        {
+            moduleFragmentOSGiBundlePage.getAddOverriddenFilesButton().click();
+            addJSPFilesPage.select( file );
+            addJSPFilesPage.confirm();
+        }
+
+        moduleFragmentOSGiBundlePage.finish();
+        sleep( 40000 );
+
+        DialogPO dialogPage = new DialogPO( bot, "Open Associated Perspective", BUTTON_YES, BUTTON_NO );
+        dialogPage.confirm();
+
+        projectTree.setFocus();
+        projectTree.expandNode( projectName ).doubleClick();
+
+        assertTrue( projectTree.expandNode( projectName, "src/main/java", "portlet-ext.properties" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/resources", "META-INF", "resources", "blogs", "asset",
+                "abstract.jsp" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/resources", "META-INF", "resources", "blogs", "edit_entry.jsp" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/resources", "META-INF", "resources", "blogs_admin",
+                "configuration.jsp" ).isVisible() );
+        assertTrue(
+            projectTree.expandNode(
+                projectName, "src/main/resources", "META-INF", "resources", "blogs_aggregator",
+                "init.jsp" ).isVisible() );
+
+        String pomXmlFileName = "pom.xml";
+
+        projectTree.expandNode( projectName, pomXmlFileName ).doubleClick();
+
+        CTabItemPO switchCTabItem = new CTabItemPO( bot, "pom.xml" );
+        switchCTabItem.click();
+
+        TextEditorPO pomXmlFile = eclipse.getTextEditor( projectName + "/pom.xml" );
+
+        assertContains( "<artifactId>maven-fragment-project</artifactId>", pomXmlFile.getText() );
+
+        pomXmlFile.close();
+
     }
 
 }

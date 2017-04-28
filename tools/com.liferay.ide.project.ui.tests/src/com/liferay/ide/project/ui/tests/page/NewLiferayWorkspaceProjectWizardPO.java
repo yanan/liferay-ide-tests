@@ -36,7 +36,7 @@ public class NewLiferayWorkspaceProjectWizardPO extends WizardPO implements NewL
     {
         super( bot, TEXT_BLANK, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT );
         _workspaceNameText = new TextPO( bot, LABEL_WORKSPACE_NAME );
-        _buildType = new ComboBoxPO( bot, LABLE_WORKSPACE_BUILD_TYPE );
+        _buildType = new ComboBoxPO( bot, LABEL_BUILD_TYPE );
     }
 
     public void setWorkspaceNameText( String workspaceNameText )
