@@ -41,7 +41,6 @@ public interface LiferayPortletWizard extends UIBase
     public final String RADIO_CREATE_NEW_PORTLET = "Create new portlet";
     public final String RADIO_USE_DEFAULT_PORTLET = "Use default portlet (MVCPortlet)";
 
-    // public final String LABEL_DISPLAY_NAME = "Display name:";
     public final String LABEL_TITLE = "Title:";
 
     public final String CHECKBOX_PORTLET_MODE_VIEW = "View";
@@ -92,7 +91,6 @@ public interface LiferayPortletWizard extends UIBase
     public final String LABEL_SERVERESOURCE = "serveResource";
     public final String LABEL_INTERFACES = "Interfaces:";
 
-    public final String TEXT_ENTER_A_PROJECT_NAME = " Enter a project name.";
     public final String TEXT_CREATE_A_PORTLET_CLASS = "Create a portlet class.";
     public final String TEXT_SOURCE_FOLDER_CANNOT_BE_EMPTY = " The source folder cannot be empty.";
     public final String TEXT_SOUCCE_FOLDER_MUST_BE_ABSOLUTE_PATH =

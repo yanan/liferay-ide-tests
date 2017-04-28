@@ -115,7 +115,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
         dialogPage1.confirm();
 
-        assertEquals( TEXT_ENTER_PROJECT_NAME, newLiferayProjectPage.getValidationMessage() );
+        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, newLiferayProjectPage.getValidationMessage() );
         assertFalse( newLiferayProjectPage.nextButton().isEnabled() );
 
         String projectName = "liferayProject";

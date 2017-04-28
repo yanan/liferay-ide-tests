@@ -44,7 +44,7 @@ public class NewLiferayModuleProjectWizardInLiferayWorkspaceTests extends Abstra
     @BeforeClass
     public static void createGradleLiferayWorkspace()
     {
-        newLiferayWorkspace( liferayWorkspaceName, TEXT_LIFERAY_WORKSPACE_BUILD_TYPE_GRADLE );
+        newLiferayWorkspace( liferayWorkspaceName, TEXT_BUILD_TYPE );
     }
 
     @Test

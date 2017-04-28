@@ -68,7 +68,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     @Test
     public void createMvcportletModuleProject()
     {
-        assertEquals( TEXT_ENTER_MODULE_PROJECT_NAME_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, createModuleProjectWizard.getValidationMessage() );
 
         String projectName = "testMvcportletProject";
 
@@ -1292,7 +1292,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         NewLiferayModuleProjectWizardPO createModuleProjectWizard =
             new NewLiferayModuleProjectWizardPO( bot, INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE );
 
-        assertEquals( TEXT_ENTER_MODULE_PROJECT_NAME_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, createModuleProjectWizard.getValidationMessage() );
         assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
 
         createModuleProjectWizard.createModuleProject( "." );
@@ -1306,11 +1306,11 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
         createModuleProjectWizard.createModuleProject( "$" );
         sleep( 1000 );
-        assertEquals( TEXT_INVALID_NAME_FOR_GRADLE_PROJECT, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_THE_PROJECT_NAME_INVALID, createModuleProjectWizard.getValidationMessage() );
         assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
         createModuleProjectWizard.createModuleProject( "" );
         sleep( 1000 );
-        assertEquals( TEXT_MUST_SPECIFIED_PROJECT_NAME, createModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_PROJECT_NAME_MUST_BE_SPECIFIED, createModuleProjectWizard.getValidationMessage() );
         assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
 
         createModuleProjectWizard.createModuleProject( "a" );

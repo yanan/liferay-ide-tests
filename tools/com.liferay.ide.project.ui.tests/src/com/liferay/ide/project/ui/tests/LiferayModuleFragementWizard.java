@@ -23,9 +23,4 @@ import com.liferay.ide.ui.tests.UIBase;
 public interface LiferayModuleFragementWizard extends UIBase
 {
 
-    public final String BUTTON_ADD_FILES_TO_OVERRIDE = "Add Files From OSGi Bundle to Override...";
-
-    public final String LABEL_PROJECT_NAME = "Project name:";
-    public final String LABLE_SELECT_OSGI_BUNDLE = "Select Host OSGi Bundle:";
-
 }

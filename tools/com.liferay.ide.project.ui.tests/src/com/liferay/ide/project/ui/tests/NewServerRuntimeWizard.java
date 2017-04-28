@@ -23,8 +23,4 @@ import com.liferay.ide.ui.tests.UIBase;
 public interface NewServerRuntimeWizard extends UIBase
 {
 
-    public final String LABEL_SERVER_LOCATION = "Liferay Portal Bundle Directory";
-    public final String NODE_LIFERAY_7X = "Liferay 7.x";
-    public final String NODE_LIFERAY_INC = "Liferay, Inc.";
-
 }

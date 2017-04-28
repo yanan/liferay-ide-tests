@@ -145,7 +145,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
         CreateProjectWizardPO createProjectWizard =
             new CreateProjectWizardPO( bot, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE );
 
-        assertEquals( TEXT_ENTER_PROJECT_NAME, createProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, createProjectWizard.getValidationMessage() );
         assertEquals( "", createProjectWizard.get_projectNameText().getText() );
         assertEquals( MENU_BUILD_TYPE_ANT, createProjectWizard.get_buildTypeComboBox().getText() );
         assertEquals( MENU_PORTLET, createProjectWizard.get_pluginTypeComboBox().getText() );
@@ -411,7 +411,7 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
         createProjectWizard.createSDKPortletProject( invalidNameDoubleDash );
 
         sleep();
-        assertEquals( " The project name is invalid.", createProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_THE_PROJECT_NAME_INVALID, createProjectWizard.getValidationMessage() );
 
         createProjectWizard.cancel();
     }

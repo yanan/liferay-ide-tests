@@ -84,7 +84,7 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
     {
         String projectName = "sbwizardtest";
 
-        DialogPO noProjectDialog = new DialogPO( bot, LABEL_DIALOG_SERVICE_BUILDER_TITLE, BUTTON_NO, BUTTON_YES );
+        DialogPO noProjectDialog = new DialogPO( bot, LABEL_NEW_LIFERAY_SERVICE_BUILDER, BUTTON_NO, BUTTON_YES );
 
         noProjectDialog.confirm();
 
@@ -253,7 +253,7 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
     @Test
     public void createServiceBuilderWizardWithoutPortletProject()
     {
-        DialogPO noProjectDialog = new DialogPO( bot, LABEL_DIALOG_SERVICE_BUILDER_TITLE, BUTTON_NO, BUTTON_YES );
+        DialogPO noProjectDialog = new DialogPO( bot, LABEL_NEW_LIFERAY_SERVICE_BUILDER, BUTTON_NO, BUTTON_YES );
 
         noProjectDialog.confirm();
 
@@ -283,7 +283,7 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
 
         assertEquals( TEXT_NEW_SERVICE_BUILDER_XML_FILE, newServiceBuilderWizard.getValidationMessage() );
         newServiceBuilderWizard.NewServiceBuilder( "packagePath", "namespace" );
-        assertEquals( TEXT_ENTER_PROJECT_NAME_MESSAGE, newServiceBuilderWizard.getValidationMessage() );
+        assertEquals( TEXT_ENTER_A_PROJECT_NAME, newServiceBuilderWizard.getValidationMessage() );
         newServiceBuilderWizard.cancel();
 
     }
@@ -293,7 +293,7 @@ public class NewLiferayServiceBuilderWizardTests extends SWTBotBase implements S
     {
         String projectName = "sbwizardtestwithoutentity";
 
-        DialogPO noProjectDialog = new DialogPO( bot, LABEL_DIALOG_SERVICE_BUILDER_TITLE, BUTTON_NO, BUTTON_YES );
+        DialogPO noProjectDialog = new DialogPO( bot, LABEL_NEW_LIFERAY_SERVICE_BUILDER, BUTTON_NO, BUTTON_YES );
 
         noProjectDialog.confirm();
 

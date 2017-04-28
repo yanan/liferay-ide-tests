@@ -58,8 +58,8 @@ public class NewLiferayModuleProjectWizardSecondPagePO extends WizardPO implemen
     {
         super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT, validationMessageIndex );
         _componentClassName = new TextPO( bot, LABEL_MODULE_COMPONENT_CLASS_NAME );
-        _packageName = new TextPO( bot, LABEL_MODULE_PACKAGE_NAME );
-        _serviceName = new TextPO( bot, LABEL_MODULE_SERVICE_NAME );
+        _packageName = new TextPO( bot, LABEL_PACKAGE_NAME );
+        _serviceName = new TextPO( bot, LABEL_SERVICE_NAME );
         _properties = new TablePO( bot, LABEL_MODULE_PROPERTIES );
         _browseButton = new ToolbarButtonWithTooltipPO( bot, BUTTON_BROWSE );
         _addPropertyKeyButton = new ToolbarButtonWithTooltipPO( bot, TOOLBARBOTTON_ADD_PROPERTY_KEY );
