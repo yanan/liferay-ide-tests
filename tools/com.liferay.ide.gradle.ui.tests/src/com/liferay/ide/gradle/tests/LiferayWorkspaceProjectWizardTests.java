@@ -62,7 +62,8 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
     @AfterClass
     public static void cleanAll()
     {
-        eclipse.closeShell( WINDOW_NEW_LIFERAY_WORKSPACE );
+
+        eclipse.closeShell( LABEL_NEW_LIFERAY_WORPSPACE_PROJECT );
     }
 
     @Test

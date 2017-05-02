@@ -73,6 +73,7 @@ public interface UIBase
 
     public final String LABEL_SOURCE_FOLDER = "Source folder:";
     public final String LABEL_NAME = "Name:";
+    public final String LABEL_TYPE = "Type";
 
     public final String MENU_DELETE = "Delete";
     public final String MENU_FILE = "File";
@@ -92,7 +93,6 @@ public interface UIBase
     public final String LABEL_NEW_LIFERAY_JSF_PORTLET = "New Liferay JSF Portlet";
     public final String LABEL_NEW_LIFERAY_VAADIN_PORTLET = "New Liferay Vaadin Portlet";
     public final String LABEL_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
-    public final String LABEL_NEW_LIFERAY_WORKSPACE_PROJECT = "New Liferay Workspace Project";
     public final String LABEL_NEW_LIFERAY_MODULE_PROJECT_FRAGMENT = "New Liferay Module Project Fragment";
     public final String LABEL_NEW_LIFERAY_WORPSPACE_PROJECT = "New Liferay Workspace Project";
     public final String LABEL_NEW_LIFERAY_COMPONENT_CLASS = "New Liferay Component Class";
@@ -109,14 +109,17 @@ public interface UIBase
     public final String LABEL_LIFERAY_COMPONENT_CLASS = "Liferay Component Class";
 
     public final String TOOLBAR_NEW = "New";
-    public final String TITLE_DELETE_RESOURCES = "Delete Resources";
     public final String TOOLBAR_PACKAGE = "Package";
     public final String TOOLBAR_SAVE = "Save (Ctrl+S)";
 
     public final String MENU_NEW_LIFERAY_PROJECT_EXIS_SOURCE = "New Liferay Plugin Projects from Existing Source";
+    public final String MENU_LIFERAY = "Liferay";
+
+    public final String TITLE_DELETE_RESOURCES = "Delete Resources";
     public final String TITLE_NEW_LAYOUT_TEMPLATE = "New Layout Template";
     public final String TITLE_NEW_SERVICE_BUILDER = "New Service Builder";
     public final String TITLE_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
+    
     public final String WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION = "New Liferay Hook";
 
     public final String TEXT_IS_NOT_AN_ABSOLUTE_PATH= " is not an absolute path.";
@@ -125,12 +128,33 @@ public interface UIBase
     
     public final String TEXT_PLEASE_SELECT_THE_WORKSPACE_LOCATION= "Please select the workspace location.";
     
-    public final String MENU_LIFERAY = "Liferay";
-
-    public final String TEXT_LIFERAY_WORKSPACE_BUILD_TYPE_GRADLE = "Gradle";
-    public final String TEXT_LIFERAY_WORKSPACE_BUILD_TYPE_MAVEN = "Maven";
-
+    public final String TEXT_PLEASE_ENTER_A_PROJECT_NAME = "Please enter a project name.";
+    public final String TEXT_ENTER_A_PROJECT_NAME = " Enter a project name.";
+    public final String TEXT_THE_PROJECT_NAME_INVALID = " The project name is invalid.";
+    public final String TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME = " is an invalid character in resource name "; 
+    public final String TEXT_PROJECT_NAME_MUST_BE_SPECIFIED = " Project name must be specified";
+    public final String TEXT_INVALID_NAME_ON_PLATFORM = " is an invalid name on this platform.";    
+    public final String TEXT_PROJECT_ALREADY_EXISTS = " A project with that name already exists.";
+    public final String TEXT_INVALID_CLASS_NAME = " Invalid class name";
+    
     public final String LABEL_WORKSPACE_NAME = "Workspace name:";
-    public final String LABLE_WORKSPACE_BUILD_TYPE = "Build type:";
+    public final String LABEL_SERVICE_NAME = "Service Name:";
+    public final String LABEL_SERVER_NAME = "Server name:";
+    public final String LABEL_BUILD_TYPE = "Build type:";
+    public final String LABEL_PROJECT_NAME = "Project name:";
+    public final String LABEL_PACKAGE_NAME = "Package name:";
+    public final String LABEL_PLUGIN_TYPE = "Plugin type:";
+    public final String LABEL_LOCATION = "Location:";
+    public final String LABEL_SDK_LOCATION = "SDK Location:";
+    public final String LABLE_SELECT_OSGI_BUNDLE = "Select Host OSGi Bundle:";
+    public final String LABEL_SERVER_LOCATION = "Liferay Portal Bundle Directory";
+    
+    public final String BUTTON_ADD_FILES_TO_OVERRIDE = "Add Files From OSGi Bundle to Override...";
+    public final String SERVER_STARTUP_MESSAGE = "Server startup in";  
+    
+    public final String TEXT_BUILD_TYPE = "Gradle";
+    public final String TEXT_BUILD_TYPE_MAVEN = "Maven";
 
+    public final String NODE_LIFERAY_7X = "Liferay 7.x";
+    public final String NODE_LIFERAY_INC = "Liferay, Inc.";
 }

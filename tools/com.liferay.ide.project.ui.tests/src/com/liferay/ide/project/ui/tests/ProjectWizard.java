@@ -30,7 +30,7 @@ public interface ProjectWizard extends UIBase
     public final int INDEX_VALIDATION_MESSAGE1 = 0;
     public final int INDEX_VALIDATION_MESSAGE2 = 1;
     public final int INDEX_NEW_LIFERAY_PLUGIN_PROJECT_VALIDATION_MESSAGE = 2;
-    public final int INDEX_NEW_LIFERAY_PLUGIN_PROJECT_WIZARD =2;
+    public final int INDEX_NEW_LIFERAY_PLUGIN_PROJECT_WIZARD = 2;
     public final int INDEX_SELECT_A_WIZARD_VALIDATION_MESSAGE = 1;
     public final int INDEX_VALIDATION_MESSAGE4 = 3;
     public final int INDEX_VALIDATION_MESSAGE6 = 5;
@@ -48,11 +48,7 @@ public interface ProjectWizard extends UIBase
     public final String LABEL_JAVA_PROJECT = "Java Project";
     public final String LABEL_LAUNCH_NEW_PORTLET_WIZARD_AFTER_PROJECT =
         "Launch New Portlet Wizard after project is created";
-    public final String LABEL_LOCATION = "Location:";
-    public final String LABEL_PLUGIN_TYPE = "Plugin type:";
     public final String LABEL_PORTLET_NAME = "Portlet name:";
-    public final String LABEL_PROJECT_NAME = "Project name:";
-    public final String LABEL_SDK_LOCATION = "SDK Location:";
 
     public final String LABEL_UPDATE_EXCLUSION_FILTERS =
         "Update exclusion filters in other source folders to solve nesting";
@@ -84,16 +80,11 @@ public interface ProjectWizard extends UIBase
     public final String TEXT_CREATE_A_NEW_PROJECT_RESOURCE = "Create a new project resource";
     public final String TEXT_CREATE_NEW_PROJECT_AS_LIFERAY_PLUGIN =
         "Create a new project configured as a Liferay plugin";
-    public final String TEXT_ENTER_PROJECT_NAME = "Please enter a project name.";
-    public final String TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME = " is an invalid character in resource name ";
-    public final String TEXT_INVALID_NAME_ON_PLATFORM = " is an invalid name on this platform.";
 
     public final String TEXT_PORTLET_FRAMEWORK_REQUIRES_SDK =
         "Selected portlet framework requires SDK version at least 7.0.0";
-    public final String TEXT_PROJECT_ALREADY_EXISTS = " A project with that name already exists.";
     public final String TEXT_PROJECT_EXISTS_IN_LOCATION =
         " is not valid because a project already exists at that location.";
-    public final String TEXT_PROJECT_NAME_MUST_BE_SPECIFIED = " Project name must be specified";
 
     public final String TEXT_PROJECT_NAME_MUST_SPECIFIED = "Project name must be specified";
     public final String TEXT_SDK_LOCATION_EMPTY = " This sdk location is empty ";
@@ -106,7 +97,7 @@ public interface ProjectWizard extends UIBase
     public final String THEME_DEFAULT_MESSAGE = "Select options for creating new theme project.";
 
     public final String THEME_DONOT_SUPPORT_MESSAGE = "Select options for creating new theme project.";
-    
+
     public final String THEME_WARNING_MESSAGE = " For advanced theme developers only.";
 
     public final String TOOLTIP_LEARN_MORE = "Learn More...";

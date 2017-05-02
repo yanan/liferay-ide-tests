@@ -42,7 +42,7 @@ public class SetModuleFragmentProjectOSGiBundlePO extends WizardPO implements Mo
     {
         super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT, validationMessageIndex );
 
-        _selectOSGiBundleButton = new ToolbarButtonWithTooltipPO( bot, BUTTON_OSGI_BUNDLE_BROWSE );
+        _selectOSGiBundleButton = new ToolbarButtonWithTooltipPO( bot, BUTTON_BROWSE );
         _addOverriddenFilesButton = new ToolbarButtonWithTooltipPO( bot, BUTTON_ADD_FILES_TO_OVERRIDE );
         _addOverrideFilePathButton = new ToolbarButtonWithTooltipPO( bot, BUTTON_ADD_FILE_PATH );
         _overriddenFilesTable = new TablePO( bot, LABLE_OVERRIDDEN_FILES );
