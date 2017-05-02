@@ -31,11 +31,13 @@ import com.liferay.ide.project.ui.tests.page.NewLiferayWorkspaceProjectWizardPO;
 import com.liferay.ide.project.ui.tests.page.SelectModuleServiceNamePO;
 import com.liferay.ide.ui.tests.SWTBotBase;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.DeleteResourcesDialogPO;
+import com.liferay.ide.ui.tests.swtbot.page.CTabItemPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextEditorPO;
 import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 
 /**
  * @author Ashley Yuan
+ * @author Ying Xu
  */
 public abstract class AbstractNewLiferayModuleProjectWizard extends SWTBotBase implements NewLiferayModuleProjectWizard
 {
@@ -63,7 +65,7 @@ public abstract class AbstractNewLiferayModuleProjectWizard extends SWTBotBase i
 
         eclipse.getProjectExplorerView().show();
     }
-    
+
     @AfterClass
     public static void cleanAll()
     {
@@ -273,22 +275,27 @@ public abstract class AbstractNewLiferayModuleProjectWizard extends SWTBotBase i
         createModuleProjectWizard.finish();
     }
 
-    public static void newLiferayWorkspace(String liferayWorkspaceName, String buildType){
-        
+    public static void newLiferayWorkspace( String liferayWorkspaceName, String buildType )
+    {
+
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayWorkspaceProject().click();
         sleep( 2000 );
 
         newLiferayWorkspace.setWorkspaceNameText( liferayWorkspaceName );
-        
+
         newLiferayWorkspace.get_buildType().setSelection( buildType );
-        
+
         newLiferayWorkspace.finish();
         sleep( 20000 );
     }
-    
+
     public void openEditorAndCheck( String content, String projectName, String... nodes )
     {
         String fileName = nodes[nodes.length - 1];
+
+        String pomFileName = "pom.xml";
+
+        String editorPomFileName = projectName + "/" + pomFileName;
 
         String[] expandNodes = new String[nodes.length - 1];
 
@@ -301,11 +308,27 @@ public abstract class AbstractNewLiferayModuleProjectWizard extends SWTBotBase i
 
         projectTree.expandNode( expandNodes ).doubleClick( fileName );
 
-        TextEditorPO fileEditor = eclipse.getTextEditor( fileName );
+        if( fileName.equals( pomFileName ) )
+        {
+            CTabItemPO switchToPomFile = new CTabItemPO( bot, pomFileName );
 
-        assertContains( content, fileEditor.getText() );
+            TextEditorPO pomFileEditor = eclipse.getTextEditor( editorPomFileName );
 
-        fileEditor.close();
+            switchToPomFile.click();
+            sleep( 2000 );
+
+            assertContains( content, pomFileEditor.getText() );
+
+            pomFileEditor.close();
+        }
+        else
+        {
+            TextEditorPO fileEditor = eclipse.getTextEditor( fileName );
+
+            assertContains( content, fileEditor.getText() );
+
+            fileEditor.close();
+        }
 
     }
 
