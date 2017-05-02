@@ -23,13 +23,7 @@ import com.liferay.ide.ui.tests.UIBase;
 public interface ServerRuntimeWizard extends UIBase
 {
 
-    public final String BUTTON_ADD = "Add...";
-    public final String BUTTON_BROWSE_SERVER = "Browse...";
     public final String LABEL_BUNDLE_TYPE = "Detected portal bundle type";
-    public final String LABEL_SERVER_LOCATION = "Liferay Portal Bundle Directory";
-    public final String NODE_LIFERAY_7X = "Liferay 7.x";
-    public final String NODE_LIFERAY_INC = "Liferay, Inc.";
-    public final String SERVER_STARTUP_MESSAGE = "Server startup in";
     public final String TITLE_NEW_SERVER = "New Server";
     public final String TITLE_NEW_SERVER_RUNTIME_ENVIRONMENT = "New Server Runtime Environmet";
     public final String TOOLTIP_CREATE_LIFERAY_PROJECT = "Create a new Liferay Plugin Project";

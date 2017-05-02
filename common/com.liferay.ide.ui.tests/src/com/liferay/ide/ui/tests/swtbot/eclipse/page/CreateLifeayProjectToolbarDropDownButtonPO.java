@@ -56,7 +56,7 @@ public class CreateLifeayProjectToolbarDropDownButtonPO extends ToolbarDropDownB
         _newLiferayVaadinPortlet = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_VAADIN_PORTLET );
         _newLiferayLayouTemplate = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_LAYOUT_TMEPLATE );
         _newLiferayModuleProjectFragment = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_MODULE_PROJECT_FRAGMENT );
-        _newLiferayWorkspaceProject = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_WORKSPACE_PROJECT );
+        _newLiferayWorkspaceProject = new MenuItemPO( bot, this, LABEL_LIFERAY_WORKSPACE_PROJECT );
         _newLiferayComponentClass = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_COMPONENT_CLASS );
         _newLiferayModuleProject = new MenuItemPO( bot, this, LABEL_NEW_LIFERAY_MODULE_PROJECT );
 
