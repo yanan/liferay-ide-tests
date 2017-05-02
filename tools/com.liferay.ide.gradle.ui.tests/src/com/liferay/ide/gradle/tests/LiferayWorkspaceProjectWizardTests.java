@@ -37,7 +37,7 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase implements Li
     public static void cleanAll()
     {
 
-        eclipse.closeShell( WINDOW_NEW_LIFERAY_WORKSPACE );
+        eclipse.closeShell( LABEL_NEW_LIFERAY_WORPSPACE_PROJECT );
     }
 
     @Test
@@ -59,7 +59,7 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase implements Li
         newWorkspaceProjectPage.setWorkspaceName( "*" );
         sleep();
         assertEquals(
-            " *" + TEXT_INVALID_CHARACTER_IN_WORKSPACE_NAME + "'*'.", newWorkspaceProjectPage.getValidationMessage() );
+            " *" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'*'.", newWorkspaceProjectPage.getValidationMessage() );
 
         newWorkspaceProjectPage.setWorkspaceName( TEXT_BLANK );
         sleep();

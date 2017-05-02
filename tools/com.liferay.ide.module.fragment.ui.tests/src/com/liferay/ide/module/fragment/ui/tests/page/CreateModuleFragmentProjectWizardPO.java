@@ -16,6 +16,7 @@
 package com.liferay.ide.module.fragment.ui.tests.page;
 
 import com.liferay.ide.module.fragment.tests.ModuleFragmentProjectWizard;
+import com.liferay.ide.ui.tests.swtbot.page.ComboBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
 import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
@@ -23,12 +24,14 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 
 /**
  * @author Vicky Wang
+ * @author Sunny Shi
  */
 public class CreateModuleFragmentProjectWizardPO extends WizardPO implements ModuleFragmentProjectWizard
 {
 
     private TextPO _projectNameText;
     private TextPO _liferayRuntimeText;
+    private ComboBoxPO _buildType;
 
     public CreateModuleFragmentProjectWizardPO( SWTBot bot )
     {
@@ -51,6 +54,7 @@ public class CreateModuleFragmentProjectWizardPO extends WizardPO implements Mod
 
         _projectNameText = new TextPO( bot, LABEL_PROJECT_NAME );
         _liferayRuntimeText = new TextPO( bot, LABEL_RUNTIME_NAME );
+        _buildType = new ComboBoxPO( bot, LABEL_BUILD_TYPE );
     }
 
     public String getProjectNameText()
@@ -63,9 +67,18 @@ public class CreateModuleFragmentProjectWizardPO extends WizardPO implements Mod
         return _liferayRuntimeText.isEnabled();
     }
 
-    public void setProjectName( String projectName )
+    public void setProjectName( String projectName ,String buildType)
     {
         this._projectNameText.setText( projectName );
+        this._buildType.setSelection( buildType );
     }
+    public void setProjectName( String projectName)
+    {
+        this._projectNameText.setText( projectName );
 
+    }
+    public ComboBoxPO getBuildType()
+    {
+        return _buildType;
+    }
 }

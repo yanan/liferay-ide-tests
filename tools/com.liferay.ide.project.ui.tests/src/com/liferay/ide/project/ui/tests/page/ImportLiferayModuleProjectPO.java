@@ -37,8 +37,7 @@ public class ImportLiferayModuleProjectPO extends WizardPO implements ImportLife
         super( bot, title, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT, validationMessageIndex );
         _locationText = new TextPO( bot, LABEL_LOCATION );
         _buildTypeText = new TextPO( bot, LABEL_BUILD_TYPE );
-        // bot.toolbarButtonWithTooltip("Browse").click();
-        _browseButton = new ToolbarButtonWithTooltipPO( bot, LABEL_BROWSE );
+        _browseButton = new ToolbarButtonWithTooltipPO( bot, BUTTON_BROWSE );
     }
 
     public TextPO get_locationText()

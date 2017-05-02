@@ -38,11 +38,6 @@ public interface HookConfigurationWizard extends UIBase
     public final int INDEX_VALIDATION_MESSAGE = 2;
     public final int INDEX_NEW_LIFERAY_HOOK_VALIDATION_MESSAGE = 0;
 
-    public final String LABEL_BUILD_TYPE = "Build type:";
-    public final String LABEL_DISPLAY_NAME = "Display name:";
-    public final String LABEL_PLUGIN_TYPE = "Plugin type:";
-    public final String LABEL_PROJECT_NAME = "Project name:";
-    public final String LABEL_SDK_LOCATION = "SDK Location:";
     public final String LABLE_CHOOSE_SUPERCLASS = "Choose a superclass:";
     public final String LABLE_CLASS = "Class:";
     public final String LABLE_CLASS_NAME = "Classname:";
@@ -61,7 +56,6 @@ public interface HookConfigurationWizard extends UIBase
     public final String LABLE_LANGUAGE_PROPERTIES = "Language properties";
     public final String LABLE_LANGUAGE_PROPERTY_FILE = "Language property file:";
     public final String LABLE_LANGUAGE_PROPERTY_FILES = "Language property files:";
-    public final String LABLE_LANGUAGE_PROPTERTIES = "Language properties";
     public final String LABLE_PLEASE_SELECT_A_PROPERTY = "Please select a property:";
     public final String LABLE_PORTAL_PROPERTIES = "Portal properties";
     public final String LABLE_PORTAL_PROPERTIES_FILE = "Portal properties file:";
@@ -81,7 +75,6 @@ public interface HookConfigurationWizard extends UIBase
     public final String COMBOBOX_SUPERCLASS = "Superclass:";
     public final String CHECKBOX_DISABLE_JSP_SYNTAX_VALIDATION =
         "Disable JSP syntax validation for custom JSP folder (recommended).";
-    public final String TEXT_ENTER_A_PROJECT_NAME = " Enter a project name.";
 
     public final String MENU_HOOK = "Hook";
     public final String WINDOW_ADD_EVENT_ACTION = "Add Event Action";

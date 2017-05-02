@@ -29,17 +29,14 @@ public interface ServiceBuilderWizard extends UIBase
     public final String LABEL_SERVICE_FILE = "Service file:";
     public final String LABEL_ENTITY_NAME = "Name:";
     public final String LABEL_CHOOSE_PACKAGE = "Choose a package:";
-    public final String LABEL_DIALOG_SERVICE_BUILDER_TITLE = "New Liferay Service Builder";
 
     public final String CHECKBOX_INCLUDE_SAMPLE_ENTITY = "Include sample entity in new file.";
-
     public final String COMBOBOX_PLUGIN_PROJECT = "Plugin project:";
 
     public final String TEXT_SERVICE_FILE_VALUE = "service.xml";
     public final String TEXT_DEFAULT_PLUGIN_PROJECT_VALUE = "";
     public final String TEXT_DEFAULT_PACKAGE_PAHT_VALUE = "";
     public final String TEXT_DEFAULT_NAMESPACE_VALUE = "";
-    public final String TEXT_ENTER_PROJECT_NAME_MESSAGE = " Enter a project name.";
     public final String TEXT_PACKAGE_PATH_EMPTY_MESSAGE = " Package path cannot be empty.";
     public final String TEXT_NAMESPACE_EMPTY_MESSAGE = " Namespace cannot be empty.";
     public final String TEXT_NEW_SERVICE_BUILDER_XML_FILE = "Create a new service builder xml file in a project.";

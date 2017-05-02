@@ -76,13 +76,13 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
         sleep( 3000 );
-        assertEquals( TEXT_ENTER_MODULE_PROJECT_NAME_MESSAGE, createMavenModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, createMavenModuleProjectWizard.getValidationMessage() );
     }
 
     @Test
     public void validationProjectName()
     {
-        assertEquals( TEXT_ENTER_MODULE_PROJECT_NAME_MESSAGE, createMavenModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, createMavenModuleProjectWizard.getValidationMessage() );
         assertFalse( createMavenModuleProjectWizard.finishButton().isEnabled() );
 
         createMavenModuleProjectWizard.createModuleProject( "." );
@@ -99,12 +99,12 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
 
         createMavenModuleProjectWizard.createModuleProject( "$" );
         sleep( 1000 );
-        assertEquals( TEXT_INVALID_NAME_FOR_GRADLE_PROJECT, createMavenModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_THE_PROJECT_NAME_INVALID, createMavenModuleProjectWizard.getValidationMessage() );
         assertFalse( createMavenModuleProjectWizard.finishButton().isEnabled() );
 
         createMavenModuleProjectWizard.createModuleProject( "" );
         sleep( 1000 );
-        assertEquals( TEXT_MUST_SPECIFIED_PROJECT_NAME, createMavenModuleProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_PROJECT_NAME_MUST_BE_SPECIFIED, createMavenModuleProjectWizard.getValidationMessage() );
         assertFalse( createMavenModuleProjectWizard.finishButton().isEnabled() );
 
         createMavenModuleProjectWizard.createModuleProject( "a" );

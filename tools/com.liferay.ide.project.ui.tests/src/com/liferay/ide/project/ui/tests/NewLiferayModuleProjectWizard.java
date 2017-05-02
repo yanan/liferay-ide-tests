@@ -25,14 +25,9 @@ import com.liferay.ide.ui.tests.UIBase;
 public interface NewLiferayModuleProjectWizard extends UIBase
 {
 
-    public final String LABEL_MODULE_PROJECT_NAME = "Project name:";
-    public final String LABEL_MODULE_LOCATION = "Location:";
-    public final String LABEL_MODULE_BUILD_TYPE = "Build type:";
     public final String LABEL_MODULE_PROJECT_TEMPLATE_NAME = "Project Template Name:";
     public final String LABEL_MODULE_COMPONENT_CLASS_NAME = "Component Class Name:";
-    public final String LABEL_MODULE_PACKAGE_NAME = "Package Name:";
     public final String LABEL_MODULE_PROPERTIES = "Properties:";
-    public final String LABEL_MODULE_SERVICE_NAME = "Service Name:";
     public final String LABEL_MODULE_SELECT_SERVICE_NAME = "Select Service Name:";
 
     public final String CHECKBOX_USE_DEFAULT_LOCATION = "Use default location";
@@ -67,21 +62,13 @@ public interface NewLiferayModuleProjectWizard extends UIBase
     public final String MENU_MODULE_THEME_CONTRIBUTOR = "theme-contributor";
     public final String MENU_MODULE_FORM_FIELD = "form-field";
 
-    public final String TEXT_BUILD_TYPE = "Gradle";
-    public final String TEXT_BUILD_TYPE_MAVEN = "Maven";
-    public final String TEXT_ENTER_MODULE_PROJECT_NAME_MESSAGE = "Please enter a project name.";
     public final String TEXT_NEW_LIFERAY_MODULE_MESSAGE =
         "Enter a name and choose a template to use for a new Liferay module.";
     public final String TEXT_LOCATION_MUST_BE_SPECIFIED = " Location must be specified.";
-    public final String TEXT_MUST_SPECIFIED_PROJECT_NAME = " Project name must be specified";
     public final String TEXT_NAME_MUST_BE_SPECIFIED = " Name must be specified";
     public final String TEXT_VALUE_MUST_BE_SPECIFIED = " Value must be specified";
-    public final String TEXT_INVALID_CLASS_NAME = " Invalid class name";
     public final String TEXT_INVALID_PACKAGE_NAME = " Invalid package name";
     public final String TEXT_CONFIGURE_COMPONENT_CLASS = "Configure Component Class";
-    public final String TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME = " is an invalid character in resource name ";
-    public final String TEXT_INVALID_NAME_ON_PLATFORM = " is an invalid name on this platform.";
-    public final String TEXT_INVALID_NAME_FOR_GRADLE_PROJECT = " The project name is invalid.";
     public final String TEXT_SERVICE_NAME_MUST_BE_SPECIFIED = " Service Name must be specified";
 
     public final int INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE = 2;
@@ -100,6 +87,6 @@ public interface NewLiferayModuleProjectWizard extends UIBase
 
     String[] templatesWithoutPropertyKeys = { MENU_MODULE_ACTIVATOR, MENU_MODULE_API,
         MENU_MODULE_CONTENT_TARGETING_REPORT, MENU_MODULE_CONTENT_TARGETING_RULE,
-        MENU_MODULE_CONTENT_TARGETING_TRACKING_ACTION, MENU_MODULE_THEME_CONTRIBUTOR,MENU_MODULE_PORTLET_PROVIDER };
+        MENU_MODULE_CONTENT_TARGETING_TRACKING_ACTION, MENU_MODULE_THEME_CONTRIBUTOR, MENU_MODULE_PORTLET_PROVIDER };
 
 }
