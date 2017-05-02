@@ -95,6 +95,7 @@ public interface UIBase
     public final String LABEL_NEW_LIFERAY_MODULE_PROJECT_FRAGMENT = "New Liferay Module Project Fragment";
     public final String LABEL_NEW_LIFERAY_WORPSPACE_PROJECT = "New Liferay Workspace Project";
     public final String LABEL_NEW_LIFERAY_COMPONENT_CLASS = "New Liferay Component Class";
+    public final String LABEL_NEW_LIFERAY_JSF_PROJECT = "New Liferay JSF Project";
 
     public final String LABEL_LIFERAY_PLUGIN_PROJECT = "Liferay Plugin Project";
     public final String LABEL_LIFERAY_MODULE_PROJECT = "Liferay Module Project";
@@ -111,13 +112,12 @@ public interface UIBase
     public final String TITLE_DELETE_RESOURCES = "Delete Resources";
     public final String TOOLBAR_PACKAGE = "Package";
 
-    public final String MENU_NEW_LIFERAY_PROJECT_EXIS_SOURCE =
-        "New Liferay Plugin Projects from Existing Source";
+    public final String MENU_NEW_LIFERAY_PROJECT_EXIS_SOURCE = "New Liferay Plugin Projects from Existing Source";
     public final String TITLE_NEW_LAYOUT_TEMPLATE = "New Layout Template";
     public final String TITLE_NEW_SERVICE_BUILDER = "New Service Builder";
     public final String TITLE_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
     public final String WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION = "New Liferay Hook";
-    
+
     public final String MENU_LIFERAY = "Liferay";
 
     public final String TEXT_LIFERAY_WORKSPACE_BUILD_TYPE_GRADLE = "Gradle";
