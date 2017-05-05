@@ -16,7 +16,9 @@
 package com.liferay.ide.gradle.ui.tests.page;
 
 import com.liferay.ide.ui.tests.swtbot.page.CheckBoxPO;
+import com.liferay.ide.ui.tests.swtbot.page.ComboBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
+import com.liferay.ide.ui.tests.swtbot.page.ToolbarButtonWithTooltipPO;
 import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 import com.liferay.ide.gradle.tests.LiferayWorkspaceProjectWizard;
 
@@ -24,13 +26,17 @@ import org.eclipse.swtbot.swt.finder.SWTBot;
 
 /**
  * @author Vicky Wang
+ * @author Ying Xu
  */
 public class CreateWorkspaceProjectWizardPO extends WizardPO implements LiferayWorkspaceProjectWizard
 {
 
     private TextPO _workspaceNameText;
     private TextPO _serverNameText;
+    private TextPO _bundleUrlText;
+    private ComboBoxPO _buildType;
     private CheckBoxPO _downloadLiferayBundleCheckBox;
+    private ToolbarButtonWithTooltipPO _saveToolbar;
 
     public CreateWorkspaceProjectWizardPO( SWTBot bot )
     {
@@ -53,7 +59,10 @@ public class CreateWorkspaceProjectWizardPO extends WizardPO implements LiferayW
 
         _workspaceNameText = new TextPO( bot, LABEL_WORKSPACE_NAME );
         _serverNameText = new TextPO( bot, LABEL_SERVER_NAME );
+        _bundleUrlText = new TextPO( bot, LABEL_BUNDLE_URL );
+        _buildType = new ComboBoxPO( bot, LABLE_WORKSPACE_BUILD_TYPE );
         _downloadLiferayBundleCheckBox = new CheckBoxPO( bot, LABEL_DOWNLOAD_LIFERAY_BUNDLE );
+        _saveToolbar = new ToolbarButtonWithTooltipPO( bot, TOOLBAR_SAVE );
     }
 
     public String getWorkspaceNameText()
@@ -66,24 +75,54 @@ public class CreateWorkspaceProjectWizardPO extends WizardPO implements LiferayW
         this._workspaceNameText.setText( workspaceName );
     }
 
+    public TextPO getServerNameText()
+    {
+        return _serverNameText;
+    }
+
     public void setServerName( String serverName )
     {
         this._serverNameText.setText( serverName );
     }
 
-    public CheckBoxPO get_downloadLiferayBundleCheckbox()
+    public TextPO getBundleUrlText()
+    {
+        return _bundleUrlText;
+    }
+
+    public void setBundleUrlText( TextPO bundleUrlText )
+    {
+        this._bundleUrlText = bundleUrlText;
+    }
+
+    public ComboBoxPO getBuildType()
+    {
+        return _buildType;
+    }
+
+    public void setBuildType( ComboBoxPO buildType )
+    {
+        this._buildType = buildType;
+    }
+
+    public CheckBoxPO getDownloadLiferayBundleCheckbox()
     {
         return _downloadLiferayBundleCheckBox;
     }
 
-    public void setDownloadLiferayBundleCheckBox( CheckBoxPO _downloadLiferayBundleCheckBox )
+    public void setDownloadLiferayBundleCheckBox( CheckBoxPO downloadLiferayBundleCheckBox )
     {
-        this._downloadLiferayBundleCheckBox = _downloadLiferayBundleCheckBox;
+        this._downloadLiferayBundleCheckBox = downloadLiferayBundleCheckBox;
     }
 
     public boolean isDownloadLiferayBundleChecked()
     {
         return _downloadLiferayBundleCheckBox.isChecked();
+    }
+
+    public ToolbarButtonWithTooltipPO getSaveToolbar()
+    {
+        return _saveToolbar;
     }
 
 }
