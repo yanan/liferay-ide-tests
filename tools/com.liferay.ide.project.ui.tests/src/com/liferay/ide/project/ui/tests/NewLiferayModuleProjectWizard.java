@@ -81,7 +81,7 @@ public interface NewLiferayModuleProjectWizard extends UIBase
     public final String TEXT_CONFIGURE_COMPONENT_CLASS = "Configure Component Class";
     public final String TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME = " is an invalid character in resource name ";
     public final String TEXT_INVALID_NAME_ON_PLATFORM = " is an invalid name on this platform.";
-    public final String TEXT_INVALID_NAME_FOR_GRADLE_PROJECT = " The project name is invalid.";
+    public final String TEXT_INVALID_NAME_FOR_PROJECT = " The project name is invalid.";
     public final String TEXT_SERVICE_NAME_MUST_BE_SPECIFIED = " Service Name must be specified";
 
     public final int INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE = 2;
