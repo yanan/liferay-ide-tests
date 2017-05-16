@@ -91,8 +91,8 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
         try
         {
-            eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() },
-                true );
+            eclipse.getPackageExporerView().deleteProjectExcludeNames(
+                new String[] { getLiferayPluginsSdkName() }, true );
         }
         catch( Exception e )
         {
@@ -106,26 +106,26 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
     public void createPorltetWithoutLiferayProjects()
     {
 
-        eclipse.getPackageExporerView().deleteResouceByName( "test-portlet", true );
+        String projectName = "liferayProject";
+
+        eclipse.getPackageExporerView().deleteResouceByName( projectName, true );
 
         // click new liferay portlet wizard without projects
         eclipse.getNewToolbar().getLiferayPortlet().click();
 
-        DialogPO dialogPage1 = new DialogPO( bot, "New Liferay Portlet", BUTTON_NO, BUTTON_YES );
+        DialogPO dialogPage1 = new DialogPO( bot, TITLE_NEW_LIFERAY_PORTLET, BUTTON_NO, BUTTON_YES );
 
         dialogPage1.confirm();
 
         assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, newLiferayProjectPage.getValidationMessage() );
         assertFalse( newLiferayProjectPage.nextButton().isEnabled() );
 
-        String projectName = "liferayProject";
-
         newLiferayProjectPage.createSDKPortletProject( projectName );
         assertTrue( newLiferayProjectPage.nextButton().isEnabled() );
 
         newLiferayProjectPage.cancel();
 
-        DialogPO dialogPage2 = new DialogPO( bot, "New Liferay Portlet", BUTTON_YES, BUTTON_NO );
+        DialogPO dialogPage2 = new DialogPO( bot, TITLE_NEW_LIFERAY_PORTLET, BUTTON_YES, BUTTON_NO );
 
         dialogPage2.confirm();
 
@@ -381,7 +381,8 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         specifyLiferayPortletDeploymentDescriptorPage.specifyLiferayDisplay( null, true, null, null, true, null );
 
         assertTrue(
-            Arrays.equals( availableEntryCategories70,
+            Arrays.equals(
+                availableEntryCategories70,
                 specifyLiferayPortletDeploymentDescriptorPage.getEntryCategoryAvailableComboValues() ) );
         assertEquals( "1.5", specifyLiferayPortletDeploymentDescriptorPage.getEntryWeightText() );
         assertEquals(
@@ -420,7 +421,8 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
             "unexistentIcon", false, "unexistentCss", "unexistentJavaScript", null );
 
         assertTrue(
-            isInAvailableLists( specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryAvailableComboValues(),
+            isInAvailableLists(
+                specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryAvailableComboValues(),
                 "my1category" ) );
 
         // entry tests after checked add to control panel
@@ -649,7 +651,8 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
         assertEquals( "Sample", specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryCombobox() );
         assertTrue(
-            Arrays.equals( specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryAvailableComboValues(),
+            Arrays.equals(
+                specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryAvailableComboValues(),
                 availableDisplayCategories70 ) );
 
         assertFalse( specifyLiferayPortletDeploymentDescriptorPage.isAddToControlPanelChecked() );

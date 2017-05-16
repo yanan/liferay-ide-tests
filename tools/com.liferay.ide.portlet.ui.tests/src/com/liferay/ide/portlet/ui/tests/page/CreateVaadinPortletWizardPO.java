@@ -34,7 +34,7 @@ public class CreateVaadinPortletWizardPO extends CreateLiferayPortletWizardPO im
 
     public CreateVaadinPortletWizardPO( SWTBot bot )
     {
-        this( bot, INDEX__VAADIN_VALIDATION_MESSAGE1 );
+        this( bot, INDEX_VAADIN_VALIDATION_MESSAGE1 );
     }
 
     public CreateVaadinPortletWizardPO( SWTBot bot, int validationMessageIndex )
