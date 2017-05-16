@@ -76,7 +76,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
         assertEquals( MENU_MODULE_MVC_PORTLET, createModuleProjectWizard.getProjectTemplateNameComboBox().getText() );
 
         String[] expectedModuleProjectTemplateItems =
@@ -278,7 +278,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -360,7 +360,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -430,7 +430,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -472,7 +472,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -514,7 +514,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -557,7 +557,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -600,7 +600,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -644,7 +644,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -687,7 +687,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -738,7 +738,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -805,7 +805,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -854,7 +854,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -897,7 +897,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -958,7 +958,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -1001,7 +1001,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -1044,7 +1044,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -1120,7 +1120,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -1163,7 +1163,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -1206,7 +1206,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
         assertFalse( createModuleProjectWizard.nextButton().isEnabled() );
 
         createModuleProjectSecondPageWizard.finish();
@@ -1240,7 +1240,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
         sleep();
 
         assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE, createModuleProjectWizard.getBuildType().getText() );
+        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
 
         createModuleProjectWizard.next();
 
@@ -1328,7 +1328,7 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
         sleep( 2000 );
-        createModuleProjectWizard.setBuildType( TEXT_BUILD_TYPE );
+        createModuleProjectWizard.setBuildType( TEXT_BUILD_TYPE_GRADLE );
     }
 
 }

@@ -60,7 +60,7 @@ public class CreateWorkspaceProjectWizardPO extends WizardPO implements LiferayW
         _workspaceNameText = new TextPO( bot, LABEL_WORKSPACE_NAME );
         _serverNameText = new TextPO( bot, LABEL_SERVER_NAME );
         _bundleUrlText = new TextPO( bot, LABEL_BUNDLE_URL );
-        _buildType = new ComboBoxPO( bot, LABLE_WORKSPACE_BUILD_TYPE );
+        _buildType = new ComboBoxPO( bot, LABEL_BUILD_TYPE );
         _downloadLiferayBundleCheckBox = new CheckBoxPO( bot, LABEL_DOWNLOAD_LIFERAY_BUNDLE );
         _saveToolbar = new ToolbarButtonWithTooltipPO( bot, TOOLBAR_SAVE );
     }

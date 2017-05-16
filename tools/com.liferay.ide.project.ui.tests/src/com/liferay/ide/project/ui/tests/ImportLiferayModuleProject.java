@@ -24,14 +24,11 @@ public interface ImportLiferayModuleProject extends UIBase
 {
 
     public final String LABEL_IMPORT_MODULE_PROJECTS = "Liferay Module Project(s)";
-    
+
     public final String TEXT_SELECT_IMPORT_LIFERAY_MODULE_PROJECTS_VALIDATION_MESSAGE =
         "Import existing liferay module project(s)";
     public final String TEXT_SELECT_LOCATION_OF_MODULE_PROJECT_DIRECTORY =
         "Select location of Liferay module project or parent project directory.";
-    public final String TEXT_IS_NOT_A_VALID_PATH = " is not a valid path";
-    public final String TEXT_IS_NOT_AN_ABSOLUTE_PATH = " is not an absolute path.";
-    public final String TEXT_DIRECTORY_DOESNT_EXIST = " Directory doesn't exist.";
     public final String TEXT_LOCATION_NOT_RECOGNIZED_AS_A_VALID_PROJECT_TYPE =
         " Location is not recognized as a valid project type.";
     public final String TEXT_NOT_ROOT_LOCATION_OF_MULTI_MODULE_PROJECT =

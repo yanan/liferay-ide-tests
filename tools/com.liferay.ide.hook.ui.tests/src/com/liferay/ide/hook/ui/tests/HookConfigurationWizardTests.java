@@ -62,8 +62,8 @@ import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 public class HookConfigurationWizardTests extends SWTBotBase implements HookConfigurationWizard
 {
 
-    CreateLiferayHookConfigurationPO createLiferayHookConfiguration = new CreateLiferayHookConfigurationPO(
-        bot, WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION, INDEX_NEW_LIFERAY_HOOK_VALIDATION_MESSAGE );
+    CreateLiferayHookConfigurationPO createLiferayHookConfiguration =
+        new CreateLiferayHookConfigurationPO( bot, TITLE_NEW_LIFERAY_HOOK, INDEX_NEW_LIFERAY_HOOK_VALIDATION_MESSAGE );
     CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot, INDEX_VALIDATION_MESSAGE );
     String projectHookName = "hook-configuration-wizard";
 
@@ -72,7 +72,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
     {
         try
         {
-            eclipse.closeShell( WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION );
+            eclipse.closeShell( TITLE_NEW_LIFERAY_HOOK );
             eclipse.getPackageExporerView().deleteProjectExcludeNames(
                 new String[] { getLiferayPluginsSdkName() }, true );
         }
@@ -102,7 +102,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         // check it doesn't support new language properties with sdk 7
         LanguagePropertiesPO languageProperties = new LanguagePropertiesPO(
-            bot, WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION, INDEX_LANGUAGE_PROPERTIES_WITH_SDK7_VALIDATION_MESSAGE );
+            bot, TITLE_NEW_LIFERAY_HOOK, INDEX_LANGUAGE_PROPERTIES_WITH_SDK7_VALIDATION_MESSAGE );
         assertEquals( LABLE_LANGUAGE_PROPERTIES_IN_SDK7_IS_NOT_SUPPORTED, languageProperties.getValidationMessage() );
         assertFalse( languageProperties.nextButton().isEnabled() );
 
@@ -271,7 +271,7 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         createLiferayHookConfiguration.getLanguageProperties().select();
 
         LanguagePropertiesPO languageProperties = new LanguagePropertiesPO(
-            bot, WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION, INDEX_LANGUAGE_PROPERTIES_WITH_SDK7_VALIDATION_MESSAGE );
+            bot, TITLE_NEW_LIFERAY_HOOK, INDEX_LANGUAGE_PROPERTIES_WITH_SDK7_VALIDATION_MESSAGE );
         sleep( 3000 );
         assertEquals( LABLE_LANGUAGE_PROPERTIES_IN_SDK7_IS_NOT_SUPPORTED, languageProperties.getValidationMessage() );
         sleep( 3000 );

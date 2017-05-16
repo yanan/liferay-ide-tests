@@ -72,8 +72,7 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
         assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, newLiferayWorkspaceProjectWizard.getValidationMessage() );
         assertEquals( "", newLiferayWorkspaceProjectWizard.getWorkspaceNameText() );
 
-        String[] expectedLiferayWorkspaceBuildTypeItems =
-            { TEXT_LIFERAY_WORKSPACE_BUILD_TYPE_GRADLE, TEXT_LIFERAY_WORKSPACE_BUILD_TYPE_MAVEN };
+        String[] expectedLiferayWorkspaceBuildTypeItems = { TEXT_BUILD_TYPE_GRADLE, TEXT_BUILD_TYPE_MAVEN };
 
         String[] liferayWorkspaceBuildTypeItems =
             newLiferayWorkspaceProjectWizard.getBuildType().getAvailableComboValues();
@@ -91,7 +90,7 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
 
         newLiferayWorkspaceProjectWizard.setWorkspaceName( projectName );
         sleep();
-        newLiferayWorkspaceProjectWizard.getBuildType().setSelection( TEXT_LIFERAY_WORKSPACE_BUILD_TYPE_GRADLE );
+        newLiferayWorkspaceProjectWizard.getBuildType().setSelection( TEXT_BUILD_TYPE_GRADLE );
 
         newLiferayWorkspaceProjectWizard.getDownloadLiferayBundleCheckbox().select();
 
@@ -125,7 +124,8 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
 
         NewLiferayModuleProjectWizardPO newLiferayModuleProject = new NewLiferayModuleProjectWizardPO( bot );
 
-        newLiferayModuleProject.createModuleProject( "testModuleInLWS", MENU_MODULE_MVC_PORTLET, TEXT_BUILD_TYPE );
+        newLiferayModuleProject.createModuleProject(
+            "testModuleInLWS", MENU_MODULE_MVC_PORTLET, TEXT_BUILD_TYPE_GRADLE );
         newLiferayModuleProject.finish();
         sleep( 10000 );
 
@@ -134,7 +134,8 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
 
-        newLiferayModuleProject.createModuleProject( "testThemeModuleInLWS", MENU_MODULE_THEME, TEXT_BUILD_TYPE );
+        newLiferayModuleProject.createModuleProject(
+            "testThemeModuleInLWS", MENU_MODULE_THEME, TEXT_BUILD_TYPE_GRADLE );
         newLiferayModuleProject.finish();
         sleep( 10000 );
 
@@ -153,7 +154,7 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
     @Test
     public void newGradleLiferayWorkspaceProjectWithoutDownloadBundle()
     {
-        newLiferayWorkspaceProjectWizard.getBuildType().setSelection( TEXT_LIFERAY_WORKSPACE_BUILD_TYPE_GRADLE );
+        newLiferayWorkspaceProjectWizard.getBuildType().setSelection( TEXT_BUILD_TYPE_GRADLE );
 
         assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, newLiferayWorkspaceProjectWizard.getValidationMessage() );
         assertEquals( "", newLiferayWorkspaceProjectWizard.getWorkspaceNameText() );
@@ -194,7 +195,8 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
 
         NewLiferayModuleProjectWizardPO newLiferayModuleProject = new NewLiferayModuleProjectWizardPO( bot );
 
-        newLiferayModuleProject.createModuleProject( "testModuleInLWS", MENU_MODULE_MVC_PORTLET, TEXT_BUILD_TYPE );
+        newLiferayModuleProject.createModuleProject(
+            "testModuleInLWS", MENU_MODULE_MVC_PORTLET, TEXT_BUILD_TYPE_GRADLE );
         newLiferayModuleProject.finish();
         sleep( 10000 );
 
@@ -203,7 +205,8 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
 
-        newLiferayModuleProject.createModuleProject( "testThemeModuleInLWS", MENU_MODULE_THEME, TEXT_BUILD_TYPE );
+        newLiferayModuleProject.createModuleProject(
+            "testThemeModuleInLWS", MENU_MODULE_THEME, TEXT_BUILD_TYPE_GRADLE );
         newLiferayModuleProject.finish();
         sleep( 10000 );
 
@@ -230,7 +233,7 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
     @Test
     public void newMavenLiferayWorkspaceProjectWizard()
     {
-        newLiferayWorkspaceProjectWizard.getBuildType().setSelection( TEXT_LIFERAY_WORKSPACE_BUILD_TYPE_MAVEN );
+        newLiferayWorkspaceProjectWizard.getBuildType().setSelection( TEXT_BUILD_TYPE_MAVEN );
 
         assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, newLiferayWorkspaceProjectWizard.getValidationMessage() );
         assertEquals( "", newLiferayWorkspaceProjectWizard.getWorkspaceNameText() );
@@ -302,7 +305,7 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
         newLiferayWorkspaceProjectWizard.setWorkspaceName( "*" );
         sleep();
         assertEquals(
-            " *" + TEXT_INVALID_CHARACTER_IN_WORKSPACE_NAME + "'*'.",
+            " *" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'*'.",
             newLiferayWorkspaceProjectWizard.getValidationMessage() );
 
         newLiferayWorkspaceProjectWizard.setWorkspaceName( TEXT_BLANK );
