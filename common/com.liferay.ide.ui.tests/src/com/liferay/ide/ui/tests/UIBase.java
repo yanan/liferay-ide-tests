@@ -96,6 +96,7 @@ public interface UIBase
     public final String LABEL_NEW_LIFERAY_MODULE_PROJECT_FRAGMENT = "New Liferay Module Project Fragment";
     public final String LABEL_NEW_LIFERAY_WORPSPACE_PROJECT = "New Liferay Workspace Project";
     public final String LABEL_NEW_LIFERAY_COMPONENT_CLASS = "New Liferay Component Class";
+    public final String LABEL_NEW_LIFERAY_JSF_PROJECT = "New Liferay JSF Project";
 
     public final String LABEL_LIFERAY_PLUGIN_PROJECT = "Liferay Plugin Project";
     public final String LABEL_LIFERAY_MODULE_PROJECT = "Liferay Module Project";
@@ -119,8 +120,7 @@ public interface UIBase
     public final String TITLE_NEW_LAYOUT_TEMPLATE = "New Layout Template";
     public final String TITLE_NEW_SERVICE_BUILDER = "New Service Builder";
     public final String TITLE_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
-    
-    public final String WINDOW_NEW_LIFERAY_HOOK_CONFIGURATION = "New Liferay Hook";
+    public final String TITLE_NEW_LIFERAY_HOOK = "New Liferay Hook";
 
     public final String TEXT_IS_NOT_AN_ABSOLUTE_PATH= " is not an absolute path.";
     public final String TEXT_DIRECTORY_DOESNT_EXIST = " Directory doesn't exist.";
@@ -140,7 +140,6 @@ public interface UIBase
     public final String LABEL_WORKSPACE_NAME = "Workspace name:";
     public final String LABEL_SERVICE_NAME = "Service Name:";
     public final String LABEL_SERVER_NAME = "Server name:";
-    public final String LABEL_BUILD_TYPE = "Build type:";
     public final String LABEL_PROJECT_NAME = "Project name:";
     public final String LABEL_PACKAGE_NAME = "Package name:";
     public final String LABEL_PLUGIN_TYPE = "Plugin type:";
@@ -148,11 +147,13 @@ public interface UIBase
     public final String LABEL_SDK_LOCATION = "SDK Location:";
     public final String LABLE_SELECT_OSGI_BUNDLE = "Select Host OSGi Bundle:";
     public final String LABEL_SERVER_LOCATION = "Liferay Portal Bundle Directory";
+    public final String LABEL_USE_DEFAULT_LOCATION = "Use default location";
+    public final String LABEL_BUNDLE_URL = "Bundle url:";
     
     public final String BUTTON_ADD_FILES_TO_OVERRIDE = "Add Files From OSGi Bundle to Override...";
     public final String SERVER_STARTUP_MESSAGE = "Server startup in";  
     
-    public final String TEXT_BUILD_TYPE = "Gradle";
+    public final String TEXT_BUILD_TYPE_GRADLE = "Gradle";
     public final String TEXT_BUILD_TYPE_MAVEN = "Maven";
 
     public final String NODE_LIFERAY_7X = "Liferay 7.x";

@@ -122,7 +122,7 @@ public class NewLiferayMavenModuleProjectWizardTests extends SWTBotBase implemen
 
         assertEquals( TEXT_BUILD_TYPE_MAVEN, createMavenModuleProjectWizard.getBuildType().getText() );
 
-        String[] expectedModuleBuildTypeItems = { TEXT_BUILD_TYPE, TEXT_BUILD_TYPE_MAVEN };
+        String[] expectedModuleBuildTypeItems = { TEXT_BUILD_TYPE_GRADLE, TEXT_BUILD_TYPE_MAVEN };
         String[] moduleBuildTypeItems = createMavenModuleProjectWizard.getBuildType().getAvailableComboValues();
         assertTrue( moduleBuildTypeItems.length >= 1 );
         assertEquals( expectedModuleBuildTypeItems.length, moduleBuildTypeItems.length );

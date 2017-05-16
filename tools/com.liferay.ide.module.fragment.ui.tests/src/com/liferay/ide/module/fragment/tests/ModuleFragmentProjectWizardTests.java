@@ -96,7 +96,7 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
 
     public void checkBuildType()
     {
-        String[] expectedFragmentBuildTypeItems = { TEXT_BUILD_TYPE, TEXT_BUILD_TYPE_MAVEN };
+        String[] expectedFragmentBuildTypeItems = { TEXT_BUILD_TYPE_GRADLE, TEXT_BUILD_TYPE_MAVEN };
         String[] fragmentBuildTypeItems = newModuleFragmentPage.getBuildType().getAvailableComboValues();
         assertTrue( fragmentBuildTypeItems.length >= 1 );
         assertEquals( expectedFragmentBuildTypeItems.length, fragmentBuildTypeItems.length );
@@ -162,7 +162,7 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
         addLiferayServerAndOpenWizard();
 
         checkBuildType();
-        newModuleFragmentPage.setProjectName( projectName, TEXT_BUILD_TYPE );
+        newModuleFragmentPage.setProjectName( projectName, TEXT_BUILD_TYPE_GRADLE );
         sleep();
         assertTrue( newModuleFragmentPage.isLiferayRuntimeTextEnabled() );
         newModuleFragmentPage.next();
