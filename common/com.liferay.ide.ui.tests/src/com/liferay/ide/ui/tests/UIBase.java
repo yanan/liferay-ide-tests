@@ -128,6 +128,8 @@ public interface UIBase
     
     public final String TEXT_PLEASE_SELECT_THE_WORKSPACE_LOCATION= "Please select the workspace location.";
     
+    public final String TITLE_NEW_LIFERAY_VAADIN_PORTLET = "New Liferay Vaadin Portlet";
+    
     public final String TEXT_PLEASE_ENTER_A_PROJECT_NAME = "Please enter a project name.";
     public final String TEXT_ENTER_A_PROJECT_NAME = " Enter a project name.";
     public final String TEXT_THE_PROJECT_NAME_INVALID = " The project name is invalid.";
@@ -142,6 +144,7 @@ public interface UIBase
     public final String LABEL_SERVER_NAME = "Server name:";
     public final String LABEL_PROJECT_NAME = "Project name:";
     public final String LABEL_PACKAGE_NAME = "Package name:";
+    public final String LABEL_PACKAGE_NAME_UPPERCASE = "Package Name:";
     public final String LABEL_PLUGIN_TYPE = "Plugin type:";
     public final String LABEL_LOCATION = "Location:";
     public final String LABEL_SDK_LOCATION = "SDK Location:";

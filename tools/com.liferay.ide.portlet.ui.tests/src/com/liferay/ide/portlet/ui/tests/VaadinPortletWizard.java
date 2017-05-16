@@ -23,9 +23,10 @@ import com.liferay.ide.ui.tests.UIBase;
 public interface VaadinPortletWizard extends UIBase
 {
 
-    public final int INDEX__VAADIN_VALIDATION_MESSAGE1 = 3;
+    public final int INDEX_VAADIN_VALIDATION_MESSAGE1 = 3;
     public final int INDEX_VAADIN_VALIDATION_MESSAGE2 = 4;
     public final int INDEX_VAADIN_VALIDATION_MESSAGE3 = 6;
     public final String LABEL_APPLICATION_CLASS = "Application class:";
     public final String TEXT_MUST_SPECIFY_VAADIN_PORTLET_CLASS = " Must specify a vaadin portlet class.";
+
 }

@@ -34,6 +34,7 @@ import com.liferay.ide.project.ui.tests.page.ChoosePortletFrameworkPO;
 import com.liferay.ide.project.ui.tests.page.CreateProjectWizardPO;
 import com.liferay.ide.project.ui.tests.page.SetSDKLocationPO;
 import com.liferay.ide.ui.tests.SWTBotBase;
+import com.liferay.ide.ui.tests.swtbot.page.DialogPO;
 
 /**
  * @author Li Lu
@@ -42,36 +43,79 @@ public class NewVaadinPortletWizardTests extends SWTBotBase
     implements VaadinPortletWizard, LiferayPortletWizard, ProjectWizard
 {
 
+    static CreateVaadinPortletWizardPO newVaadinPortletPage =
+        new CreateVaadinPortletWizardPO( bot, INDEX_VAADIN_VALIDATION_MESSAGE1 );
+
+    static ChoosePortletFrameworkPO choosePortletFrameworkPage = new ChoosePortletFrameworkPO( bot );
+
+    PortletDeploymentDescriptorPO portletDeploymentDescriptorPage = new PortletDeploymentDescriptorPO( bot );
+
+    LiferayPortletDeploymentDescriptorPO liferayPortletDeploymentDescriptorPage =
+        new LiferayPortletDeploymentDescriptorPO( bot );
+
+    static SetSDKLocationPO setSDKLocationPage = new SetSDKLocationPO( bot, "" );
+
+    static CreateProjectWizardPO newLiferayProjectPage =
+        new CreateProjectWizardPO( bot, LABEL_NEW_LIFERAY_PLUGIN_PROJECT, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_WIZARD );
+
     static String projectName = "vaadin-test";
 
     @BeforeClass
-    public static void createJSFPortletProject() throws Exception
+    public static void unzipServerAndSdk() throws Exception
     {
         unzipPluginsSDK();
         unzipServer();
 
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayPluginProject().click();
+        createVaddinPorltetWithoutLiferayProjects();
+        sleep( 3000 );
+        newVaadinPortletPage.cancel();
+    }
 
-        CreateProjectWizardPO page1 = new CreateProjectWizardPO( bot );
-        page1.createSDKPortletProject( projectName );
-        page1.next();
+    public static void createVaddinPorltetWithoutLiferayProjects()
+    {
+        eclipse.getPackageExporerView().deleteResouceByName( projectName, true );
 
-        ChoosePortletFrameworkPO page2 = new ChoosePortletFrameworkPO( bot );
+        // click new liferay vaadin portlet wizard without projects
 
-        page2.selectPortletFramework( LABEL_VAADIN_FRAMEWORK );
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayVaadinPortlet().click();
 
-        if( page1.finishButton().isEnabled() )
+        DialogPO dialogPage1 = new DialogPO( bot, TITLE_NEW_LIFERAY_VAADIN_PORTLET, BUTTON_NO, BUTTON_YES );
+
+        dialogPage1.cancelButton().click();
+
+        assertEquals( TEXT_ENTER_A_PROJECT_NAME, newVaadinPortletPage.getValidationMessage() );
+        assertFalse( newVaadinPortletPage.nextButton().isEnabled() );
+
+        newVaadinPortletPage.cancel();
+
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayVaadinPortlet().click();
+
+        dialogPage1.confirm();
+
+        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, newLiferayProjectPage.getValidationMessage() );
+        assertFalse( newLiferayProjectPage.nextButton().isEnabled() );
+
+        newLiferayProjectPage.createSDKPortletProject( projectName );
+        assertTrue( newLiferayProjectPage.nextButton().isEnabled() );
+
+        newLiferayProjectPage.next();
+
+        choosePortletFrameworkPage.selectPortletFramework( LABEL_VAADIN_FRAMEWORK );
+
+        if( newVaadinPortletPage.finishButton().isEnabled() )
         {
-            page1.finish();
+            newVaadinPortletPage.finish();
         }
 
         else
         {
-            page1.next();
-            SetSDKLocationPO page3 = new SetSDKLocationPO( bot, "" );
-            page3.setSdkLocation( getLiferayPluginsSdkDir().toString() );
-            page3.finish();
+            newVaadinPortletPage.next();
+            setSDKLocationPage.setSdkLocation( getLiferayPluginsSdkDir().toString() );
+            setSDKLocationPage.finish();
+            setSDKLocationPage.waitForPageToClose();
+            sleep( 15000 );
         }
+
     }
 
     @AfterClass
@@ -79,11 +123,6 @@ public class NewVaadinPortletWizardTests extends SWTBotBase
     {
         eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, true );
     }
-
-    CreateVaadinPortletWizardPO page = new CreateVaadinPortletWizardPO( bot, INDEX__VAADIN_VALIDATION_MESSAGE1 );
-
-    PortletDeploymentDescriptorPO page2 = new PortletDeploymentDescriptorPO( bot );
-    LiferayPortletDeploymentDescriptorPO page3 = new LiferayPortletDeploymentDescriptorPO( bot );
 
     @After
     public void closeWizard()
@@ -102,59 +141,59 @@ public class NewVaadinPortletWizardTests extends SWTBotBase
     @Test
     public void testApplicationClass() throws Exception
     {
-        page.setApplicationClassText( "" );
-
-        String message = page.getValidationMessage();
-        assertEquals( TEXT_CLASS_NAME_CANNOT_BE_EMPTY, message );
-        assertEquals( false, page.finishButton().isEnabled() );
+        newVaadinPortletPage.setApplicationClassText( "" );
+        sleep();
+        assertEquals( TEXT_CLASS_NAME_CANNOT_BE_EMPTY, newVaadinPortletPage.getValidationMessage() );
+        assertEquals( false, newVaadinPortletPage.finishButton().isEnabled() );
     }
 
     @Test
     public void testContentDefaultValues() throws Exception
     {
         // check default values page 1
-        assertEquals( projectName + "-portlet", page.getPortletPluginProject() );
-        assertTrue( page.getSourceFolderText().contains( "docroot/WEB-INF/src" ) );
-        assertEquals( "NewVaadinPortletApplication", page.getApplicationClassText() );
-        assertEquals( "com.test", page.getJavaPackageText() );
-        assertEquals( "com.vaadin.Application", page.getSuperClassCombobox() );
-        assertEquals( "com.vaadin.terminal.gwt.server.ApplicationPortlet2", page.getVaadinPortletClassText() );
-        // page2
-        page.next();
-        assertEquals( "newvaadinportlet", page2.getPortletName() );
-        assertEquals( "NewVaadinPortlet", page2.getDisplayName() );
-        assertEquals( "NewVaadinPortlet", page2.getPortletTitle() );
-        assertFalse( page2.get_createResourceBundleFileCheckbox().isChecked() );
-        assertEquals( "content/Language.properties", page2.getResourceBundleFilePath() );
-        // page3
-        page.next();
-        assertFalse( page3.isEntryCategoryEnabled() );
-        assertFalse( page3.isEntryWeightEnabled() );
-        assertFalse( page3.isCreateEntryClassEnabled() );
-        assertFalse( page3.isEntryClassEnabled() );
+        assertEquals( projectName + "-portlet", newVaadinPortletPage.getPortletPluginProject() );
+        assertTrue( newVaadinPortletPage.getSourceFolderText().contains( "docroot/WEB-INF/src" ) );
+        assertEquals( "NewVaadinPortletApplication", newVaadinPortletPage.getApplicationClassText() );
+        assertEquals( "com.test", newVaadinPortletPage.getJavaPackageText() );
+        assertEquals( "com.vaadin.Application", newVaadinPortletPage.getSuperClassCombobox() );
+        assertEquals(
+            "com.vaadin.terminal.gwt.server.ApplicationPortlet2", newVaadinPortletPage.getVaadinPortletClassText() );
+        // portletDeploymentDescriptorPage
+        newVaadinPortletPage.next();
+        assertEquals( "newvaadinportlet", portletDeploymentDescriptorPage.getPortletName() );
+        assertEquals( "NewVaadinPortlet", portletDeploymentDescriptorPage.getDisplayName() );
+        assertEquals( "NewVaadinPortlet", portletDeploymentDescriptorPage.getPortletTitle() );
+        assertFalse( portletDeploymentDescriptorPage.get_createResourceBundleFileCheckbox().isChecked() );
+        assertEquals( "content/Language.properties", portletDeploymentDescriptorPage.getResourceBundleFilePath() );
+        // liferayPortletDeploymentDescriptorPage
+        newVaadinPortletPage.next();
+        assertFalse( liferayPortletDeploymentDescriptorPage.isEntryCategoryEnabled() );
+        assertFalse( liferayPortletDeploymentDescriptorPage.isEntryWeightEnabled() );
+        assertFalse( liferayPortletDeploymentDescriptorPage.isCreateEntryClassEnabled() );
+        assertFalse( liferayPortletDeploymentDescriptorPage.isEntryClassEnabled() );
 
-        assertEquals( "/icon.png", page3.getIconText() );
-        assertEquals( false, page3.isAllowMultipleInstancesChecked() );
-        assertEquals( "/css/main.css", page3.getCssText() );
-        assertEquals( "/js/main.js", page3.getJavaScriptText() );
-        assertEquals( "newvaadinportlet-portlet", page3.getCssClassWrapperText() );
-        assertEquals( "Sample", page3.getDisplayCategoryCombobox() );
-        assertEquals( false, page3.isAddToControlPanelChecked() );
-        assertEquals( "My Account Administration", page3.getEntryCategoryCombobox() );
-        assertEquals( "1.5", page3.getEntryWeightText() );
-        assertEquals( false, page3.isCreateEntryClassChecked() );
-        assertEquals( "NewVaadinPortletApplicationControlPanelEntry", page3.getEntryClassText() );
+        assertEquals( "/icon.png", liferayPortletDeploymentDescriptorPage.getIconText() );
+        assertEquals( false, liferayPortletDeploymentDescriptorPage.isAllowMultipleInstancesChecked() );
+        assertEquals( "/css/main.css", liferayPortletDeploymentDescriptorPage.getCssText() );
+        assertEquals( "/js/main.js", liferayPortletDeploymentDescriptorPage.getJavaScriptText() );
+        assertEquals( "newvaadinportlet-portlet", liferayPortletDeploymentDescriptorPage.getCssClassWrapperText() );
+        assertEquals( "Sample", liferayPortletDeploymentDescriptorPage.getDisplayCategoryCombobox() );
+        assertEquals( false, liferayPortletDeploymentDescriptorPage.isAddToControlPanelChecked() );
+        assertEquals( "My Account Administration", liferayPortletDeploymentDescriptorPage.getEntryCategoryCombobox() );
+        assertEquals( "1.5", liferayPortletDeploymentDescriptorPage.getEntryWeightText() );
+        assertEquals( false, liferayPortletDeploymentDescriptorPage.isCreateEntryClassChecked() );
+        assertEquals(
+            "NewVaadinPortletApplicationControlPanelEntry",
+            liferayPortletDeploymentDescriptorPage.getEntryClassText() );
     }
 
     @Test
     public void testPortletClass() throws Exception
     {
-
-        page.setPortletClassText( "" );
-
-        String message = page.getValidationMessage();
-        assertEquals( TEXT_MUST_SPECIFY_VAADIN_PORTLET_CLASS, message );
-        assertEquals( false, page.finishButton().isEnabled() );
+        newVaadinPortletPage.setPortletClassText( "" );
+        sleep();
+        assertEquals( TEXT_MUST_SPECIFY_VAADIN_PORTLET_CLASS, newVaadinPortletPage.getValidationMessage() );
+        assertEquals( false, newVaadinPortletPage.finishButton().isEnabled() );
     }
 
 }
