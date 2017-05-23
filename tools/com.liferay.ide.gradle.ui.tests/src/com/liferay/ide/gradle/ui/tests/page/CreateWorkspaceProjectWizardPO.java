@@ -34,7 +34,9 @@ public class CreateWorkspaceProjectWizardPO extends WizardPO implements LiferayW
     private TextPO _workspaceNameText;
     private TextPO _serverNameText;
     private TextPO _bundleUrlText;
+    private TextPO _location;
     private ComboBoxPO _buildType;
+    private CheckBoxPO _useDefaultLocation;
     private CheckBoxPO _downloadLiferayBundleCheckBox;
     private ToolbarButtonWithTooltipPO _saveToolbar;
 
@@ -60,8 +62,10 @@ public class CreateWorkspaceProjectWizardPO extends WizardPO implements LiferayW
         _workspaceNameText = new TextPO( bot, LABEL_WORKSPACE_NAME );
         _serverNameText = new TextPO( bot, LABEL_SERVER_NAME );
         _bundleUrlText = new TextPO( bot, LABEL_BUNDLE_URL );
+        _location = new TextPO( bot, LABEL_LOCATION );
         _buildType = new ComboBoxPO( bot, LABEL_BUILD_TYPE );
         _downloadLiferayBundleCheckBox = new CheckBoxPO( bot, LABEL_DOWNLOAD_LIFERAY_BUNDLE );
+        _useDefaultLocation = new CheckBoxPO( bot, LABEL_USE_DEFAULT_LOCATION );
         _saveToolbar = new ToolbarButtonWithTooltipPO( bot, TOOLBAR_SAVE );
     }
 
@@ -95,6 +99,16 @@ public class CreateWorkspaceProjectWizardPO extends WizardPO implements LiferayW
         this._bundleUrlText = bundleUrlText;
     }
 
+    public TextPO getLocation()
+    {
+        return _location;
+    }
+
+    public void setLocation( TextPO _location )
+    {
+        this._location = _location;
+    }
+
     public ComboBoxPO getBuildType()
     {
         return _buildType;
@@ -103,6 +117,16 @@ public class CreateWorkspaceProjectWizardPO extends WizardPO implements LiferayW
     public void setBuildType( ComboBoxPO buildType )
     {
         this._buildType = buildType;
+    }
+
+    public CheckBoxPO getUseDefaultLocation()
+    {
+        return _useDefaultLocation;
+    }
+
+    public void setUseDefaultLocation( CheckBoxPO _useDefaultLocation )
+    {
+        this._useDefaultLocation = _useDefaultLocation;
     }
 
     public CheckBoxPO getDownloadLiferayBundleCheckbox()

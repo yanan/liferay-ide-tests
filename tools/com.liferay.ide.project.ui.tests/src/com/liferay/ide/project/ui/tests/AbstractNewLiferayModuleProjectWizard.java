@@ -46,6 +46,37 @@ public abstract class AbstractNewLiferayModuleProjectWizard extends SWTBotBase i
 
     static TreePO projectTree = eclipse.getPackageExporerView().getProjectTree();
 
+    static DeleteResourcesDialogPO deleteResources = new DeleteResourcesDialogPO( bot );
+
+    @AfterClass
+    public static void cleanAll()
+    {
+        eclipse.closeShell( LABEL_NEW_LIFERAY_MODULE_PROJECT );
+        eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, true );
+    }
+
+    @BeforeClass
+    public static void createLiferayWorkspace()
+    {
+        eclipse.getLiferayWorkspacePerspective().activate();
+
+        eclipse.getProjectExplorerView().show();
+    }
+
+    public static void newLiferayWorkspace( String liferayWorkspaceName, String buildType )
+    {
+
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayWorkspaceProject().click();
+        sleep( 2000 );
+
+        newLiferayWorkspace.setWorkspaceNameText( liferayWorkspaceName );
+
+        newLiferayWorkspace.get_buildType().setSelection( buildType );
+
+        newLiferayWorkspace.finish();
+        sleep( 20000 );
+    }
+
     NewLiferayModuleProjectWizardPO createModuleProjectWizard =
         new NewLiferayModuleProjectWizardPO( bot, INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE );
 
@@ -56,21 +87,23 @@ public abstract class AbstractNewLiferayModuleProjectWizard extends SWTBotBase i
         new NewLiferayModuleProjectWizardSecondPagePO(
             bot, INDEX_SERVICE_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
 
-    static DeleteResourcesDialogPO deleteResources = new DeleteResourcesDialogPO( bot );
-
-    @BeforeClass
-    public static void createLiferayWorkspace()
+    public void checkBuildTypes()
     {
-        eclipse.getLiferayWorkspacePerspective().activate();
+        String[] liferayWorkspaceBuildTypeItems = createModuleProjectWizard.getBuildType().getAvailableComboValues();
 
-        eclipse.getProjectExplorerView().show();
-    }
-
-    @AfterClass
-    public static void cleanAll()
-    {
-        eclipse.closeShell( LABEL_NEW_LIFERAY_MODULE_PROJECT );
-        eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() }, true );
+        for( int i = 0; i < liferayWorkspaceBuildTypeItems.length; i++ )
+        {
+            if( liferayWorkspaceBuildTypeItems[0].equals( TEXT_BUILD_TYPE_GRADLE ) )
+            {
+                assertTrue( liferayWorkspaceBuildTypeItems[i].equals( expectedBuildTypeItems[i] ) );
+            }
+            else
+            {
+                assertTrue(
+                    liferayWorkspaceBuildTypeItems[i].equals(
+                        expectedBuildTypeItems[liferayWorkspaceBuildTypeItems.length - i - 1] ) );
+            }
+        }
     }
 
     public void newLiferayModuleProject(
@@ -279,20 +312,6 @@ public abstract class AbstractNewLiferayModuleProjectWizard extends SWTBotBase i
         createModuleProjectWizard.finish();
         createModuleProjectWizard.waitForPageToClose();
         sleep( 2000 );
-    }
-
-    public static void newLiferayWorkspace( String liferayWorkspaceName, String buildType )
-    {
-
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayWorkspaceProject().click();
-        sleep( 2000 );
-
-        newLiferayWorkspace.setWorkspaceNameText( liferayWorkspaceName );
-
-        newLiferayWorkspace.get_buildType().setSelection( buildType );
-
-        newLiferayWorkspace.finish();
-        sleep( 20000 );
     }
 
     public void openEditorAndCheck( String content, String projectName, String... nodes )

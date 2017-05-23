@@ -28,9 +28,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.liferay.ide.gradle.ui.tests.page.CreateWorkspaceProjectWizardPO;
-import com.liferay.ide.project.ui.tests.NewLiferayModuleProjectWizard;
-import com.liferay.ide.project.ui.tests.page.NewLiferayModuleProjectWizardPO;
-import com.liferay.ide.ui.tests.SWTBotBase;
+import com.liferay.ide.project.ui.tests.AbstractNewLiferayModuleProjectWizard;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.DeleteResourcesContinueDialogPO;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.DeleteResourcesDialogPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextEditorPO;
@@ -40,8 +38,8 @@ import com.liferay.ide.ui.tests.swtbot.page.TreePO;
  * @author Vicky Wang
  * @author Ying Xu
  */
-public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
-    implements LiferayWorkspaceProjectWizard, NewLiferayModuleProjectWizard
+public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModuleProjectWizard
+    implements LiferayWorkspaceProjectWizard
 {
 
     String projectName = "workspace-project";
@@ -69,25 +67,6 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
     @Test
     public void newGradleLiferayWorksapceProjectWizard()
     {
-        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, newLiferayWorkspaceProjectWizard.getValidationMessage() );
-        assertEquals( "", newLiferayWorkspaceProjectWizard.getWorkspaceNameText() );
-
-        String[] expectedLiferayWorkspaceBuildTypeItems = { TEXT_BUILD_TYPE_GRADLE, TEXT_BUILD_TYPE_MAVEN };
-
-        String[] liferayWorkspaceBuildTypeItems =
-            newLiferayWorkspaceProjectWizard.getBuildType().getAvailableComboValues();
-
-        assertTrue( liferayWorkspaceBuildTypeItems.length >= 1 );
-
-        assertEquals( expectedLiferayWorkspaceBuildTypeItems.length, liferayWorkspaceBuildTypeItems.length );
-
-        for( int i = 0; i < liferayWorkspaceBuildTypeItems.length; i++ )
-        {
-            assertTrue( liferayWorkspaceBuildTypeItems[i].equals( expectedLiferayWorkspaceBuildTypeItems[i] ) );
-        }
-
-        assertEquals( false, newLiferayWorkspaceProjectWizard.isDownloadLiferayBundleChecked() );
-
         newLiferayWorkspaceProjectWizard.setWorkspaceName( projectName );
         sleep();
         newLiferayWorkspaceProjectWizard.getBuildType().setSelection( TEXT_BUILD_TYPE_GRADLE );
@@ -119,28 +98,35 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
 
         serverTree.getTreeItem( "bundles [Stopped]" );
 
-        // create module project in liferay workspace
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
+        String moduleProjectName = "testModuleInLWS";
 
-        NewLiferayModuleProjectWizardPO newLiferayModuleProject = new NewLiferayModuleProjectWizardPO( bot );
-
-        newLiferayModuleProject.createModuleProject(
-            "testModuleInLWS", MENU_MODULE_MVC_PORTLET, TEXT_BUILD_TYPE_GRADLE );
-        newLiferayModuleProject.finish();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, moduleProjectName, MENU_MODULE_MVC_PORTLET,
+            eclipseWorkspace + "/" + projectName + "/modules", false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK );
         sleep( 10000 );
 
         projectTree.setFocus();
-        assertTrue( projectTree.expandNode( projectName, "modules", "testModuleInLWS" ).isVisible() );
+        assertTrue( projectTree.expandNode( projectName, "modules", moduleProjectName ).isVisible() );
 
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
+        String themeProjectName = "testThemeModuleInLWS";
 
-        newLiferayModuleProject.createModuleProject(
-            "testThemeModuleInLWS", MENU_MODULE_THEME, TEXT_BUILD_TYPE_GRADLE );
-        newLiferayModuleProject.finish();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, themeProjectName, MENU_MODULE_THEME, eclipseWorkspace + "/" + projectName + "/wars",
+            false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK );
         sleep( 10000 );
 
         projectTree.setFocus();
-        assertTrue( projectTree.expandNode( projectName, "wars", "testThemeModuleInLWS" ).isVisible() );
+        assertTrue( projectTree.expandNode( projectName, "wars", themeProjectName ).isVisible() );
+
+        String projectName = "testMavenModuleInGradleLWS";
+
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_MAVEN, projectName, MENU_MODULE_MVC_PORTLET, eclipseWorkspace, false, TEXT_BLANK,
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK );
+        sleep( 10000 );
+
+        projectTree.setFocus();
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayWorkspaceProject().click();
 
@@ -191,27 +177,26 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
         sleep();
 
         // create module project in liferay workspace
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
+        String moduleProjectName = "testModuleInLWS";
 
-        NewLiferayModuleProjectWizardPO newLiferayModuleProject = new NewLiferayModuleProjectWizardPO( bot );
-
-        newLiferayModuleProject.createModuleProject(
-            "testModuleInLWS", MENU_MODULE_MVC_PORTLET, TEXT_BUILD_TYPE_GRADLE );
-        newLiferayModuleProject.finish();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, moduleProjectName, MENU_MODULE_MVC_PORTLET,
+            eclipseWorkspace + "/" + projectName + "/modulesTest", false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK,
+            TEXT_BLANK );
         sleep( 10000 );
 
         projectTree.setFocus();
-        assertTrue( projectTree.expandNode( projectName, "modulesTest", "testModuleInLWS" ).isVisible() );
+        assertTrue( projectTree.expandNode( projectName, "modulesTest", moduleProjectName ).isVisible() );
 
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
+        String themeProjectName = "testThemeModuleInLWS";
 
-        newLiferayModuleProject.createModuleProject(
-            "testThemeModuleInLWS", MENU_MODULE_THEME, TEXT_BUILD_TYPE_GRADLE );
-        newLiferayModuleProject.finish();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, themeProjectName, MENU_MODULE_THEME,
+            eclipseWorkspace + "/" + projectName + "/warsTest", false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK );
         sleep( 10000 );
 
         projectTree.setFocus();
-        assertTrue( projectTree.expandNode( projectName, "warsTest", "testThemeModuleInLWS" ).isVisible() );
+        assertTrue( projectTree.expandNode( projectName, "warsTest", themeProjectName ).isVisible() );
 
         // init bundle
         projectTree.getTreeItem( projectName ).doAction( "Liferay", "Initialize Server Bundle" );
@@ -255,31 +240,38 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
         assertTrue( projectTree.expandNode( projectName, projectName + "-wars (in wars)", "pom.xml" ).isVisible() );
         assertTrue( projectTree.expandNode( projectName, "pom.xml" ).isVisible() );
 
-        NewLiferayModuleProjectWizardPO newLiferayModuleProject = new NewLiferayModuleProjectWizardPO( bot );
+        String themeProjectName = "testMavenThemeModuleInLWS";
 
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
-
-        newLiferayModuleProject.createModuleProject(
-            "testMavenThemeModuleInLWS", MENU_MODULE_THEME, TEXT_BUILD_TYPE_MAVEN );
-        newLiferayModuleProject.finish();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_MAVEN, themeProjectName, MENU_MODULE_THEME, eclipseWorkspace + "/" + projectName + "/wars",
+            false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK );
         sleep( 10000 );
 
         projectTree.setFocus();
         assertTrue(
-            projectTree.expandNode(
-                projectName, projectName + "-wars (in wars)", "testMavenThemeModuleInLWS" ).isVisible() );
+            projectTree.expandNode( projectName, projectName + "-wars (in wars)", themeProjectName ).isVisible() );
 
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
+        String moduleProjectName = "testMavenModuleInLWS";
 
-        newLiferayModuleProject.createModuleProject(
-            "testMavenModuleInLWS", MENU_MODULE_MVC_PORTLET, TEXT_BUILD_TYPE_MAVEN );
-        newLiferayModuleProject.finish();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_MAVEN, moduleProjectName, MENU_MODULE_MVC_PORTLET,
+            eclipseWorkspace + "/" + projectName + "/modules", false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK );
         sleep( 10000 );
 
         projectTree.setFocus();
         assertTrue(
             projectTree.expandNode(
                 projectName, projectName + "-modules (in modules)", "testMavenModuleInLWS" ).isVisible() );
+
+        String projectName = "testGradleModuleInMavenLWS";
+
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_MVC_PORTLET, eclipseWorkspace, false, TEXT_BLANK,
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK );
+        sleep( 10000 );
+
+        projectTree.setFocus();
+        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayWorkspaceProject().click();
 
@@ -319,12 +311,32 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
         newLiferayWorkspaceProjectWizard.cancel();
     }
 
+    @Test
+    public void initialStateTest()
+    {
+        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, newLiferayWorkspaceProjectWizard.getValidationMessage() );
+        assertEquals( "", newLiferayWorkspaceProjectWizard.getWorkspaceNameText() );
+
+        checkBuildTypes();
+
+        assertTrue( newLiferayWorkspaceProjectWizard.getUseDefaultLocation().isChecked() );
+        assertEquals( false, newLiferayWorkspaceProjectWizard.isDownloadLiferayBundleChecked() );
+
+        newLiferayWorkspaceProjectWizard.getUseDefaultLocation().deselect();
+        assertEquals( eclipseWorkspace, newLiferayWorkspaceProjectWizard.getLocation().getText() );
+        newLiferayWorkspaceProjectWizard.getUseDefaultLocation().select();
+
+        newLiferayWorkspaceProjectWizard.getDownloadLiferayBundleCheckbox().select();
+        assertEquals( "", newLiferayWorkspaceProjectWizard.getServerNameText().getText() );
+        assertEquals( "", newLiferayWorkspaceProjectWizard.getBundleUrlText().getText() );
+        newLiferayWorkspaceProjectWizard.getDownloadLiferayBundleCheckbox().deselect();
+
+        newLiferayWorkspaceProjectWizard.cancel();
+    }
+
     @Before
     public void openWizard()
     {
-
-        eclipse.getLiferayWorkspacePerspective().activate();
-
         Assume.assumeTrue( runTest() || runAllTests() );
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayWorkspaceProject().click();
@@ -336,19 +348,12 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
     {
         killGradleProcess();
 
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayWorkspaceProject().click();
-
-        newLiferayWorkspaceProjectWizard.setWorkspaceName( projectName );
-        sleep();
-
-        DeleteResourcesDialogPO deleteResources = new DeleteResourcesDialogPO( bot );
-
-        DeleteResourcesContinueDialogPO continueDeleteResources =
-            new DeleteResourcesContinueDialogPO( bot, "Delete Resources" );
-
-        if( !( newLiferayWorkspaceProjectWizard.finishButton().isEnabled() ) )
+        if( eclipse.getPackageExporerView().hasProjects() )
         {
-            newLiferayWorkspaceProjectWizard.cancel();
+            DeleteResourcesDialogPO deleteResources = new DeleteResourcesDialogPO( bot );
+
+            DeleteResourcesContinueDialogPO continueDeleteResources =
+                new DeleteResourcesContinueDialogPO( bot, "Delete Resources" );
 
             projectTree.getTreeItem( projectName ).doAction( BUTTON_DELETE );
             sleep( 2000 );
@@ -365,13 +370,12 @@ public class LiferayWorkspaceProjectWizardTests extends SWTBotBase
             {
                 e.printStackTrace();
             }
-        }
-        else
-        {
-            newLiferayWorkspaceProjectWizard.cancel();
-        }
 
-        sleep( 5000 );
+            sleep( 5000 );
+
+            eclipse.getPackageExporerView().deleteProjectExcludeNames(
+                new String[] { getLiferayPluginsSdkName() }, true );
+        }
     }
 
 }
