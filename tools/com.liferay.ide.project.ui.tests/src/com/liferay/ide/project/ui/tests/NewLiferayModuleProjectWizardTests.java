@@ -15,7 +15,6 @@
 
 package com.liferay.ide.project.ui.tests;
 
-import static org.eclipse.swtbot.swt.finder.SWTBotAssert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -31,17 +30,16 @@ import org.junit.Test;
 import com.liferay.ide.project.ui.tests.page.NewLiferayModuleProjectWizardPO;
 import com.liferay.ide.project.ui.tests.page.NewLiferayModuleProjectWizardSecondPagePO;
 import com.liferay.ide.project.ui.tests.page.NewLiferayWorkspaceProjectWizardPO;
-import com.liferay.ide.project.ui.tests.page.SelectModuleServiceNamePO;
-import com.liferay.ide.ui.tests.SWTBotBase;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.DeleteResourcesContinueDialogPO;
 import com.liferay.ide.ui.tests.swtbot.eclipse.page.DeleteResourcesDialogPO;
-import com.liferay.ide.ui.tests.swtbot.page.TextEditorPO;
 import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 
 /**
  * @author Ying Xu
+ * @author Sunny Shi
  */
-public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements NewLiferayModuleProjectWizard
+public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModuleProjectWizard
+    implements NewLiferayModuleProjectWizard
 {
 
     TreePO projectTree = eclipse.getPackageExporerView().getProjectTree();
@@ -63,134 +61,120 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     public static void switchToLiferayWorkspacePerspective()
     {
         eclipse.getLiferayWorkspacePerspective().activate();
+        eclipse.getProjectExplorerView().show();
+    }
+
+    @Test
+    public void validationProjectName()
+    {
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
+        sleep();
+
+        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, createModuleProjectWizard.getValidationMessage() );
+        assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
+
+        createModuleProjectWizard.createModuleProject( "." );
+        sleep( 1000 );
+        assertEquals( " '.'" + TEXT_INVALID_NAME_ON_PLATFORM, createModuleProjectWizard.getValidationMessage() );
+        assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
+
+        createModuleProjectWizard.createModuleProject( "/" );
+        sleep( 1000 );
+        assertEquals(
+            " /" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'/'.", createModuleProjectWizard.getValidationMessage() );
+        assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
+
+        createModuleProjectWizard.createModuleProject( "$" );
+        sleep( 1000 );
+        assertEquals( TEXT_THE_PROJECT_NAME_INVALID, createModuleProjectWizard.getValidationMessage() );
+        assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
+
+        createModuleProjectWizard.createModuleProject( "" );
+        sleep( 1000 );
+        assertEquals( TEXT_PROJECT_NAME_MUST_BE_SPECIFIED, createModuleProjectWizard.getValidationMessage() );
+        assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
+
+        createModuleProjectWizard.createModuleProject( "a" );
+        sleep( 1000 );
+        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
+        assertTrue( createModuleProjectWizard.finishButton().isEnabled() );
+
+        createModuleProjectWizard.cancel();
+    }
+
+    @Test
+    public void validationTheSecondPage()
+    {
+        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
+        sleep();
+
+        createModuleProjectWizard.createModuleProject( "test" );
+        createModuleProjectWizard.next();
+
+        createModuleProjectSecondPageWizard.getComponentClassName().setText( "@@" );
+        sleep();
+        assertEquals( TEXT_INVALID_CLASS_NAME, createModuleProjectSecondPageWizard.getValidationMessage() );
+        createModuleProjectSecondPageWizard.getComponentClassName().setText( "testClassName" );
+        sleep();
+
+        createModuleProjectSecondPageWizard.getPackageName().setText( "!!" );
+        sleep();
+        assertEquals( TEXT_INVALID_PACKAGE_NAME, createModuleProjectSecondPageWizard.getValidationMessage() );
+        createModuleProjectSecondPageWizard.getPackageName().setText( "testPackageName" );
+        sleep();
+
+        createModuleProjectSecondPageWizard.getAddPropertyKeyButton().click();
+        sleep();
+        createModuleProjectSecondPageWizard.getProperties().setFocus();
+        assertEquals( TEXT_NAME_MUST_BE_SPECIFIED, createModuleProjectSecondPageWizard.getValidationMessage() );
+        assertTrue( createModuleProjectSecondPageWizard.getDeleteButton().isEnabled() );
+        createModuleProjectSecondPageWizard.getDeleteButton().click();
+
+        createModuleProjectSecondPageWizard.getAddPropertyKeyButton().click();
+        sleep();
+        createModuleProjectSecondPageWizard.setPropertiesText( 2, "a" );
+        createModuleProjectSecondPageWizard.getProperties().setFocus();
+        sleep();
+        assertEquals( TEXT_VALUE_MUST_BE_SPECIFIED, createModuleProjectSecondPageWizard.getValidationMessage() );
+        sleep( 2000 );
+        createModuleProjectSecondPageWizard.getProperties().doubleClick( 0, 1 );
+        sleep();
+        createModuleProjectSecondPageWizard.setPropertiesText( 2, "b" );
+        createModuleProjectSecondPageWizard.cancel();
     }
 
     @Test
     public void createMvcportletModuleProject()
     {
-        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, createModuleProjectWizard.getValidationMessage() );
-
         String projectName = "testMvcportletProject";
 
-        createModuleProjectWizard.createModuleProject( projectName );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_MVC_PORTLET, eclipseWorkspace, true,
+            eclipseWorkspace + "newFolder", TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, true );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-        assertEquals( MENU_MODULE_MVC_PORTLET, createModuleProjectWizard.getProjectTemplateNameComboBox().getText() );
-
-        String[] expectedModuleProjectTemplateItems =
-            { MENU_MODULE_ACTIVATOR, MENU_MODULE_API, MENU_MODULE_CONTENT_TARGETING_REPORT,
-                MENU_MODULE_CONTENT_TARGETING_RULE, MENU_MODULE_CONTENT_TARGETING_TRACKING_ACTION,
-                MENU_MODULE_CONTROL_MENU_ENTRY, MENU_MODULE_FORM_FIELD, MENU_MODULE_MVC_PORTLET, MENU_MODULE_PANEL_APP,
-                MENU_MODULE_PORTLET, MENU_MODULE_PORTLET_CONFIGURATION_ICON, MENU_MODULE_PORTLET_PROVIDER,
-                MENU_MODULE_PORTLET_TOOLBAR_CONTRIBUTOR, MENU_MODULE_REST, MENU_MODULE_SERVICE,
-                MENU_MODULE_SERVICE_BUILDER, MENU_MODULE_SERVICE_WRAPPER, MENU_MODULE_SIMULATION_PANEL_ENTRY,
-                MENU_MODULE_TEMPLATE_CONTEXT_CONTRIBUTOR, MENU_MODULE_THEME, MENU_MODULE_THEME_CONTRIBUTOR };
-
-        String[] moduleProjectTemplateItems =
-            createModuleProjectWizard.getProjectTemplateNameComboBox().getAvailableComboValues();
-
-        assertTrue( moduleProjectTemplateItems.length >= 1 );
-
-        assertEquals( expectedModuleProjectTemplateItems.length, moduleProjectTemplateItems.length );
-
-        for( int i = 0; i < moduleProjectTemplateItems.length; i++ )
-        {
-            assertTrue( moduleProjectTemplateItems[i].equals( expectedModuleProjectTemplateItems[i] ) );
-        }
-
-        createModuleProjectWizard.next();
-
-        NewLiferayModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO( bot, INDEX_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-
-        // add properties then check toolbarButton state
-        assertTrue( createModuleProjectSecondPageWizard.getAddPropertyKeyButton().isEnabled() );
-        assertFalse( createModuleProjectSecondPageWizard.getDeleteButton().isEnabled() );
-        assertFalse( createModuleProjectSecondPageWizard.getMoveUpButton().isEnabled() );
-        assertFalse( createModuleProjectSecondPageWizard.getMoveDownButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.getAddPropertyKeyButton().click();
-        sleep();
-        createModuleProjectSecondPageWizard.setPropertiesText( 2, "a" );
-        sleep( 3000 );
-        createModuleProjectSecondPageWizard.getProperties().doubleClick( 0, 1 );
-        sleep();
-        createModuleProjectSecondPageWizard.setPropertiesText( 2, "b" );
-        sleep( 3000 );
-
-        createModuleProjectSecondPageWizard.getProperties().setFocus();
-        sleep();
-
-        assertTrue( createModuleProjectSecondPageWizard.getDeleteButton().isEnabled() );
-        assertFalse( createModuleProjectSecondPageWizard.getMoveUpButton().isEnabled() );
-        assertFalse( createModuleProjectSecondPageWizard.getMoveDownButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.getAddPropertyKeyButton().click();
-        sleep();
-        createModuleProjectSecondPageWizard.setPropertiesText( 2, "c" );
-        sleep( 3000 );
-        createModuleProjectSecondPageWizard.getProperties().doubleClick( 1, 1 );
-        sleep();
-        createModuleProjectSecondPageWizard.setPropertiesText( 2, "d" );
-        sleep( 3000 );
-
-        createModuleProjectSecondPageWizard.getProperties().setFocus();
-        sleep();
-
-        assertTrue( createModuleProjectSecondPageWizard.getMoveUpButton().isEnabled() );
-        assertFalse( createModuleProjectSecondPageWizard.getMoveDownButton().isEnabled() );
-        createModuleProjectSecondPageWizard.getMoveUpButton().click();
-        assertFalse( createModuleProjectSecondPageWizard.getMoveUpButton().isEnabled() );
-        assertTrue( createModuleProjectSecondPageWizard.getMoveDownButton().isEnabled() );
-        createModuleProjectSecondPageWizard.getMoveDownButton().click();
-
-        createModuleProjectSecondPageWizard.getDeleteButton().click();
-        createModuleProjectSecondPageWizard.getDeleteButton().click();
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
+        createModuleProjectSecondPageWizard.waitForPageToClose();
 
         String javaFileName = "TestMvcportletProjectPortlet.java";
+        String javaContent = "extends MVCPortlet";
 
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
-        projectTree.expandNode( projectName, "src/main/java", "testMvcportletProject.portlet" ).doubleClick(
-            javaFileName );
-
-        TextEditorPO checkJavaFile = eclipse.getTextEditor( javaFileName );
-
-        assertContains( "extends MVCPortlet", checkJavaFile.getText() );
-        checkJavaFile.close();
-
-        projectTree.setFocus();
+        openEditorAndCheck(
+            javaContent, projectName, projectName, "src/main/java", "testMvcportletProject.portlet", javaFileName );
 
         String buildGradleFileName = "build.gradle";
+        String buildGradleContent =
+            "apply plugin: \"com.liferay.plugin\"\n\ndependencies {\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.portal.kernel\", version: \"2.0.0\"\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.util.taglib\", version: \"2.0.0\"\n\tcompileOnly group: \"javax.portlet\", name: \"portlet-api\", version: \"2.0\"\n\tcompileOnly group: \"javax.servlet\", name: \"javax.servlet-api\", version: \"3.0.1\"\n\tcompileOnly group: \"jstl\", name: \"jstl\", version: \"1.2\"\n\tcompileOnly group: \"org.osgi\", name: \"osgi.cmpn\", version: \"6.0.0\"";
 
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
+        openEditorAndCheck( buildGradleContent, projectName, projectName, buildGradleFileName );
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
+        eclipse.getPackageExporerView().deleteResouceByName( "testMvcportletProject", true );
     }
 
     @Test
     public void createMvcportletModuleProjectInLiferayWorkspace() throws IOException
     {
-        createModuleProjectWizard.cancel();
 
         String liferayWorkspaceName = "liferayWorkspace";
+        String projectName = "testMvcportletInLS";
 
         eclipse.getCreateLiferayProjectToolbar().getNewLiferayWorkspaceProject().click();
         sleep( 2000 );
@@ -199,52 +183,28 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
 
         newLiferayWorkspace.setWorkspaceNameText( liferayWorkspaceName );
         newLiferayWorkspace.finish();
-        sleep( 20000 );
+        newLiferayWorkspace.waitForPageToClose();
 
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
-        sleep( 3000 );
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_MVC_PORTLET,
+            eclipseWorkspace + "/" + liferayWorkspaceName + "/modules", false, eclipseWorkspace + "newFolder",
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        String projectName = "testMvcportletInLS";
-
-        createModuleProjectWizard.createModuleProject( projectName );
-
-        assertEquals( MENU_MODULE_MVC_PORTLET, createModuleProjectWizard.getProjectTemplateNameComboBox().getText() );
-
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
+        createModuleProjectSecondPageWizard.waitForPageToClose();
 
         String javaFileName = "TestMvcportletInLSPortlet.java";
+        String javaContent = "extends MVCPortlet";
 
-        assertTrue( projectTree.expandNode( liferayWorkspaceName, "modules", projectName ).isVisible() );
-        projectTree.expandNode(
-            liferayWorkspaceName, "modules", projectName, "src/main/java", "testMvcportletInLS.portlet" ).doubleClick(
-                javaFileName );
-
-        TextEditorPO checkJavaFile = eclipse.getTextEditor( javaFileName );
-
-        assertContains( "extends MVCPortlet", checkJavaFile.getText() );
-        checkJavaFile.close();
-
-        projectTree.setFocus();
+        openEditorAndCheck(
+            javaContent, projectName, liferayWorkspaceName, "modules", projectName, "src/main/java",
+            "testMvcportletInLS.portlet", javaFileName );
 
         String buildGradleFileName = "build.gradle";
+        String buildGradleContent =
+            "dependencies {\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.portal.kernel\", version: \"2.0.0\"\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.util.taglib\", version: \"2.0.0\"\n\tcompileOnly group: \"javax.portlet\", name: \"portlet-api\", version: \"2.0\"\n\tcompileOnly group: \"javax.servlet\", name: \"javax.servlet-api\", version: \"3.0.1\"\n\tcompileOnly group: \"jstl\", name: \"jstl\", version: \"1.2\"\n\tcompileOnly group: \"org.osgi\", name: \"osgi.cmpn\", version: \"6.0.0\"";
 
-        projectTree.expandNode( liferayWorkspaceName, "modules", projectName ).doubleClick( buildGradleFileName );
-
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        assertContains( "dependencies", buildGradleFile.getText() );
-
-        buildGradleFile.close();
-        sleep( 2000 );
+        openEditorAndCheck(
+            buildGradleContent, projectName, liferayWorkspaceName, "modules", projectName, buildGradleFileName );
 
         killGradleProcess();
 
@@ -274,81 +234,21 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testServiceProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICE );
-        sleep();
-
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        NewLiferayModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICE_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getServiceName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.getBrowseButton().click();
-        sleep( 5000 );
-
-        SelectModuleServiceNamePO selectOneServiceName = new SelectModuleServiceNamePO( bot );
-
-        selectOneServiceName.selectServiceName( "gg" );
-        sleep( 2000 );
-        assertFalse( selectOneServiceName.confirmButton().isEnabled() );
-        selectOneServiceName.selectServiceName( "*lifecycleAction" );
-        sleep();
-        assertTrue( selectOneServiceName.confirmButton().isEnabled() );
-        selectOneServiceName.confirm();
-
-        assertEquals(
-            "com.liferay.portal.kernel.events.LifecycleAction",
-            createModuleProjectSecondPageWizard.getServiceName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.getAddPropertyKeyButton().click();
-        sleep();
-        createModuleProjectSecondPageWizard.setPropertiesText( 3, "key" );
-        sleep( 3000 );
-        createModuleProjectSecondPageWizard.getProperties().doubleClick( 0, 1 );
-        sleep();
-        createModuleProjectSecondPageWizard.setPropertiesText( 3, "login.events.pre" );
-        sleep( 3000 );
-
-        createModuleProjectSecondPageWizard.getProperties().setFocus();
-        sleep();
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_SERVICE, eclipseWorkspace, false, TEXT_BLANK, TEXT_BLANK,
+            TEXT_BLANK, "*lifecycleAction", true );
 
         String javaFileName = "TestServiceProject.java";
+        String javaContent = "implements LifecycleAction";
 
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
-        projectTree.expandNode( projectName, "src/main/java", "testServiceProject" ).doubleClick( javaFileName );
+        openEditorAndCheck(
+            javaContent, projectName, projectName, "src/main/java", "testServiceProject", javaFileName );
 
-        TextEditorPO checkJavaFile = eclipse.getTextEditor( javaFileName );
+        String buildGradleFileName = "build.gradle";;
+        String buildGradleContent =
+            "dependencies {\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.portal.kernel\", version: \"2.0.0\"\n\tcompileOnly group: \"org.osgi\", name: \"osgi.cmpn\", version: \"6.0.0\"";
 
-        assertContains( "implements LifecycleAction", checkJavaFile.getText() );
-        checkJavaFile.close();
-
-        projectTree.setFocus();
-
-        String buildGradleFileName = "build.gradle";
-
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
+        openEditorAndCheck( buildGradleContent, projectName, projectName, buildGradleFileName );
     }
 
     @Test
@@ -356,69 +256,45 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testServiceBuilderProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICE_BUILDER );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_SERVICE_BUILDER, eclipseWorkspace, false, TEXT_BLANK,
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
+        assertTrue( projectTree.expandNode( projectName ).isVisible() );
         assertTrue( projectTree.expandNode( projectName, projectName + "-api" ).isVisible() );
         assertTrue( projectTree.expandNode( projectName, projectName + "-service" ).isVisible() );
         assertTrue( projectTree.expandNode( projectName, projectName + "-service", "service.xml" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
+        String apiContent =
+            "dependencies {\n\tcompileOnly group: \"biz.aQute.bnd\", name: \"biz.aQute.bndlib\", version: \"3.1.0\"\n\tcompileOnly group: \"com.liferay\", name: \"com.liferay.osgi.util\", version: \"3.0.0\"\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.portal.kernel\", version: \"2.0.0\"\n\tcompileOnly group: \"org.osgi\", name: \"org.osgi.core\", version: \"6.0.0\"";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+        openEditorAndCheck( apiContent, projectName, projectName, projectName + "-api", buildGradleFileName );
 
-        projectTree.expandNode( projectName, projectName + "-api" ).doubleClick( buildGradleFileName );
+        String serviceContent = "buildService {\n\tapiDir = \"../testServiceBuilderProject-api/src/main/java\"";
+        openEditorAndCheck( serviceContent, projectName, projectName, projectName + "-service", buildGradleFileName );
 
-        assertContains( "dependencies", buildGradleFile.getText() );
-        buildGradleFile.close();
-
-        projectTree.setFocus();
-
-        projectTree.expandNode( projectName, projectName + "-service" ).doubleClick( buildGradleFileName );
-
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "buildService", buildGradleFile.getText() );
-        buildGradleFile.close();
-
-        projectTree.getTreeItem( projectName ).doAction( "Liferay", "build-service" );
+        projectTree.expandNode( projectName, projectName + "-service" ).doAction( "Liferay", "build-service" );
         sleep( 10000 );
 
         try
         {
-            projectTree.getTreeItem( projectName ).doAction( "Gradle", "Refresh Gradle Project" );
+            projectTree.expandNode( projectName ).doAction( "Gradle", "Refresh Gradle Project" );
         }
         catch( Exception e )
         {
-            projectTree.getTreeItem( projectName ).doAction( "Gradle", "Refresh Gradle Project" );
+            projectTree.expandNode( projectName ).doAction( "Gradle", "Refresh Gradle Project" );
         }
 
         sleep( 10000 );
-
         assertTrue(
             projectTree.expandNode(
                 projectName, projectName + "-api", "src/main/java", "testServiceBuilderProject.service" ).isVisible() );
-
         assertTrue(
             projectTree.expandNode(
                 projectName, projectName + "-service", "src/main/java",
                 "testServiceBuilderProject.model.impl" ).isVisible() );
 
-        eclipse.getPackageExporerView().deleteResouceByName( projectName, true );
     }
 
     @Test
@@ -426,41 +302,16 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testActivatorProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_ACTIVATOR );
-        sleep();
-
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
-        assertTrue(
-            projectTree.expandNode(
-                projectName, "src/main/java", projectName, "TestActivatorProjectActivator.java" ).isVisible() );
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_ACTIVATOR, eclipseWorkspace, false, TEXT_BLANK, TEXT_BLANK,
+            TEXT_BLANK, TEXT_BLANK, false );
 
         String buildGradleFileName = "build.gradle";
+        String gradleContent =
+            "dependencies {\n\tcompileOnly group: \"org.osgi\", name: \"org.osgi.core\", version: \"6.0.0\"";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
 
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
     }
 
     @Test
@@ -468,41 +319,20 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testApiProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_API );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_API, eclipseWorkspace, false, TEXT_BLANK, TEXT_BLANK,
+            TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testApiProject.api", "TestApiProject.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+        String gradleContent =
+            "dependencies {\n\tcompileOnly group: \"org.osgi\", name: \"org.osgi.core\", version: \"6.0.0\"\n\tcompileOnly group: \"org.osgi\", name: \"org.osgi.service.component.annotations\", version: \"1.3.0\"";
 
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
     }
 
     @Test
@@ -510,42 +340,21 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testContentTargetingReportProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_CONTENT_TARGETING_REPORT );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_CONTENT_TARGETING_REPORT, eclipseWorkspace, false,
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testContentTargetingReportProject.content.targeting.report",
                 "TestContentTargetingReportProjectReport.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
+        String gradleContent =
+            "dependencies {\n\tcompileOnly group: \"com.liferay.content-targeting\", name: \"com.liferay.content.targeting.analytics.api\", version: \"3.0.0\"\n\tcompileOnly group: \"com.liferay.content-targeting\", name: \"com.liferay.content.targeting.anonymous.users.api\", version: \"2.0.2\"\n\tcompileOnly group: \"com.liferay.content-targeting\", name: \"com.liferay.content.targeting.api\", version: \"4.0.0\"\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.portal.kernel\", version: \"2.3.0\"\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.util.taglib\", version: \"2.0.0\"\n\tcompileOnly group: \"javax.portlet\", name: \"portlet-api\", version: \"2.0\"\n\tcompileOnly group: \"javax.servlet\", name: \"javax.servlet-api\", version: \"3.0.1\"\n\tcompileOnly group: \"org.osgi\", name: \"org.osgi.service.component.annotations\", version: \"1.3.0\"";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
 
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
     }
 
     @Test
@@ -553,42 +362,20 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testContentTargetingRuleProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_CONTENT_TARGETING_RULE );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_CONTENT_TARGETING_RULE, eclipseWorkspace, false,
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testContentTargetingRuleProject.content.targeting.rule",
                 "TestContentTargetingRuleProjectRule.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
+        String gradleContent =
+            "dependencies {\n\tcompileOnly group: \"com.liferay.content-targeting\", name: \"com.liferay.content.targeting.analytics.api\", version: \"3.0.0\"\n\tcompileOnly group: \"com.liferay.content-targeting\", name: \"com.liferay.content.targeting.anonymous.users.api\", version: \"2.0.2\"\n\tcompileOnly group: \"com.liferay.content-targeting\", name: \"com.liferay.content.targeting.api\", version: \"4.0.0\"\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.portal.kernel\", version: \"2.3.0\"\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.util.taglib\", version: \"2.0.0\"\n\tcompileOnly group: \"javax.portlet\", name: \"portlet-api\", version: \"2.0\"\n\tcompileOnly group: \"javax.servlet\", name: \"javax.servlet-api\", version: \"3.0.1\"\n\tcompileOnly group: \"org.osgi\", name: \"org.osgi.service.component.annotations\", version: \"1.3.0\"";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
     }
 
     @Test
@@ -596,25 +383,10 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testContentTargetingTrackingActionProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_CONTENT_TARGETING_TRACKING_ACTION );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_CONTENT_TARGETING_TRACKING_ACTION, eclipseWorkspace, false,
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java",
@@ -622,17 +394,10 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
                 "TestContentTargetingTrackingActionProjectTrackingAction.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
+        String gradleContent =
+            "dependencies {\n\tcompileOnly group: \"com.liferay.content-targeting\", name: \"com.liferay.content.targeting.analytics.api\", version: \"3.0.0\"\n\tcompileOnly group: \"com.liferay.content-targeting\", name: \"com.liferay.content.targeting.anonymous.users.api\", version: \"2.0.2\"\n\tcompileOnly group: \"com.liferay.content-targeting\", name: \"com.liferay.content.targeting.api\", version: \"4.0.0\"\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.portal.kernel\", version: \"2.3.0\"\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.util.taglib\", version: \"2.0.0\"\n\tcompileOnly group: \"javax.portlet\", name: \"portlet-api\", version: \"2.0\"\n\tcompileOnly group: \"javax.servlet\", name: \"javax.servlet-api\", version: \"3.0.1\"\n\tcompileOnly group: \"org.osgi\", name: \"org.osgi.service.component.annotations\", version: \"1.3.0\"";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
     }
 
     @Test
@@ -640,42 +405,20 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testControlMenuEntryProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_CONTROL_MENU_ENTRY );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_CONTROL_MENU_ENTRY, eclipseWorkspace, false, TEXT_BLANK,
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
+        String buildGradleFileName = "build.gradle";
+        String gradleContent =
+            "dependencies {\n\tcompileOnly group: \"com.liferay\", name: \"com.liferay.product.navigation.control.menu.api\", version: \"3.0.0\"\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.portal.kernel\", version: \"2.0.0\"\n\tcompileOnly group: \"javax.servlet\", name: \"javax.servlet-api\", version: \"3.0.1\"\n\tcompileOnly group: \"org.osgi\", name: \"org.osgi.service.component.annotations\", version: \"1.3.0\"";
 
-        createModuleProjectWizard.next();
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
 
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testControlMenuEntryProject.control.menu",
                 "TestControlMenuEntryProjectProductNavigationControlMenuEntry.java" ).isVisible() );
-
-        String buildGradleFileName = "build.gradle";
-
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
     }
 
     @Test
@@ -683,50 +426,26 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testFormFieldProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_FORM_FIELD );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_FORM_FIELD, eclipseWorkspace, false, TEXT_BLANK,
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testFormFieldProject.form.field",
                 "TestFormFieldProjectDDMFormFieldRenderer.java" ).isVisible() );
+
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testFormFieldProject.form.field",
                 "TestFormFieldProjectDDMFormFieldType.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
+        String gradleContent =
+            "task wrapSoyTemplates\n\nclasses {\n\tdependsOn buildSoy\n\tdependsOn wrapSoyTemplates\n}\n\ntranspileJS {\n\tsoySrcIncludes = \"\"\n\tsrcIncludes = \"**/*.es.js\"";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
 
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-        assertContains( "task wrapSoyTemplates", buildGradleFile.getText() );
-        assertContains( "classes", buildGradleFile.getText() );
-        assertContains( "transpileJS", buildGradleFile.getText() );
-        assertContains( "wrapSoyTemplates", buildGradleFile.getText() );
-
-        buildGradleFile.close();
     }
 
     @Test
@@ -734,25 +453,10 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testPanelAppProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_PANEL_APP );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_PANEL_APP, eclipseWorkspace, false, TEXT_BLANK, TEXT_BLANK,
+            TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testPanelAppProject.application.list" ).isVisible() );
@@ -777,23 +481,17 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
                 "TestPanelAppProjectPortletKeys.java" ).isVisible() );
 
         assertTrue( projectTree.expandNode( projectName, "src/main/java", "testPanelAppProject.portlet" ).isVisible() );
+
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testPanelAppProject.portlet",
                 "TestPanelAppProjectPortlet.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
+        String gradleContent =
+            "dependencies {\n\tcompileOnly group: \"com.liferay\", name: \"com.liferay.application.list.api\", version: \"2.0.0\"\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.portal.kernel\", version: \"2.0.0\"\n\tcompileOnly group: \"javax.portlet\", name: \"portlet-api\", version: \"2.0\"\n\tcompileOnly group: \"javax.servlet\", name: \"javax.servlet-api\", version: \"3.0.1\"\n\tcompileOnly group: \"org.osgi\", name: \"org.osgi.service.component.annotations\", version: \"1.3.0\"";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
     }
 
     @Test
@@ -801,48 +499,22 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testPortletProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_PORTLET );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_PORTLET, eclipseWorkspace, false, TEXT_BLANK, TEXT_BLANK,
+            TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
+        assertTrue( projectTree.expandNode( projectName, "src/main/java", "testPortletProject.portlet" ).isVisible() );
 
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.getComponentClassName().setText( "testComponentClass" );
-        createModuleProjectSecondPageWizard.getPackageName().setText( "testPackage" );
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
-        assertTrue( projectTree.expandNode( projectName, "src/main/java", "testPackage.portlet" ).isVisible() );
         assertTrue(
             projectTree.expandNode(
-                projectName, "src/main/java", "testPackage.portlet", "testComponentClassPortlet.java" ).isVisible() );
+                projectName, "src/main/java", "testPortletProject.portlet",
+                "TestPortletProjectPortlet.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
+        String gradleContent =
+            "dependencies {\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.portal.kernel\", version: \"2.0.0\"\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.util.taglib\", version: \"2.0.0\"\n\tcompileOnly group: \"javax.portlet\", name: \"portlet-api\", version: \"2.0\"\n\tcompileOnly group: \"javax.servlet\", name: \"javax.servlet-api\", version: \"3.0.1\"\n\tcompileOnly group: \"jstl\", name: \"jstl\", version: \"1.2\"\n\tcompileOnly group: \"org.osgi\", name: \"osgi.cmpn\", version: \"6.0.0\"";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
     }
 
     @Test
@@ -850,42 +522,20 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testPortletConfigurationIconProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_PORTLET_CONFIGURATION_ICON );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_PORTLET_CONFIGURATION_ICON, eclipseWorkspace, false,
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testPortletConfigurationIconProject.portlet.configuration.icon",
                 "TestPortletConfigurationIconProjectPortletConfigurationIcon.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
+        String gradleContent =
+            "dependencies {\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.portal.kernel\", version: \"2.0.0\"\n\tcompileOnly group: \"javax.portlet\", name: \"portlet-api\", version: \"2.0\"\n\tcompileOnly group: \"javax.servlet\", name: \"javax.servlet-api\", version: \"3.0.1\"\n\tcompileOnly group: \"org.osgi\", name: \"org.osgi.service.component.annotations\", version: \"1.3.0\"";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
     }
 
     @Test
@@ -893,32 +543,19 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testPortletProviderProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_PORTLET_PROVIDER );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_PORTLET_PROVIDER, eclipseWorkspace, false, TEXT_BLANK,
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testPortletProviderProject.constants" ).isVisible() );
+
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testPortletProviderProject.constants",
                 "TestPortletProviderProjectPortletKeys.java" ).isVisible() );
+
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testPortletProviderProject.constants",
@@ -926,27 +563,22 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
 
         assertTrue(
             projectTree.expandNode( projectName, "src/main/java", "testPortletProviderProject.portlet" ).isVisible() );
+
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testPortletProviderProject.portlet",
                 "TestPortletProviderProjectAddPortletProvider.java" ).isVisible() );
+
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testPortletProviderProject.portlet",
                 "TestPortletProviderProjectPortlet.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
+        String gradleContent =
+            "dependencies {\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.portal.kernel\", version: \"2.0.0\"\n\tcompileOnly group: \"javax.portlet\", name: \"portlet-api\", version: \"2.0\"\n\tcompileOnly group: \"javax.servlet\", name: \"javax.servlet-api\", version: \"3.0.1\"\n\tcompileOnly group: \"org.osgi\", name: \"osgi.cmpn\", version: \"6.0.0\"";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
     }
 
     @Test
@@ -954,42 +586,20 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testPortletToolbarContributorProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_PORTLET_TOOLBAR_CONTRIBUTOR );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_PORTLET_TOOLBAR_CONTRIBUTOR, eclipseWorkspace, false,
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testPortletToolbarContributorProject.portlet.toolbar.contributor",
                 "TestPortletToolbarContributorProjectPortletToolbarContributor.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
+        String gradleContent =
+            "dependencies {\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.portal.kernel\", version: \"2.0.0\"\n\tcompileOnly group: \"javax.portlet\", name: \"portlet-api\", version: \"2.0\"\n\tcompileOnly group: \"javax.servlet\", name: \"javax.servlet-api\", version: \"3.0.1\"\n\tcompileOnly group: \"org.osgi\", name: \"org.osgi.service.component.annotations\", version: \"1.3.0\"";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
     }
 
     @Test
@@ -997,42 +607,20 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testRestProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_REST );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_REST, eclipseWorkspace, false, TEXT_BLANK, TEXT_BLANK,
+            TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testRestProject.application",
                 "TestRestProjectApplication.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
+        String gradleContent =
+            "dependencies {\n\tcompileOnly group: \"javax.ws.rs\", name: \"javax.ws.rs-api\", version: \"2.0.1\"\n\tcompileOnly group: \"org.osgi\", name: \"org.osgi.service.component.annotations\", version: \"1.3.0\"";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
     }
 
     @Test
@@ -1040,75 +628,25 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testServiceWrapperProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SERVICE_WRAPPER );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_SERVICE_WRAPPER, eclipseWorkspace, false, TEXT_BLANK,
+            TEXT_BLANK, TEXT_BLANK, "*BookmarksEntryLocalServiceWrapper", true );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        NewLiferayModuleProjectWizardSecondPagePO createModuleProjectSecondPageWizard =
-            new NewLiferayModuleProjectWizardSecondPagePO(
-                bot, INDEX_SERVICE_WRAPPER_CONFIGURE_COMPONENT_CLASS_VALIDATION_MESSAGE );
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.getBrowseButton().click();
         sleep( 5000 );
-
-        SelectModuleServiceNamePO selectOneServiceName = new SelectModuleServiceNamePO( bot );
-
-        selectOneServiceName.selectServiceName( "gg" );
-        sleep( 2000 );
-        assertFalse( selectOneServiceName.confirmButton().isEnabled() );
-        selectOneServiceName.selectServiceName( "*BookmarksEntryLocalServiceWrapper" );
-        sleep();
-        assertTrue( selectOneServiceName.confirmButton().isEnabled() );
-        selectOneServiceName.confirm();
-
-        assertEquals(
-            "com.liferay.bookmarks.service.BookmarksEntryLocalServiceWrapper",
-            createModuleProjectSecondPageWizard.getServiceName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        String javaFileName = "TestServiceWrapperProject.java";
-
-        TextEditorPO checkJavaFile = eclipse.getTextEditor( javaFileName );
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", projectName, "TestServiceWrapperProject.java" ).isVisible() );
 
-        projectTree.expandNode( projectName, "src/main/java", projectName ).doubleClick( javaFileName );
-        sleep( 2000 );
+        String javaFileName = "TestServiceWrapperProject.java";
+        String javaContent = "extends BookmarksEntryLocalServiceWrapper";
 
-        assertContains( "extends BookmarksEntryLocalServiceWrapper", checkJavaFile.getText() );
-        checkJavaFile.close();
-
-        projectTree.setFocus();
+        openEditorAndCheck( javaContent, projectName, projectName, "src/main/java", projectName, javaFileName );
 
         String buildGradleFileName = "build.gradle";
+        String gradleContent =
+            "dependencies {\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.portal.kernel\", version: \"2.0.0\"\n\tcompileOnly group: \"org.osgi\", name: \"osgi.cmpn\", version: \"6.0.0\"";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
     }
 
     @Test
@@ -1116,42 +654,20 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testSimulationPanelEntryProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_SIMULATION_PANEL_ENTRY );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_SIMULATION_PANEL_ENTRY, eclipseWorkspace, false,
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testSimulationPanelEntryProject.application.list",
                 "TestSimulationPanelEntryProjectSimulationPanelApp.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
+        String gradleContent =
+            "dependencies {\n\tcompileOnly group: \"com.liferay\", name: \"com.liferay.application.list.api\", version: \"2.0.0\"\n\tcompileOnly group: \"com.liferay\", name: \"com.liferay.product.navigation.simulation\", version: \"2.0.0\"\n\tcompileOnly group: \"com.liferay\", name: \"com.liferay.product.navigation.simulation.web\", version: \"2.0.0\"\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.portal.kernel\", version: \"2.3.0\"\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.util.taglib\", version: \"2.0.0\"\n\tcompileOnly group: \"javax.portlet\", name: \"portlet-api\", version: \"2.0\"\n\tcompileOnly group: \"javax.servlet\", name: \"javax.servlet-api\", version: \"3.0.1\"\n\tcompileOnly group: \"org.osgi\", name: \"org.osgi.service.component.annotations\", version: \"1.3.0\"";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
     }
 
     @Test
@@ -1159,42 +675,20 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testTemplateContextContributorProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_TEMPLATE_CONTEXT_CONTRIBUTOR );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_TEMPLATE_CONTEXT_CONTRIBUTOR, eclipseWorkspace, false,
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testTemplateContextContributorProject.context.contributor",
                 "TestTemplateContextContributorProjectTemplateContextContributor.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
+        String gradleContent =
+            "dependencies {\n\tcompileOnly group: \"com.liferay.portal\", name: \"com.liferay.portal.kernel\", version: \"2.0.0\"\n\tcompileOnly group: \"javax.servlet\", name: \"javax.servlet-api\", version: \"3.0.1\"\n\tcompileOnly group: \"org.osgi\", name: \"org.osgi.service.component.annotations\", version: \"1.3.0\"";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
     }
 
     @Test
@@ -1202,33 +696,17 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testThemeProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_THEME );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_THEME, eclipseWorkspace, false, TEXT_BLANK, TEXT_BLANK,
+            TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-        assertFalse( createModuleProjectWizard.nextButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         assertTrue( projectTree.expandNode( projectName, "src", "main", "webapp", "css", "_custom.scss" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
+        String gradleContent =
+            "apply plugin: \"com.liferay.portal.tools.theme.builder\"\n\ndependencies {\n\tparentThemes group: \"com.liferay\", name: \"com.liferay.frontend.theme.styled\", version: \"2.0.13\"\n\tparentThemes group: \"com.liferay\", name: \"com.liferay.frontend.theme.unstyled\", version: \"2.0.13\"\n\n\tthemeBuilder group: \"com.liferay\", name: \"com.liferay.portal.tools.theme.builder\", version: \"1.1.1\"";
 
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
     }
 
     @Test
@@ -1236,89 +714,32 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         String projectName = "testThemeContributorProject";
 
-        createModuleProjectWizard.createModuleProject( projectName, MENU_MODULE_THEME_CONTRIBUTOR );
-        sleep();
+        newLiferayModuleProject(
+            TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_THEME_CONTRIBUTOR, eclipseWorkspace, false, TEXT_BLANK,
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertEquals( TEXT_BUILD_TYPE_GRADLE, createModuleProjectWizard.getBuildType().getText() );
-
-        createModuleProjectWizard.next();
-
-        assertEquals( TEXT_CONFIGURE_COMPONENT_CLASS, createModuleProjectSecondPageWizard.getValidationMessage() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getComponentClassName().getText() );
-        assertEquals( "", createModuleProjectSecondPageWizard.getPackageName().getText() );
-        assertTrue( createModuleProjectSecondPageWizard.finishButton().isEnabled() );
-
-        createModuleProjectSecondPageWizard.finish();
-        sleep( 10000 );
-
-        projectTree.setFocus();
-
-        assertTrue( projectTree.getTreeItem( projectName ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/resources", "META-INF", "resources", "css", projectName,
                 "_body.scss" ).isVisible() );
+
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/resources", "META-INF", "resources", "css", projectName,
                 "_control_menu.scss" ).isVisible() );
+
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/resources", "META-INF", "resources", "css", projectName,
                 "_product_menu.scss" ).isVisible() );
+
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/resources", "META-INF", "resources", "css", projectName,
                 "_simulation_panel.scss" ).isVisible() );
 
-        String buildGradleFileName = "build.gradle";
-
-        TextEditorPO buildGradleFile = eclipse.getTextEditor( buildGradleFileName );
-
-        projectTree.expandNode( projectName ).doubleClick( buildGradleFileName );
-
-        assertContains( "buildscript", buildGradleFile.getText() );
-        assertContains( "apply plugin", buildGradleFile.getText() );
-        assertContains( "dependencies", buildGradleFile.getText() );
-        assertContains( "repositories", buildGradleFile.getText() );
-
-        buildGradleFile.close();
-    }
-
-    @Test
-    public void validationProjectName()
-    {
-        NewLiferayModuleProjectWizardPO createModuleProjectWizard =
-            new NewLiferayModuleProjectWizardPO( bot, INDEX_NEW_LIFERAY_MODULE_PROJECT_VALIDATION_MESSAGE );
-
-        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, createModuleProjectWizard.getValidationMessage() );
-        assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
-
-        createModuleProjectWizard.createModuleProject( "." );
-        sleep( 1000 );
-        assertEquals( " '.'" + TEXT_INVALID_NAME_ON_PLATFORM, createModuleProjectWizard.getValidationMessage() );
-        assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
-        createModuleProjectWizard.createModuleProject( "/" );
-        sleep( 1000 );
-        assertEquals(
-            " /" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'/'.", createModuleProjectWizard.getValidationMessage() );
-        assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
-        createModuleProjectWizard.createModuleProject( "$" );
-        sleep( 1000 );
-        assertEquals( TEXT_THE_PROJECT_NAME_INVALID, createModuleProjectWizard.getValidationMessage() );
-        assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
-        createModuleProjectWizard.createModuleProject( "" );
-        sleep( 1000 );
-        assertEquals( TEXT_PROJECT_NAME_MUST_BE_SPECIFIED, createModuleProjectWizard.getValidationMessage() );
-        assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
-
-        createModuleProjectWizard.createModuleProject( "a" );
-        sleep( 1000 );
-        assertEquals( TEXT_NEW_LIFERAY_MODULE_MESSAGE, createModuleProjectWizard.getValidationMessage() );
-        assertTrue( createModuleProjectWizard.finishButton().isEnabled() );
-
-        createModuleProjectWizard.cancel();
+        // build.gradle is empry in theme-contributor template
+        assertTrue( projectTree.expandNode( projectName, "build.gradle" ).isVisible() );
     }
 
     @Before
@@ -1326,9 +747,6 @@ public class NewLiferayModuleProjectWizardTests extends SWTBotBase implements Ne
     {
         Assume.assumeTrue( runTest() || runAllTests() );
 
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleProject().click();
-        sleep( 2000 );
-        createModuleProjectWizard.setBuildType( TEXT_BUILD_TYPE_GRADLE );
     }
 
 }
