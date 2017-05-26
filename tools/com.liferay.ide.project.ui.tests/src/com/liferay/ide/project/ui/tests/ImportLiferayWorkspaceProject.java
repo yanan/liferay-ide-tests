@@ -1,9 +1,7 @@
 
 package com.liferay.ide.project.ui.tests;
 
-import com.liferay.ide.ui.tests.UIBase;
-
-public interface ImportLiferayWorkspaceProject extends UIBase
+public interface ImportLiferayWorkspaceProject
 {
 
     public final String LABEL_IMPORT_LIFERAY_WORKSPACE_PROJECT = "Liferay Workspace Project";
@@ -24,9 +22,9 @@ public interface ImportLiferayWorkspaceProject extends UIBase
         " The server or runtime name is already in use. Specify a different name.";
     public final String TEXT_A_LIFERAY_WORKSPACE_PROJECT_ALREADY_EXISTS_IN_THIS_ECLIPSE_INSTANCE =
         " A Liferay Workspace project already exists in this Eclipse instance.";
-
     public final int INDEX_SELECT_IMPORT_LIFERAY_WORKSPACE_PROJECT_VALIDATION_MESSAGE = 1;
     public final int INDEX_PLEASE_SELECT_THE_WORKSPACE_LOCATION = 2;
+    public final int INDEX_PLEASE_SELECT_THE_WORKSPACE_LOCATION_WITH_SERVERNAME = 3;
 
     public final String CHECKBOX_DOWNLOAD_LIFERAY_BUNDLE = "Download liferay bundle";
 

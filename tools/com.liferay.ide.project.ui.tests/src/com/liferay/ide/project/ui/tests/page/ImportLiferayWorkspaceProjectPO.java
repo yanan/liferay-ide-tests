@@ -4,6 +4,7 @@ package com.liferay.ide.project.ui.tests.page;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import com.liferay.ide.project.ui.tests.ImportLiferayWorkspaceProject;
+import com.liferay.ide.ui.tests.swtbot.page.ButtonPO;
 import com.liferay.ide.ui.tests.swtbot.page.CheckBoxPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextPO;
 
@@ -17,6 +18,11 @@ public class ImportLiferayWorkspaceProjectPO extends WizardPO implements ImportL
     private TextPO _serverName;
     private TextPO _bundleUrl;
     private CheckBoxPO _downloadLiferaybundle;
+    private CheckBoxPO _addProjectToWorkingSet;
+    private ButtonPO _backButton;
+    private ButtonPO _nextButton;
+    private ButtonPO _finishButton;
+    private ButtonPO _cancelButton;
 
     public ImportLiferayWorkspaceProjectPO( SWTBot bot, String title, int validationMessageIndex )
     {
@@ -27,6 +33,36 @@ public class ImportLiferayWorkspaceProjectPO extends WizardPO implements ImportL
         _downloadLiferaybundle = new CheckBoxPO( bot, CHECKBOX_DOWNLOAD_LIFERAY_BUNDLE );
         _serverName = new TextPO( bot, TEXT_SERVER_NAME );
         _bundleUrl = new TextPO( bot, TEXT_BUNDLE_URL );
+        _addProjectToWorkingSet = new CheckBoxPO( bot, CHECKBOX_ADD_PROJECT_TO_WORKING_SET );
+        _backButton = new ButtonPO( bot, BUTTON_BACK );
+        _nextButton = new ButtonPO( bot, BUTTON_NEXT );
+        _finishButton = new ButtonPO( bot, BUTTON_FINISH );
+        _cancelButton = new ButtonPO( bot, BUTTON_CANCEL );
+    }
+
+    public ButtonPO getBackButton()
+    {
+        return _backButton;
+    }
+
+    public ButtonPO getNextButton()
+    {
+        return _nextButton;
+    }
+
+    public ButtonPO getFinishButton()
+    {
+        return _finishButton;
+    }
+
+    public ButtonPO getCancelButton()
+    {
+        return _cancelButton;
+    }
+
+    public CheckBoxPO getAddProjectToWorkingSet()
+    {
+        return _addProjectToWorkingSet;
     }
 
     public CheckBoxPO getDownloadLiferaybundle()
