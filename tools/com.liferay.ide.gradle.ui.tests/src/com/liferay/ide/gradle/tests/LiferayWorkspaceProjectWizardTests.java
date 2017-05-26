@@ -102,7 +102,8 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
 
         newLiferayModuleProject(
             TEXT_BUILD_TYPE_GRADLE, moduleProjectName, MENU_MODULE_MVC_PORTLET,
-            eclipseWorkspace + "/" + projectName + "/modules", false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK );
+            eclipseWorkspace + "/" + projectName + "/modules", false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK,
+            false );
         sleep( 10000 );
 
         projectTree.setFocus();
@@ -112,7 +113,7 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
 
         newLiferayModuleProject(
             TEXT_BUILD_TYPE_GRADLE, themeProjectName, MENU_MODULE_THEME, eclipseWorkspace + "/" + projectName + "/wars",
-            false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK );
+            false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
         sleep( 10000 );
 
         projectTree.setFocus();
@@ -122,7 +123,7 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
 
         newLiferayModuleProject(
             TEXT_BUILD_TYPE_MAVEN, projectName, MENU_MODULE_MVC_PORTLET, eclipseWorkspace, false, TEXT_BLANK,
-            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK );
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
         sleep( 10000 );
 
         projectTree.setFocus();
@@ -182,7 +183,7 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
         newLiferayModuleProject(
             TEXT_BUILD_TYPE_GRADLE, moduleProjectName, MENU_MODULE_MVC_PORTLET,
             eclipseWorkspace + "/" + projectName + "/modulesTest", false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK,
-            TEXT_BLANK );
+            TEXT_BLANK, false );
         sleep( 10000 );
 
         projectTree.setFocus();
@@ -192,7 +193,8 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
 
         newLiferayModuleProject(
             TEXT_BUILD_TYPE_GRADLE, themeProjectName, MENU_MODULE_THEME,
-            eclipseWorkspace + "/" + projectName + "/warsTest", false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK );
+            eclipseWorkspace + "/" + projectName + "/warsTest", false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK,
+            false );
         sleep( 10000 );
 
         projectTree.setFocus();
@@ -244,7 +246,7 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
 
         newLiferayModuleProject(
             TEXT_BUILD_TYPE_MAVEN, themeProjectName, MENU_MODULE_THEME, eclipseWorkspace + "/" + projectName + "/wars",
-            false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK );
+            false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
         sleep( 10000 );
 
         projectTree.setFocus();
@@ -255,7 +257,8 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
 
         newLiferayModuleProject(
             TEXT_BUILD_TYPE_MAVEN, moduleProjectName, MENU_MODULE_MVC_PORTLET,
-            eclipseWorkspace + "/" + projectName + "/modules", false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK );
+            eclipseWorkspace + "/" + projectName + "/modules", false, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK,
+            false );
         sleep( 10000 );
 
         projectTree.setFocus();
@@ -267,7 +270,7 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
 
         newLiferayModuleProject(
             TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_MVC_PORTLET, eclipseWorkspace, false, TEXT_BLANK,
-            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK );
+            TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
         sleep( 10000 );
 
         projectTree.setFocus();
