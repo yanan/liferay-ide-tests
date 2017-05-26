@@ -20,19 +20,29 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 
 import com.liferay.ide.server.ui.tests.ServerAction;
 import com.liferay.ide.ui.tests.swtbot.page.ConfirmPO;
+import com.liferay.ide.ui.tests.swtbot.page.ToolbarButtonWithTooltipPO;
 import com.liferay.ide.ui.tests.swtbot.page.TreeItemPO;
 import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 
 /**
  * @author Li Lu
+ * @author Ying Xu
  */
 public class ServerTreePO extends TreeItemPO implements ServerAction
 {
 
     private AddAndRemoveProjectPO _addAndRemovePage;
     private String _serverName;
+    private ToolbarButtonWithTooltipPO _start;
+    private ToolbarButtonWithTooltipPO _stop;
+    private ToolbarButtonWithTooltipPO _debug;
 
     int serverTreeIndex = 1;
+
+    public ServerTreePO( SWTBot bot )
+    {
+        this( bot, TEXT_BLANK );
+    }
 
     public ServerTreePO( SWTBot bot, String serverName )
     {
@@ -40,6 +50,9 @@ public class ServerTreePO extends TreeItemPO implements ServerAction
 
         _serverName = serverName;
         _addAndRemovePage = new AddAndRemoveProjectPO( bot );
+        _start = new ToolbarButtonWithTooltipPO( bot, SERVER_START_BUTTON );
+        _stop = new ToolbarButtonWithTooltipPO( bot, SERVER_STOP_BUTTON );
+        _debug = new ToolbarButtonWithTooltipPO( bot, SERVER_DEBUG_BUTTON );
     }
 
     public void addALL()
@@ -137,6 +150,21 @@ public class ServerTreePO extends TreeItemPO implements ServerAction
     {
         doAction( MENU_STOP );
         checkConsoleHasMessage( MESAGE_SERVER_STOP, 10000 );
+    }
+
+    public ToolbarButtonWithTooltipPO getStart()
+    {
+        return _start;
+    }
+
+    public ToolbarButtonWithTooltipPO getStop()
+    {
+        return _stop;
+    }
+
+    public ToolbarButtonWithTooltipPO getDebug()
+    {
+        return _debug;
     }
 
 }
