@@ -18,27 +18,66 @@ package com.liferay.ide.server.ui.tests.page;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import com.liferay.ide.server.ui.tests.ServerRuntimeWizard;
+import com.liferay.ide.ui.tests.swtbot.page.TextPO;
+import com.liferay.ide.ui.tests.swtbot.page.ToolbarButtonWithTooltipPO;
 import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 import com.liferay.ide.ui.tests.swtbot.page.WizardPO;
 
 /**
  * @author Vicky Wang
+ * @author Ying Xu
  */
 public class NewServerPO extends WizardPO implements ServerRuntimeWizard
 {
 
     TreePO _serverTypeTree;
+    TextPO _serverHostName;
+    TextPO _serverName;
+    ToolbarButtonWithTooltipPO _resetDefault;
 
     public NewServerPO( SWTBot bot )
     {
-        super( bot, TITLE_NEW_SERVER, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT );
+        this( bot, CHOOSE_SERVER_TYPE_INDEX );
+    }
+
+    public NewServerPO( SWTBot bot, int validationMessageIndex )
+    {
+        super( bot, TITLE_NEW_SERVER, BUTTON_CANCEL, BUTTON_FINISH, BUTTON_BACK, BUTTON_NEXT, validationMessageIndex );
 
         _serverTypeTree = new TreePO( bot );
+        _serverHostName = new TextPO( bot, LABEL_SERVER_HOST_NAME );
+        _serverName = new TextPO( bot, LABEL_SERVER_NAME );
+        _resetDefault = new ToolbarButtonWithTooltipPO( bot, BUTTON_RESET_DEFAULT );
     }
 
     public TreePO getServerTypeTree()
     {
         return _serverTypeTree;
+    }
+
+    public TextPO getServerHostName()
+    {
+        return _serverHostName;
+    }
+
+    public void setServerHostName( TextPO serverHostName )
+    {
+        this._serverHostName = serverHostName;
+    }
+
+    public TextPO getServerName()
+    {
+        return _serverName;
+    }
+
+    public void setServerName( TextPO serverName )
+    {
+        this._serverName = serverName;
+    }
+
+    public ToolbarButtonWithTooltipPO getResetDefault()
+    {
+        return _resetDefault;
     }
 
 }

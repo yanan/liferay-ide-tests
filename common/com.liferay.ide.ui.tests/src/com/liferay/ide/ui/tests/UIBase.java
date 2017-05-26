@@ -70,6 +70,7 @@ public interface UIBase
     public final String LABEL_LIFERAY_CODE_UPGRADE = "Liferay Code Upgrade";
     public final String LABEL_RESTART_CODE_UPGRADE = "Restart code upgrade?";
     public final String LABEL_BUILD_TYPE = "Build type:";
+    public final String LABEL_PREFERENCES = "Preferences";
 
     public final String LABEL_SOURCE_FOLDER = "Source folder:";
     public final String LABEL_NAME = "Name:";
@@ -122,23 +123,23 @@ public interface UIBase
     public final String TITLE_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
     public final String TITLE_NEW_LIFERAY_HOOK = "New Liferay Hook";
 
-    public final String TEXT_IS_NOT_AN_ABSOLUTE_PATH= " is not an absolute path.";
+    public final String TEXT_IS_NOT_AN_ABSOLUTE_PATH = " is not an absolute path.";
     public final String TEXT_DIRECTORY_DOESNT_EXIST = " Directory doesn't exist.";
     public final String TEXT_IS_NOT_A_VALID_PATH = " is not a valid path";
-    
-    public final String TEXT_PLEASE_SELECT_THE_WORKSPACE_LOCATION= "Please select the workspace location.";
-    
+
+    public final String TEXT_PLEASE_SELECT_THE_WORKSPACE_LOCATION = "Please select the workspace location.";
+
     public final String TITLE_NEW_LIFERAY_VAADIN_PORTLET = "New Liferay Vaadin Portlet";
-    
+
     public final String TEXT_PLEASE_ENTER_A_PROJECT_NAME = "Please enter a project name.";
     public final String TEXT_ENTER_A_PROJECT_NAME = " Enter a project name.";
     public final String TEXT_THE_PROJECT_NAME_INVALID = " The project name is invalid.";
-    public final String TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME = " is an invalid character in resource name "; 
+    public final String TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME = " is an invalid character in resource name ";
     public final String TEXT_PROJECT_NAME_MUST_BE_SPECIFIED = " Project name must be specified";
-    public final String TEXT_INVALID_NAME_ON_PLATFORM = " is an invalid name on this platform.";    
+    public final String TEXT_INVALID_NAME_ON_PLATFORM = " is an invalid name on this platform.";
     public final String TEXT_PROJECT_ALREADY_EXISTS = " A project with that name already exists.";
     public final String TEXT_INVALID_CLASS_NAME = " Invalid class name";
-    
+
     public final String LABEL_WORKSPACE_NAME = "Workspace name:";
     public final String LABEL_SERVICE_NAME = "Service Name:";
     public final String LABEL_SERVER_NAME = "Server name:";
@@ -152,13 +153,18 @@ public interface UIBase
     public final String LABEL_SERVER_LOCATION = "Liferay Portal Bundle Directory";
     public final String LABEL_USE_DEFAULT_LOCATION = "Use default location";
     public final String LABEL_BUNDLE_URL = "Bundle url:";
-    
+    public final String LABEL_SERVER_HOST_NAME = "Server's host name:";
+
     public final String BUTTON_ADD_FILES_TO_OVERRIDE = "Add Files From OSGi Bundle to Override...";
-    public final String SERVER_STARTUP_MESSAGE = "Server startup in";  
-    
+    public final String SERVER_STARTUP_MESSAGE = "Server startup in";
+    public final String SERVER_STOP_MESSAGE = "stop Stopping ProtocolHandler";
+
     public final String TEXT_BUILD_TYPE_GRADLE = "Gradle";
     public final String TEXT_BUILD_TYPE_MAVEN = "Maven";
 
     public final String NODE_LIFERAY_7X = "Liferay 7.x";
     public final String NODE_LIFERAY_INC = "Liferay, Inc.";
+    public final String SERVER_START_BUTTON = "Start the server (Ctrl+Alt+R)";
+    public final String SERVER_STOP_BUTTON = "Stop the server (Ctrl+Alt+S)";
+    public final String SERVER_DEBUG_BUTTON = "Start the server in debug mode (Ctrl+Alt+D)";
 }

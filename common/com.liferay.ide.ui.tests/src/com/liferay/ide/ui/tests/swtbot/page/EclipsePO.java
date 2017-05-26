@@ -55,6 +55,7 @@ public class EclipsePO extends AbstractPO implements UIBase
     private MenuPO _fileMenu;
     private ViewPO _projectExplorerView;
     private CodeUpgradeViewPO _codeUpgradeView;
+    private MenuPO _preferencesMenu;
 
     public EclipsePO( SWTWorkbenchBot bot )
     {
@@ -70,7 +71,9 @@ public class EclipsePO extends AbstractPO implements UIBase
         _fileMenu = new MenuPO( bot, MENU_FILE );
 
         String[] otherLabel = { LABEL_WINDOW, LABEL_SHOW_VIEW, LABEL_OTHER };
+        String[] preferencesLabel = { LABEL_WINDOW, LABEL_PREFERENCES };
 
+        _preferencesMenu = new MenuPO( bot, preferencesLabel );
         _otherMenu = new MenuPO( bot, otherLabel );
 
         _showViewDialog = new ShowViewDialogPO( bot );
@@ -225,6 +228,11 @@ public class EclipsePO extends AbstractPO implements UIBase
     public TextEditorPO getTextEditor( String fileName )
     {
         return new TextEditorPO( bot, fileName );
+    }
+
+    public MenuPO getPreferencesMenu()
+    {
+        return _preferencesMenu;
     }
 
 }
