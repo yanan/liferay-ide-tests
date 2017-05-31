@@ -29,11 +29,12 @@ import com.liferay.ide.module.fragment.ui.tests.page.AddFilesToOverridePO;
 import com.liferay.ide.module.fragment.ui.tests.page.CreateModuleFragmentProjectWizardPO;
 import com.liferay.ide.module.fragment.ui.tests.page.HostOSGiBundlePO;
 import com.liferay.ide.module.fragment.ui.tests.page.SetModuleFragmentProjectOSGiBundlePO;
+import com.liferay.ide.server.ui.tests.page.DeleteRuntimeConfirmPO;
+import com.liferay.ide.server.ui.tests.page.DeleteRuntimePO;
 import com.liferay.ide.server.ui.tests.page.NewServerPO;
 import com.liferay.ide.server.ui.tests.page.NewServerRuntimeEnvPO;
 import com.liferay.ide.ui.tests.SWTBotBase;
 import com.liferay.ide.ui.tests.swtbot.page.CTabItemPO;
-import com.liferay.ide.ui.tests.swtbot.page.DialogPO;
 import com.liferay.ide.ui.tests.swtbot.page.TextEditorPO;
 import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 
@@ -61,10 +62,40 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
 
     TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
 
+    TreePO serverTree = new TreePO( bot, 1 );
+
     @Before
     public void isRunTest()
     {
         Assume.assumeTrue( runTest() || runAllTests() );
+
+        eclipse.getLiferayWorkspacePerspective().activate();
+    }
+
+    public void deleteRuntimeFromPreferences()
+    {
+        eclipse.getPreferencesMenu().click();
+
+        TreePO preferencesTree = new TreePO( bot );
+
+        preferencesTree.expandNode( "Server", "Runtime Environments" ).select();
+        sleep();
+
+        DeleteRuntimePO deleteRuntime = new DeleteRuntimePO( bot );
+
+        if( deleteRuntime.getServerRuntimeEnvironments().containsItem( NODE_LIFERAY_7X ) )
+        {
+            deleteRuntime.getServerRuntimeEnvironments().click( NODE_LIFERAY_7X );
+            deleteRuntime.getRemove().click();
+
+            DeleteRuntimeConfirmPO confirmDelete = new DeleteRuntimeConfirmPO( bot );
+
+            confirmDelete.confirm();
+        }
+
+        deleteRuntime.confirm();
+
+        sleep();
     }
 
     public void addLiferayServerAndOpenWizard()
@@ -73,7 +104,7 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
 
         newServerPage.getServerTypeTree().selectTreeItem( NODE_LIFERAY_INC, NODE_LIFERAY_7X );
 
-        sleep( 3000 );
+        sleep( 2000 );
 
         if( !newServerPage.finishButton().isEnabled() )
         {
@@ -98,7 +129,6 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
     {
         String[] expectedFragmentBuildTypeItems = { TEXT_BUILD_TYPE_GRADLE, TEXT_BUILD_TYPE_MAVEN };
         String[] fragmentBuildTypeItems = newModuleFragmentPage.getBuildType().getAvailableComboValues();
-        assertTrue( fragmentBuildTypeItems.length >= 1 );
         assertEquals( expectedFragmentBuildTypeItems.length, fragmentBuildTypeItems.length );
 
         for( int j = 0; j < fragmentBuildTypeItems.length; j++ )
@@ -128,32 +158,41 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
 
     @Test
     public void moduleFragmentProjectWizardWithoutServer()
+
     {
-        eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleFragmentProject().click();
+        if( serverTree.hasItems() )
+        {
+            deleteRuntimeFromPreferences();
+        }
 
-        newModuleFragmentPage.setProjectName( ".." );
-        sleep();
-        assertEquals( " '..'" + TEXT_INVALID_NAME_ON_PLATFORM, newModuleFragmentPage.getValidationMessage() );
+        else
+        {
+            eclipse.getCreateLiferayProjectToolbar().getNewLiferayModuleFragmentProject().click();
 
-        newModuleFragmentPage.setProjectName( "##" );
-        sleep();
-        assertEquals( " " + TEXT_INVALID_GRADLE_PROJECT, newModuleFragmentPage.getValidationMessage() );
+            newModuleFragmentPage.setProjectName( ".." );
+            sleep();
+            assertEquals( " '..'" + TEXT_INVALID_NAME_ON_PLATFORM, newModuleFragmentPage.getValidationMessage() );
 
-        newModuleFragmentPage.setProjectName( "*" );
-        sleep();
-        assertEquals(
-            " *" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'*'.", newModuleFragmentPage.getValidationMessage() );
+            newModuleFragmentPage.setProjectName( "##" );
+            sleep();
+            assertEquals( " " + TEXT_INVALID_GRADLE_PROJECT, newModuleFragmentPage.getValidationMessage() );
 
-        newModuleFragmentPage.setProjectName( TEXT_BLANK );
-        sleep();
-        assertEquals( TEXT_PROJECT_NAME_MUST_BE_SPECIFIED, newModuleFragmentPage.getValidationMessage() );
+            newModuleFragmentPage.setProjectName( "*" );
+            sleep();
+            assertEquals(
+                " *" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'*'.", newModuleFragmentPage.getValidationMessage() );
 
-        newModuleFragmentPage.setProjectName( projectName );
-        sleep( 2000 );
-        assertEquals( TEXT_LIFERAY_RUNTIME_MUST_BE_CONFIGURED, newModuleFragmentPage.getValidationMessage() );
+            newModuleFragmentPage.setProjectName( TEXT_BLANK );
+            sleep();
+            assertEquals( TEXT_PROJECT_NAME_MUST_BE_SPECIFIED, newModuleFragmentPage.getValidationMessage() );
 
-        assertTrue( newModuleFragmentPage.isLiferayRuntimeTextEnabled() );
-        newModuleFragmentPage.cancel();
+            newModuleFragmentPage.setProjectName( projectName );
+            sleep();
+            assertEquals( TEXT_LIFERAY_RUNTIME_MUST_BE_CONFIGURED, newModuleFragmentPage.getValidationMessage() );
+
+            assertTrue( newModuleFragmentPage.isLiferayRuntimeTextEnabled() );
+            newModuleFragmentPage.cancel();
+        }
     }
 
     @Test
@@ -198,10 +237,7 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
         }
 
         moduleFragmentOSGiBundlePage.finish();
-        sleep( 40000 );
-
-        DialogPO dialogPage = new DialogPO( bot, "Open Associated Perspective", BUTTON_YES, BUTTON_NO );
-        dialogPage.confirm();
+        sleep( 7000 );
 
         String[] pathTree = new String[] { projectName, "src/main/java" };
 
@@ -231,7 +267,6 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
 
         String projectName = "maven-fragment-project";
 
-        checkBuildType();
         newModuleFragmentPage.setProjectName( projectName, TEXT_BUILD_TYPE_MAVEN );
         sleep();
         assertTrue( newModuleFragmentPage.isLiferayRuntimeTextEnabled() );
@@ -260,10 +295,7 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
         }
 
         moduleFragmentOSGiBundlePage.finish();
-        sleep( 40000 );
-
-        DialogPO dialogPage = new DialogPO( bot, "Open Associated Perspective", BUTTON_YES, BUTTON_NO );
-        dialogPage.confirm();
+        sleep( 6000 );
 
         projectTree.setFocus();
         projectTree.expandNode( projectName ).doubleClick();
