@@ -45,6 +45,17 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
     String projectName = "workspace-project";
     String serverName = "Liferay 7.0 CE Server";
 
+    static String fullClassname = new SecurityManager()
+    {
+
+        public String getClassName()
+        {
+            return getClassContext()[1].getName();
+        }
+    }.getClassName();
+
+    static String currentClassname = fullClassname.substring( fullClassname.lastIndexOf( '.' ) ).substring( 1 );
+
     CreateWorkspaceProjectWizardPO newLiferayWorkspaceProjectWizard =
         new CreateWorkspaceProjectWizardPO( bot, INDEX_VALIDATION_WORKSPACE_NAME_MESSAGE );
 
@@ -53,6 +64,8 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
     @BeforeClass
     public static void switchToLiferayWorkspacePerspective()
     {
+        Assume.assumeTrue( currentClassname.equals( runTest ) || runAllTests() );
+
         eclipse.getLiferayWorkspacePerspective().activate();
         eclipse.getProjectExplorerView().show();
     }
@@ -90,7 +103,8 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
         assertTrue( projectTree.expandNode( projectName, "gradle.properties" ).isVisible() );
         assertTrue( projectTree.expandNode( projectName, "settings.gradle" ).isVisible() );
 
-        // add popupmenu action for adding a new server based off of folder location in workspace
+        // add popupmenu action for adding a new server based off of folder
+        // location in workspace
         projectTree.expandNode( projectName, "bundles" ).doAction( "Create New Liferay Server from location" );
         sleep();
 
@@ -299,8 +313,7 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
 
         newLiferayWorkspaceProjectWizard.setWorkspaceName( "*" );
         sleep();
-        assertEquals(
-            " *" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'*'.",
+        assertEquals( " *" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'*'.",
             newLiferayWorkspaceProjectWizard.getValidationMessage() );
 
         newLiferayWorkspaceProjectWizard.setWorkspaceName( TEXT_BLANK );
@@ -376,8 +389,8 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
 
             sleep( 5000 );
 
-            eclipse.getPackageExporerView().deleteProjectExcludeNames(
-                new String[] { getLiferayPluginsSdkName() }, true );
+            eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() },
+                true );
         }
     }
 

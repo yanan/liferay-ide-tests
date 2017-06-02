@@ -78,7 +78,7 @@ public class SWTBotBase implements UIBase
     public final static String PLUGINS_SDK_DIR = "com.liferay.portal.plugins.sdk-7.0";
 
     private final static String liferayBundlesDir = System.getProperty( "liferay.bundles.dir" );
-    private final static String runTest = System.getProperty( "runTest" );
+    protected final static String runTest = System.getProperty( "runTest" );
 
     public static boolean hasAddedProject = false;
 

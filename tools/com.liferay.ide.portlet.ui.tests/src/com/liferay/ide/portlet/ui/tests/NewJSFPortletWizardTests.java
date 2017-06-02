@@ -45,9 +45,22 @@ public class NewJSFPortletWizardTests extends SWTBotBase implements JSFPortletWi
 
     static String projectName = "test";
 
+    static String fullClassname = new SecurityManager()
+    {
+
+        public String getClassName()
+        {
+            return getClassContext()[1].getName();
+        }
+    }.getClassName();
+
+    static String currentClassname = fullClassname.substring( fullClassname.lastIndexOf( '.' ) ).substring( 1 );
+
     @BeforeClass
     public static void createJSFPortletProject() throws Exception
     {
+        Assume.assumeTrue( currentClassname.equals( runTest ) || runAllTests() );
+
         unzipPluginsSDK();
         unzipServer();
 

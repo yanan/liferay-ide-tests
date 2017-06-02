@@ -43,9 +43,22 @@ public class NewLayoutTemplateWizardTests extends SWTBotBase implements CreateLa
 
     static String projectName = "test-layouttpl";
 
+    static String fullClassname = new SecurityManager()
+    {
+
+        public String getClassName()
+        {
+            return getClassContext()[1].getName();
+        }
+    }.getClassName();
+
+    static String currentClassname = fullClassname.substring( fullClassname.lastIndexOf( '.' ) ).substring( 1 );
+
     @BeforeClass
     public static void createProject() throws IOException
     {
+        Assume.assumeTrue( currentClassname.equals( runTest ) || runAllTests() );
+
         unzipPluginsSDK();
         unzipServer();
 
