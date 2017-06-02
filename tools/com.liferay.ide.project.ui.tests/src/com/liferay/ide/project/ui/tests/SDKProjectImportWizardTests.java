@@ -25,7 +25,6 @@ import java.io.IOException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -49,6 +48,17 @@ import com.liferay.ide.ui.tests.util.ZipUtil;
 public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayProjectFromExistSourceWizard
 {
 
+    static String fullClassname = new SecurityManager()
+    {
+
+        public String getClassName()
+        {
+            return getClassContext()[1].getName();
+        }
+    }.getClassName();
+
+    static String currentClassname = fullClassname.substring( fullClassname.lastIndexOf( '.' ) ).substring( 1 );
+
     private static final String BUNDLE_ID = "com.liferay.ide.project.ui.tests";
 
     private LiferayProjectFromExistSourceWizardPO _wizard = new LiferayProjectFromExistSourceWizardPO( bot );
@@ -60,6 +70,8 @@ public class SDKProjectImportWizardTests extends SWTBotBase implements LiferayPr
     @BeforeClass
     public static void unzipServerAndSdk() throws IOException
     {
+        Assume.assumeTrue( currentClassname.equals( runTest ) || runAllTests() );
+
         unzipServer();
         unzipPluginsSDK();
     }

@@ -57,6 +57,17 @@ import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPortletWizard, ProjectWizard
 {
 
+    static String fullClassname = new SecurityManager()
+    {
+
+        public String getClassName()
+        {
+            return getClassContext()[1].getName();
+        }
+    }.getClassName();
+
+    static String currentClassname = fullClassname.substring( fullClassname.lastIndexOf( '.' ) ).substring( 1 );
+
     CreateProjectWizardPO newLiferayProjectPage =
         new CreateProjectWizardPO( bot, LABEL_NEW_LIFERAY_PLUGIN_PROJECT, INDEX_NEW_LIFERAY_PLUGIN_PROJECT_WIZARD );
 
@@ -72,6 +83,8 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
     @BeforeClass
     public static void unzipServerAndSdk() throws IOException
     {
+        Assume.assumeTrue( currentClassname.equals( runTest ) || runAllTests() );
+
         unzipPluginsSDK();
         unzipServer();
     }
@@ -91,8 +104,8 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
         try
         {
-            eclipse.getPackageExporerView().deleteProjectExcludeNames(
-                new String[] { getLiferayPluginsSdkName() }, true );
+            eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() },
+                true );
         }
         catch( Exception e )
         {
@@ -381,8 +394,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
         specifyLiferayPortletDeploymentDescriptorPage.specifyLiferayDisplay( null, true, null, null, true, null );
 
         assertTrue(
-            Arrays.equals(
-                availableEntryCategories70,
+            Arrays.equals( availableEntryCategories70,
                 specifyLiferayPortletDeploymentDescriptorPage.getEntryCategoryAvailableComboValues() ) );
         assertEquals( "1.5", specifyLiferayPortletDeploymentDescriptorPage.getEntryWeightText() );
         assertEquals(
@@ -421,8 +433,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
             "unexistentIcon", false, "unexistentCss", "unexistentJavaScript", null );
 
         assertTrue(
-            isInAvailableLists(
-                specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryAvailableComboValues(),
+            isInAvailableLists( specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryAvailableComboValues(),
                 "my1category" ) );
 
         // entry tests after checked add to control panel
@@ -651,8 +662,7 @@ public class LiferayPortletWizardTests extends SWTBotBase implements LiferayPort
 
         assertEquals( "Sample", specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryCombobox() );
         assertTrue(
-            Arrays.equals(
-                specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryAvailableComboValues(),
+            Arrays.equals( specifyLiferayPortletDeploymentDescriptorPage.getDisplayCategoryAvailableComboValues(),
                 availableDisplayCategories70 ) );
 
         assertFalse( specifyLiferayPortletDeploymentDescriptorPage.isAddToControlPanelChecked() );

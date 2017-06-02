@@ -43,6 +43,17 @@ public class NewVaadinPortletWizardTests extends SWTBotBase
     implements VaadinPortletWizard, LiferayPortletWizard, ProjectWizard
 {
 
+    static String fullClassname = new SecurityManager()
+    {
+
+        public String getClassName()
+        {
+            return getClassContext()[1].getName();
+        }
+    }.getClassName();
+
+    static String currentClassname = fullClassname.substring( fullClassname.lastIndexOf( '.' ) ).substring( 1 );
+
     static CreateVaadinPortletWizardPO newVaadinPortletPage =
         new CreateVaadinPortletWizardPO( bot, INDEX_VAADIN_VALIDATION_MESSAGE1 );
 
@@ -63,6 +74,8 @@ public class NewVaadinPortletWizardTests extends SWTBotBase
     @BeforeClass
     public static void unzipServerAndSdk() throws Exception
     {
+        Assume.assumeTrue( currentClassname.equals( runTest ) || runAllTests() );
+
         unzipPluginsSDK();
         unzipServer();
 

@@ -47,6 +47,17 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
 
     String projectName = "module-fragment-project";
 
+    static String fullClassname = new SecurityManager()
+    {
+
+        public String getClassName()
+        {
+            return getClassContext()[1].getName();
+        }
+    }.getClassName();
+
+    static String currentClassname = fullClassname.substring( fullClassname.lastIndexOf( '.' ) ).substring( 1 );
+
     NewServerPO newServerPage = new NewServerPO( bot );
 
     NewServerRuntimeEnvPO setRuntimePage = new NewServerRuntimeEnvPO( bot );
@@ -145,14 +156,16 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
 
         if( addedProjects() )
         {
-            eclipse.getPackageExporerView().deleteProjectExcludeNames(
-                new String[] { getLiferayPluginsSdkName() }, true );
+            eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() },
+                true );
         }
     }
 
     @BeforeClass
     public static void prepareServer() throws IOException
     {
+        Assume.assumeTrue( currentClassname.equals( runTest ) || runAllTests() );
+
         unzipServer();
     }
 
@@ -179,8 +192,8 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
 
             newModuleFragmentPage.setProjectName( "*" );
             sleep();
-            assertEquals(
-                " *" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'*'.", newModuleFragmentPage.getValidationMessage() );
+            assertEquals( " *" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'*'.",
+                newModuleFragmentPage.getValidationMessage() );
 
             newModuleFragmentPage.setProjectName( TEXT_BLANK );
             sleep();

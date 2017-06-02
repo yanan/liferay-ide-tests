@@ -19,6 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Assume;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -27,6 +29,26 @@ import org.junit.Test;
 public class NewLiferayJSFProjectWizardTests extends AbstractNewLiferayJSFProjectWizard
     implements NewLiferayJSFProjectWizard
 {
+
+    @Test
+    public void createICEFacesProject()
+    {
+        String projectName = "testICEFacesProject";
+
+        newLiferayJSFProject( projectName, TEXT_BUILD_TYPE_GRADLE, MENU_ICEFACES, TEXT_BLANK );
+
+        String i18nPropertiesFileName = " i18n.properties";
+        String facesConfigXmlFileName = "faces-config.xml";
+        String buildGradleFileName = "build.gradle";
+        String gradleContent = "compile group: 'org.icefaces', name: 'icefaces-ace', version:'4.1.1'";
+
+        checkProjectAndFileExist( projectName, projectName, "src/main/resources", i18nPropertiesFileName );
+        checkProjectAndFileExist( projectName, projectName, "src", "main", "webapp", "WEB-INF",
+            facesConfigXmlFileName );
+        checkProjectAndFileExist( projectName, projectName, buildGradleFileName );
+
+        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
+    }
 
     @Test
     public void createJSFStandardProject()
@@ -41,8 +63,8 @@ public class NewLiferayJSFProjectWizardTests extends AbstractNewLiferayJSFProjec
         String gradleContent = "providedCompile group: 'javax.faces', name: 'javax.faces-api', version:'2.2'";
 
         checkProjectAndFileExist( projectName, projectName, "src/main/resources", i18nPropertiesFileName );
-        checkProjectAndFileExist(
-            projectName, projectName, "src", "main", "webapp", "WEB-INF", facesConfigXmlFileName );
+        checkProjectAndFileExist( projectName, projectName, "src", "main", "webapp", "WEB-INF",
+            facesConfigXmlFileName );
         checkProjectAndFileExist( projectName, projectName, buildGradleFileName );
 
         openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
@@ -61,28 +83,8 @@ public class NewLiferayJSFProjectWizardTests extends AbstractNewLiferayJSFProjec
         String gradleContent = "compile group: 'com.liferay.faces', name: 'com.liferay.faces.alloy', version:'3.0.0'";
 
         checkProjectAndFileExist( projectName, projectName, "src/main/resources", i18nPropertiesFileName );
-        checkProjectAndFileExist(
-            projectName, projectName, "src", "main", "webapp", "WEB-INF", facesConfigXmlFileName );
-        checkProjectAndFileExist( projectName, projectName, buildGradleFileName );
-
-        openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
-    }
-
-    @Test
-    public void createICEFacesProject()
-    {
-        String projectName = "testICEFacesProject";
-
-        newLiferayJSFProject( projectName, TEXT_BUILD_TYPE_GRADLE, MENU_ICEFACES, TEXT_BLANK );
-
-        String i18nPropertiesFileName = " i18n.properties";
-        String facesConfigXmlFileName = "faces-config.xml";
-        String buildGradleFileName = "build.gradle";
-        String gradleContent = "compile group: 'org.icefaces', name: 'icefaces-ace', version:'4.1.1'";
-
-        checkProjectAndFileExist( projectName, projectName, "src/main/resources", i18nPropertiesFileName );
-        checkProjectAndFileExist(
-            projectName, projectName, "src", "main", "webapp", "WEB-INF", facesConfigXmlFileName );
+        checkProjectAndFileExist( projectName, projectName, "src", "main", "webapp", "WEB-INF",
+            facesConfigXmlFileName );
         checkProjectAndFileExist( projectName, projectName, buildGradleFileName );
 
         openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
@@ -101,8 +103,8 @@ public class NewLiferayJSFProjectWizardTests extends AbstractNewLiferayJSFProjec
         String gradleContent = "compile group: 'org.primefaces', name: 'primefaces', version:'6.0'";
 
         checkProjectAndFileExist( projectName, projectName, "src/main/resources", i18nPropertiesFileName );
-        checkProjectAndFileExist(
-            projectName, projectName, "src", "main", "webapp", "WEB-INF", facesConfigXmlFileName );
+        checkProjectAndFileExist( projectName, projectName, "src", "main", "webapp", "WEB-INF",
+            facesConfigXmlFileName );
         checkProjectAndFileExist( projectName, projectName, buildGradleFileName );
 
         openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
@@ -121,11 +123,21 @@ public class NewLiferayJSFProjectWizardTests extends AbstractNewLiferayJSFProjec
         String gradleContent = "compile group: 'org.richfaces', name: 'richfaces', version:'4.5.17.Final'";
 
         checkProjectAndFileExist( projectName, projectName, "src/main/resources", i18nPropertiesFileName );
-        checkProjectAndFileExist(
-            projectName, projectName, "src", "main", "webapp", "WEB-INF", facesConfigXmlFileName );
+        checkProjectAndFileExist( projectName, projectName, "src", "main", "webapp", "WEB-INF",
+            facesConfigXmlFileName );
         checkProjectAndFileExist( projectName, projectName, buildGradleFileName );
 
         openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
+    }
+
+    @Before
+    public void shouldRunTests()
+    {
+
+        Assume.assumeTrue( runTest() || runAllTests() );
+
+        hasAddedProject = addedProjects();
+
     }
 
     @Test

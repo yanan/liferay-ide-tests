@@ -29,6 +29,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.junit.After;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -52,10 +53,23 @@ public class MigrationToolTests extends SWTBotBase implements MigrateProjectWiza
     String MARKER_TYPE = "com.liferay.ide.project.core.MigrationProblemMarker";
     private static final String BUNDLE_ID = "com.liferay.ide.project.ui.tests";
     private static IProject project;
+    
+    static String fullClassname = new SecurityManager()
+    {
+
+        public String getClassName()
+        {
+            return getClassContext()[1].getName();
+        }
+    }.getClassName();
+
+    static String currentClassname = fullClassname.substring( fullClassname.lastIndexOf( '.' ) ).substring( 1 );
 
     @BeforeClass
     public static void unzipServerAndSdk() throws IOException
     {
+        Assume.assumeTrue( currentClassname.equals( runTest ) || runAllTests() );
+        
         unzipServer();
         unzipPluginsSDK();
     }

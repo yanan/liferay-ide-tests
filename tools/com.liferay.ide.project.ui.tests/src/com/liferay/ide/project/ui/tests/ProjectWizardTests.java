@@ -48,6 +48,17 @@ import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
 {
 
+    static String fullClassname = new SecurityManager()
+    {
+
+        public String getClassName()
+        {
+            return getClassContext()[1].getName();
+        }
+    }.getClassName();
+
+    static String currentClassname = fullClassname.substring( fullClassname.lastIndexOf( '.' ) ).substring( 1 );
+
     @AfterClass
     public static void cleanAll()
     {
@@ -60,6 +71,8 @@ public class ProjectWizardTests extends SWTBotBase implements ProjectWizard
     @BeforeClass
     public static void unzipServerAndSdk() throws IOException
     {
+        Assume.assumeTrue( currentClassname.equals( runTest ) || runAllTests() );
+
         unzipServer();
         unzipPluginsSDK();
     }

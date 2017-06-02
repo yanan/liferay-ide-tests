@@ -62,6 +62,17 @@ import com.liferay.ide.ui.tests.swtbot.page.TreePO;
 public class HookConfigurationWizardTests extends SWTBotBase implements HookConfigurationWizard
 {
 
+    static String fullClassname = new SecurityManager()
+    {
+
+        public String getClassName()
+        {
+            return getClassContext()[1].getName();
+        }
+    }.getClassName();
+
+    static String currentClassname = fullClassname.substring( fullClassname.lastIndexOf( '.' ) ).substring( 1 );
+
     CreateLiferayHookConfigurationPO createLiferayHookConfiguration =
         new CreateLiferayHookConfigurationPO( bot, TITLE_NEW_LIFERAY_HOOK, INDEX_NEW_LIFERAY_HOOK_VALIDATION_MESSAGE );
     CreateProjectWizardPO createProjectWizard = new CreateProjectWizardPO( bot, INDEX_VALIDATION_MESSAGE );
@@ -84,6 +95,9 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
     @BeforeClass
     public static void unzipServerAndSdk() throws IOException
     {
+
+        Assume.assumeTrue( currentClassname.equals( runTest ) || runAllTests() );
+
         unzipPluginsSDK();
         unzipServer();
     }
@@ -143,12 +157,15 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
 
         // Language Properties should test with sdk 6.2
         // LanguagePropertiesPO languagePropertiesPage =
-        // new LanguagePropertiesPO( bot, INDEX_LANGUAGE_PROPERTIES_VALIDATION_MESSAGE );
+        // new LanguagePropertiesPO( bot,
+        // INDEX_LANGUAGE_PROPERTIES_VALIDATION_MESSAGE );
         //
-        // AddLanguagePropertyPO languageProperty = new AddLanguagePropertyPO( bot );
+        // AddLanguagePropertyPO languageProperty = new AddLanguagePropertyPO(
+        // bot );
         //
         // languagePropertiesPage.getAddButton().click();
-        // languageProperty.setLanguagePropertyFileText( "languageTest.properties" );
+        // languageProperty.setLanguagePropertyFileText(
+        // "languageTest.properties" );
         // languageProperty.confirm();
         // languagePropertiesPage.finish();
 
@@ -176,7 +193,8 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         // fileName = "languageTest.properties";
         //
         // projectTree.expandNode(
-        // new String[] { projectHookName + "-hook", "docroot/WEB-INF/src", "content" } ).doubleClick( fileName );
+        // new String[] { projectHookName + "-hook", "docroot/WEB-INF/src",
+        // "content" } ).doubleClick( fileName );
 
     }
 
@@ -282,10 +300,13 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         // should test with sdk 6.2
         // newHookTypesPage.next();
         //
-        // LanguagePropertiesPO languagePropertiesPage = new LanguagePropertiesPO(
-        // bot, "New Liferay Hook Configuration", INDEX_LANGUAGE_PROPERTIES_VALIDATION_MESSAGE );
+        // LanguagePropertiesPO languagePropertiesPage = new
+        // LanguagePropertiesPO(
+        // bot, "New Liferay Hook Configuration",
+        // INDEX_LANGUAGE_PROPERTIES_VALIDATION_MESSAGE );
         //
-        // assertEquals( defaultMessage, languagePropertiesPage.getValidationMessage() );
+        // assertEquals( defaultMessage,
+        // languagePropertiesPage.getValidationMessage() );
         // assertEquals(
         // "/hook-configuration-wizard-hook/docroot/WEB-INF/src/content",
         // languagePropertiesPage.getContentFolderText() );
@@ -293,13 +314,15 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         // languagePropertiesPage.setContentFolderText( "" );
         // sleep( 500 );
         //
-        // assertEquals( errorMessage, languagePropertiesPage.getValidationMessage() );
+        // assertEquals( errorMessage,
+        // languagePropertiesPage.getValidationMessage() );
         //
         // languagePropertiesPage.getBrowseButton().click();
         // sleep( 500 );
         // ContainerSelectionPO chooseFolder = new ContainerSelectionPO( bot );
         //
-        // chooseFolder.select( "hook-configuration-wizard-hook", "docroot", "WEB-INF", "src" );
+        // chooseFolder.select( "hook-configuration-wizard-hook", "docroot",
+        // "WEB-INF", "src" );
         //
         // chooseFolder.confirm();
         //
@@ -308,7 +331,8 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         // // Language property files
         // languagePropertiesPage.getAddButton().click();
         //
-        // AddLanguagePropertyPO languageProperty = new AddLanguagePropertyPO( bot );
+        // AddLanguagePropertyPO languageProperty = new AddLanguagePropertyPO(
+        // bot );
         // languageProperty.setLanguagePropertyFileText( "test.properties" );
         // languageProperty.confirm();
         //
@@ -332,10 +356,12 @@ public class HookConfigurationWizardTests extends SWTBotBase implements HookConf
         //
         // languagePropertiesPage.finish();
         //
-        // TreePO projectTree = eclipse.showPackageExporerView().getProjectTree();
+        // TreePO projectTree =
+        // eclipse.showPackageExporerView().getProjectTree();
         //
         // projectTree.expandNode(
-        // new String[] { projectHookName + "-hook", "docroot/WEB-INF/src", "content" } ).doubleClick(
+        // new String[] { projectHookName + "-hook", "docroot/WEB-INF/src",
+        // "content" } ).doubleClick(
         // "test.properties" );
     }
 

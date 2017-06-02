@@ -43,6 +43,16 @@ import com.liferay.ide.ui.tests.swtbot.page.TreePO;
  */
 public class NewServerRuntimeWizardTests extends SWTBotBase implements ServerRuntimeWizard
 {
+    static String fullClassname = new SecurityManager()
+    {
+
+        public String getClassName()
+        {
+            return getClassContext()[1].getName();
+        }
+    }.getClassName();
+
+    static String currentClassname = fullClassname.substring( fullClassname.lastIndexOf( '.' ) ).substring( 1 );
 
     NewServerPO newServerPage = new NewServerPO( bot );
 
@@ -55,6 +65,8 @@ public class NewServerRuntimeWizardTests extends SWTBotBase implements ServerRun
     @BeforeClass
     public static void prepareServer() throws IOException
     {
+        Assume.assumeTrue( currentClassname.equals( runTest ) || runAllTests() );
+        
         unzipServer();
 
         copyFileToStartServer();

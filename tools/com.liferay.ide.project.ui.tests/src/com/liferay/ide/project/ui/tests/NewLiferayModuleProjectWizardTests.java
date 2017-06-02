@@ -42,6 +42,17 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
     implements NewLiferayModuleProjectWizard
 {
 
+    static String fullClassname = new SecurityManager()
+    {
+
+        public String getClassName()
+        {
+            return getClassContext()[1].getName();
+        }
+    }.getClassName();
+
+    static String currentClassname = fullClassname.substring( fullClassname.lastIndexOf( '.' ) ).substring( 1 );
+
     TreePO projectTree = eclipse.getPackageExporerView().getProjectTree();
 
     NewLiferayModuleProjectWizardPO createModuleProjectWizard =
@@ -60,6 +71,8 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
     @BeforeClass
     public static void switchToLiferayWorkspacePerspective()
     {
+        Assume.assumeTrue( currentClassname.equals( runTest ) || runAllTests() );
+
         eclipse.getLiferayWorkspacePerspective().activate();
         eclipse.getProjectExplorerView().show();
     }
@@ -80,8 +93,8 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
 
         createModuleProjectWizard.createModuleProject( "/" );
         sleep( 1000 );
-        assertEquals(
-            " /" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'/'.", createModuleProjectWizard.getValidationMessage() );
+        assertEquals( " /" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'/'.",
+            createModuleProjectWizard.getValidationMessage() );
         assertFalse( createModuleProjectWizard.finishButton().isEnabled() );
 
         createModuleProjectWizard.createModuleProject( "$" );
@@ -287,9 +300,8 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
         }
 
         sleep( 10000 );
-        assertTrue(
-            projectTree.expandNode(
-                projectName, projectName + "-api", "src/main/java", "testServiceBuilderProject.service" ).isVisible() );
+        assertTrue( projectTree.expandNode(
+            projectName, projectName + "-api", "src/main/java", "testServiceBuilderProject.service" ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, projectName + "-service", "src/main/java",
@@ -323,9 +335,8 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
             TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_API, eclipseWorkspace, false, TEXT_BLANK, TEXT_BLANK,
             TEXT_BLANK, TEXT_BLANK, false );
 
-        assertTrue(
-            projectTree.expandNode(
-                projectName, "src/main/java", "testApiProject.api", "TestApiProject.java" ).isVisible() );
+        assertTrue( projectTree.expandNode(
+            projectName, "src/main/java", "testApiProject.api", "TestApiProject.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
 
@@ -344,10 +355,9 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
             TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_CONTENT_TARGETING_REPORT, eclipseWorkspace, false,
             TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertTrue(
-            projectTree.expandNode(
-                projectName, "src/main/java", "testContentTargetingReportProject.content.targeting.report",
-                "TestContentTargetingReportProjectReport.java" ).isVisible() );
+        assertTrue( projectTree.expandNode(
+            projectName, "src/main/java", "testContentTargetingReportProject.content.targeting.report",
+            "TestContentTargetingReportProjectReport.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
         String gradleContent =
@@ -366,10 +376,9 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
             TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_CONTENT_TARGETING_RULE, eclipseWorkspace, false,
             TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertTrue(
-            projectTree.expandNode(
-                projectName, "src/main/java", "testContentTargetingRuleProject.content.targeting.rule",
-                "TestContentTargetingRuleProjectRule.java" ).isVisible() );
+        assertTrue( projectTree.expandNode(
+            projectName, "src/main/java", "testContentTargetingRuleProject.content.targeting.rule",
+            "TestContentTargetingRuleProjectRule.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
         String gradleContent =
@@ -387,11 +396,9 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
             TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_CONTENT_TARGETING_TRACKING_ACTION, eclipseWorkspace, false,
             TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertTrue(
-            projectTree.expandNode(
-                projectName, "src/main/java",
-                "testContentTargetingTrackingActionProject.content.targeting.tracking.action",
-                "TestContentTargetingTrackingActionProjectTrackingAction.java" ).isVisible() );
+        assertTrue( projectTree.expandNode(
+            projectName, "src/main/java", "testContentTargetingTrackingActionProject.content.targeting.tracking.action",
+            "TestContentTargetingTrackingActionProjectTrackingAction.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
         String gradleContent =
@@ -415,10 +422,9 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
 
         openEditorAndCheck( gradleContent, projectName, projectName, buildGradleFileName );
 
-        assertTrue(
-            projectTree.expandNode(
-                projectName, "src/main/java", "testControlMenuEntryProject.control.menu",
-                "TestControlMenuEntryProjectProductNavigationControlMenuEntry.java" ).isVisible() );
+        assertTrue( projectTree.expandNode(
+            projectName, "src/main/java", "testControlMenuEntryProject.control.menu",
+            "TestControlMenuEntryProjectProductNavigationControlMenuEntry.java" ).isVisible() );
     }
 
     @Test
@@ -430,10 +436,9 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
             TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_FORM_FIELD, eclipseWorkspace, false, TEXT_BLANK,
             TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertTrue(
-            projectTree.expandNode(
-                projectName, "src/main/java", "testFormFieldProject.form.field",
-                "TestFormFieldProjectDDMFormFieldRenderer.java" ).isVisible() );
+        assertTrue( projectTree.expandNode(
+            projectName, "src/main/java", "testFormFieldProject.form.field",
+            "TestFormFieldProjectDDMFormFieldRenderer.java" ).isVisible() );
 
         assertTrue(
             projectTree.expandNode(
@@ -457,9 +462,8 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
             TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_PANEL_APP, eclipseWorkspace, false, TEXT_BLANK, TEXT_BLANK,
             TEXT_BLANK, TEXT_BLANK, false );
 
-        assertTrue(
-            projectTree.expandNode(
-                projectName, "src/main/java", "testPanelAppProject.application.list" ).isVisible() );
+        assertTrue( projectTree.expandNode(
+            projectName, "src/main/java", "testPanelAppProject.application.list" ).isVisible() );
         assertTrue(
             projectTree.expandNode(
                 projectName, "src/main/java", "testPanelAppProject.application.list",
@@ -526,10 +530,9 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
             TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_PORTLET_CONFIGURATION_ICON, eclipseWorkspace, false,
             TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertTrue(
-            projectTree.expandNode(
-                projectName, "src/main/java", "testPortletConfigurationIconProject.portlet.configuration.icon",
-                "TestPortletConfigurationIconProjectPortletConfigurationIcon.java" ).isVisible() );
+        assertTrue( projectTree.expandNode(
+            projectName, "src/main/java", "testPortletConfigurationIconProject.portlet.configuration.icon",
+            "TestPortletConfigurationIconProjectPortletConfigurationIcon.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
         String gradleContent =
@@ -547,9 +550,8 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
             TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_PORTLET_PROVIDER, eclipseWorkspace, false, TEXT_BLANK,
             TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertTrue(
-            projectTree.expandNode(
-                projectName, "src/main/java", "testPortletProviderProject.constants" ).isVisible() );
+        assertTrue( projectTree.expandNode(
+            projectName, "src/main/java", "testPortletProviderProject.constants" ).isVisible() );
 
         assertTrue(
             projectTree.expandNode(
@@ -590,10 +592,9 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
             TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_PORTLET_TOOLBAR_CONTRIBUTOR, eclipseWorkspace, false,
             TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertTrue(
-            projectTree.expandNode(
-                projectName, "src/main/java", "testPortletToolbarContributorProject.portlet.toolbar.contributor",
-                "TestPortletToolbarContributorProjectPortletToolbarContributor.java" ).isVisible() );
+        assertTrue( projectTree.expandNode(
+            projectName, "src/main/java", "testPortletToolbarContributorProject.portlet.toolbar.contributor",
+            "TestPortletToolbarContributorProjectPortletToolbarContributor.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
         String gradleContent =
@@ -611,10 +612,9 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
             TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_REST, eclipseWorkspace, false, TEXT_BLANK, TEXT_BLANK,
             TEXT_BLANK, TEXT_BLANK, false );
 
-        assertTrue(
-            projectTree.expandNode(
-                projectName, "src/main/java", "testRestProject.application",
-                "TestRestProjectApplication.java" ).isVisible() );
+        assertTrue( projectTree.expandNode(
+            projectName, "src/main/java", "testRestProject.application",
+            "TestRestProjectApplication.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
         String gradleContent =
@@ -633,9 +633,8 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
             TEXT_BLANK, TEXT_BLANK, "*BookmarksEntryLocalServiceWrapper", true );
 
         sleep( 5000 );
-        assertTrue(
-            projectTree.expandNode(
-                projectName, "src/main/java", projectName, "TestServiceWrapperProject.java" ).isVisible() );
+        assertTrue( projectTree.expandNode(
+            projectName, "src/main/java", projectName, "TestServiceWrapperProject.java" ).isVisible() );
 
         String javaFileName = "TestServiceWrapperProject.java";
         String javaContent = "extends BookmarksEntryLocalServiceWrapper";
@@ -658,10 +657,9 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
             TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_SIMULATION_PANEL_ENTRY, eclipseWorkspace, false,
             TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertTrue(
-            projectTree.expandNode(
-                projectName, "src/main/java", "testSimulationPanelEntryProject.application.list",
-                "TestSimulationPanelEntryProjectSimulationPanelApp.java" ).isVisible() );
+        assertTrue( projectTree.expandNode(
+            projectName, "src/main/java", "testSimulationPanelEntryProject.application.list",
+            "TestSimulationPanelEntryProjectSimulationPanelApp.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
         String gradleContent =
@@ -679,10 +677,9 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
             TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_TEMPLATE_CONTEXT_CONTRIBUTOR, eclipseWorkspace, false,
             TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertTrue(
-            projectTree.expandNode(
-                projectName, "src/main/java", "testTemplateContextContributorProject.context.contributor",
-                "TestTemplateContextContributorProjectTemplateContextContributor.java" ).isVisible() );
+        assertTrue( projectTree.expandNode(
+            projectName, "src/main/java", "testTemplateContextContributorProject.context.contributor",
+            "TestTemplateContextContributorProjectTemplateContextContributor.java" ).isVisible() );
 
         String buildGradleFileName = "build.gradle";
         String gradleContent =
@@ -718,10 +715,9 @@ public class NewLiferayModuleProjectWizardTests extends AbstractNewLiferayModule
             TEXT_BUILD_TYPE_GRADLE, projectName, MENU_MODULE_THEME_CONTRIBUTOR, eclipseWorkspace, false, TEXT_BLANK,
             TEXT_BLANK, TEXT_BLANK, TEXT_BLANK, false );
 
-        assertTrue(
-            projectTree.expandNode(
-                projectName, "src/main/resources", "META-INF", "resources", "css", projectName,
-                "_body.scss" ).isVisible() );
+        assertTrue( projectTree.expandNode(
+            projectName, "src/main/resources", "META-INF", "resources", "css", projectName,
+            "_body.scss" ).isVisible() );
 
         assertTrue(
             projectTree.expandNode(
