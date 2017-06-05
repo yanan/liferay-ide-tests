@@ -40,8 +40,8 @@ public class NewLiferayMavenJSFProjectWizardTests extends AbstractNewLiferayJSFP
 
         checkProjectAndFileExist(
             projectName, projectName, "Java Resources", "src/main/resources", i18nPropertiesFileName );
-        checkProjectAndFileExist( projectName, projectName, "src", "main", "webapp", "WEB-INF",
-            facesConfigXmlFileName );
+        checkProjectAndFileExist(
+            projectName, projectName, "src", "main", "webapp", "WEB-INF", facesConfigXmlFileName );
         checkProjectAndFileExist( projectName, projectName, pomFileName );
 
         openEditorAndCheck( pomContent, projectName, projectName, pomFileName );
@@ -61,8 +61,8 @@ public class NewLiferayMavenJSFProjectWizardTests extends AbstractNewLiferayJSFP
 
         checkProjectAndFileExist(
             projectName, projectName, "Java Resources", "src/main/resources", i18nPropertiesFileName );
-        checkProjectAndFileExist( projectName, projectName, "src", "main", "webapp", "WEB-INF",
-            facesConfigXmlFileName );
+        checkProjectAndFileExist(
+            projectName, projectName, "src", "main", "webapp", "WEB-INF", facesConfigXmlFileName );
         checkProjectAndFileExist( projectName, projectName, pomFileName );
 
         openEditorAndCheck( pomContent, projectName, projectName, pomFileName );
@@ -82,8 +82,8 @@ public class NewLiferayMavenJSFProjectWizardTests extends AbstractNewLiferayJSFP
 
         checkProjectAndFileExist(
             projectName, projectName, "Java Resources", "src/main/resources", i18nPropertiesFileName );
-        checkProjectAndFileExist( projectName, projectName, "src", "main", "webapp", "WEB-INF",
-            facesConfigXmlFileName );
+        checkProjectAndFileExist(
+            projectName, projectName, "src", "main", "webapp", "WEB-INF", facesConfigXmlFileName );
         checkProjectAndFileExist( projectName, projectName, pomFileName );
 
         openEditorAndCheck( pomContent, projectName, projectName, pomFileName );
@@ -103,8 +103,8 @@ public class NewLiferayMavenJSFProjectWizardTests extends AbstractNewLiferayJSFP
 
         checkProjectAndFileExist(
             projectName, projectName, "Java Resources", "src/main/resources", i18nPropertiesFileName );
-        checkProjectAndFileExist( projectName, projectName, "src", "main", "webapp", "WEB-INF",
-            facesConfigXmlFileName );
+        checkProjectAndFileExist(
+            projectName, projectName, "src", "main", "webapp", "WEB-INF", facesConfigXmlFileName );
         checkProjectAndFileExist( projectName, projectName, pomFileName );
 
         openEditorAndCheck( pomContent, projectName, projectName, pomFileName );
@@ -124,8 +124,8 @@ public class NewLiferayMavenJSFProjectWizardTests extends AbstractNewLiferayJSFP
 
         checkProjectAndFileExist(
             projectName, projectName, "Java Resources", "src/main/resources", i18nPropertiesFileName );
-        checkProjectAndFileExist( projectName, projectName, "src", "main", "webapp", "WEB-INF",
-            facesConfigXmlFileName );
+        checkProjectAndFileExist(
+            projectName, projectName, "src", "main", "webapp", "WEB-INF", facesConfigXmlFileName );
         checkProjectAndFileExist( projectName, projectName, pomFileName );
 
         openEditorAndCheck( pomContent, projectName, projectName, pomFileName );
@@ -136,8 +136,6 @@ public class NewLiferayMavenJSFProjectWizardTests extends AbstractNewLiferayJSFP
     {
 
         Assume.assumeTrue( runTest() || runAllTests() );
-
-        hasAddedProject = addedProjects();
 
     }
 
