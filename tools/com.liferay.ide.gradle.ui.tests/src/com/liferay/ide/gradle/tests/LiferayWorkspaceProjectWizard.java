@@ -34,6 +34,6 @@ public interface LiferayWorkspaceProjectWizard extends UIBase
     public final String TEXT_CREATE_LIFERAY_WORKSPACE = "Create a new liferay workspace";
     public final String TEXT_WORKSPACE_ALREADY_EXISTS =
         " A Liferay Workspace project already exists in this Eclipse instance.";
-    public final String TEXT_INVALID_NAME_PROJECT = "The name is invalid for a project.";
+    public final String TEXT_INVALID_NAME_PROJECT = " The name is invalid for a project.";
 
 }

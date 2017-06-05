@@ -157,7 +157,7 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
     {
         newLiferayWorkspaceProjectWizard.getBuildType().setSelection( TEXT_BUILD_TYPE_GRADLE );
 
-        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, newLiferayWorkspaceProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_PLEASE_ENTER_THE_WORKSPACE_NAME, newLiferayWorkspaceProjectWizard.getValidationMessage() );
         assertEquals( "", newLiferayWorkspaceProjectWizard.getWorkspaceNameText() );
 
         assertEquals( false, newLiferayWorkspaceProjectWizard.isDownloadLiferayBundleChecked() );
@@ -236,7 +236,7 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
     {
         newLiferayWorkspaceProjectWizard.getBuildType().setSelection( TEXT_BUILD_TYPE_MAVEN );
 
-        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, newLiferayWorkspaceProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_PLEASE_ENTER_THE_WORKSPACE_NAME, newLiferayWorkspaceProjectWizard.getValidationMessage() );
         assertEquals( "", newLiferayWorkspaceProjectWizard.getWorkspaceNameText() );
         assertEquals( false, newLiferayWorkspaceProjectWizard.isDownloadLiferayBundleChecked() );
 
@@ -304,16 +304,17 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
     {
         newLiferayWorkspaceProjectWizard.setWorkspaceName( ".." );
         sleep();
-
-        assertEquals( TEXT_PLEASE_ENTER_THE_WORKSPACE_NAME, newLiferayWorkspaceProjectWizard.getValidationMessage() );
+        assertEquals(
+            " '..'" + TEXT_INVALID_NAME_ON_PLATFORM, newLiferayWorkspaceProjectWizard.getValidationMessage() );
 
         newLiferayWorkspaceProjectWizard.setWorkspaceName( "##" );
         sleep();
-        assertEquals( " " + TEXT_INVALID_NAME_PROJECT, newLiferayWorkspaceProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_INVALID_NAME_PROJECT, newLiferayWorkspaceProjectWizard.getValidationMessage() );
 
         newLiferayWorkspaceProjectWizard.setWorkspaceName( "*" );
         sleep();
-        assertEquals( " *" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'*'.",
+        assertEquals(
+            " *" + TEXT_INVALID_CHARACTER_IN_RESOURCE_NAME + "'*'.",
             newLiferayWorkspaceProjectWizard.getValidationMessage() );
 
         newLiferayWorkspaceProjectWizard.setWorkspaceName( TEXT_BLANK );
@@ -330,7 +331,7 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
     @Test
     public void initialStateTest()
     {
-        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, newLiferayWorkspaceProjectWizard.getValidationMessage() );
+        assertEquals( TEXT_PLEASE_ENTER_THE_WORKSPACE_NAME, newLiferayWorkspaceProjectWizard.getValidationMessage() );
         assertEquals( "", newLiferayWorkspaceProjectWizard.getWorkspaceNameText() );
 
         checkBuildTypes();
@@ -389,8 +390,8 @@ public class LiferayWorkspaceProjectWizardTests extends AbstractNewLiferayModule
 
             sleep( 5000 );
 
-            eclipse.getPackageExporerView().deleteProjectExcludeNames( new String[] { getLiferayPluginsSdkName() },
-                true );
+            eclipse.getPackageExporerView().deleteProjectExcludeNames(
+                new String[] { getLiferayPluginsSdkName() }, true );
         }
     }
 
