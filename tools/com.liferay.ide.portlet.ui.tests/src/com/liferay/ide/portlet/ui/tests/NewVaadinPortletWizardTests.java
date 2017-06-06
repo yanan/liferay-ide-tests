@@ -126,7 +126,7 @@ public class NewVaadinPortletWizardTests extends SWTBotBase
             setSDKLocationPage.setSdkLocation( getLiferayPluginsSdkDir().toString() );
             setSDKLocationPage.finish();
             setSDKLocationPage.waitForPageToClose();
-            sleep( 15000 );
+            sleep( 50000 );
         }
 
     }
@@ -157,7 +157,27 @@ public class NewVaadinPortletWizardTests extends SWTBotBase
         newVaadinPortletPage.setApplicationClassText( "" );
         sleep();
         assertEquals( TEXT_CLASS_NAME_CANNOT_BE_EMPTY, newVaadinPortletPage.getValidationMessage() );
-        assertEquals( false, newVaadinPortletPage.finishButton().isEnabled() );
+
+        newVaadinPortletPage.setApplicationClassText( ".." );
+        sleep();
+        assertEquals( TEXT_DONOT_USE_QUALIDIED_CLASS_NAME, newVaadinPortletPage.getValidationMessage() );
+
+        newVaadinPortletPage.setApplicationClassText( "22" );
+        sleep();
+        assertEquals(
+            TEXT_INVALID_JAVA_CLASS_NAME + "\'" + "22" + "\'" + TEXT_NOT_A_VALID_IDENTIFIER,
+            newVaadinPortletPage.getValidationMessage() );
+
+        newVaadinPortletPage.setApplicationClassText( "m" );
+        sleep();
+        assertEquals( TEXT_JAVA_TYPE_START_WITH_AN_UPPERCASE_LETTER, newVaadinPortletPage.getValidationMessage() );
+
+        newVaadinPortletPage.setApplicationClassText( "NewVaadinPortletApplication" );
+        sleep();
+        assertEquals( TEXT_CREATE_VAADIN_PORTLET_APPLICATION_CLASS, newVaadinPortletPage.getValidationMessage() );
+
+        assertTrue( newVaadinPortletPage.finishButton().isEnabled() );
+        newVaadinPortletPage.cancel();
     }
 
     @Test
@@ -206,7 +226,19 @@ public class NewVaadinPortletWizardTests extends SWTBotBase
         newVaadinPortletPage.setPortletClassText( "" );
         sleep();
         assertEquals( TEXT_MUST_SPECIFY_VAADIN_PORTLET_CLASS, newVaadinPortletPage.getValidationMessage() );
-        assertEquals( false, newVaadinPortletPage.finishButton().isEnabled() );
+
+        newVaadinPortletPage.setPortletClassText( ".." );
+        sleep();
+        assertEquals( TEXT_A_PACKAGE_NAME_CANNOT_START_WITH_A_DOT, newVaadinPortletPage.getValidationMessage() );
+
+        newVaadinPortletPage.setPortletClassText( "22" );
+        sleep();
+        assertEquals(
+            TEXT_THE_TYPE_NAME + "\'" + "22" + "\'" + TEXT_NOT_A_VALID_IDENTIFIER,
+            newVaadinPortletPage.getValidationMessage() );
+
+        assertFalse( newVaadinPortletPage.finishButton().isEnabled() );
+        newVaadinPortletPage.cancel();
     }
 
 }

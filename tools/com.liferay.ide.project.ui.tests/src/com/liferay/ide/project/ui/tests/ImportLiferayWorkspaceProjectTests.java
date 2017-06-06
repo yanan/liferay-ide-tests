@@ -139,7 +139,7 @@ public class ImportLiferayWorkspaceProjectTests extends SWTBotBase implements Im
 
         projectTree.getTreeItem( liferayWorkspaceName ).doAction( "Liferay", "Initialize Server Bundle" );
 
-        sleep( 8000 );
+        sleep( 10000 );
         projectTree.getTreeItem( liferayWorkspaceName ).expand();
 
         sleep( 2000 );
@@ -191,8 +191,7 @@ public class ImportLiferayWorkspaceProjectTests extends SWTBotBase implements Im
         assertTrue( projectTree.getTreeItem( "testMavenWorkspace-modules" ).isVisible() );
         assertTrue( projectTree.getTreeItem( "testMavenWorkspace-themes" ).isVisible() );
         assertTrue( projectTree.getTreeItem( "testMavenWorkspace-wars" ).isVisible() );
-        projectTree.getTreeItem( "testMavenWorkspace-modules" ).getTreeItem(
-            "pom.xml" ).doubleClick();
+        projectTree.getTreeItem( "testMavenWorkspace-modules" ).getTreeItem( "pom.xml" ).doubleClick();
 
         CTabItemPO switchCTabItem = new CTabItemPO( bot, "pom.xml" );
         sleep();
@@ -230,7 +229,7 @@ public class ImportLiferayWorkspaceProjectTests extends SWTBotBase implements Im
     @Test
     public void initialStateAndValidationProjectName()
     {
-        assertEquals( TEXT_PLEASE_ENTER_A_PROJECT_NAME, importLiferayWorkspaceProject.getValidationMessage() );
+        assertEquals( TEXT_PLEASE_SELECT_THE_WORKSPACE_LOCATION, importLiferayWorkspaceProject.getValidationMessage() );
 
         assertEquals( TEXT_BLANK, importLiferayWorkspaceProject.getWorkspaceLocation().getText() );
         assertEquals( TEXT_BLANK, importLiferayWorkspaceProject.getBuildTypeText().getText() );
@@ -243,7 +242,9 @@ public class ImportLiferayWorkspaceProjectTests extends SWTBotBase implements Im
 
         importLiferayWorkspaceProject.setWorkspaceLocation( ".." );
         sleep();
-        assertEquals( TEXT_PLEASE_SELECT_THE_WORKSPACE_LOCATION, importLiferayWorkspaceProject.getValidationMessage() );
+        assertEquals(
+            " " + "\"" + ".." + "\"" + TEXT_IS_NOT_AN_ABSOLUTE_PATH,
+            importLiferayWorkspaceProject.getValidationMessage() );
 
         importLiferayWorkspaceProject.setWorkspaceLocation( "1.*" );
         sleep();
