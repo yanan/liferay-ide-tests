@@ -113,6 +113,10 @@ public interface LiferayPortletWizard extends UIBase
     public final String TEXT_SUPERCLASS_MUST_BE_VALID = " Portlet superclass must be a valid portlet class.";
     public final String TEXT_ALREADY_EXISTS = " already exists.";
 
+    public final String TEXT_CREATE_VAADIN_PORTLET_APPLICATION_CLASS = "Create a Vaadin portlet application class.";
+    public final String TEXT_A_PACKAGE_NAME_CANNOT_START_WITH_A_DOT = " A package name cannot start or end with a dot";
+    public final String TEXT_THE_TYPE_NAME = " The type name ";
+
     public final String TEXT_SPECIFY_PORTLET_DEPLOYMENT_DESCRIPTOR_DETAILS =
         "Specify portlet deployment descriptor details.";
     public final String TEXT_PORTLET_NAME_ALREADY_EXISTS = " Portlet name already exists.";
