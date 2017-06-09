@@ -95,6 +95,7 @@ public interface UIBase
     public final String LABEL_NEW_LIFERAY_VAADIN_PORTLET = "New Liferay Vaadin Portlet";
     public final String LABEL_NEW_LIFERAY_PORTLET = "New Liferay Portlet";
     public final String LABEL_NEW_LIFERAY_MODULE_PROJECT_FRAGMENT = "New Liferay Module Project Fragment";
+    public final String LABEL_NEW_LIFERAY_MODULE_FRAGMENT_FILES = "New Liferay Module Fragment Files";
     public final String LABEL_NEW_LIFERAY_WORPSPACE_PROJECT = "New Liferay Workspace Project";
     public final String LABEL_NEW_LIFERAY_COMPONENT_CLASS = "New Liferay Component Class";
     public final String LABEL_NEW_LIFERAY_JSF_PROJECT = "New Liferay JSF Project";
@@ -109,11 +110,15 @@ public interface UIBase
     public final String LABEL_LIFERAY_LAYOUT_TEMPLATE = "Liferay Layout Template";
     public final String LABEL_LIFERAY_WORKSPACE_PROJECT = "Liferay Workspace Project";
     public final String LABEL_LIFERAY_COMPONENT_CLASS = "Liferay Component Class";
-
+    public final String LABLE_LIFERAY_MODULE_FRAGMENT_FILES="Liferay Module Fragment Files";
     public final String TOOLBAR_NEW = "New";
     public final String TOOLBAR_PACKAGE = "Package";
     public final String TOOLBAR_SAVE = "Save (Ctrl+S)";
 
+    public final String TOOLBARBOTTON_DELETE = "Delete";
+    public final String TOOLBARBOTTON_MOVE_UP = "Move Up";
+    public final String TOOLBARBOTTON_MOVE_DOWN = "Move Down";
+    
     public final String MENU_NEW_LIFERAY_PROJECT_EXIS_SOURCE = "New Liferay Plugin Projects from Existing Source";
     public final String MENU_LIFERAY = "Liferay";
 

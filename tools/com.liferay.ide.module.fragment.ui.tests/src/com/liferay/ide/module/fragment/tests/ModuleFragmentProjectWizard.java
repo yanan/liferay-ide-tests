@@ -23,6 +23,8 @@ import com.liferay.ide.ui.tests.UIBase;
 public interface ModuleFragmentProjectWizard extends UIBase
 {
     public final String BUTTON_ADD_FILE_PATH = "Add Override File Path";
+    
+    public final String TOOLBARBOTTON_LIFERAY_RUNTIME = "New Liferay Runtime...";
 
     public final int INDEX_VALIDATION_MESSAGE2 = 1;
     public final int INDEX_VALIDATION_PAGE_MESSAGE3 = 2;

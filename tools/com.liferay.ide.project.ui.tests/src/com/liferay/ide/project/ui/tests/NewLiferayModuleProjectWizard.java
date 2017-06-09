@@ -36,10 +36,7 @@ public interface NewLiferayModuleProjectWizard extends UIBase
     public final String TABLE_VALUE = "Value";
 
     public final String TOOLBARBOTTON_ADD_PROPERTY_KEY = "Add Property Key";
-    public final String TOOLBARBOTTON_MOVE_UP = "Move Up";
-    public final String TOOLBARBOTTON_MOVE_DOWN = "Move Down";
-    public final String TOOLBARBOTTON_DELETE = "Delete";
-
+  
     public final String MENU_MODULE_MVC_PORTLET = "mvc-portlet";
     public final String MENU_MODULE_ACTIVATOR = "activator";
     public final String MENU_MODULE_CONTENT_TARGETING_RULE = "content-targeting-rule";
