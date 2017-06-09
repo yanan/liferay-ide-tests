@@ -108,6 +108,7 @@ public class ModuleFragmentProjectWizardTests extends SWTBotBase implements Modu
 
         sleep();
     }
+    ttt
 
     public void addLiferayServerAndOpenWizard()
     {
